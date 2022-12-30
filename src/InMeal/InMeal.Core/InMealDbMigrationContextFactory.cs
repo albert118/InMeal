@@ -9,11 +9,11 @@ public class InMealDbMigrationContextFactory : IDesignTimeDbContextFactory<InMea
     // Holds migration infrastructure settings
     private const string AppSettingsFilePath = "appsettings.json";
 
-    // configuration for a JSON settings file will not work without
-    // this package installed 'Microsoft.Extensions.Configuration.Json'
-
     public InMealDbMigrationContext CreateDbContext(string[] args)
     {
+        // configuration for a JSON settings file will not work without
+        // this package installed 'Microsoft.Extensions.Configuration.Json'
+
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile(AppSettingsFilePath)
