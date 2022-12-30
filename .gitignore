@@ -1,0 +1,8 @@
+# ignore the build artifacts
+
+obj/
+bin/
+
+# ignore Rider local workspace XML 
+
+workspace.xml
