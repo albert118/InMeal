@@ -11,6 +11,8 @@ public class InMealDbMigrationContextFactory : IDesignTimeDbContextFactory<InMea
 
     public InMealDbMigrationContext CreateDbContext(string[] args)
     {
+        Console.WriteLine("Starting migration...");
+
         // configuration for a JSON settings file will not work without
         // this package installed 'Microsoft.Extensions.Configuration.Json'
 
@@ -21,16 +23,18 @@ public class InMealDbMigrationContextFactory : IDesignTimeDbContextFactory<InMea
 
         var connectionString = configuration.GetConnectionString("InMealDbConnection");
 
-        Console.WriteLine(Directory.GetCurrentDirectory().ToString());
+        Console.WriteLine($"Attempting to run a migration using the connection settings from '{connectionString}'");
 
-        var majorVersion = int.Parse(configuration.GetSection("ConnectionStrings:ServerVersionMajor").Value);
-        var minorVersion = int.Parse(configuration.GetSection("ConnectionStrings:ServerVersionMinor").Value);
-        var buildVersion = int.Parse(configuration.GetSection("ConnectionStrings:ServerVersionBuild").Value);
+        var majorVersion = int.Parse(configuration.GetSection("ConnectionStrings:ServerVersionMajor").Value!);
+        var minorVersion = int.Parse(configuration.GetSection("ConnectionStrings:ServerVersionMinor").Value!);
+        var buildVersion = int.Parse(configuration.GetSection("ConnectionStrings:ServerVersionBuild").Value!);
 
         var serverVersion = new MySqlServerVersion(new Version(majorVersion, minorVersion, buildVersion));
 
         var dbContextBuilder =
-            new DbContextOptionsBuilder<InMealDbMigrationContext>().UseMySql(connectionString, serverVersion);
+            new DbContextOptionsBuilder<InMealDbMigrationContext>().UseMySql(connectionString!, serverVersion);
+
+        Console.WriteLine("created db context");
 
         return new(dbContextBuilder.Options);
     }

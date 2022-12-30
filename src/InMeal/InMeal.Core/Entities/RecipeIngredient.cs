@@ -2,13 +2,6 @@
 
 public class RecipeIngredient
 {
-    public RecipeIngredient(Recipe recipe, string ingredientName, Quantity? quantity)
-    {
-        Recipe = recipe;
-        Ingredient = new() {Name = ingredientName};
-        Quantity = quantity ?? new();
-    }
-
     public Guid Id { get; set; }
 
     // The parent/principal

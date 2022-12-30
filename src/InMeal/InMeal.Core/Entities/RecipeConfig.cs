@@ -15,15 +15,16 @@ public class RecipeConfig
         builder.Property(e => e.Id).HasValueGenerator<NewIdGenerator>();
 
         builder
-            .HasOne<RecipePhoto>()
-            .WithOne()
+            .HasOne(e => e.RecipePhoto)
+            .WithOne(e => e.Recipe)
+            .HasForeignKey<RecipePhoto>(e => e.RecipeId)
             .OnDelete(DeleteBehavior.Cascade)
             // optionally upload a photo
             .IsRequired(false);
 
         builder
-            .HasMany<RecipeIngredient>()
-            .WithOne()
+            .HasMany(e => e.RecipeIngredients)
+            .WithOne(e => e.Recipe)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

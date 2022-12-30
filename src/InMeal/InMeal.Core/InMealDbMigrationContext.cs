@@ -9,20 +9,20 @@ public class InMealDbMigrationContext : DbContext
 
     public DbSet<Ingredient> Ingredients => Set<Ingredient>();
 
-    public DbSet<Recipe> Recipes => Set<Recipe>();
+    public DbSet<RecipePhoto> RecipePhotos => Set<RecipePhoto>();
 
     public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
 
-    public DbSet<RecipePhoto> RecipePhotos => Set<RecipePhoto>();
+    public DbSet<Recipe> Recipes => Set<Recipe>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         new IngredientConfig().Configure(builder.Entity<Ingredient>());
 
-        new RecipeConfig().Configure(builder.Entity<Recipe>());
-
         new RecipeIngredientConfig().Configure(builder.Entity<RecipeIngredient>());
 
         new RecipePhotoConfig().Configure(builder.Entity<RecipePhoto>());
+
+        new RecipeConfig().Configure(builder.Entity<Recipe>());
     }
 }

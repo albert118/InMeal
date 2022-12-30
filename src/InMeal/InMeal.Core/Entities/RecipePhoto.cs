@@ -2,13 +2,11 @@
 
 public class RecipePhoto
 {
-    public RecipePhoto(string fn, byte[] photo)
-    {
-        FileName = fn;
-        Bytes = photo;
-    }
-
     public Guid Id { get; set; }
+
+    public Guid RecipeId { get; set; }
+
+    public Recipe Recipe { get; set; }
 
     // includes file extension, case sensitive
     public string FileName { get; set; }

@@ -8,7 +8,7 @@ public class IngredientConfig
 {
     public void Configure(EntityTypeBuilder<Ingredient> builder)
     {
-        builder.ToTable(nameof(RecipeIngredient));
+        builder.ToTable(nameof(Ingredient));
 
         builder.Property(e => e.Id).HasValueGenerator<NewIdGenerator>();
 
