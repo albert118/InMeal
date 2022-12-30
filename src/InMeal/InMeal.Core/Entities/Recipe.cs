@@ -16,10 +16,7 @@ public class Recipe
 
     public RecipePhoto? RecipePhoto { get; set; }
 
-    /// <summary>
-    /// A collection of ingredients and the quantity required
-    /// </summary>
-    // public Dictionary<Ingredient, Quantity>? RecipeIngredients { get; set; }
+    public List<RecipeIngredient> RecipeIngredients { get; set; }
 
     /// <summary>
     /// A JSON encoded field containing the relevant method to prepare and cook the recipe
