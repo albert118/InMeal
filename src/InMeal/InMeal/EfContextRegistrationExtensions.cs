@@ -20,7 +20,7 @@ public static class EfContextRegistrationExtensions
     public static ContainerBuilder AddDatabaseSettings(this ContainerBuilder containerBuilder, IConfiguration config)
     {
         var databaseSettings = new DatabaseSettings(
-            config.GetConnectionString("IridiumDbConnection"),
+            config.GetConnectionString("InMealDbConnection"),
             new(new Version(
                 int.Parse(config.GetSection("ConnectionStrings:ServerVersionMajor").Value),
                 int.Parse(config.GetSection("ConnectionStrings:ServerVersionMinor").Value),

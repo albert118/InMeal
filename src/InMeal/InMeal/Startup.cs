@@ -24,6 +24,9 @@ public class Startup
         services.AddSwaggerGen();
     }
 
+    /// <summary>
+    /// Configure the Autofac container
+    /// </summary>
     public void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config)
     {
         // Add the EF Core db
