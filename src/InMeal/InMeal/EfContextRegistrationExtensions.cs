@@ -17,15 +17,14 @@ public static class EfContextRegistrationExtensions
     /// <summary>
     /// Configure the ef core database (sets the db connection string)
     /// </summary>
-    public static ContainerBuilder AddDatabaseSettings(this ContainerBuilder containerBuilder,
-        IConfiguration appConfiguration)
+    public static ContainerBuilder AddDatabaseSettings(this ContainerBuilder containerBuilder, IConfiguration config)
     {
         var databaseSettings = new DatabaseSettings(
-            appConfiguration.GetConnectionString("IridiumDbConnection"),
+            config.GetConnectionString("IridiumDbConnection"),
             new(new Version(
-                int.Parse(appConfiguration.GetSection("ConnectionStrings:ServerVersionMajor").Value),
-                int.Parse(appConfiguration.GetSection("ConnectionStrings:ServerVersionMinor").Value),
-                int.Parse(appConfiguration.GetSection("ConnectionStrings:ServerVersionBuild").Value)
+                int.Parse(config.GetSection("ConnectionStrings:ServerVersionMajor").Value),
+                int.Parse(config.GetSection("ConnectionStrings:ServerVersionMinor").Value),
+                int.Parse(config.GetSection("ConnectionStrings:ServerVersionBuild").Value)
             ))
         );
 
