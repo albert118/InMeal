@@ -1,4 +1,6 @@
-﻿namespace InMeal;
+﻿using Autofac;
+
+namespace InMeal;
 
 public class Startup
 {
@@ -25,11 +27,11 @@ public class Startup
     public void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config)
     {
         // Add the EF Core db
-        hostBuilder.ConfigureContainer(containerBuilder => {
+        hostBuilder.ConfigureContainer<ContainerBuilder>(containerBuilder => {
             containerBuilder
                 .AddDatabaseSettings(config)
-                .AddEfCoreDbContexts()
-                .AddApplicationServices();
+                .AddEfCoreDbContexts();
+            // .AddApplicationServices();
         });
     }
 
