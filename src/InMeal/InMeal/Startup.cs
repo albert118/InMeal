@@ -22,6 +22,17 @@ public class Startup
         services.AddSwaggerGen();
     }
 
+    public void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config)
+    {
+        // Add the EF Core db
+        hostBuilder.ConfigureContainer(containerBuilder => {
+            containerBuilder
+                .AddDatabaseSettings(config)
+                .AddEfCoreDbContexts()
+                .AddApplicationServices();
+        });
+    }
+
     /// <summary>
     /// Configure the webapplication depending on the environment
     /// </summary>

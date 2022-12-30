@@ -1,14 +1,26 @@
 using InMeal;
 
+const string appSettingsFilePath = "appsettings.json";
+
+// retrieve and inject the application configuration
+var appConfig = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile(appSettingsFilePath)
+    .Build();
+
 var builder = WebApplication.CreateBuilder(args);
+
 var startup = new Startup(builder.Configuration);
 
-// Do not configure or register the container services here! Instead edit Startup.ConfigureServices
+// Configure the host container (Autofac) within this method
+startup.ConfigureHostContainer(builder.Host, appConfig);
+
+// Configure the global Microsoft container services
 startup.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
-// Do not configure the HTTP request pipeline in this Program entrypoint instead edit Startup.Configure
+// Configure the app and web request pipeline
 startup.Configure(app, builder.Environment);
 
 app.Run();
