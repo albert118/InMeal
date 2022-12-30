@@ -2,10 +2,16 @@
 
 public class RecipePhoto
 {
+    public RecipePhoto(string fn, byte[] photo)
+    {
+        FileName = fn;
+        Bytes = photo;
+    }
+
     public Guid Id { get; set; }
 
+    // includes file extension, case sensitive
     public string FileName { get; set; }
 
-    // I think???
-    public object PhotoBinary { get; set; }
+    public byte[] Bytes { get; set; }
 }
