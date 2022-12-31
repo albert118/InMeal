@@ -12,3 +12,5 @@ public class RecipeIngredient
     // A JSON encoded field (non-nullable)
     public Quantity Quantity { get; set; }
 }
+
+public record AddRecipeIngredientDto(Guid ingredientId, Quantity quantity);
