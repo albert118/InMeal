@@ -8,6 +8,7 @@ using System.Data;
 
 namespace InMeal.Infrastructure.DataServices;
 
+[InstanceScopedService]
 public class AsyncRecipeIngredientDataService : IAsyncRecipeIngredientDataService
 {
     private readonly ILogger<AsyncRecipeIngredientDataService> _logger;
