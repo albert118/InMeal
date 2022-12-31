@@ -9,47 +9,29 @@ using System.Data;
 namespace InMeal.Infrastructure.DataServices;
 
 [InstanceScopedService]
-public class AsyncRecipeIngredientDataService : IAsyncRecipeIngredientDataService
+public class AsyncIngredientDataService : IAsyncIngredientDataService
 {
-    private readonly ILogger<AsyncRecipeIngredientDataService> _logger;
+    private readonly ILogger<AsyncIngredientDataService> _logger;
     private readonly IRecipeDbContext _recipeDbContext;
 
-    public AsyncRecipeIngredientDataService(IRecipeDbContext recipeDbContext,
-        ILogger<AsyncRecipeIngredientDataService> logger)
+    public AsyncIngredientDataService(IRecipeDbContext recipeDbContext, ILogger<AsyncIngredientDataService> logger)
     {
         _recipeDbContext = recipeDbContext;
         _logger = logger;
     }
 
-    public Task<List<RecipeIngredient>> GetRecipeIngredientsAsync(Guid recipeId, CancellationToken ct)
+    public Task<List<Ingredient>> GetIngredientsAsync(ICollection<Guid> ids, CancellationToken ct)
     {
-        if (recipeId.IsEmpty()) {
+        if (ids.Any(e => e.IsEmpty())) {
             throw new DataException(
-                "Attempting to get ingredients for recipe with an empty ID ('00000000-0000-0000-0000-000000000000') is not possible");
+                "Attempting to get ingredients with empty ('00000000-0000-0000-0000-000000000000') IDs is not possible");
         }
 
-        return _recipeDbContext.RecipeIngredients.Where(ri => ri.Recipe.Id == recipeId).ToListAsync(ct);
+        return _recipeDbContext.Ingredients.Where(i => ids.Contains(i.Id)).ToListAsync(ct);
     }
 
-    public Task<bool> AddRecipeIngredientsAsync(Guid recipeId, List<AddRecipeIngredientDto> recipeIngredients,
-        CancellationToken ct)
+    public Task<bool> AddIngredientsAsync(ICollection<string> names, CancellationToken ct)
     {
-        if (recipeId.IsEmpty()) {
-            throw new DataException(
-                "Attempting to add ingredients to a recipe with an empty ID ('00000000-0000-0000-0000-000000000000') is not possible");
-        }
-
-        try {
-            _recipeDbContext.RecipeIngredients.AddRangeAsync(
-                recipeIngredients.Select(ri => new Recipe()),
-                ct
-            );
-        }
-        catch (Exception ex) {
-            _logger.LogError(ex, "An error occured while editing an existing recipe");
-            return Task.FromResult(false);
-        }
-
-        return Task.FromResult(true);
+        throw new NotImplementedException();
     }
 }
