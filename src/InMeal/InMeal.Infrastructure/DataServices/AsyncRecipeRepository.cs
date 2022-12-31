@@ -9,14 +9,18 @@ using System.Data;
 namespace InMeal.Infrastructure.DataServices;
 
 [InstanceScopedService]
-public class AsyncRecipeDataService : IAsyncRecipeDataService
+public class AsyncRecipeRepository : IAsyncRecipeRepository
 {
-    private readonly ILogger<AsyncRecipeDataService> _logger;
+    private readonly ILogger<AsyncRecipeRepository> _logger;
     private readonly IRecipeDbContext _recipeDbContext;
+    private readonly IAsyncRecipeIngredientRepository _recipeIngredientRepository;
 
-    public AsyncRecipeDataService(IRecipeDbContext recipeDbContext, ILogger<AsyncRecipeDataService> logger)
+    public AsyncRecipeRepository(IRecipeDbContext recipeDbContext,
+        IAsyncRecipeIngredientRepository recipeIngredientRepository,
+        ILogger<AsyncRecipeRepository> logger)
     {
         _recipeDbContext = recipeDbContext;
+        _recipeIngredientRepository = recipeIngredientRepository;
         _logger = logger;
     }
 
@@ -27,7 +31,10 @@ public class AsyncRecipeDataService : IAsyncRecipeDataService
 
         try {
             await _recipeDbContext.Recipes.AddAsync(recipe, ct);
+
             await _recipeDbContext.SaveChangesAsync(ct);
+
+            await _recipeIngredientRepository.AddRecipeIngredientsAsync(recipe, recipeIngredients, ct);
         }
         catch (Exception ex) {
             _logger.LogError(ex, "An error occured while saving a recipe");

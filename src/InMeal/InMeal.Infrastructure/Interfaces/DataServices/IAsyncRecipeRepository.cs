@@ -2,7 +2,7 @@
 
 namespace InMeal.Infrastructure.Interfaces.DataServices;
 
-public interface IAsyncRecipeDataService
+public interface IAsyncRecipeRepository
 {
     Task<Guid?> AddRecipeAsync(string? title, string? blurb, string? prepSteps, int? cookTime, int? prepTime,
         CancellationToken ct);

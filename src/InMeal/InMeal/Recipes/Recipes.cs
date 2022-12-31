@@ -7,14 +7,14 @@ namespace InMeal.Recipes;
 [Route("api/[controller]")]
 public class RecipesController : ControllerBase
 {
-    private readonly IAsyncRecipeDataService _dataService;
     private readonly ILogger<RecipesController> _logger;
+    private readonly IAsyncRecipeRepository _repository;
     private readonly ICancellationTokenAccessor _tokenAccessor;
 
-    public RecipesController(IAsyncRecipeDataService dataService, ILogger<RecipesController> logger,
+    public RecipesController(IAsyncRecipeRepository repository, ILogger<RecipesController> logger,
         ICancellationTokenAccessor tokenAccessor)
     {
-        _dataService = dataService;
+        _repository = repository;
         _logger = logger;
         _tokenAccessor = tokenAccessor;
     }
@@ -23,7 +23,7 @@ public class RecipesController : ControllerBase
     public List<RecipeDto> Post(ICollection<Guid> ids)
     {
         var ct = _tokenAccessor.Token;
-        var task = _dataService.GetRecipesAsync(ids, ct);
+        var task = _repository.GetRecipesAsync(ids, ct);
         task.Wait(ct);
 
         if (task.Result.Count == 0) {

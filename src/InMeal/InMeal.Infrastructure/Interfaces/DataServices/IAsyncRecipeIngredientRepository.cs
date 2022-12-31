@@ -2,7 +2,7 @@
 
 namespace InMeal.Infrastructure.Interfaces.DataServices;
 
-public interface IAsyncRecipeIngredientDataService
+public interface IAsyncRecipeIngredientRepository
 {
     Task<List<RecipeIngredient>> GetRecipeIngredientsAsync(Guid recipeId, CancellationToken ct);
 

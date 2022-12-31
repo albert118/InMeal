@@ -9,12 +9,12 @@ using System.Data;
 namespace InMeal.Infrastructure.DataServices;
 
 [InstanceScopedService]
-public class AsyncIngredientDataService : IAsyncIngredientDataService
+public class AsyncIngredientRepository : IAsyncIngredientRepository
 {
-    private readonly ILogger<AsyncIngredientDataService> _logger;
+    private readonly ILogger<AsyncIngredientRepository> _logger;
     private readonly IRecipeDbContext _recipeDbContext;
 
-    public AsyncIngredientDataService(IRecipeDbContext recipeDbContext, ILogger<AsyncIngredientDataService> logger)
+    public AsyncIngredientRepository(IRecipeDbContext recipeDbContext, ILogger<AsyncIngredientRepository> logger)
     {
         _recipeDbContext = recipeDbContext;
         _logger = logger;

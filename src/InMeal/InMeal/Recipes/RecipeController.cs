@@ -8,14 +8,14 @@ namespace InMeal.Recipes;
 [Route("api/[controller]")]
 public class RecipeController : ControllerBase
 {
-    private readonly IAsyncRecipeDataService _dataService;
     private readonly ILogger<RecipeController> _logger;
+    private readonly IAsyncRecipeRepository _repository;
     private readonly ICancellationTokenAccessor _tokenAccessor;
 
-    public RecipeController(IAsyncRecipeDataService dataService, ILogger<RecipeController> logger,
+    public RecipeController(IAsyncRecipeRepository repository, ILogger<RecipeController> logger,
         ICancellationTokenAccessor tokenAccessor)
     {
-        _dataService = dataService;
+        _repository = repository;
         _logger = logger;
         _tokenAccessor = tokenAccessor;
     }
@@ -24,7 +24,7 @@ public class RecipeController : ControllerBase
     public RecipeDto? Get(Guid id)
     {
         var ct = _tokenAccessor.Token;
-        var task = _dataService.GetRecipeAsync(id, ct);
+        var task = _repository.GetRecipeAsync(id, ct);
         task.Wait(ct);
 
         if (task.Result == null) {
@@ -45,7 +45,7 @@ public class RecipeController : ControllerBase
     public IActionResult Post(RecipeDto newRecipe)
     {
         var ct = _tokenAccessor.Token;
-        var task = _dataService.AddRecipeAsync(
+        var task = _repository.AddRecipeAsync(
             newRecipe.Title,
             newRecipe.Blurb,
             newRecipe.PrepSteps,
@@ -68,7 +68,7 @@ public class RecipeController : ControllerBase
         }
 
         var ct = _tokenAccessor.Token;
-        var task = _dataService.EditRecipeAsync(
+        var task = _repository.EditRecipeAsync(
             newRecipe.Id!.Value,
             newRecipe.Title,
             newRecipe.Blurb,
