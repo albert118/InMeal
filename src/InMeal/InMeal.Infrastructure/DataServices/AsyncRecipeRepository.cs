@@ -24,20 +24,23 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         _logger = logger;
     }
 
-    public async Task<Guid?> AddRecipeAsync(string? title, string? blurb, string? prepSteps, int? cookTime,
-        int? prepTime, CancellationToken ct)
+    public async Task<Guid?> AddRecipeAsync(string? title, string? blurb, string? prepSteps, int? cookTime, int? prepTime,
+        List<AddRecipeIngredientDto> recipeIngredients,
+        CancellationToken ct)
     {
         var recipe = new Recipe(title, blurb, prepSteps, cookTime, prepTime);
 
         try {
             await _recipeDbContext.Recipes.AddAsync(recipe, ct);
 
-            await _recipeDbContext.SaveChangesAsync(ct);
+            _recipeIngredientRepository.AddRecipeIngredients(recipe, recipeIngredients);
+            // _recipePhotoRepository.AddRecipePhoto(recipe, recipePhoto);
 
-            await _recipeIngredientRepository.AddRecipeIngredientsAsync(recipe, recipeIngredients, ct);
+            await _recipeDbContext.SaveChangesAsync(ct);
         }
         catch (Exception ex) {
             _logger.LogError(ex, "An error occured while saving a recipe");
+
             return null;
         }
 
