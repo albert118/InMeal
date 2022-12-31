@@ -3,7 +3,6 @@ using InMeal.Core.Globalisation;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using System.Data;
 
 namespace InMeal.Infrastructure.DataServices;
@@ -11,13 +10,11 @@ namespace InMeal.Infrastructure.DataServices;
 [InstanceScopedService]
 public class AsyncIngredientRepository : IAsyncIngredientRepository
 {
-    private readonly ILogger<AsyncIngredientRepository> _logger;
     private readonly IRecipeDbContext _recipeDbContext;
 
-    public AsyncIngredientRepository(IRecipeDbContext recipeDbContext, ILogger<AsyncIngredientRepository> logger)
+    public AsyncIngredientRepository(IRecipeDbContext recipeDbContext)
     {
         _recipeDbContext = recipeDbContext;
-        _logger = logger;
     }
 
     public Task<List<Ingredient>> GetIngredientsAsync(ICollection<Guid> ids, CancellationToken ct)
@@ -30,8 +27,19 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         return _recipeDbContext.Ingredients.Where(i => ids.Contains(i.Id)).ToListAsync(ct);
     }
 
-    public Task<bool> AddIngredientsAsync(ICollection<string> names, CancellationToken ct)
+    // enforce lower case names for ingredients
+    public async Task<Guid> AddOrGetExistingIngredientAsync(string name, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var existingIngredient = await _recipeDbContext.Ingredients.FirstOrDefaultAsync(i => i.Name == name.ToLowerInvariant(), ct);
+
+        if (existingIngredient != null) {
+            return existingIngredient.Id;
+        }
+
+        var result = await _recipeDbContext.Ingredients.AddAsync(new() {Name = name.ToLowerInvariant()}, ct);
+
+        await _recipeDbContext.SaveChangesAsync(ct);
+
+        return result.Entity.Id;
     }
 }
