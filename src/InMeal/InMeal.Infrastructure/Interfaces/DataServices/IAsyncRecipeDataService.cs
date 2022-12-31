@@ -7,7 +7,7 @@ public interface IAsyncRecipeDataService
     Task<Guid?> AddRecipeAsync(string? title, string? blurb, string? prepSteps, int? cookTime, int? prepTime,
         CancellationToken ct);
 
-    Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> guids, CancellationToken ct);
+    Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct);
 
     Task<Recipe?> GetRecipeAsync(Guid id, CancellationToken ct);
 

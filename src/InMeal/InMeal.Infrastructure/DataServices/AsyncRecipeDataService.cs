@@ -37,14 +37,14 @@ public class AsyncRecipeDataService : IAsyncRecipeDataService
         return recipe.Id;
     }
 
-    public Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> guids, CancellationToken ct)
+    public Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct)
     {
-        if (guids.Any(e => e.IsEmpty())) {
+        if (ids.Any(e => e.IsEmpty())) {
             throw new DataException(
                 "Attempting to get recipes with empty ('00000000-0000-0000-0000-000000000000') IDs is not possible");
         }
 
-        return _recipeDbContext.Recipes.Where(r => guids.Distinct().Contains(r.Id)).ToListAsync(ct);
+        return _recipeDbContext.Recipes.Where(r => ids.Distinct().Contains(r.Id)).ToListAsync(ct);
     }
 
     public Task<Recipe?> GetRecipeAsync(Guid id, CancellationToken ct)
