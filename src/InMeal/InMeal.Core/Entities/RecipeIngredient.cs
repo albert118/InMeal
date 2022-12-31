@@ -15,4 +15,4 @@ public class RecipeIngredient
     public Quantity Quantity { get; set; }
 }
 
-public record AddRecipeIngredientDto(Ingredient Ingredient, Quantity Quantity);
+public record AddRecipeIngredientDto(Guid IngredientId, Quantity Quantity);
