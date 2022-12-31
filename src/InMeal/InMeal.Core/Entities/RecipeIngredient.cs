@@ -9,8 +9,10 @@ public class RecipeIngredient
 
     public Ingredient Ingredient { get; set; }
 
+    public Guid IngredientId { get; set; }
+
     // A JSON encoded field (non-nullable)
     public Quantity Quantity { get; set; }
 }
 
-public record AddRecipeIngredientDto(Guid ingredientId, Quantity quantity);
+public record AddRecipeIngredientDto(Ingredient Ingredient, Quantity Quantity);

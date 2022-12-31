@@ -41,13 +41,12 @@ namespace InMeal.Core.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Blurb")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<int>("CookTime")
+                    b.Property<int?>("CookTime")
                         .HasColumnType("int");
 
-                    b.Property<int>("PrepTime")
+                    b.Property<int?>("PrepTime")
                         .HasColumnType("int");
 
                     b.Property<string>("PreparationSteps")
@@ -58,7 +57,6 @@ namespace InMeal.Core.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
