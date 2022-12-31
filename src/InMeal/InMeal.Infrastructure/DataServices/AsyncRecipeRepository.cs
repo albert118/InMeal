@@ -1,4 +1,5 @@
-﻿using InMeal.Core.Entities;
+﻿using InMeal.Core.DTOs;
+using InMeal.Core.Entities;
 using InMeal.Core.Globalisation;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;

@@ -1,4 +1,4 @@
-namespace InMeal.Recipes;
+namespace InMeal.Core.DTOs;
 
 public sealed record RecipeDto(
     Guid? Id,
@@ -6,5 +6,6 @@ public sealed record RecipeDto(
     string? Blurb,
     string PrepSteps,
     int? CookTime,
-    int? PrepTime
+    int? PrepTime,
+    List<AddRecipeIngredientDto> RecipeIngredientDtos
 );

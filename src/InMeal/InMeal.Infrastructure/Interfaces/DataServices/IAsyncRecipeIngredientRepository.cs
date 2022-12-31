@@ -1,4 +1,5 @@
-﻿using InMeal.Core.Entities;
+﻿using InMeal.Core.DTOs;
+using InMeal.Core.Entities;
 
 namespace InMeal.Infrastructure.Interfaces.DataServices;
 

@@ -1,4 +1,5 @@
-﻿using InMeal.Core.Globalisation;
+﻿using InMeal.Core.DTOs;
+using InMeal.Core.Globalisation;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,7 +38,9 @@ public class RecipeController : ControllerBase
             task.Result.Blurb,
             task.Result.PreparationSteps,
             task.Result.CookTime,
-            task.Result.PrepTime
+            task.Result.PrepTime,
+            // TODO: include name for readonly display (split the DTO up)
+            task.Result.RecipeIngredients.Select(ri => new AddRecipeIngredientDto(ri.Id, ri.Quantity)).ToList()
         );
     }
 
