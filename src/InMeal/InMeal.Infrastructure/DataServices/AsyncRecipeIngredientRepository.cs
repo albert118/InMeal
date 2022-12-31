@@ -31,33 +31,24 @@ public class AsyncRecipeIngredientRepository : IAsyncRecipeIngredientRepository
         return _recipeDbContext.RecipeIngredients.Where(ri => ri.Recipe.Id == recipeId).ToListAsync(ct);
     }
 
-    public async Task<bool> AddRecipeIngredientsAsync(Recipe existingRecipe,
-        List<AddRecipeIngredientDto> recipeIngredients, CancellationToken ct)
+    public bool AddRecipeIngredients(Recipe existingRecipe, List<AddRecipeIngredientDto> recipeIngredients)
     {
-        if (existingRecipe.Id.IsEmpty()) {
-            throw new DataException(
-                "Attempting to add recipe ingredients to a recipe with an empty ID ('00000000-0000-0000-0000-000000000000') is not possible");
-        }
-
-        if (recipeIngredients.Any(ri => ri.Ingredient.Id.IsEmpty())) {
+        if (recipeIngredients.Any(ri => ri.IngredientId.IsEmpty())) {
             throw new DataException(
                 "Attempting to add link ingredients to a recipe with empty ID(s) ('00000000-0000-0000-0000-000000000000') is not possible");
         }
 
         // include FK linkage based on the passed Ingredient.Id
         var newRecipeIngredients = recipeIngredients
-            .Select(ri => new RecipeIngredient {IngredientId = ri.Ingredient.Id, Quantity = ri.Quantity})
+            .Select(ri => new RecipeIngredient {
+                IngredientId = ri.IngredientId, Quantity = ri.Quantity
+            })
             .ToList();
 
-        try {
-            existingRecipe.RecipeIngredients = newRecipeIngredients;
+        existingRecipe.RecipeIngredients = newRecipeIngredients;
 
-            await _recipeDbContext.SaveChangesAsync(ct);
-        }
-        catch (Exception ex) {
-            _logger.LogError(ex, "An error occured while editing an existing recipe");
-            return false;
-        }
+        // The principal entity's repo is responsible for calling SaveChangesAsync
+        // await _recipeDbContext.SaveChangesAsync(ct);
 
         return true;
     }
