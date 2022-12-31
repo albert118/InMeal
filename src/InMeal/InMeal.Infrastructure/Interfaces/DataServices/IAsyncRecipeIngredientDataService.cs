@@ -6,6 +6,6 @@ public interface IAsyncRecipeIngredientDataService
 {
     Task<List<RecipeIngredient>> GetRecipeIngredientsAsync(Guid recipeId, CancellationToken ct);
 
-    Task<bool> AddRecipeIngredientsAsync(Guid recipeId, List<AddRecipeIngredientDto> recipeIngredients,
+    Task<bool> AddRecipeIngredientsAsync(Recipe existingRecipe, List<AddRecipeIngredientDto> recipeIngredients,
         CancellationToken ct);
 }
