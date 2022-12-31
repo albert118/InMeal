@@ -6,5 +6,5 @@ public interface IAsyncIngredientRepository
 {
     Task<List<Ingredient>> GetIngredientsAsync(ICollection<Guid> ids, CancellationToken ct);
 
-    Task<Guid> AddOrGetExistingIngredientAsync(string names, CancellationToken ct);
+    Task<Guid> AddOrGetExistingIngredientAsync(string name, CancellationToken ct);
 }
