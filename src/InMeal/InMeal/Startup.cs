@@ -1,15 +1,16 @@
 ﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace InMeal;
 
 public class Startup
 {
+    private IConfiguration _configuration;
+
     public Startup(IConfiguration configuration)
     {
-        Configuration = configuration;
+        _configuration = configuration;
     }
-
-    public IConfiguration Configuration { get; }
 
     /// <summary>
     /// Add and configure services for the container
@@ -18,6 +19,11 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddControllers();
+
+        services.Configure<RouteOptions>(options => {
+            options.LowercaseUrls = true;
+            options.LowercaseQueryStrings = true;
+        });
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
@@ -29,12 +35,13 @@ public class Startup
     /// </summary>
     public void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config)
     {
-        // Add the EF Core db
+        hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
+
         hostBuilder.ConfigureContainer<ContainerBuilder>(containerBuilder => {
             containerBuilder
                 .AddDatabaseSettings(config)
-                .AddEfCoreDbContexts();
-            // .AddApplicationServices();
+                .AddEfCoreDbContexts()
+                .AddApplicationServices();
         });
     }
 
