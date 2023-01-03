@@ -1,5 +1,7 @@
-import React from 'react';
-import MinimalistSidebar from 'components/MinimalistSidebar';
+import React from 'react'
+
+import MinimalistSidebar from 'components/MinimalistSidebar'
+import Card from 'components/Card'
 
 export default function HomeView() {
     return (
@@ -9,8 +11,16 @@ export default function HomeView() {
                 <div className="hero-header">
                     <h1 className="hero-title">InMeal</h1>
                 </div>
-                <div className="planning-quick-view" />
-                <div className="explore-quick-view" />
+                <Card className="planning-quick-view" title="Upcoming...">
+                    <div>X</div>
+                    <div>Y</div>
+                    <div>Z</div>
+                </Card>
+                <Card className="explore-quick-view" title="Something else?">
+                    <div>#1</div>
+                    <div>#2</div>
+                    <div>#3</div>
+                </Card>
             </div>
         </div>
     );
