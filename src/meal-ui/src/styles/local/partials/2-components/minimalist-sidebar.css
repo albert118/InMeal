@@ -1,0 +1,19 @@
+
+.minimalist-sidebar {
+    --negative-spacing: 15px;
+
+    display: flex;
+    flex-direction: column;
+
+    color: white;
+    width: 120px;
+
+    padding: var(--negative-spacing) 0 var(--negative-spacing) 0;
+    margin-right: var(--negative-spacing);
+}
+
+.sidebar-toggle-btn {
+    margin: 5px;
+    color: var(--lynx-white, white);
+    font-size: 1.7em;
+}
