@@ -7,12 +7,36 @@
     background-color: var(--nero-black);
     width: 140px;
 
-    padding: var(--ns-full) var(--ns-half) var(--ns-full) var(--ns-half);
+    padding: var(--ns-full) var(--ns-half) var(--ns-half) var(--ns-half);
     margin-right: var(--ns-half);
 }
 
-.sidebar-toggle-btn {
-    margin: 5px;
+.btn {
+    padding: 5px;
     color: var(--lynx-white);
-    font-size: 1.7em;
+    font-size: 2.2em;
+}
+  
+.primary-btn {
+    color: rgb(139, 222, 128); /* TODO: add to colour palette */
+}
+
+.top {
+    display: flex;
+    flex-basis: 100%;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.top > * {
+    flex: 1;
+    max-height: 100px;
+}
+
+
+.bottom {
+    display: flex;
+    align-self: center;
+    justify-items: flex-end;
+    margin-top: auto;
 }
