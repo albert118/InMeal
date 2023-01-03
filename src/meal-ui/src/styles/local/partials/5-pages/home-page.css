@@ -1,5 +1,3 @@
-
-
 .p-home-view {
     padding: 20px;
 
@@ -9,17 +7,6 @@
     background-color: var(--nero-black);
 
     display: flex;
-}
-
-.minimalist-sidebar {
-    display: flex;
-    flex-direction: column;
-
-    color: white;
-    width: 120px;
-
-    padding: 0;
-    margin: 0;
 }
 
 .hero-title {

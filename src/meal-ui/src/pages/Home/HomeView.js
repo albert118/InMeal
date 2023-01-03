@@ -1,14 +1,10 @@
 import React from 'react';
-
+import MinimalistSidebar from 'components/MinimalistSidebar';
 
 export default function HomeView() {
     return (
         <div className="p-home-view">
-            <div className="minimalist-sidebar">
-                <p>#1</p>
-                <p>#2</p>
-                <p>#3</p>
-            </div>
+            <MinimalistSidebar />
             <div className="hero-grid">
                 <div className="hero-header">
                     <h1 className="hero-title">InMeal</h1>
