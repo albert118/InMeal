@@ -7,10 +7,12 @@
 }
 
 .hero-title {
-    margin: 0 60px 0 60px;
+    /* left alignment = card-title padding + card padding + outer margin */
+    padding-left: calc(var(--ns-full) + var(--ns-half) + var(--ns-full));
 
-    font-size: xxx-large;
-    font-weight: semi-bold;
+    font-size: 3em;
+    letter-spacing: 10px;
+    font-weight: 390;
     color: var(--nero-black);
 }
 
