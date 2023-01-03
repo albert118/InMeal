@@ -23,10 +23,10 @@
     max-height: 100px;
 }
 
-
 .bottom {
     display: flex;
     align-self: center;
     justify-items: flex-end;
     margin-top: auto;
+    margin-bottom: var(--ns-half);
 }

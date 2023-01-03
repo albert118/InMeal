@@ -25,15 +25,17 @@
 .hero-header {
     grid-row: hero-header / hero-header;
     
-    padding-top: 20px;
-    height: 90px;
+    padding: var(--ns-full) 0 var(--ns-full) 0;
+    height: 140px;
     display: flex;
 }
 
 .planning-quick-view {
     grid-row: plan-row / plan-row;
+    margin: var(--ns-full);
 }
 
 .explore-quick-view {
     grid-row: explore-row / explore-row;
+    margin: var(--ns-full);
 }
