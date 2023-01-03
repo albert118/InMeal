@@ -9,9 +9,10 @@ import { BrowserRouter } from 'react-router-dom';
 export default function App() {
   return (
     <div className="meal-ui-basekit-theme">
-      <header className="head-6969696">
-          YES!
-      </header>
+      <BrowserRouter>
+          <Navigation />
+          <RouterConfig />
+      </BrowserRouter>
     </div>
   );
 }
