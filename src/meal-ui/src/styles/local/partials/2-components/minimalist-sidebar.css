@@ -11,16 +11,6 @@
     margin-right: var(--ns-half);
 }
 
-.btn {
-    padding: 5px;
-    color: var(--lynx-white);
-    font-size: 2.2em;
-}
-  
-.primary-btn {
-    color: rgb(139, 222, 128); /* TODO: add to colour palette */
-}
-
 .top {
     display: flex;
     flex-basis: 100%;
