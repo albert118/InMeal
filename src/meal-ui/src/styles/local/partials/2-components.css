@@ -1,3 +1,5 @@
 /* A neat and simple sidebar */
+@import "2-components/minimalist-sidebar.css";
 
-@import "2-components/minimalist-sidebar.css"
+/* common card design */
+@import "2-components/card.css"
