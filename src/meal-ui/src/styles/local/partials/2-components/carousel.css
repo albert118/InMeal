@@ -1,0 +1,40 @@
+.carousel {
+    height: 100%;
+}
+
+.carousel > .item {
+    --item-width: 700px;
+
+    position: relative;
+    max-width: var(--item-width);
+    min-width: var(--item-width);
+}
+
+.carousel > .img-content {
+    background-image: url("https://e1.pxfuel.com/desktop-wallpaper/669/750/desktop-wallpaper-5516997-1920x1080-lilo-stitch-stitch-pc.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    /*constrain the size to match the padding of the item */
+    /* background-size: auto calc(100% - var(--ns-full)); */
+}
+
+.carousel-status-badge {
+    position: absolute;
+    top: var(--ns-full);
+    right: var(--ns-full);
+}
+
+label.e-carousel-item-label {
+    /* override position to get label at bottom of item */
+    position: absolute;
+    bottom: var(--ns-half);
+    
+    justify-content: left;
+    padding-left: var(--ns-full);
+
+    /* full-width ensures background fade is visible and readable for label*/
+    width: 100%;
+    color: var(--black-russian);
+}

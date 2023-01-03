@@ -2,8 +2,15 @@ import React from 'react'
 
 import MinimalistSidebar from 'components/MinimalistSidebar'
 import Card from 'components/Card'
+import Carousel from 'components/Carousel';
 
 export default function HomeView() {
+    const items = [
+        { content: "ABC", label: "Lunch", status: "prepared" },
+        { content: "123", label: "Dinner", status: "unprepared" }
+    ];
+
+
     return (
         <div className="p-home-view">
             <MinimalistSidebar />
@@ -12,9 +19,7 @@ export default function HomeView() {
                     <h1 className="hero-title">InMeal</h1>
                 </div>
                 <Card className="planning-quick-view" title="Upcoming...">
-                    <div>X</div>
-                    <div>Y</div>
-                    <div>Z</div>
+                    <Carousel items={items}/>
                 </Card>
                 <Card className="explore-quick-view" title="Something else?">
                     <div>#1</div>
