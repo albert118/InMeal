@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import './styles/styles.css'; 
 
-function App() {
+import RouterConfig from './navigation/RouterConfig';
+import { BrowserRouter } from 'react-router-dom';
+
+// import Navigation from 'pages/Home/components/Navigation';
+
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className="meal-ui-basekit-theme">
+      <header className="head-6969696">
+          YES!
       </header>
     </div>
   );
 }
-
-export default App;
