@@ -1,10 +1,8 @@
 import React from 'react';
 import { Route, Routes  } from 'react-router-dom';
 
-import AppRoutes from './AppRoutes';
-
-import HomeContainer from 'pages/Home/HomeContainer';
-
+import AppRoutes from 'navigation/AppRoutes';
+import HomeContainer from 'pages/Home';
 
 const RouterConfig = () => {
     return (
