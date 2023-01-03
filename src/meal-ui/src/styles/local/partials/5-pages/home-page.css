@@ -1,12 +1,9 @@
 .p-home-view {
-    padding: 20px;
+    display: flex;
+    background-color: var(--lynx-white);
 
     /* stop gap to help viz while building */
     height: 100vh;
-
-    background-color: var(--nero-black);
-
-    display: flex;
 }
 
 .hero-title {
@@ -14,37 +11,29 @@
 
     font-size: xxx-large;
     font-weight: semi-bold;
-    color: var(--lynx-white, white);
+    color: var(--nero-black);
 }
 
 .hero-grid {
-    display: grid;
     width: 100%;
-    grid-gap: 40px;
+    display: grid;
+    
+    padding-bottom: var(--ns-full);
     grid-template-rows: [hero-header] max-content [plan-row] 1fr [explore-row] 1fr [end];
 }
 
 .hero-header {
+    grid-row: hero-header / hero-header;
+    
     padding-top: 20px;
     height: 90px;
-    grid-row: hero-header / hero-header;
     display: flex;
 }
 
 .planning-quick-view {
     grid-row: plan-row / plan-row;
-    display: flex;
-    padding: 2px;
-
-    border: 2px solid red;
-    border-radius: 4px;
 }
 
 .explore-quick-view {
     grid-row: explore-row / explore-row;
-    display: flex;
-    padding: 2px;
-
-    border: 2px solid green;
-    border-radius: 4px;
 }

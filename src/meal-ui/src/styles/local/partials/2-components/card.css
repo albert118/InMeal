@@ -1,19 +1,17 @@
 .card {
-    --negative-spacing: 20px;
-
     background-color: var(--dark-cyan);
     border: 2px solid black;
     border-radius: 12px;
 
-    padding: var(--negative-spacing);
-    margin: var(--negative-spacing);
+    padding: var(--ns-half);
+    margin: var(--ns-half);
 }
 
 .card > .title-bar {
     display: flex;
     width: 100%;
-    padding-left: var(--negative-spacing);
-    margin: var(--negative-spacing) 0 var(--negative-spacing) 0;
+    padding-left: var(--ns-half);
+    margin: var(--ns-half) 0 var(--ns-half) 0;
 }
 
 .card .title-bar > h2.title {
