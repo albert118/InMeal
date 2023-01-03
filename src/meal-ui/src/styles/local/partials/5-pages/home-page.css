@@ -1,0 +1,63 @@
+
+
+.p-home-view {
+    padding: 20px;
+
+    /* stop gap to help viz while building */
+    height: 100vh;
+
+    background-color: var(--nero-black);
+
+    display: flex;
+}
+
+.minimalist-sidebar {
+    display: flex;
+    flex-direction: column;
+
+    color: white;
+    width: 120px;
+
+    padding: 0;
+    margin: 0;
+}
+
+.hero-title {
+    margin: 0 60px 0 60px;
+
+    font-size: xxx-large;
+    font-weight: semi-bold;
+    color: var(--lynx-white, white);
+}
+
+.hero-grid {
+    display: grid;
+    width: 100%;
+    grid-gap: 40px;
+    grid-template-rows: [hero-header] max-content [plan-row] 1fr [explore-row] 1fr [end];
+}
+
+.hero-header {
+    padding-top: 20px;
+    height: 90px;
+    grid-row: hero-header / hero-header;
+    display: flex;
+}
+
+.planning-quick-view {
+    grid-row: plan-row / plan-row;
+    display: flex;
+    padding: 2px;
+
+    border: 2px solid red;
+    border-radius: 4px;
+}
+
+.explore-quick-view {
+    grid-row: explore-row / explore-row;
+    display: flex;
+    padding: 2px;
+
+    border: 2px solid green;
+    border-radius: 4px;
+}
