@@ -37,21 +37,22 @@ const Carousel = props => {
     const splideOptions = {
         rewind: true,
         autoWidth: true,
+        perPage: 2,
         padding: '5rem',
     }
 
+    const classes = className ? `simple-carousel ${className}` : 'simple-carousel';
+
     return(
-        <div className={className}>
-            <Splide options={splideOptions}>
-                { items.map(item => 
-                    <SplideSlide key={item.label}>
-                        <ImageCard label={item.label} status={item.status}>
-                            <img src={item.imgUrl} alt={item.label} />
-                        </ImageCard>
-                    </SplideSlide>
-                )}
-            </Splide>
-        </div>
+        <Splide className={classes} options={splideOptions}>
+            { items.map(item => 
+                <SplideSlide key={item.label}>
+                    <ImageCard label={item.label} status={item.status}>
+                        <img src={item.imgUrl} alt={item.label} />
+                    </ImageCard>
+                </SplideSlide>
+            )}
+        </Splide>
     );
 };
 

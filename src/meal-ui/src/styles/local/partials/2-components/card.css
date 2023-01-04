@@ -1,5 +1,5 @@
 .card {
-    --card-height: 600px;
+    --card-height: 420px;
     height: var(--card-height);
 
     background-color: var(--dove-grey);
@@ -20,7 +20,7 @@
 .card > .title-bar {
     display: flex;
     width: 100%;
-    padding: var(--ns-full) 0 var(--ns-half) var(--ns-full);
+    padding: var(--ns-half) 0 var(--ns-half) var(--ns-full);
 }
 
 .card .title-bar > h2.title {
@@ -33,8 +33,8 @@
 }
 
 .card > div.content-slot {
-    /* remaining space = title-bar (10% of total height + 1 full + 1/2 padding) + the remaining card padding (2 * 1/2 padding)*/
-    height: calc(100% - (.1 * var(--card-height) + var(--ns-full) + var(--ns-half) + var(--ns-full)));
+    /* remaining space = title-bar (10% of total height + 2* 1/2 padding) + the remaining card padding (2 * 1/2 padding)*/
+    height: calc(100% - (.1 * var(--card-height) + var(--ns-full) + var(--ns-full)));
     display: flex;
 }
 
