@@ -15,7 +15,10 @@ public class RecipeIngredientConfig
 
         builder.Property(e => e.Id).HasValueGenerator<NewIdGenerator>();
 
-        builder.HasOne(e => e.Ingredient);
+        builder
+            .HasOne(e => e.Ingredient)
+            .WithMany()
+            .HasForeignKey(e => e.IngredientId);
 
         // ensure quantity is serialized and deserialized
         // also ensure it is always required (never null)
