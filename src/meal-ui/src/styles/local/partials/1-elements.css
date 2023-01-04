@@ -4,3 +4,6 @@
 
 /* labels */
 @import "1-elements/labels.css";
+
+/* branding */
+@import "1-elements/hero-branding.css";

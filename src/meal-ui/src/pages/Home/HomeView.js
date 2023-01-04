@@ -21,9 +21,6 @@ export default function HomeView() {
         <div className="p-home-view">
             <MinimalistSidebar />
             <div className="hero-grid">
-                <div className="hero-header">
-                    <h1 className="hero-title">InMeal</h1>
-                </div>
                 <Card className="planning-quick-view" title="Upcoming...">
                     <Carousel items={plannedItems}/>
                 </Card>

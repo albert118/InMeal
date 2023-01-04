@@ -1,32 +1,9 @@
 
 .minimalist-sidebar {
-    display: flex;
-    flex-direction: column;
-
     color: var(--lynx-white);
     background-color: var(--nero-black);
-    width: 140px;
+    width: 200px;
 
     padding: var(--ns-full) var(--ns-half) var(--ns-half) var(--ns-half);
     margin-right: var(--ns-half);
-}
-
-.top {
-    display: flex;
-    flex-basis: 100%;
-    flex-direction: column;
-    align-items: stretch;
-}
-
-.top > * {
-    flex: 1;
-    max-height: 100px;
-}
-
-.bottom {
-    display: flex;
-    align-self: center;
-    justify-items: flex-end;
-    margin-top: auto;
-    margin-bottom: var(--ns-half);
 }

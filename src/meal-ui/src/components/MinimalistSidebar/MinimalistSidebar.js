@@ -5,8 +5,11 @@ import { faBars, faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg
 
 export default function MinimalistSidebar() {
     return (
-        <div className="minimalist-sidebar">
-            <div className="top">
+        <div className="sidebar-grid minimalist-sidebar">
+            <div className="hero-branding-header content-column branding-row">
+                <h1 className="hero-title">InMeal</h1>
+            </div>
+            <div className="content-column management-row">
                 <button className="icon-btn primary-icon-btn" type="button">
                     <FontAwesomeIcon icon={faBars} />
                 </button>
@@ -17,9 +20,7 @@ export default function MinimalistSidebar() {
                     <FontAwesomeIcon icon={faBoxes} />
                 </button>
             </div>
-
-
-            <div className="bottom">
+            <div className="content-column settings-row">
                 <button className="icon-btn" type="button">
                     <FontAwesomeIcon icon={faGear} />
                 </button>
