@@ -1,4 +1,7 @@
 .card {
+    --card-height: 600px;
+    height: var(--card-height);
+
     background-color: var(--dove-grey);
     border: 0;
     border-radius: 12px;
@@ -23,15 +26,15 @@
 .card .title-bar > h2.title {
     width: 100%;
 
-    height: 60px;
+    height: .1 * var(--card-height);
     font-size: 1.8em;
     letter-spacing: 3px;
     color: white;
 }
 
 .card > div.content-slot {
-    /* 100px is the title-bar (60) + padding top and bottom (20px) */
-    height: calc(100% - 100px);
+    /* remaining space = title-bar (10% of total height + 1 full + 1/2 padding) + the remaining card padding (2 * 1/2 padding)*/
+    height: calc(100% - (.1 * var(--card-height) + var(--ns-full) + var(--ns-half) + var(--ns-full)));
     display: flex;
 }
 

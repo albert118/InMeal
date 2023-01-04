@@ -1,4 +1,9 @@
 .carousel {
     justify-content: space-evenly !important;
+    overflow-x: hidden;
+}
+
+.carousel > div {
+    margin: var(--ns-half);
 }
 

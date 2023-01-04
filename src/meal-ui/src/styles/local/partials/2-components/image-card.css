@@ -5,7 +5,7 @@
     flex-direction: column;
     
     height: var(--image-card-height);
-    width: var(--image-card-height);
+    width: calc(1.1 * var(--image-card-height));
 
     background-color: var(--dark-cyan);
     border-radius: 0 0 12px 12px;
