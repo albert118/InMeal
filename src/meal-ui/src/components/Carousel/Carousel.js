@@ -1,5 +1,6 @@
-import React from "react"
-
+import React from "react";
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/react-splide/css';
 
 const StatusBadge = props => {
     const {className, statusText} = props;
@@ -33,16 +34,23 @@ const ImageCard = props => {
 const Carousel = props => {
     const { className, items } = props;
 
-    const classes = className ? `carousel ${className}` : `carousel`;
+    const splideOptions = {
+        rewind: true,
+        autoWidth: true,
+        padding: '5rem',
+    }
 
     return(
-        <div className={classes}>
-            { items.map(
-                    item => 
-                    <ImageCard label={item.label} status={item.status}>
-                        <img src={item.imgUrl} alt={item.label} />
-                    </ImageCard>
-            )}
+        <div className={className}>
+            <Splide options={splideOptions}>
+                { items.map(item => 
+                    <SplideSlide key={item.label}>
+                        <ImageCard label={item.label} status={item.status}>
+                            <img src={item.imgUrl} alt={item.label} />
+                        </ImageCard>
+                    </SplideSlide>
+                )}
+            </Splide>
         </div>
     );
 };
