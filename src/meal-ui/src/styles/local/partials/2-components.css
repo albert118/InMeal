@@ -1,0 +1,14 @@
+/* A neat and simple sidebar */
+@import "2-components/minimalist-sidebar.css";
+
+/* common card design */
+@import "2-components/card.css";
+
+/* image content card design */
+@import "2-components/image-card.css";
+
+/* a content gallery (carousel) display design */
+@import "2-components/carousel.css";
+
+/* a neat, small-text, status badge */
+@import "2-components/status-badge.css";

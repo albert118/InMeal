@@ -1,0 +1,10 @@
+.hero-branding-header {
+    padding-right: var(--ns-half);
+    padding-left: var(--ns-half);
+}
+
+.hero-title {
+    font-size: 1.2em;
+    letter-spacing: 20px;
+    color: var(--lynx-white);
+}

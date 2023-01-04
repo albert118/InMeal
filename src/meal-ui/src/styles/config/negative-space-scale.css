@@ -1,0 +1,4 @@
+.negative-space-scale {
+    --ns-full: 40px;
+    --ns-half: calc(40px / 2);
+}

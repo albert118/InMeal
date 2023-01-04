@@ -1,0 +1,36 @@
+.sidebar-grid {
+    display: grid;
+    align-items: end;
+    
+    grid-row-gap: var(--ns-half);
+    grid-template-rows: 
+        [branding-start] 1fr 
+        [management-links-start] 6fr
+        [settings-links-start] 3fr;
+
+    grid-template-columns: [margin-start] var(--ns-half) [content-start] 80% [content-end] var(--ns-half) [margin-end];
+}
+
+.content-column {
+    grid-column: content-start / content-end;
+    justify-self: center;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.branding-row {
+    grid-row: branding-start;
+    align-self: start;
+}
+
+.management-row {
+    grid-row: management-links-start;
+    height: 100%;
+}
+
+.settings-row {
+    grid-row: settings-links-start;
+    margin-bottom: var(--ns-half);
+}
