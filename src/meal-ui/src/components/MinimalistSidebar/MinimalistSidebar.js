@@ -7,20 +7,20 @@ export default function MinimalistSidebar() {
     return (
         <div className="minimalist-sidebar">
             <div className="top">
-                <button className="btn primary-btn" type="button">
+                <button className="icon-btn primary-icon-btn" type="button">
                     <FontAwesomeIcon icon={faBars} />
                 </button>
-                <button className="btn" type="button">
+                <button className="icon-btn" type="button">
                     <FontAwesomeIcon icon={faCalendar} />
                 </button>
-                <button className="btn" type="button">
+                <button className="icon-btn" type="button">
                     <FontAwesomeIcon icon={faBoxes} />
                 </button>
             </div>
 
 
             <div className="bottom">
-                <button className="btn" type="button">
+                <button className="icon-btn" type="button">
                     <FontAwesomeIcon icon={faGear} />
                 </button>
             </div>

@@ -11,19 +11,39 @@ const StatusBadge = props => {
     );
 }
 
-const Carousel = props => {
-    const { className, items } = props;
-
-    const item = items[0];
-
-    const classes = className ? `carousel ${className}` : `carousel`;
+const ImageCard = props => {
+    const { className, label, status } = props;
+    
+    const classes = className ? `image-card ${className}` : `image-card`;
 
     return(
         <div className={classes}>
-            <div className="item img-content">
-                <StatusBadge className="carousel-status-badge" statusText={item.status} />
-                <label className="item-label faded-background e-carousel-item-label">{item.label}</label>
-            </div> 
+            <div className="image-slot">
+                {props.children}
+                <StatusBadge className="e-image-status-badge" statusText={status} />
+            </div>
+            <div className="action-slot">
+                <label className="action-label">{label}</label>
+                <button className="btn" type="button">continue</button>
+            </div>
+        </div>
+    );
+};
+
+const Carousel = props => {
+    const { className, items } = props;
+
+    const classes = className ? `carousel ${className}` : `carousel`;
+    const item = items[0];
+
+    return(
+        <div className={classes}>
+            { items.map(
+                    item => 
+                    <ImageCard label={item.label} status={item.status}>
+                        <img src={item.imgUrl} />
+                    </ImageCard>
+            )}
         </div>
     );
 };

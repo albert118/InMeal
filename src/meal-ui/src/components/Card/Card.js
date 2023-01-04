@@ -4,8 +4,10 @@ import React from 'react';
 const Card = props =>  {
     const { className, title } = props;
 
+    const classes = className ? `card ${className}` : `carousel`;
+
     return (
-        <div className={`card ${className}`}>
+        <div className={classes}>
             <div className="title-bar">
                 <h2 className="title">{title}</h2>
             </div>

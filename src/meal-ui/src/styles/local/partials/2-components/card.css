@@ -1,7 +1,15 @@
 .card {
-    background-color: var(--dark-cyan);
-    border: 2px solid black;
+    background-color: var(--dove-grey);
+    border: 0;
     border-radius: 12px;
+
+    /* to get a clean box shadow edge, layer box shadows and decrease the alpha sharply */
+    box-shadow: 
+              0 1px 1px rgba(0, 0, 0, .05),
+              0 2px 2px rgba(0, 0, 0, .10),
+              0 4px 4px rgba(0, 0, 0, .15),
+              0 8px 8px rgba(0, 0, 0, .20),
+              0 16px 16px rgba(0, 0, 0, .25);
     
     padding: var(--ns-half);
 }

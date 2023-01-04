@@ -6,8 +6,8 @@ import Carousel from 'components/Carousel';
 
 export default function HomeView() {
     const items = [
-        { content: "ABC", label: "Lunch", status: "prepared" },
-        { content: "123", label: "Dinner", status: "unprepared" }
+        { content: "ABC", label: "Lunch", status: "prepared", imgUrl: "https://media.tenor.com/1TjGpMd7GEYAAAAC/stitch-dessert.gif"},
+        { content: "123", label: "Dinner", status: "unprepared", imgUrl: "https://bestanimations.com/media/food/1310335691frenchfries-animated-gif.gif" }
     ];
 
 
@@ -22,9 +22,7 @@ export default function HomeView() {
                     <Carousel items={items}/>
                 </Card>
                 <Card className="explore-quick-view" title="Something else?">
-                    <div>#1</div>
-                    <div>#2</div>
-                    <div>#3</div>
+                    <Carousel items={items}/>
                 </Card>
             </div>
         </div>

@@ -4,6 +4,9 @@
 /* common card design */
 @import "2-components/card.css";
 
+/* image content card design */
+@import "2-components/image-card.css";
+
 /* a content gallery (carousel) display design */
 @import "2-components/carousel.css";
 
