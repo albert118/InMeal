@@ -34,14 +34,13 @@ const Carousel = props => {
     const { className, items } = props;
 
     const classes = className ? `carousel ${className}` : `carousel`;
-    const item = items[0];
 
     return(
         <div className={classes}>
             { items.map(
                     item => 
                     <ImageCard label={item.label} status={item.status}>
-                        <img src={item.imgUrl} />
+                        <img src={item.imgUrl} alt={item.label} />
                     </ImageCard>
             )}
         </div>
