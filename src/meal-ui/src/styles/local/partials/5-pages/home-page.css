@@ -1,6 +1,7 @@
 .p-home-view {
     display: flex;
     background-color: var(--lynx-white);
+    height: 100vh;
 }
 
 .hero-title {
