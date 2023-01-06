@@ -1,0 +1,11 @@
+.title-bar {
+    display: flex;
+    justify-content: space-between;
+
+    width: 100%;
+    padding-left: var(--ns-full);
+    padding-right: var(--ns-full);
+
+    /* keep text and button relatively aligned */
+    align-items: baseline;
+}
