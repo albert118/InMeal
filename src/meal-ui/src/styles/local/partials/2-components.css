@@ -12,3 +12,7 @@
 
 /* a neat, small-text, status badge */
 @import "2-components/status-badge.css";
+
+
+/* page footer designs (icons, socials, etc.) */
+@import "2-components/footer.css";
