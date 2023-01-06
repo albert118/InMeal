@@ -1,8 +1,10 @@
 import React from "react";
 import StatusBadge from "components/StatusBadge";
+import Button from "components/Button";
+
 
 const ImageCard = props => {
-    const { className, label, status } = props;
+    const { id, className, label, status, ctaHandler } = props;
     
     const classes = className ? `image-card ${className}` : `image-card`;
 
@@ -14,7 +16,7 @@ const ImageCard = props => {
             </div>
             <div className="action-slot">
                 <label className="action-label">{label}</label>
-                <button className="btn" type="button">continue</button>
+                <Button handler={() => ctaHandler(id)}>view</Button>
             </div>
         </div>
     );

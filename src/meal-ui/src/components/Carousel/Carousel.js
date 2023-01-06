@@ -17,9 +17,14 @@ const Carousel = props => {
 
     return(
         <Splide className={classes} options={splideOptions}>
-            { items.map(item => 
+            { items.map((item, index) => 
                 <SplideSlide key={item.label}>
-                    <ImageCard label={item.label} status={item.status}>
+                    <ImageCard 
+                        id={index}
+                        label={item.label}
+                        status={item.status}
+                        ctaHandler={item.handler}
+                    >
                         <img src={item.imgUrl} alt={item.label} />
                     </ImageCard>
                 </SplideSlide>

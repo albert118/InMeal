@@ -3,7 +3,8 @@ import { Route, Routes  } from 'react-router-dom';
 
 import AppRoutes from 'navigation/AppRoutes';
 import HomeContainer from 'pages/Home';
-import ViewRecipeContainer from 'pages/Recipe';
+import ViewRecipesContainer from 'pages/ViewRecipes';
+import ViewRecipe from 'pages/ViewRecipe';
 
 const RouterConfig = () => {
     return (
@@ -13,8 +14,12 @@ const RouterConfig = () => {
                 element={<HomeContainer />}
             />
             <Route 
-                path={AppRoutes.recipe} 
-                element={<ViewRecipeContainer />}
+                path={AppRoutes.recipes} 
+                element={<ViewRecipesContainer />}
+            />
+            <Route 
+                path={`${AppRoutes.recipe}/:recipeId`} 
+                element={<ViewRecipe />}
             />
            
             {/* TODO: Redirect to Home until a 404 page is added */}

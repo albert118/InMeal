@@ -1,13 +1,12 @@
 .p-recipe-view {
-    /* display: flex; */
-    align-items: center;
-    justify-content: center;
     padding: var(--ns-full);
     overflow-y: scroll !important;
 }
 
-.recipe-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+.recipe-grid {
+    display: grid;
+    margin-left: var(--ns-full);
+    margin-right: var(--ns-full);
+    grid-template-columns: repeat(4, 1fr);
+    justify-items: center;
 }

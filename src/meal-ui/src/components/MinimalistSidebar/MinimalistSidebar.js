@@ -9,7 +9,7 @@ export default function MinimalistSidebar() {
     const navigate = useNavigate();
 
     const handleDashboardClick = () => navigate(AppRoutes.root);
-    const handleRecipeViewClick = () => navigate(AppRoutes.recipe);
+    const handleRecipeViewClick = () => navigate(AppRoutes.recipes);
     const handlePlanningClick = () => navigate(AppRoutes.planning);
     const handleSettingsClick = () => navigate(AppRoutes.settings);
 

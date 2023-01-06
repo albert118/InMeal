@@ -1,10 +1,15 @@
 import React, { useContext } from 'react';
 import { GenericContext } from 'pages/GenericPageContainer';
-import RecipeCard from './components/RecipeCard';
+import { ImageCard } from 'components/Card';
+import { useNavigate } from "react-router-dom";
+import AppRoutes from 'navigation/AppRoutes';
+
 
 const newDataSource = idx => {
     return {
+        id: idx,
         title: `Turkish Deluxe - ${idx}`,
+        status: "unprepared",
         blurb: "ggusdhgouadshasggusdhgouadshasggusdhgouadshasggusdhgouadshasggusdhgouadshasggusdhgouadshasggusdhgouadshasggusdhgouadshas",
         recipeIngredients: [ {label: "uno" }, {label: "dos" }, {label: "tres" }],
         preparationSteps: [ {label: "uno" }, {label: "dos" }, {label: "tres" }],
@@ -18,12 +23,13 @@ const newDataSource = idx => {
 
 export default function RecipeView() {
     const genericContext = useContext(GenericContext);
+    const navigate = useNavigate();
 
-    const testRecipes = [
-        newDataSource(1),
-        newDataSource(2),
-        newDataSource(3)
-    ];
+    const handleViewRecipeClick = id => navigate(`${AppRoutes.editRecipe}/${id}`);
+
+    // mock some test data
+    const indexes = Array.from(Array(15).keys());
+    const testRecipes = indexes.map(newDataSource);
 
     const classes = genericContext.className 
         ? `p-recipe-view ${genericContext.className}` 
@@ -31,11 +37,17 @@ export default function RecipeView() {
 
         return(
             <div className={classes}>
-                <div className="recipe-list">
+                <div className="recipe-grid">
                     { testRecipes.map(recipe => 
-                        <RecipeCard recipe={recipe}>
-                            <img src={recipe.image.url} alt={recipe.image.label} />
-                        </RecipeCard>
+                        <ImageCard 
+                            key={recipe.id}
+                            id={recipe.id}
+                            className="recipe-grid-content" 
+                            label={recipe.title} status={recipe.status} 
+                            ctaHandler={handleViewRecipeClick}
+                        >
+                            <img src={recipe.image.url} alt={recipe.label} />
+                        </ImageCard>
                     )}
                 </div>
             </div>
