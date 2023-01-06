@@ -19,8 +19,8 @@ export default function RecipeView() {
     };
 
     const classes = genericContext.className 
-        ? `p-recipe-view recipe ${genericContext.className}` 
-        : `p-recipe-view recipe`;
+        ? `p-recipe-view ${genericContext.className}` 
+        : `p-recipe-view`;
 
         return(
             <div className={classes}>

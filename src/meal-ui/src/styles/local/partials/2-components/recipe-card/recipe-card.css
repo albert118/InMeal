@@ -1,0 +1,58 @@
+/* design borrowed from the original image-card */
+
+.recipe-card {
+    --image-card-height: 1000px;
+
+    display: flex;
+    flex-direction: column;
+    margin: var(--ns-half);
+    
+    height: var(--image-card-height);
+    width: 800px;
+
+    background-color: var(--dark-cyan);
+    border-radius: 0 0 12px 12px;
+
+    /* to get a clean box shadow edge, layer box shadows and decrease the alpha sharply */
+    box-shadow: 
+              0 1px 1px rgba(0, 0, 0, .60),
+              0 2px 2px rgba(0, 0, 0, .20),
+              0 4px 4px rgba(0, 0, 0, .10),
+              0 8px 8px rgba(0, 0, 0, .10),
+              0 16px 16px rgba(0, 0, 0, .05);
+
+        
+    color: white;
+    white-space: pre-line;
+}
+
+
+.recipe-card > .image-slot {
+    position: relative;
+}
+
+.recipe-card > .image-slot > img {
+    height: calc(3/7 * var(--image-card-height));
+    width: 100%;
+}
+
+.recipe-card > .title-bar,
+.recipe-card > .recipe-data-slot,
+.recipe-card > .form-action-container {
+    width: 100%;
+    margin-top: var(--ns-full);
+    padding-left: var(--ns-full);
+    padding-right: var(--ns-full);
+}
+
+.recipe-card > .recipe-data-slot {
+    height: 100%;
+    flex-direction: column;
+    align-content: flex-start; /* keep text and button relatively aligned */
+}
+
+.recipe-card > .form-action-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--ns-full);
+}

@@ -6,3 +6,6 @@
 
 /* the management sidebar with links + branding */
 @import "grids/sidebar-grid.css";
+
+/* a content grids for recipe views */
+@import "grids/recipe-content-grid.css";
