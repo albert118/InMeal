@@ -20,7 +20,7 @@ const newDataSource = idx => {
 };
 
 
-export default function RecipeView() {
+export default function View() {
     const genericContext = useContext(GenericContext);
     const { recipeId } = useParams();
     const testRecipe = newDataSource(recipeId);

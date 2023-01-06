@@ -21,11 +21,11 @@ const newDataSource = idx => {
 };
 
 
-export default function RecipeView() {
+export default function View() {
     const genericContext = useContext(GenericContext);
     const navigate = useNavigate();
 
-    const handleViewRecipeClick = id => navigate(`${AppRoutes.editRecipe}/${id}`);
+    const handleViewRecipeClick = id => navigate(`${AppRoutes.recipe}/${id}`);
 
     // mock some test data
     const indexes = Array.from(Array(15).keys());

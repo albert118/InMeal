@@ -17,10 +17,10 @@ const Carousel = props => {
 
     return(
         <Splide className={classes} options={splideOptions}>
-            { items.map((item, index) => 
+            { items.map(item => 
                 <SplideSlide key={item.label}>
                     <ImageCard 
-                        id={index}
+                        id={item.id}
                         label={item.label}
                         status={item.status}
                         ctaHandler={item.handler}
