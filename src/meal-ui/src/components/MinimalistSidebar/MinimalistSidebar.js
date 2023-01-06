@@ -9,7 +9,8 @@ export default function MinimalistSidebar() {
 
     const handleDashboardClick = () => navigate(AppRoutes.root);
     const handleRecipeViewClick = () => navigate(AppRoutes.recipe);
-
+    const handlePlanningClick = () => navigate(AppRoutes.planning);
+    const handleSettingsClick = () => navigate(AppRoutes.settings);
 
     return (
         <div className="sidebar-grid minimalist-sidebar">
@@ -20,12 +21,12 @@ export default function MinimalistSidebar() {
             </div>
             <div className="content-column management-row">
                 <IconButton faIcon={faBars} handler={handleDashboardClick} isPrimary={true} />
-                <IconButton faIcon={faCalendar} />
+                <IconButton faIcon={faCalendar} handler={handlePlanningClick} />
                 <IconButton faIcon={faBoxes} handler={handleRecipeViewClick} />
             </div>
             <div className="content-column settings-row">
                 <button className="icon-btn" type="button">
-                    <IconButton faIcon={faGear} />
+                    <IconButton faIcon={faGear} handler={handleSettingsClick} />
                 </button>
             </div>
         </div>
