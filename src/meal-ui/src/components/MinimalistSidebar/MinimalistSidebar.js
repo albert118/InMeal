@@ -1,28 +1,31 @@
-import React from 'react'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons'
+import React from 'react';
+import { faBars, faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from "react-router-dom";
+import AppRoutes from 'navigation/AppRoutes';
+import { IconButton } from 'components/Button';
 
 export default function MinimalistSidebar() {
+    const navigate = useNavigate();
+
+    const handleDashboardClick = () => navigate(AppRoutes.root);
+    const handleRecipeViewClick = () => navigate(AppRoutes.recipe);
+
+
     return (
         <div className="sidebar-grid minimalist-sidebar">
             <div className="hero-branding-header content-column branding-row">
-                <h1 className="hero-title">InMeal</h1>
+                <button type="button" onClick={handleDashboardClick}>
+                    <h1 className="hero-title">InMeal</h1>
+                </button>
             </div>
             <div className="content-column management-row">
-                <button className="icon-btn primary-icon-btn" type="button">
-                    <FontAwesomeIcon icon={faBars} />
-                </button>
-                <button className="icon-btn" type="button">
-                    <FontAwesomeIcon icon={faCalendar} />
-                </button>
-                <button className="icon-btn" type="button">
-                    <FontAwesomeIcon icon={faBoxes} />
-                </button>
+                <IconButton faIcon={faBars} handler={handleDashboardClick} isPrimary={true} />
+                <IconButton faIcon={faCalendar} />
+                <IconButton faIcon={faBoxes} handler={handleRecipeViewClick} />
             </div>
             <div className="content-column settings-row">
                 <button className="icon-btn" type="button">
-                    <FontAwesomeIcon icon={faGear} />
+                    <IconButton faIcon={faGear} />
                 </button>
             </div>
         </div>

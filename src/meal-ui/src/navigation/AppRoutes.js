@@ -4,7 +4,8 @@
  */
 
 const AppRoutes = {
-    root: '/'
+    root: '/',
+    recipe: '/recipe'
 };
 
 
