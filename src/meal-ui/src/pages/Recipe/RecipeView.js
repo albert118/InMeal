@@ -13,9 +13,9 @@ export default function RecipeView() {
 
     const testRecipe = {
         title: "Turkish Deluxe",
-        blurb: "xtra+ Turkish",
-        recipeIngredients: "* uno\n*dos\n*tres",
-        preparationSteps: "1. uno\n2.dos\n3.tres",
+        blurb: "ggusdhgouadshasggusdhgouadshasggusdhgouadshasggusdhgouadshasggusdhgouadshasggusdhgouadshasggusdhgouadshasggusdhgouadshas",
+        recipeIngredients: [ {label: "uno" }, {label: "dos" }, {label: "tres" }],
+        preparationSteps: [ {label: "uno" }, {label: "dos" }, {label: "tres" }]
     };
 
     const classes = genericContext.className 

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "components/Button";
 import AppRoutes from "navigation/AppRoutes";
 import TitleBar from "components/TitleBar/TitleBar";
+import { Checkbox } from "forms/Inputs";
 
 const RecipeCard = props => {
     const { className, recipe } = props;
@@ -33,11 +34,15 @@ const RecipeCard = props => {
             <div className="recipe-data-slot recipe-content-grid">
                 <p className="recipe-content-blurb">{recipe.blurb}</p>
                 <div className="recipe-content-ingredients">
-                    {recipe.recipeIngredients}
+                    { recipe.recipeIngredients.map(ingredient => 
+                        <Checkbox label={ingredient.label} value={false} />
+                    )}
                 </div>
-                <div className="recipe-content-preparation-steps">
-                    {recipe.preparationSteps}
-                </div>
+                <ol type="1" className="recipe-content-preparation-steps simple-numbered-list">
+                    { recipe.preparationSteps.map(step => 
+                        <li>{step.label}</li>
+                    )}
+                </ol>
             </div>
             <div className="form-action-container">
                 <Button handler={handleEditClick}>
