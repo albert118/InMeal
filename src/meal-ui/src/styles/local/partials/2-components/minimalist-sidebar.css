@@ -1,7 +1,5 @@
 .minimalist-sidebar {
     color: var(--lynx-white);
     background-color: var(--nero-black);
-    width: 200px;
-
     padding: var(--ns-full) var(--ns-half) var(--ns-half) var(--ns-half);
 }

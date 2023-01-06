@@ -1,3 +1,6 @@
+/* grid for sidebar, footer, etc. */
+@import "grids/navigation-grid.css";
+
 /* dashboard "hero" content grid */
 @import "grids/hero-grid.css";
 

@@ -1,0 +1,5 @@
+.p-page {
+    height: 100vh;
+    background-color: var(--lynx-white);
+    overflow: hidden; /* keep page content neat */
+}
