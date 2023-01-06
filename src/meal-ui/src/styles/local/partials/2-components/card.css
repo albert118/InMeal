@@ -2,9 +2,12 @@
     --card-height: 420px;
     height: var(--card-height);
 
+    display: flex;
+    flex-direction: column;
+
     background-color: var(--dove-grey);
     border: 0;
-    border-radius: 12px;
+    border-radius: 0 0 12px 12px;
 
     /* to get a clean box shadow edge, layer box shadows and decrease the alpha sharply */
     /* great article on box shadows https://tobiasahlin.com/blog/layered-smooth-box-shadows/ */
@@ -14,37 +17,16 @@
               0 4px 4px rgba(0, 0, 0, .15),
               0 8px 8px rgba(0, 0, 0, .20),
               0 16px 16px rgba(0, 0, 0, .25);
-    
-    padding: var(--ns-half);
 }
 
 .card > .title-bar {
     display: flex;
-    width: 100%;
+    background-color: var(--nero-black);
     padding: var(--ns-half) 0 var(--ns-half) var(--ns-full);
 }
 
 .card .title-bar > h2.title {
-    width: 100%;
-
-    height: .1 * var(--card-height);
     font-size: 1.8em;
     letter-spacing: 3px;
-    color: white;
-}
-
-.card > div.content-slot {
-    /* remaining space = title-bar (10% of total height + 2* 1/2 padding) + the remaining card padding (2 * 1/2 padding)*/
-    height: calc(100% - (.1 * var(--card-height) + var(--ns-full) + var(--ns-full)));
-    display: flex;
-}
-
-.card > div.content-slot > div {
-    flex: 1;
-    align-self: center;
-    
-    display: flex;
-    justify-content: center;
-    
     color: white;
 }
