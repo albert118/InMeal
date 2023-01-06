@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { GenericContext } from 'pages/GenericPageContainer';
 import { useParams } from "react-router-dom";
-import RecipeCard from 'components/RecipeCard';
+import RecipeCard from 'pages/ViewRecipe/RecipeCard';
 
 
 const newDataSource = idx => {
