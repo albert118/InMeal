@@ -1,0 +1,14 @@
+.p-home-view {
+    display: flex;
+    height: 100%;
+}
+
+.temp-content {
+    padding: var(--ns-full);
+    display: flex;
+}
+
+.recipe {
+    padding: var(--ns-full);
+    align-self: center;
+}
