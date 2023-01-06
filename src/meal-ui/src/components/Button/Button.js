@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const Button = props => {
-    const {faIcon, handler} = props;
+    const {handler} = props;
 
     return(
         <button className="btn" type="button" onClick={handler}>
-            <FontAwesomeIcon icon={faIcon} />
+            {props.children}
         </button>
     );
 };
