@@ -38,8 +38,7 @@ const Carousel = props => {
         rewind: true,
         autoWidth: true,
         perPage: 2,
-        padding: '5rem',
-    }
+    };
 
     const classes = className ? `simple-carousel ${className}` : 'simple-carousel';
 

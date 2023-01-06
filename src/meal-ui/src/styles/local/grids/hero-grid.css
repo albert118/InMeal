@@ -5,9 +5,8 @@
     
     padding-bottom: var(--ns-full);
     margin-top: var(--ns-half);
-    grid-row-gap: var(--ns-half);
     grid-template-rows: [plan-row] 1fr [explore-row] 1fr [end];
-    grid-template-columns: [margin-start] 10% [content-start] 80% [content-end] 10% [margin-end];
+    grid-template-columns: [margin-start] 15% [content-start] 70% [content-end] 15% [margin-end];
 }
 
 .planning-quick-view {

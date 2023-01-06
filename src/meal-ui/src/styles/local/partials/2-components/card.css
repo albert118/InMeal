@@ -30,3 +30,8 @@
     letter-spacing: 3px;
     color: white;
 }
+
+.card > div.content-slot > div {
+    display: flex;
+    justify-content: center;
+}
