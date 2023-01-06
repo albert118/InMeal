@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AppRoutes from 'navigation/AppRoutes';
 import { IconButton } from 'components/Button';
 
+
 export default function MinimalistSidebar() {
     const navigate = useNavigate();
 
