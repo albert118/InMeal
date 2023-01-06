@@ -9,3 +9,9 @@
 
 /* branding */
 @import "1-elements/hero-branding.css";
+
+/* simple and readable lists */
+@import "1-elements/lists.css";
+
+/* simple input readability styling */
+@import "1-elements/inputs.css";

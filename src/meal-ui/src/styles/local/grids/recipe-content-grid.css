@@ -5,14 +5,14 @@
 
     grid-template-columns: 
         [ingredient] 1fr 
-        [preparation-steps] 1fr;
+        [preparation-steps] 1fr [end];
 
     grid-template-rows: [blurb] 1fr [details] 2fr;
 }
 
 .recipe-content-blurb {
     grid-row: blurb / blurb;
-    grid-column: ingredient / preparation-steps;
+    grid-column: ingredient / end;
 }
 
 .recipe-content-ingredients {
