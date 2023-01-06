@@ -1,0 +1,26 @@
+.recipe-content-grid {
+    width: 100%;
+    display: grid;
+    align-items: start;
+
+    grid-template-columns: 
+        [ingredient] 1fr 
+        [preparation-steps] 1fr [end];
+
+    grid-template-rows: [blurb] 1fr [details] 2fr;
+}
+
+.recipe-content-blurb {
+    grid-row: blurb / blurb;
+    grid-column: ingredient / end;
+}
+
+.recipe-content-ingredients {
+    grid-row: details / details;
+    grid-column: ingredient / ingredient;
+}
+
+.recipe-content-preparation-steps {
+    grid-row: details / details;
+    grid-column: preparation-steps / preparation-steps;
+}

@@ -1,12 +1,12 @@
 import React from 'react';
 import GenericPageContainer from 'pages/GenericPageContainer';
-import HomeView from './View';
+import View from './View';
 
 
-export default function HomeContainer() {
+export default function ViewRecipesContainer() {
     return (
         <GenericPageContainer>
-            <HomeView />
+            <View />
         </GenericPageContainer>
     );
 };

@@ -1,3 +1,4 @@
+import TitleBar from 'components/TitleBar/TitleBar';
 import React from 'react';
 
 
@@ -8,9 +9,9 @@ const Card = props =>  {
 
     return (
         <div className={classes}>
-            <div className="title-bar">
-                <h2 className="title">{title}</h2>
-            </div>
+            <TitleBar>
+                {title}
+            </TitleBar>
             <div className="content-slot">
                 {props.children}
             </div>

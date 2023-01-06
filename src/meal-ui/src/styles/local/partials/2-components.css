@@ -7,12 +7,17 @@
 /* image content card design */
 @import "2-components/image-card.css";
 
+/* a neat title bar with spacing and a call toaction button */
+@import "2-components/title-bar.css";
+
 /* a content gallery (carousel) display design */
 @import "2-components/carousel.css";
 
 /* a neat, small-text, status badge */
 @import "2-components/status-badge.css";
 
-
 /* page footer designs (icons, socials, etc.) */
 @import "2-components/footer.css";
+
+/* a simple recipe card view design */
+@import "2-components/recipe-card/recipe-card.css";

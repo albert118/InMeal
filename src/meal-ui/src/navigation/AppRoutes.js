@@ -4,7 +4,11 @@
  */
 
 const AppRoutes = {
-    root: '/'
+    root: '/',
+    recipes: '/recipes',
+    recipe: '/recipe',
+    settings: '/settings',
+    planning: '/planning'
 };
 
 
