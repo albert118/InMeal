@@ -26,9 +26,7 @@ export default function MinimalistSidebar() {
                 <IconButton faIcon={faBoxes} handler={handleRecipeViewClick} />
             </div>
             <div className="content-column settings-row">
-                <button className="icon-btn" type="button">
-                    <IconButton faIcon={faGear} handler={handleSettingsClick} />
-                </button>
+                <IconButton faIcon={faGear} handler={handleSettingsClick} />
             </div>
         </div>
     );
