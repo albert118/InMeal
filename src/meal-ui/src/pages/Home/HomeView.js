@@ -1,10 +1,16 @@
-import React from 'react'
-
-import MinimalistSidebar from 'components/MinimalistSidebar'
-import Card from 'components/Card'
+import React, { useContext } from 'react';
+import Card from 'components/Card';
 import Carousel from 'components/Carousel';
 
+import { GenericContext } from 'pages/GenericPageContainer';
+
 export default function HomeView() {
+    const genericContext = useContext(GenericContext);
+
+    const classes = genericContext.className 
+        ? `p-home-view ${genericContext.className}` 
+        : `p-home-view`;
+
     const plannedItems = [
         { label: "Breakfast", status: "unprepared", imgUrl: "https://media.tenor.com/fokbHD7dZNUAAAAC/food-chinese.gif" },
         { label: "Lunch", status: "prepared", imgUrl: "https://media.tenor.com/1TjGpMd7GEYAAAAC/stitch-dessert.gif"},
@@ -18,8 +24,7 @@ export default function HomeView() {
     ];
 
     return (
-        <div className="p-home-view">
-            <MinimalistSidebar />
+        <div className={classes}>
             <div className="hero-grid">
                 <Card className="planning-quick-view" title="Upcoming...">
                     <Carousel items={plannedItems}/>
