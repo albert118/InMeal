@@ -2,7 +2,7 @@ import React from "react";
 
 
 const LongTextInput = props => {
-    const { label, value, placeholder, handler } = props;
+    const { name, label, value, placeholder, handler } = props;
 
     return(
         <div className="form-input">
@@ -10,7 +10,7 @@ const LongTextInput = props => {
             <textarea 
                 id={label} 
                 className="long-text-input"
-                name={label} 
+                name={name} 
                 value={value}
                 placeholder={placeholder} 
                 onChange={handler}
