@@ -50,7 +50,9 @@ const EditRecipeCardForm = props => {
     const { recipeId } = props;
     
     const [recipe, setRecipe] = useState(getStartingRecipe(recipeId));
-    const { get, post, response } = useFetch('https://localhost:7078/api/recipe');
+    const [existingRecipe, setExistingRecipe] = useState(getStartingRecipe(recipeId));
+
+    const { get, patch, response } = useFetch('https://localhost:7078/api/recipe');
     const navigate = useNavigate();
 
     useEffect(() => { loadData() }, []);
@@ -59,17 +61,15 @@ const EditRecipeCardForm = props => {
     async function loadData() {
         const existingRecipe = await get(`?id=${encodeURIComponent(existingRecipeId)}`);
         if (response.ok)  {
-            console.log(JSON.stringify(existingRecipe))
+            setExistingRecipe(existingRecipe);
             setRecipe(existingRecipe);
-        } else {
-            setRecipe(getDefaultRecipe(recipeId));
         }
     }
 
-    // async function saveData(recipe) {
-    //     await post(recipe);
-    //     return response.ok;
-    // }
+    async function saveData(recipe) {
+        await patch(recipe);
+        return response?.ok;
+    }
 
     const handleChange = (event) => {
         setRecipe({ ...recipe, [event.target.name]: event.target.value });
@@ -77,13 +77,13 @@ const EditRecipeCardForm = props => {
 
     const handleCancel = event => {
         event.preventDefault();
-        setRecipe(getDefaultRecipe(recipeId));
+        setRecipe(existingRecipe);
     };
 
-    const handleSave = event => {
+    const handleSave = async event => {
         event.preventDefault();
-        // await saveData(recipe)
-        navigate(`${AppRoutes.recipe}/${recipe.id}`);
+        const isSaved = await saveData(recipe)
+        if (isSaved) navigate(`${AppRoutes.recipe}/${recipe.id}`);
     };
 
     return(
@@ -110,7 +110,7 @@ const EditRecipeCardForm = props => {
                 <LongTextInput 
                     className="recipe-content-ingredients" 
                     name={"recipeIngredients"} 
-                    value={recipe.recipeIngredients} 
+                    value={recipe.recipeIngredientDtos} 
                     placeholder="What ingredients do you need?" 
                     handler={handleChange} 
                 />
