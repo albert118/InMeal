@@ -6,7 +6,7 @@ const TextInput = props => {
     const classes = className ? `form-input ${className}` : `form-input`;
 
     return(
-        <div className={className}>
+        <div className={classes}>
             { label ?? <label htmlFor={label}>{label}</label> }
             <input 
                 id={label ?? "generic-text-input-id"} 
