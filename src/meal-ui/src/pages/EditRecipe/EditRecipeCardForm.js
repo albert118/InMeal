@@ -57,21 +57,32 @@ const EditRecipeCardForm = props => {
             </div>
 
             <TitleBar>
-                <TextInput name={"title"} value={recipe.title} placeholder="Add a descriptive title, something other than Recipe #1" handler={handleChange} />
+                <TextInput 
+                    name={"title"} 
+                    value={recipe.title} 
+                    placeholder="Add a descriptive title, something other than Recipe #1" 
+                    handler={handleChange} 
+                />
             </TitleBar>
 
             <div className="recipe-data-slot recipe-content-grid">
                 <LongTextInput className="recipe-content-blurb" name={"blurb"} value={recipe.blurb} placeholder="Maybe some details too?" handler={handleChange} />
-                <div className="recipe-content-ingredients">
-                    {/* { recipe.recipeIngredients.map(ingredient => 
-                        <Checkbox label={ingredient.label} value={false} />
-                    )} */}
-                </div>
-                <ol type="1" className="recipe-content-preparation-steps simple-numbered-list">
-                    {/* { recipe.preparationSteps.map(step => 
-                        <li>{step.label}</li>
-                    )} */}
-                </ol>
+                
+                <LongTextInput 
+                    className="recipe-content-ingredients" 
+                    name={"recipeIngredients"} 
+                    value={recipe.recipeIngredients} 
+                    placeholder="What ingredients do you need?" 
+                    handler={handleChange} 
+                />
+
+                <LongTextInput 
+                    className="recipe-content-preparation-steps" 
+                    name={"preparationSteps"} 
+                    value={recipe.preparationSteps} 
+                    placeholder="Include the steps to make this recipe" 
+                    handler={handleChange} 
+                />
             </div>
             <div className="action-container">
                 <CancelButton handler={handleCancel} />
