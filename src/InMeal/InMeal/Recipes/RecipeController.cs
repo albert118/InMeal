@@ -52,8 +52,8 @@ public class RecipeController : ControllerBase
             newRecipe.Title,
             newRecipe.Blurb,
             newRecipe.PrepSteps.ToString(),
-            newRecipe.PrepTime,
             newRecipe.CookTime,
+            newRecipe.PrepTime,
             new(), // TODO
             ct
         );
