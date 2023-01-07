@@ -12,11 +12,11 @@ const FormContainer = props => {
     const formContextProps = { };
 
     return(
-        <div className={classes}>
+        <form className={classes}>
             <FormContext.Provider value={formContextProps}> 
                 {props.children}
             </FormContext.Provider>
-        </div>
+        </form>
     );
 };
 
