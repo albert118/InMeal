@@ -9,8 +9,8 @@ export default function View() {
     const { recipeId } = useParams();
 
     const classes = genericContext.className 
-        ? `p-recipe-view ${genericContext.className}` 
-        : `p-recipe-view`;
+        ? `p-recipe-edit ${genericContext.className}` 
+        : `p-recipe-edit`;
 
     return(
         <div className={classes}>

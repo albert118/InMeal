@@ -1,5 +1,8 @@
 .p-page {
     height: 100vh;
     background-color: var(--lynx-white);
-    overflow: hidden; /* keep page content neat */
+
+    /* keep page content neat */
+    /* any page may choose to override this, if so the vertical scrollbar is attached by default */
+    overflow: hidden;
 }

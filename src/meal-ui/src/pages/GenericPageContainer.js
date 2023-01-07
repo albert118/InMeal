@@ -10,8 +10,8 @@ const GenericPageContainer = props => {
     const { className } = props;
 
     const classes = className 
-        ? `p-page navigation-grid ${className}` 
-        : `p-page navigation-grid`;
+        ? `p-page navigation-grid scrollbar-vertical ${className}` 
+        : `p-page navigation-grid scrollbar-vertical`;
 
     const genericContextProps = {
         className: "content-grid"

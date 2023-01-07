@@ -1,0 +1,9 @@
+.p-recipe-edit {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: var(--ns-full);
+    
+    overflow-y: scroll !important;
+}
