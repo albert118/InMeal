@@ -8,12 +8,9 @@ import { FormStatuses } from "forms";
 import AppRoutes from "navigation/AppRoutes";
 import { useNavigate } from "react-router-dom";
 
-const EditRecipeCardForm = props => {
-    const { recipeId } = props;
-    
-    const navigate = useNavigate();
 
-    const [recipe, setRecipe] = useState({
+const getStartingRecipe = recipeId => {
+    return {
         id: recipeId,
         title: '',
         status: FormStatuses.Saved,
@@ -24,7 +21,33 @@ const EditRecipeCardForm = props => {
             label: null,
             url: "https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif"
         }
-    });
+    };
+};
+
+
+
+const getDefaultRecipe = recipeId => {
+    return {
+        id: recipeId,
+        title: '',
+        status: FormStatuses.Unsaved,
+        blurb: '',
+        recipeIngredients: [],
+        preparationSteps: [],
+        image: {
+            label: null,
+            url: "https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif"
+        }
+    };
+};
+
+
+const EditRecipeCardForm = props => {
+    const { recipeId } = props;
+    
+    const navigate = useNavigate();
+
+    const [recipe, setRecipe] = useState(getStartingRecipe(recipeId));
 
     const handleChange = (event) => {
         setRecipe({ ...recipe, [event.target.name]: event.target.value });
@@ -32,24 +55,11 @@ const EditRecipeCardForm = props => {
 
     const handleCancel = event => {
         event.preventDefault();
-
-        setRecipe({
-            id: recipeId,
-            title: '',
-            status: FormStatuses.Unsaved,
-            blurb: '',
-            recipeIngredients: [],
-            preparationSteps: [],
-            image: {
-                label: null,
-                url: "https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif"
-            }
-        });
+        setRecipe(getDefaultRecipe(recipeId));
     };
 
     const handleSave = event => {
         event.preventDefault();
-
         navigate(`${AppRoutes.recipe}/${recipe.id}`);
     };
 
