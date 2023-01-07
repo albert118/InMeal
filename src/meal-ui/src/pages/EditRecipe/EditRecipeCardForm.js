@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { CancelButton, SaveButton } from "forms/FormActions";
 import FormContainer from "forms/FormContainer";
-import { Checkbox } from "forms/Inputs";
 import { TextInput, LongTextInput } from "forms/Inputs";
 import TitleBar from "components/TitleBar/TitleBar";
+import StatusBadge from "components/StatusBadge";
+import { FormStatuses } from "forms";
+
 
 const EditRecipeCardForm = props => {
     const { recipeId } = props;
@@ -11,7 +13,7 @@ const EditRecipeCardForm = props => {
     const [recipe, setRecipe] = useState({
         id: recipeId,
         title: '',
-        status: "unsaved",
+        status: FormStatuses.Saved,
         blurb: '',
         recipeIngredients: [],
         preparationSteps: [],
@@ -31,7 +33,7 @@ const EditRecipeCardForm = props => {
         setRecipe({
             id: recipeId,
             title: '',
-            status: "unsaved",
+            status: FormStatuses.Unsaved,
             blurb: '',
             recipeIngredients: [],
             preparationSteps: [],
@@ -54,6 +56,7 @@ const EditRecipeCardForm = props => {
             <div className="image-slot">
                 {/* TODO: add recipe images and include edit functionality here (include dummy image for now) */}
                 <img src={recipe.image.url} alt={recipe.image.label} />
+                <StatusBadge className="e-image-status-badge" status={recipe.status} />
             </div>
 
             <TitleBar>

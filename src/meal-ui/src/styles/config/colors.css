@@ -12,7 +12,7 @@
 
 .meal-ui-form-theme {
 	--success: #04d137ff;
-	--warning: #ba0000ff;
-	--error: #f03536ff;
+	--error: #ba0000ff;
+	--warning: rgb(254, 148, 19);
 	--note: hsla(210, 39%, 47%, 1);
 }
