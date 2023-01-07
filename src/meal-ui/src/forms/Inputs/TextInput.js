@@ -5,9 +5,9 @@ const TextInput = props => {
 
     return(
         <div className="form-input">
-            {/* <label htmlFor={label}>{label}</label> */}
+            { label ?? <label htmlFor={label}>{label}</label> }
             <input 
-                id={label} 
+                id={label ?? "generic-text-input-id"} 
                 className="text-input"
                 name={name} 
                 value={value}

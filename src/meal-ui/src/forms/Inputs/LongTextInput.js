@@ -6,16 +6,15 @@ const LongTextInput = props => {
 
     return(
         <div className="form-input">
-            {/* <label htmlFor={label}>{label}</label> */}
+            { label ?? <label htmlFor={label}>{label}</label> }
             <textarea 
-                id={label} 
+                id={label ?? "generic-long-text-input-id"} 
                 className="long-text-input scrollbar-vertical"
                 name={name} 
                 value={value}
                 placeholder={placeholder} 
                 onChange={handler}
-                cols="60"
-                rows="4"
+                rows="6"
             />
         </div>
     );
