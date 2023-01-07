@@ -1,6 +1,5 @@
 /* general inputs */
-
-.form-input > input,
+.form-input > input[type=text],
 .form-input > textarea {
     width: 100%;
     border: none;
@@ -31,4 +30,10 @@
     resize: none;
     /* this works for somereason (enables full widths) */
     box-sizing: border-box;
+}
+
+/* checkboxes */
+
+.form-input > input[type=checkbox] {
+    margin: var(--ns-quat);
 }

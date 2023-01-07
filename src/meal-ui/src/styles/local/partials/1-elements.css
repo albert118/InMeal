@@ -13,8 +13,5 @@
 /* simple and readable lists */
 @import "1-elements/lists.css";
 
-/* simple input readability styling */
-@import "1-elements/inputs.css";
-
 /* forms */
 @import "1-elements/forms/forms.css";
