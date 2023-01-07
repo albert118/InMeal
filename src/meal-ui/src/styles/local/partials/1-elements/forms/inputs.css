@@ -1,9 +1,13 @@
-/* general inputs */
+/* visibility styling and general inputs */
 .form-input > input[type=text],
 .form-input > textarea {
     width: 100%;
-    border: none;
+    
     background-color: var(--dark-cyan);
+    border-radius: 8px;
+    
+    padding: var(--ns-quat);
+    border: none;
 }
 
 /* text inputs */
@@ -12,7 +16,14 @@
 .form-input > textarea:focus-visible {
     /* drop some of the default interaction */
     outline: none;
-    border: none;
+    border: 1px solid var(--lindworm-green);
+    border-radius: 8px;
+
+    box-shadow: 
+              0 1px 1px rgba(0, 0, 0, .05),
+              0 2px 2px rgba(0, 0, 0, .10),
+              0 4px 4px rgba(0, 0, 0, .15),
+              0 8px 8px rgba(0, 0, 0, .20);
 }
 
 /* text inputs */

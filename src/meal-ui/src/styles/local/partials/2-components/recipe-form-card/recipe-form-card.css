@@ -10,7 +10,7 @@
     height: var(--image-card-height);
     width: 800px;
 
-    background-color: var(--dark-cyan);
+    background-color: var(--dove-grey);
     border-radius: 0 0 12px 12px;
 
     /* to get a clean box shadow edge, layer box shadows and decrease the alpha sharply */

@@ -1,10 +1,12 @@
 import React from "react";
 
 const TextInput = props => {
-    const { name, label, value, placeholder, handler } = props;
+    const { className, name, label, value, placeholder, handler } = props;
+
+    const classes = className ? `form-input ${className}` : `form-input`;
 
     return(
-        <div className="form-input">
+        <div className={className}>
             { label ?? <label htmlFor={label}>{label}</label> }
             <input 
                 id={label ?? "generic-text-input-id"} 
