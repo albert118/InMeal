@@ -44,7 +44,7 @@ const RecipeCard = props => {
                     )}
                 </ol>
             </div>
-            <div className="form-action-container">
+            <div className="action-container">
                 <Button handler={handleEditClick}>
                     edit
                 </Button>

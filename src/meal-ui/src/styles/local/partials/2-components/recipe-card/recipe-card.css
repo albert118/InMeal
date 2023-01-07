@@ -36,7 +36,7 @@
 
 .recipe-card > .title-bar,
 .recipe-card > .recipe-data-slot,
-.recipe-card > .form-action-container {
+.recipe-card > .action-container {
     width: 100%;
     margin-top: var(--ns-full);
     padding-left: var(--ns-full);
@@ -52,10 +52,4 @@
 .recipe-card > .recipe-data-slot > p {
     margin: var(--ns-quat);
     overflow-wrap: anywhere;
-}
-
-.recipe-card > .form-action-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: var(--ns-full);
 }
