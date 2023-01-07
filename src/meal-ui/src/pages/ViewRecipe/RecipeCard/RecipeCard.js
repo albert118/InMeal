@@ -14,7 +14,7 @@ const RecipeCard = props => {
 
     const navigate = useNavigate();
 
-    const handleEditClick = () => navigate(AppRoutes.editRecipes);
+    const handleEditClick = () => navigate(`${AppRoutes.recipe}/edit/${recipe.id}`);
 
     const handleTodoClick = () => {
         return null;
