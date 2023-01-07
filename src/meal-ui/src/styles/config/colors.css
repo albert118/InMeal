@@ -1,9 +1,18 @@
 /* the base colour kit, minimalist and simple */
 .meal-ui-basekit-theme {
-	--black-russian: #20232a;
 	--lynx-white: #f7f7f7;
+	--cultured: #f8f9faff;
 	--dove-grey: #6b6b6b;
-	--nero-black: #1a1a1a;
+	--black-russian: #20232a;
 	--dark-cyan: #282c34;
+	--nero-black: #1a1a1a;
+
 	--lindworm-green: #9feb73;
+}
+
+.meal-ui-form-theme {
+	--success: #04d137ff;
+	--warning: #ba0000ff;
+	--error: #f03536ff;
+	--note: hsla(210, 39%, 47%, 1);
 }

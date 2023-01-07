@@ -1,11 +1,11 @@
 /* titles */
 @import "1-elements/titles.css";
 
-/* common buttons */
-@import "1-elements/buttons.css";
-
 /* labels */
 @import "1-elements/labels.css";
+
+/* buttons */
+@import "1-elements/btn.css";
 
 /* branding */
 @import "1-elements/hero-branding.css";
@@ -15,3 +15,6 @@
 
 /* simple input readability styling */
 @import "1-elements/inputs.css";
+
+/* forms */
+@import "1-elements/forms/forms.css";

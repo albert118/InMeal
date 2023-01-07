@@ -1,0 +1,4 @@
+.form-input > input[type=text].text-input {
+    height: 2em;
+    font-weight: 300;
+}
