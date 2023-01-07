@@ -14,7 +14,7 @@ const LongTextInput = props => {
                 value={value}
                 placeholder={placeholder} 
                 onChange={handler}
-                rows="6"
+                rows="4"
             />
         </div>
     );

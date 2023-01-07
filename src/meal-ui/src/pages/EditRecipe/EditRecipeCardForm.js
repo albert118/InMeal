@@ -50,18 +50,18 @@ const EditRecipeCardForm = props => {
 
     return(
         // TODO steal the recipe card style for now
-        <FormContainer className="recipe-card">
+        <FormContainer className="recipe-form-card">
             <div className="image-slot">
                 {/* TODO: add recipe images and include edit functionality here (include dummy image for now) */}
                 <img src={recipe.image.url} alt={recipe.image.label} />
             </div>
 
             <TitleBar>
-                <TextInput name={"title"} value={recipe.title} placeholder="add a new title" handler={handleChange} />
+                <TextInput name={"title"} value={recipe.title} placeholder="Add a descriptive title, something other than Recipe #1" handler={handleChange} />
             </TitleBar>
 
             <div className="recipe-data-slot recipe-content-grid">
-                <LongTextInput className="recipe-content-blurb" name={"blurb"} value={recipe.blurb} placeholder="add some details" handler={handleChange} />
+                <LongTextInput className="recipe-content-blurb" name={"blurb"} value={recipe.blurb} placeholder="Maybe some details too?" handler={handleChange} />
                 <div className="recipe-content-ingredients">
                     {/* { recipe.recipeIngredients.map(ingredient => 
                         <Checkbox label={ingredient.label} value={false} />
