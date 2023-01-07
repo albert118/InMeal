@@ -6,7 +6,7 @@ const Checkbox = props => {
 
     return (
         <div className="form-input">
-            <input type="checkbox" id={label} key={label} value={value} name={name} />
+            <input type="checkbox" id={label} value={value} name={name} />
             <label htmlFor={label}>{label}</label>
         </div>
     );
