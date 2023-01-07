@@ -21,3 +21,6 @@
 
 /* a simple recipe card view design */
 @import "2-components/recipe-card/recipe-card.css";
+
+/* neat little scrollbar */
+@import "2-components/scrollbar-vertical.css";
