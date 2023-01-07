@@ -5,10 +5,13 @@ import { TextInput, LongTextInput } from "forms/Inputs";
 import TitleBar from "components/TitleBar/TitleBar";
 import StatusBadge from "components/StatusBadge";
 import { FormStatuses } from "forms";
-
+import AppRoutes from "navigation/AppRoutes";
+import { useNavigate } from "react-router-dom";
 
 const EditRecipeCardForm = props => {
     const { recipeId } = props;
+    
+    const navigate = useNavigate();
 
     const [recipe, setRecipe] = useState({
         id: recipeId,
@@ -29,7 +32,7 @@ const EditRecipeCardForm = props => {
 
     const handleCancel = event => {
         event.preventDefault();
-        console.log("cancelled");
+
         setRecipe({
             id: recipeId,
             title: '',
@@ -45,9 +48,9 @@ const EditRecipeCardForm = props => {
     };
 
     const handleSave = event => {
-        // event.preventDefault();
-        console.log("saved - now cancelling for demo");
-        handleCancel(event);
+        event.preventDefault();
+
+        navigate(`${AppRoutes.recipe}/${recipe.id}`);
     };
 
     return(
@@ -89,7 +92,9 @@ const EditRecipeCardForm = props => {
             </div>
             <div className="action-container">
                 <CancelButton handler={handleCancel} />
-                <SaveButton handler={handleSave} />
+                <SaveButton handler={handleSave}>
+                    save and complete
+                </SaveButton>
             </div>
 
         </FormContainer>
