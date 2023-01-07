@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CancelButton, SaveButton } from "forms/FormActions";
 import FormContainer from "forms/FormContainer";
 import { TextInput, LongTextInput } from "forms/Inputs";
@@ -7,24 +7,28 @@ import StatusBadge from "components/StatusBadge";
 import { FormStatuses } from "forms";
 import AppRoutes from "navigation/AppRoutes";
 import { useNavigate } from "react-router-dom";
+import useFetch from 'use-http';
 
+const existingRecipeId = 'ea7ca771-889c-4e53-ae88-e2b11a2c20ee';
+
+const demoImage = {
+    label: null,
+    url: "https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif"
+};
+
+const demoStatus = FormStatuses.Saved;
 
 const getStartingRecipe = recipeId => {
     return {
         id: recipeId,
         title: '',
-        status: FormStatuses.Saved,
+        
         blurb: '',
         recipeIngredients: [],
-        preparationSteps: [],
-        image: {
-            label: null,
-            url: "https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif"
-        }
+        prepSteps: [],
+        
     };
 };
-
-
 
 const getDefaultRecipe = recipeId => {
     return {
@@ -33,7 +37,7 @@ const getDefaultRecipe = recipeId => {
         status: FormStatuses.Unsaved,
         blurb: '',
         recipeIngredients: [],
-        preparationSteps: [],
+        prepSteps: [],
         image: {
             label: null,
             url: "https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif"
@@ -45,9 +49,27 @@ const getDefaultRecipe = recipeId => {
 const EditRecipeCardForm = props => {
     const { recipeId } = props;
     
+    const [recipe, setRecipe] = useState(getStartingRecipe(recipeId));
+    const { get, post, response } = useFetch('https://localhost:7078/api/recipe');
     const navigate = useNavigate();
 
-    const [recipe, setRecipe] = useState(getStartingRecipe(recipeId));
+    useEffect(() => { loadData() }, []);
+
+
+    async function loadData() {
+        const existingRecipe = await get(`?id=${encodeURIComponent(existingRecipeId)}`);
+        if (response.ok)  {
+            console.log(JSON.stringify(existingRecipe))
+            setRecipe(existingRecipe);
+        } else {
+            setRecipe(getDefaultRecipe(recipeId));
+        }
+    }
+
+    // async function saveData(recipe) {
+    //     await post(recipe);
+    //     return response.ok;
+    // }
 
     const handleChange = (event) => {
         setRecipe({ ...recipe, [event.target.name]: event.target.value });
@@ -60,6 +82,7 @@ const EditRecipeCardForm = props => {
 
     const handleSave = event => {
         event.preventDefault();
+        // await saveData(recipe)
         navigate(`${AppRoutes.recipe}/${recipe.id}`);
     };
 
@@ -68,8 +91,8 @@ const EditRecipeCardForm = props => {
         <FormContainer className="recipe-form-card">
             <div className="image-slot">
                 {/* TODO: add recipe images and include edit functionality here (include dummy image for now) */}
-                <img src={recipe.image.url} alt={recipe.image.label} />
-                <StatusBadge className="e-image-status-badge" status={recipe.status} />
+                <img src={demoImage.url} alt={demoImage.label} />
+                <StatusBadge className="e-image-status-badge" status={demoStatus} />
             </div>
 
             <TitleBar>
@@ -95,7 +118,7 @@ const EditRecipeCardForm = props => {
                 <LongTextInput 
                     className="recipe-content-preparation-steps" 
                     name={"preparationSteps"} 
-                    value={recipe.preparationSteps} 
+                    value={recipe.prepSteps} 
                     placeholder="Include the steps to make this recipe" 
                     handler={handleChange} 
                 />
@@ -110,5 +133,6 @@ const EditRecipeCardForm = props => {
         </FormContainer>
     );
 };
+
 
 export { EditRecipeCardForm };

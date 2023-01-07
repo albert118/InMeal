@@ -29,13 +29,13 @@
 /* text inputs */
 .form-input > input[type=text].text-input,
 .form-input > textarea.long-text-input {
-    color: var(--dove-grey);
-}
-
-.form-input > input[type=text].text-input:focus-visible,
-.form-input > textarea.long-text-input:focus-visible {
     color: var(--lynx-white);
 }
+
+/* .form-input > input[type=text].text-input:focus-visible,
+.form-input > textarea.long-text-input:focus-visible {
+    color: var(--lynx-white);
+} */
 
 .form-input > textarea {
     resize: none;
