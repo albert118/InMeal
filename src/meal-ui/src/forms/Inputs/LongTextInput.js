@@ -6,7 +6,7 @@ const LongTextInput = props => {
 
     return(
         <div className="form-input">
-            <label htmlFor={label}>{label}</label>
+            {/* <label htmlFor={label}>{label}</label> */}
             <textarea 
                 id={label} 
                 className="long-text-input"

@@ -5,11 +5,10 @@ const TextInput = props => {
 
     return(
         <div className="form-input">
-            <label htmlFor={label}>{label}</label>
+            {/* <label htmlFor={label}>{label}</label> */}
             <input 
                 id={label} 
                 className="text-input"
-                key={label}
                 name={name} 
                 value={value}
                 placeholder={placeholder} 
