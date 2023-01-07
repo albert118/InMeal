@@ -32,8 +32,11 @@ public class Startup
         // TODO: enable only in development
         services.AddCors(options =>
         {
-            options.AddDefaultPolicy(
-                policy => policy.WithOrigins("http://localhost:3000"));
+            options.AddDefaultPolicy(policy => policy
+                    .WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+            );
         });
     }
 
