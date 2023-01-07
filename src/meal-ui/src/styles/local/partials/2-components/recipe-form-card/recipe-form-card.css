@@ -1,7 +1,7 @@
 /* design borrowed from the original image-card */
 
 .recipe-form-card {
-    --image-card-height: 1000px;
+    --image-card-height: 1200px;
 
     display: flex;
     flex-direction: column;

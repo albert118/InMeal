@@ -9,8 +9,8 @@ export default function View() {
     const { recipeId } = useParams();
 
     const classes = genericContext.className 
-        ? `p-recipe-edit ${genericContext.className}` 
-        : `p-recipe-edit`;
+        ? `p-recipe-edit scrollbar-vertical ${genericContext.className}` 
+        : `p-recipe-edit scrollbar-vertical`;
 
     return(
         <div className={classes}>

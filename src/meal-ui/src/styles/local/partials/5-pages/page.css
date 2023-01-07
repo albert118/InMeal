@@ -3,6 +3,5 @@
     background-color: var(--lynx-white);
 
     /* keep page content neat */
-    /* any page may choose to override this, if so the vertical scrollbar is attached by default */
     overflow: hidden;
 }
