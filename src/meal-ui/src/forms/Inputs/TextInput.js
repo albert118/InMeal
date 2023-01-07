@@ -5,7 +5,7 @@ const TextInput = props => {
 
     return(
         <div className="form-input">
-            <label for={label}>{label}</label>
+            <label htmlFor={label}>{label}</label>
             <input 
                 id={label} 
                 className="text-input"
