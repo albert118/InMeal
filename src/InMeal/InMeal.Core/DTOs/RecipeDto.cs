@@ -4,7 +4,7 @@ public sealed record RecipeDto(
     Guid? Id,
     string Title,
     string? Blurb,
-    string PrepSteps,
+    List<string> PrepSteps,
     int? CookTime,
     int? PrepTime,
     List<AddRecipeIngredientDto> RecipeIngredientDtos

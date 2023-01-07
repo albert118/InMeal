@@ -28,6 +28,13 @@ public class Startup
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+
+        // TODO: enable only in development
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(
+                policy => policy.WithOrigins("http://localhost:3000"));
+        });
     }
 
     /// <summary>
@@ -53,7 +60,8 @@ public class Startup
         if (env.IsDevelopment()) {
             app.UseSwagger()
                 .UseSwaggerUI()
-                .UseDeveloperExceptionPage();
+                .UseDeveloperExceptionPage()
+                .UseCors();
         }
         else {
             // Enable the exception handler route

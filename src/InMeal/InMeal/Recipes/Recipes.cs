@@ -35,7 +35,7 @@ public class RecipesController : ControllerBase
             r.Id,
             r.Title ?? "NO TITLE YIKES",
             r.Blurb,
-            r.PreparationSteps,
+            r.PreparationSteps.Split(';').ToList(), // todo while testing and mucking around
             r.CookTime,
             r.PrepTime,
             // TODO: include name for readonly display (split the DTO up)
