@@ -9,11 +9,13 @@ const LongTextInput = props => {
             {/* <label htmlFor={label}>{label}</label> */}
             <textarea 
                 id={label} 
-                className="long-text-input"
+                className="long-text-input scrollbar-vertical"
                 name={name} 
                 value={value}
                 placeholder={placeholder} 
                 onChange={handler}
+                cols="60"
+                rows="4"
             />
         </div>
     );

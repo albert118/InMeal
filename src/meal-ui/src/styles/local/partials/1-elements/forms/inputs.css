@@ -1,10 +1,35 @@
+/* general inputs */
+
+.form-input > input,
+.form-input > textarea {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: var(--dark-cyan);
+}
+
+/* text inputs */
+
+.form-input > input:focus-visible,
+.form-input > textarea:focus-visible {
+    /* drop some of the default interaction */
+    outline: none;
+    border: none;
+}
+
 /* text inputs */
 .form-input > input[type=text].text-input,
-.form-input > input[type=text].long-text-input {
+.form-input > textarea.long-text-input {
     color: var(--dove-grey);
 }
 
 .form-input > input[type=text].text-input:focus-visible,
-.form-input > input[type=text].long-text-input:focus-visible {
+.form-input > textarea.long-text-input:focus-visible {
     color: var(--lynx-white);
+}
+
+.form-input > textarea {
+    resize: none;
+    /* this works for somereason (enables full widths) */
+    box-sizing: border-box;
 }
