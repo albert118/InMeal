@@ -40,7 +40,7 @@ public class RecipeController : ControllerBase
             task.Result.CookTime,
             task.Result.PrepTime,
             // TODO: include name for readonly display (split the DTO up)
-            task.Result.RecipeIngredients.Select(ri => new AddRecipeIngredientDto(ri.Id, ri.Quantity)).ToList()
+            task.Result.RecipeIngredients.Select(ri => new AddRecipeIngredientDto(ri.Ingredient.Name, ri.Id, ri.Quantity)).ToList()
         );
     }
 
@@ -76,7 +76,7 @@ public class RecipeController : ControllerBase
             newRecipe.Id!.Value,
             newRecipe.Title,
             newRecipe.Blurb,
-            newRecipe.PrepSteps?.ToString() ?? string.Empty,
+            newRecipe.PrepSteps[0],
             newRecipe.CookTime,
             newRecipe.PrepTime,
             ct

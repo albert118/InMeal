@@ -38,8 +38,9 @@ public class RecipesController : ControllerBase
             r.PreparationSteps.Split(';').ToList(), // todo while testing and mucking around
             r.CookTime,
             r.PrepTime,
-            // TODO: include name for readonly display (split the DTO up)
-            r.RecipeIngredients.Select(ri => new AddRecipeIngredientDto(ri.Id, ri.Quantity)).ToList()
+            r.RecipeIngredients
+                .Select(ri => new AddRecipeIngredientDto(ri.Ingredient.Name, ri.Id, ri.Quantity))
+                .ToList()
         )).ToList();
     }
 }
