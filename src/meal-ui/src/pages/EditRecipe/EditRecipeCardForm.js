@@ -9,8 +9,6 @@ import AppRoutes from "navigation/AppRoutes";
 import { useNavigate } from "react-router-dom";
 import useFetch from 'use-http';
 
-const existingRecipeId = 'ea7ca771-889c-4e53-ae88-e2b11a2c20ee';
-
 const demoImage = {
     label: null,
     url: "https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif"
@@ -42,7 +40,7 @@ const EditRecipeCardForm = props => {
     useEffect(() => { loadData() }, []);
 
     async function loadData() {
-        const existingRecipe = await get(`?id=${encodeURIComponent(existingRecipeId)}`);
+        const existingRecipe = await get(`?id=${encodeURIComponent(recipeId)}`);
         if (response.ok)  {
             setExistingRecipe(existingRecipe);
             setRecipe(existingRecipe);
