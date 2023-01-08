@@ -11,7 +11,7 @@ import '@splidejs/react-splide/css';
 //      label: "string",
 //      status: DisplayStatus.enum,
 //      handler: handlerFunc,
-//      img: { url: "url", label: "string" } 
+//      image: { url: "url", label: "string" } 
 // }
 const Carousel = props => {
     const { className, items } = props;
@@ -34,7 +34,7 @@ const Carousel = props => {
                         status={item.status}
                         ctaHandler={item.handler}
                     >
-                        <img src={item.img.url} alt={item.label} />
+                        <img src={item.image.url} alt={item.label} />
                     </ImageCard>
                 </SplideSlide>
             )}

@@ -32,7 +32,7 @@ const getStartingRecipe = recipeId => {
 
 const EditRecipeCardForm = props => {
     const { recipeId } = props;
-    
+
     const [recipe, setRecipe] = useState(getStartingRecipe(recipeId));
     const [existingRecipe, setExistingRecipe] = useState(getStartingRecipe(recipeId));
 
@@ -40,7 +40,6 @@ const EditRecipeCardForm = props => {
     const navigate = useNavigate();
 
     useEffect(() => { loadData() }, []);
-
 
     async function loadData() {
         const existingRecipe = await get(`?id=${encodeURIComponent(existingRecipeId)}`);
@@ -61,7 +60,7 @@ const EditRecipeCardForm = props => {
 
     const handleCancel = event => {
         event.preventDefault();
-        setRecipe(existingRecipe);
+        navigate(`${AppRoutes.recipe}/${recipe.id}`);
     };
 
     const handleSave = async event => {
@@ -102,7 +101,7 @@ const EditRecipeCardForm = props => {
                 <LongTextInput 
                     className="recipe-content-preparation-steps" 
                     name={"preparationSteps"} 
-                    value={recipe.prepSteps} 
+                    value={recipe.prepSteps}
                     placeholder="Include the steps to make this recipe" 
                     handler={handleChange} 
                 />

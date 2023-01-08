@@ -77,7 +77,7 @@ export default function View() {
             label: "Breakfast",
             status: FormStatuses.Unknown,
             handler: handleViewRecipeClick,
-            img: demoImage 
+            image: demoImage 
         }
     };
 
