@@ -12,7 +12,7 @@ const ImageCard = props => {
         <div className={classes}>
             <div className="image-slot">
                 {props.children}
-                <StatusBadge className="e-image-status-badge" statusText={status} />
+                <StatusBadge className="e-image-status-badge" status={status} />
             </div>
             <div className="action-slot">
                 <label className="action-label">{label}</label>
