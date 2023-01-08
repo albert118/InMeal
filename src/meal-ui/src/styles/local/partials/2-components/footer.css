@@ -1,4 +1,8 @@
 footer.hero-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
     display: flex;
     flex-direction: row-reverse;
     /* padding: var(--ns-half); */
@@ -8,7 +12,7 @@ footer.hero-footer {
     padding-right: var(--ns-half);
 }
 
-footer.hero-footer > .footer-content {
+footer.hero-footer  .footer-content {
     display: flex;
     align-items: flex-end;
     justify-content: center;
