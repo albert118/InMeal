@@ -9,9 +9,7 @@ const GenericContext = createContext();
 const GenericPageContainer = props => {
     const { className } = props;
 
-    const classes = className 
-        ? `p-page navigation-grid ${className}` 
-        : `p-page navigation-grid`;
+    const classes = className ? `p-page ${className}` : `p-page`;
 
     const genericContextProps = {
         className: "content-grid"
@@ -27,6 +25,7 @@ const GenericPageContainer = props => {
         </div>
     );
 };
+
 
 export default GenericPageContainer
 export { GenericContext };

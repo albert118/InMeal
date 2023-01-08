@@ -1,5 +1,47 @@
 .minimalist-sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     color: var(--lynx-white);
     background-color: var(--nero-black);
     padding: var(--ns-full) var(--ns-half) var(--ns-half) var(--ns-half);
+}
+
+.minimalist-sidebar-active {
+    width: 100%;
+    transform: translateX(100%);
+}
+
+.minimalist-sidebar h1 {
+    text-transform: uppercase;
+    letter-spacing: 15px;
+    font-size: 20px;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50%;
+}
+
+.setting-links {
+    display: flex;
+    height: 10%;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: var(--ns-quat);
+    cursor: pointer;
+}
+
+.hamburger div {
+    height: 2px;
+    width: 30px;
+    background-color: var(--lynx-white);
 }

@@ -1,7 +1,6 @@
 .p-page {
+    position: relative;
+    display: flex;
     height: 100vh;
     background-color: var(--lynx-white);
-
-    /* keep page content neat */
-    overflow: hidden;
 }
