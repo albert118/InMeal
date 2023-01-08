@@ -9,9 +9,11 @@ export default function App() {
     cachePolicy: "no-cache"
   };
 
+  const backendApiUri = "https://localhost:7078/api";
+
   return (
     <div className="meal-ui-basekit-theme negative-space-scale">
-      <Provider options={useHttpOptions}>
+      <Provider url={backendApiUri} options={useHttpOptions}>
         <BrowserRouter>
             <RouterConfig />
         </BrowserRouter>
