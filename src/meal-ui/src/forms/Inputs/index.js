@@ -1,3 +1,9 @@
 import Checkbox from './Checkbox';
+import { TextInput } from './TextInput';
+import { LongTextInput } from './LongTextInput';
 
-export { Checkbox };
+export { 
+    Checkbox, 
+    TextInput, 
+    LongTextInput 
+};

@@ -1,7 +1,7 @@
 /* design borrowed from the original image-card */
 
-.recipe-card {
-    --image-card-height: 1000px;
+.recipe-form-card {
+    --image-card-height: 1200px;
 
     display: flex;
     flex-direction: column;
@@ -10,7 +10,7 @@
     height: var(--image-card-height);
     width: 800px;
 
-    background-color: var(--dark-cyan);
+    background-color: var(--dove-grey);
     border-radius: 0 0 12px 12px;
 
     /* to get a clean box shadow edge, layer box shadows and decrease the alpha sharply */
@@ -25,30 +25,25 @@
     color: white;
 }
 
-.recipe-card > .image-slot {
+.recipe-form-card > .image-slot {
     position: relative;
 }
 
-.recipe-card > .image-slot > img {
+.recipe-form-card > .image-slot > img {
     height: calc(3/7 * var(--image-card-height));
     width: 100%;
 }
 
-.recipe-card > .title-bar,
-.recipe-card > .recipe-data-slot,
-.recipe-card > .action-container {
+.recipe-form-card > .title-bar,
+.recipe-form-card > .recipe-data-slot,
+.recipe-form-card > .action-container {
     margin-top: var(--ns-full);
     padding-left: var(--ns-full);
     padding-right: var(--ns-full);
 }
 
-.recipe-card > .recipe-data-slot {
+.recipe-form-card > .recipe-data-slot {
     height: 100%;
     flex-direction: column;
     align-content: flex-start; /* keep text and button relatively aligned */
-}
-
-.recipe-card > .recipe-data-slot > p {
-    margin: var(--ns-quat);
-    overflow-wrap: anywhere;
 }

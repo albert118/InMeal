@@ -1,0 +1,16 @@
+.cancel-btn {
+    display: flex;
+    align-items: center;
+    height: 25px;
+    padding: 8px 16px 8px 16px;
+    border: 1px solid var(--warning);
+    border-radius: 4px;
+    background-color: var(--dark-cyan);
+    color: var(--lynx-white);
+}
+
+.cancel-btn:hover {
+    box-shadow: 0 1px 2px var(--lynx-white);
+    color: var(--lynx-whitegreen);
+    background-color: var(--warning);
+}

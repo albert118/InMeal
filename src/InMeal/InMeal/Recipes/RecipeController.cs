@@ -36,11 +36,11 @@ public class RecipeController : ControllerBase
             task.Result.Id,
             task.Result.Title ?? "NO TITLE YIKES",
             task.Result.Blurb,
-            task.Result.PreparationSteps,
+            task.Result.PreparationSteps.Split(';').ToList(), // temp change while mucking about
             task.Result.CookTime,
             task.Result.PrepTime,
             // TODO: include name for readonly display (split the DTO up)
-            task.Result.RecipeIngredients.Select(ri => new AddRecipeIngredientDto(ri.Id, ri.Quantity)).ToList()
+            task.Result.RecipeIngredients.Select(ri => new AddRecipeIngredientDto(ri.Ingredient.Name, ri.Id, ri.Quantity)).ToList()
         );
     }
 
@@ -51,9 +51,9 @@ public class RecipeController : ControllerBase
         var task = _repository.AddRecipeAsync(
             newRecipe.Title,
             newRecipe.Blurb,
-            newRecipe.PrepSteps,
-            newRecipe.PrepTime,
+            newRecipe.PrepSteps.ToString(),
             newRecipe.CookTime,
+            newRecipe.PrepTime,
             new(), // TODO
             ct
         );
@@ -76,7 +76,7 @@ public class RecipeController : ControllerBase
             newRecipe.Id!.Value,
             newRecipe.Title,
             newRecipe.Blurb,
-            newRecipe.PrepSteps,
+            newRecipe.PrepSteps[0],
             newRecipe.CookTime,
             newRecipe.PrepTime,
             ct

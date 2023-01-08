@@ -6,7 +6,7 @@ import TitleBar from "components/TitleBar/TitleBar";
 import { Checkbox } from "forms/Inputs";
 
 const RecipeCard = props => {
-    const { className, recipe } = props;
+    const { className, recipe, isLoading } = props;
     
     const classes = className 
         ? `recipe-card ${className}` 
@@ -14,7 +14,7 @@ const RecipeCard = props => {
 
     const navigate = useNavigate();
 
-    const handleEditClick = () => navigate(AppRoutes.editRecipes);
+    const handleEditClick = () => navigate(`${AppRoutes.recipe}/edit/${recipe.id}`);
 
     const handleTodoClick = () => {
         return null;
@@ -28,23 +28,25 @@ const RecipeCard = props => {
             </div>
             
             <TitleBar handler={handleTodoClick} btnText={"todo"}>
-                {recipe.title}
+                { isLoading ? 'loading...' : recipe.title }
             </TitleBar>
 
             <div className="recipe-data-slot recipe-content-grid">
-                <p className="recipe-content-blurb">{recipe.blurb}</p>
+                <p className="recipe-content-blurb">{ isLoading ? 'loading...' : recipe.blurb }</p>
                 <div className="recipe-content-ingredients">
-                    { recipe.recipeIngredients.map(ingredient => 
-                        <Checkbox label={ingredient.label} value={false} />
+                    { isLoading 
+                        ? 'loading...' 
+                        : recipe.recipeIngredientDtos && recipe.recipeIngredientDtos.map(ingredient => <Checkbox label="an ingredient" value={false} />
                     )}
                 </div>
                 <ol type="1" className="recipe-content-preparation-steps simple-numbered-list">
-                    { recipe.preparationSteps.map(step => 
-                        <li>{step.label}</li>
+                    { isLoading 
+                        ? 'loading...' 
+                        : recipe.prepSteps && recipe.prepSteps.map(step => <li>{step.label}</li>
                     )}
                 </ol>
             </div>
-            <div className="form-action-container">
+            <div className="action-container">
                 <Button handler={handleEditClick}>
                     edit
                 </Button>

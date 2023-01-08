@@ -8,6 +8,7 @@
         [preparation-steps] 1fr [end];
 
     grid-template-rows: [blurb] 1fr [details] 2fr;
+    grid-column-gap: var(--ns-half);
 }
 
 .recipe-content-blurb {
