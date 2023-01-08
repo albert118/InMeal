@@ -8,7 +8,7 @@ const StatusBadge = props => {
             className={`status-badge ${className}`}
             style={{ backgroundColor: `var(${status.color})` }}
         >
-            <p>{status.text.toLowerCase()}</p>
+            <p>{status.text}</p>
         </div>
     );
 };
