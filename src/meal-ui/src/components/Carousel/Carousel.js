@@ -4,28 +4,37 @@ import { ImageCard } from "components/Card";
 import '@splidejs/react-splide/css';
 
 
+// An item is expected in the structure
+// item = { 
+//      id: "unique string ID",
+//      content: object,
+//      label: "string",
+//      status: DisplayStatus.enum,
+//      handler: handlerFunc,
+//      img: { url: "url", label: "string" } 
+// }
 const Carousel = props => {
     const { className, items } = props;
 
-    const splideOptions = {
+    const splideOptions = Object.freeze({
         rewind: true,
         autoWidth: true,
         perPage: 2,
-    };
+    });
 
     const classes = className ? `simple-carousel ${className}` : 'simple-carousel';
 
     return(
         <Splide className={classes} options={splideOptions}>
             { items.map(item => 
-                <SplideSlide key={item.label}>
+                <SplideSlide key={item.id}>
                     <ImageCard 
                         id={item.id}
                         label={item.label}
                         status={item.status}
                         ctaHandler={item.handler}
                     >
-                        <img src={item.imgUrl} alt={item.label} />
+                        <img src={item.img.url} alt={item.label} />
                     </ImageCard>
                 </SplideSlide>
             )}
