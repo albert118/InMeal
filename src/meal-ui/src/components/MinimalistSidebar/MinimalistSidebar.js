@@ -7,25 +7,6 @@ import { AnimatedHamburger } from './AnimatedHamburger';
 import config from 'Config';
 
 
-const brandName = "in meal";
-
-const AnimatedHamburger = props => {
-    const { callback } = props;
-
-    const handleClick = event => {
-        event.preventDefault();
-        callback();
-    };
-
-    return(
-        <div className='hamburger' onClick={handleClick}>
-            <div className='line1'></div>
-            <div className='line2'></div>
-            <div className='line3'></div>
-        </div>
-    );
-};
-
 export default function MinimalistSidebar() {
     const navigate = useNavigate();
 
