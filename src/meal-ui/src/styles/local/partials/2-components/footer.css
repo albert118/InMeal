@@ -5,7 +5,6 @@ footer.hero-footer {
     width: 100vw;
     display: flex;
     flex-direction: row-reverse;
-    /* padding: var(--ns-half); */
     color: var(--lynx-white);
     background-color: var(--nero-black);
     padding: var(--ns-quat);

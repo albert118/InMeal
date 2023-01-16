@@ -1,28 +1,10 @@
 import React, { useState } from 'react';
-import { faBars, faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from "react-router-dom";
 import AppRoutes from 'navigation/AppRoutes';
 import { IconButton } from 'components/Button';
-
-
-const brandName = "in meal";
-
-const AnimatedHamburger = props => {
-    const { callback } = props;
-
-    const handleClick = event => {
-        event.preventDefault();
-        callback();
-    };
-
-    return(
-        <div className='hamburger' onClick={handleClick}>
-            <div className='line1'></div>
-            <div className='line2'></div>
-            <div className='line3'></div>
-        </div>
-    );
-};
+import { AnimatedHamburger } from './AnimatedHamburger';
+import config from 'config';
 
 export default function MinimalistSidebar() {
     const navigate = useNavigate();
@@ -32,15 +14,20 @@ export default function MinimalistSidebar() {
     const handlePlanningClick = () => navigate(AppRoutes.planning);
     const handleSettingsClick = () => navigate(AppRoutes.settings);
 
+    // the initial state is falsy inactive, the animation begins after the first click
     const [isActive, setActive] = useState(false);
+    const [isInActive, setInActive] = useState(null);
 
-    const toggleActive = () => setActive(!isActive);
+    const toggleActive = () => {
+        setActive(!isActive);
+        setInActive(isActive);
+    };
 
     return (
-        <div className={`minimalist-sidebar ${isActive ? "minimalist-sidebar-active": ""}`}>
+        <div className={`minimalist-sidebar ${isActive ? "minimalist-sidebar-active" : ""} ${isInActive ? "minimalist-sidebar-inactive" : ""}`}>
             <div className="hero-branding-logo">
                 <button type="button" onClick={handleDashboardClick}>
-                    <h1 className="hero-title">{brandName}</h1>
+                    <h1 className="hero-title">{config.BrandName}</h1>
                 </button>
             </div>
             <AnimatedHamburger callback={toggleActive}/>

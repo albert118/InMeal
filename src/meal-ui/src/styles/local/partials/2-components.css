@@ -25,3 +25,6 @@
 
 /* neat little scrollbar */
 @import "2-components/scrollbar-vertical.css";
+
+/* an animated hamburger button */
+@import "2-components/hamburger.css";
