@@ -12,7 +12,7 @@ const GenericPageContainer = props => {
     const classes = className ? `p-page ${className}` : `p-page`;
 
     const genericContextProps = {
-        className: "content-grid"
+        // className: "content-grid"
     };
 
     return (

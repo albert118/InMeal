@@ -1,4 +1,11 @@
 .p-home-view {
+    position: relative;
     display: flex;
-    height: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-content: flex-start;
+    row-gap: var(--ns-full);
+    margin-top: var(--ns-full);
+    padding-left: var(--ns-full);
+    padding-right: var(--ns-full);
 }

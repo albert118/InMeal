@@ -65,8 +65,8 @@ export default function View() {
     const [plannedItems, setPlannedItems] = useState([]);
     const [suggestedItems, setSuggestedItems] = useState([]);
 
-    const getPlannedItems = () => recipes.slice(0, 2).map(mapForDisplay);
-    const getSuggestedItems = () => recipes.slice(3,).map(mapForDisplay);
+    const getPlannedItems = () => recipes.slice(0,).map(mapForDisplay);
+    const getSuggestedItems = () => recipes.slice(2,).map(mapForDisplay);
 
     // inject handler, display status, etc.
     // TODO handle image, label, status
@@ -94,14 +94,12 @@ export default function View() {
 
     return (
         <div className={classes}>
-            <div className="hero-grid">
-                <Card className="planning-quick-view" title="Upcoming...">
-                    <Carousel items={plannedItems}/>
-                </Card>
-                <Card className="explore-quick-view" title="Something else?">
-                    <Carousel items={suggestedItems}/>
-                </Card>
-            </div>
+            <Card className="planning-quick-view" title="Upcoming...">
+                <Carousel items={plannedItems}/>
+            </Card>
+            <Card className="explore-quick-view" title="Something else?">
+                <Carousel items={suggestedItems}/>
+            </Card>
         </div>
     );
 };
