@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AppRoutes from 'navigation/AppRoutes';
 import { IconButton } from 'components/Button';
 import { AnimatedHamburger } from './AnimatedHamburger';
-import config from 'Config';
+import config from 'config';
 
 
 export default function MinimalistSidebar() {
