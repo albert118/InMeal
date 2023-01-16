@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { version } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import config from 'config';
+import config from 'Config';
 import VersionInfo from 'VersionInfo';
-
 
 const Footer = props => {
     const { className } = props;
