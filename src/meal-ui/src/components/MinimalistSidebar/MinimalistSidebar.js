@@ -15,11 +15,17 @@ export default function MinimalistSidebar() {
     const handlePlanningClick = () => navigate(AppRoutes.planning);
     const handleSettingsClick = () => navigate(AppRoutes.settings);
 
+    // the initial state is falsy inactive, the animation begins after the first click
     const [isActive, setActive] = useState(false);
-    const toggleActive = () => setActive(!isActive);
+    const [isInActive, setInActive] = useState(null);
+
+    const toggleActive = () => {
+        setActive(!isActive);
+        setInActive(isActive);
+    };
 
     return (
-        <div className={`minimalist-sidebar ${isActive ? "minimalist-sidebar-toggle": ""}`}>
+        <div className={`minimalist-sidebar ${isActive ? "minimalist-sidebar-active" : ""} ${isInActive ? "minimalist-sidebar-inactive" : ""}`}>
             <div className="hero-branding-logo">
                 <button type="button" onClick={handleDashboardClick}>
                     <h1 className="hero-title">{config.BrandName}</h1>
