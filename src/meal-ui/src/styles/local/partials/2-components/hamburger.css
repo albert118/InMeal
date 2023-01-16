@@ -1,0 +1,13 @@
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: var(--ns-quat);
+    cursor: pointer;
+}
+
+.hamburger div {
+    height: 2px;
+    width: 30px;
+    background-color: var(--lynx-white);
+}
