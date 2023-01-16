@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import AppRoutes from 'navigation/AppRoutes';
 import { IconButton } from 'components/Button';
 import { AnimatedHamburger } from './AnimatedHamburger';
-import config from 'config';
+import config from 'Config';
+
 
 export default function MinimalistSidebar() {
     const navigate = useNavigate();

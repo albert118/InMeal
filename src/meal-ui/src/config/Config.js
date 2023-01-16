@@ -1,5 +1,6 @@
 const config = Object.freeze({
-    BrandName: "in meal",
+    BrandName: 'in meal',
+    GitSocialLink: 'https://github.com/albert118/InMeal'
 });
 
 

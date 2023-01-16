@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { version } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import config from 'Config';
+import VersionInfo from 'VersionInfo';
 
 const Footer = props => {
     const { className } = props;
@@ -8,10 +10,7 @@ const Footer = props => {
         ? `hero-footer footer-grid ${className}` 
         : `hero-footer footer-grid`;
 
-    const gitSocialLink = "https://github.com/albert118/InMeal";
-    const versionInfo = "v0.1-alpha";
-
-    const handleGitOnClick = () => window.location.href = gitSocialLink;
+    const handleGitOnClick = () => window.open(config.GitSocialLink, '_blank');
 
     return(
         <footer className={classes}>
@@ -23,7 +22,7 @@ const Footer = props => {
                 >
                     <FontAwesomeIcon icon={faGithub} />
                 </button>
-                release: {versionInfo}
+                release: {VersionInfo.toString()}
             </div>
         </footer>
     );
