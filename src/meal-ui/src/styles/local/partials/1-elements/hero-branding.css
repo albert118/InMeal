@@ -19,4 +19,5 @@
 
     padding-left: var(--ns-quat);
     padding-right: var(--ns-quat);
+    height: 100px;
 }
