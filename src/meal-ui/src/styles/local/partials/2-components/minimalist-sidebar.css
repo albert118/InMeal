@@ -1,5 +1,17 @@
+/* TODO: go through this more
+  https://medium.com/outsystems-experts/how-to-achieve-60-fps-animations-with-css3-db7b98610108
+ */
+
 .minimalist-sidebar {
     --sidebar-width: 12%;
+
+    /* sneakily hide the sidebar off screen until clicked */
+    position: absolute;
+    height: 100%;
+
+    z-index: 1;
+    transition: transform .5s ease;
+    transform: none;
 
     display: flex;
     flex-direction: column;
@@ -8,26 +20,19 @@
     color: var(--lynx-white);
     background-color: var(--nero-black);
     padding: var(--ns-full) var(--ns-half) var(--ns-half) var(--ns-half);
+
+    /* enable hardware acceleration */
+    will-change: transform;
 }
 
 .minimalist-sidebar h1 {
     font-size: .9em;
 }
 
-.minimalist-sidebar-active {
-    animation: minimalist-sidebar-fade-in 1s ease forwards;
-}
-
-.minimalist-sidebar-inactive {
-    animation: minimalist-sidebar-fade-out 1s ease forwards;
-}
-
-@keyframes minimalist-sidebar-fade-in {
-    from { width: var(--sidebar-width) } to { width: 30%; }
-}
-
-@keyframes minimalist-sidebar-fade-out {
-    from { width: 30%; } to { width: var(--sidebar-width) }
+.minimalist-sidebar-toggle {
+    transform: translateX(30%);
+    width: 20%;
+    left: -6%;
 }
 
 .nav-links {

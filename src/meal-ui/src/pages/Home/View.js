@@ -65,8 +65,8 @@ export default function View() {
     const [plannedItems, setPlannedItems] = useState([]);
     const [suggestedItems, setSuggestedItems] = useState([]);
 
-    const getPlannedItems = () => recipes.slice(0,).map(mapForDisplay);
-    const getSuggestedItems = () => recipes.slice(2,).map(mapForDisplay);
+    const getPlannedItems = () => recipes.slice(0,3).map(mapForDisplay);
+    const getSuggestedItems = () => recipes.slice(0,3).map(mapForDisplay);
 
     // inject handler, display status, etc.
     // TODO handle image, label, status
