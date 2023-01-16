@@ -1,11 +1,2 @@
-/* grid for sidebar, footer, etc. */
-@import "grids/navigation-grid.css";
-
-/* dashboard "hero" content grid */
-@import "grids/hero-grid.css";
-
-/* the management sidebar with links + branding */
-@import "grids/sidebar-grid.css";
-
 /* a content grids for recipe views */
 @import "grids/recipe-content-grid.css";

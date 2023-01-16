@@ -2,6 +2,9 @@
     --card-height: 420px;
     height: var(--card-height);
 
+    min-width: 700px;
+    max-width: 1000px;
+
     display: flex;
     flex-direction: column;
 
