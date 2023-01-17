@@ -28,9 +28,8 @@ public class RecipeController : ControllerBase
         var task = _repository.GetRecipeAsync(id, ct);
         task.Wait(ct);
 
-        if (task.Result == null) {
+        if (task.Result == null)
             return null;
-        }
 
         return new(
             task.Result.Id,
