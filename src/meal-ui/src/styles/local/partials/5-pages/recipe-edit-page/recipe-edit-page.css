@@ -1,7 +1,7 @@
 .p-recipe-edit {
     display: flex;
     justify-content: space-around;
-    align-items: start;
+    align-items: flex-start;
 
     overflow-y: scroll !important;
     padding-top: var(--ns-full);
