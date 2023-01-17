@@ -2,9 +2,9 @@
 
 public record UpcomingRecipe(
     Guid Id,
-    RecipeDto Recipe,
+    RecipeDto Item,
     string Label,
-    PreparationStatus PreparationStatus,
+    string Status,
     Image Image
 );
 

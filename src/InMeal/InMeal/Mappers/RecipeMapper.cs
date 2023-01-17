@@ -26,9 +26,8 @@ public static class RecipeMapper
             recipe.Id,
             ToDto(recipe),
             recipe.Title ?? "NO TITLE YIKES",
-            PreparationStatus.Unknown,
+            PreparationStatus.Unknown.ToString().ToLowerInvariant(),
             new(
-                recipe.Title ?? "NO TITLE YIKES",
                 "https://media.tenor.com/1TjGpMd7GEYAAAAC/stitch-dessert.gif"
             )
         );
