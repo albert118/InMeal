@@ -1,25 +1,20 @@
-import React, { createContext } from "react";
-
-
-const FormContext = createContext(); 
+import React from 'react';
 
 const FormContainer = props => {
-    const { className } = props;
+	const { className, handler } = props;
 
-    const classes = className 
-        ? `meal-ui-form-theme form ${className}` 
-        : `meal-ui-form-theme form`;
+	const classes = className
+		? `meal-ui-form-theme form ${className}`
+		: `meal-ui-form-theme form`;
 
-    const formContextProps = { };
-
-    return(
-        <form className={classes}>
-            <FormContext.Provider value={formContextProps}> 
-                {props.children}
-            </FormContext.Provider>
-        </form>
-    );
+	return (
+		<form
+			className={classes}
+			onSubmit={handler}
+		>
+			{props.children}
+		</form>
+	);
 };
 
 export default FormContainer;
-export { FormContext };
