@@ -16,7 +16,13 @@ All the usual so far,
 
 ## Startup (First Time)
 
-**Runs the app in the development mode.**
+### Install VS Code extensions
+
+* prettier
+* ES7+ React/Redux/React-Native snippets
+* GitLens — Git supercharged
+
+## Package installation and running the app in dev mode
 
 Install the dependencies, run the app tests, then spin-up the app.
 
