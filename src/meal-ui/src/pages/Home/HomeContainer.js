@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import GenericPageContainer from 'pages/GenericPageContainer';
 import HomeView from './View';
-import { FormStatuses } from "forms";
 import useFetch from 'use-http';
 import AppRoutes from 'navigation/AppRoutes';
 import { useNavigate } from "react-router-dom";
