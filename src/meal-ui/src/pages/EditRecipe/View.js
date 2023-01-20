@@ -13,17 +13,41 @@ const demoImage = {
 	url: 'https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif'
 };
 
-const demoStatus = FormStatuses.Saved;
+const defaultRequestOptions = Object.freeze({
+	mode: 'cors',
+	cache: 'no-cache',
+	credentials: 'same-origin',
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	redirect: 'follow',
+	referrerPolicy: 'no-referrer'
+});
 
 export default function View(props) {
 	const { existingRecipe } = props;
 
 	const [recipe, setRecipe] = useState(existingRecipe);
+	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
 	const navigate = useNavigate();
 
-	const submitHandler = e => {
-		e.preventDefault();
+	const submitHandler = async event => {
+		event.preventDefault();
+
+		const url = 'https://localhost:7078/api/recipe';
+
+		const response = await fetch(url, {
+			...defaultRequestOptions,
+			method: 'PATCH',
+			body: JSON.stringify(recipe)
+		});
+
+		if (response.ok) {
+			setFormStatus(FormStatuses.Saved);
+		} else {
+			setFormStatus(FormStatuses.Error);
+		}
 	};
 
 	const handleCancel = event => {
@@ -31,17 +55,14 @@ export default function View(props) {
 		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 	};
 
-	const handleSave = useCallback(async event => {
-		event.preventDefault();
-		console.log('saved the form!');
-	}, []);
-
-	const updateRecipeDataHandler = useCallback(event => {
+	const updateRecipeDataHandler = event => {
 		setRecipe({
 			...recipe,
 			[event.target.name]: event.target.value
 		});
-	}, []);
+
+		setFormStatus(FormStatuses.Unsaved);
+	};
 
 	return (
 		<FormContainer
@@ -55,7 +76,7 @@ export default function View(props) {
 				/>
 				<StatusBadge
 					className='e-image-status-badge'
-					status={demoStatus}
+					status={formStatus}
 				/>
 			</div>
 
@@ -96,7 +117,7 @@ export default function View(props) {
 
 			<div className='action-container'>
 				<CancelButton handler={handleCancel} />
-				<SaveButton handler={handleSave}>save and complete</SaveButton>
+				<SaveButton>save and complete</SaveButton>
 			</div>
 		</FormContainer>
 	);

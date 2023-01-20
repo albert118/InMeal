@@ -34,7 +34,7 @@ export default function EditRecipeContainer() {
 		};
 
 		loadData();
-	}, []);
+	}, [recipeId]);
 
 	return (
 		<GenericPageContainer>
