@@ -41,8 +41,8 @@ export default function View() {
 			const loadedRecipes = await (
 				await fetch(url, {
 					...defaultRequestOptions,
-					method: 'POSt',
-					body: recipeIds
+					method: 'POST',
+					body: JSON.stringify(recipeIds)
 				})
 			).json();
 
