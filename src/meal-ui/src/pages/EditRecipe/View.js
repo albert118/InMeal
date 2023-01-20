@@ -37,7 +37,10 @@ export default function View(props) {
 	}, []);
 
 	const updateRecipeDataHandler = useCallback(event => {
-		console.log('set via callback');
+		setRecipe({
+			...recipe,
+			[event.target.name]: event.target.value
+		});
 	}, []);
 
 	return (
