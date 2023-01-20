@@ -6,7 +6,7 @@ const StatusBadge = props => {
 	return (
 		<div
 			className={`status-badge ${className}`}
-			style={{ backgroundColor: status.color }}
+			style={{ backgroundColor: `var(${status.color})` }}
 		>
 			<p>{status.text}</p>
 		</div>
