@@ -1,5 +1,5 @@
 import FormContainer from 'forms/FormContainer';
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from 'navigation/AppRoutes';
 import TitleBar from 'components/TitleBar/TitleBar';
@@ -7,6 +7,7 @@ import StatusBadge from 'components/StatusBadge';
 import { FormStatuses } from 'forms';
 import { TextInput, LongTextInput } from 'forms/Inputs';
 import { CancelButton, SaveButton } from 'forms/FormActions';
+import Button from 'components/Button';
 
 const demoImage = {
 	label: null,
@@ -48,6 +49,14 @@ export default function View(props) {
 		} else {
 			setFormStatus(FormStatuses.Error);
 		}
+
+		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
+	};
+
+	const clearChanges = event => {
+		event.preventDefault();
+		setRecipe(existingRecipe);
+		setFormStatus(FormStatuses.Saved);
 	};
 
 	const handleCancel = event => {
@@ -116,6 +125,7 @@ export default function View(props) {
 			</div>
 
 			<div className='action-container'>
+				<Button handler={clearChanges}>Clear changes</Button>
 				<CancelButton handler={handleCancel} />
 				<SaveButton>save and complete</SaveButton>
 			</div>
