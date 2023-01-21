@@ -1,7 +1,7 @@
 import React from 'react';
 
-const FormContainer = props => {
-	const { className, handler } = props;
+export default function FormContainer(props) {
+	const { className, onSubmit } = props;
 
 	const classes = className
 		? `meal-ui-form-theme form ${className}`
@@ -10,11 +10,9 @@ const FormContainer = props => {
 	return (
 		<form
 			className={classes}
-			onSubmit={handler}
+			onSubmit={onSubmit}
 		>
 			{props.children}
 		</form>
 	);
-};
-
-export default FormContainer;
+}

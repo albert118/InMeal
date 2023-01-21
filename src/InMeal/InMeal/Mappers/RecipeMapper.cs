@@ -11,7 +11,7 @@ public static class RecipeMapper
             recipe.Id,
             recipe.Title ?? "NO TITLE YIKES",
             recipe.Blurb,
-            recipe.PreparationSteps.Split(';').ToList(), // todo while testing and mucking around
+            recipe.PreparationSteps.Split('\n').ToList(),
             recipe.CookTime,
             recipe.PrepTime,
             recipe.RecipeIngredients

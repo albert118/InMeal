@@ -1,0 +1,16 @@
+.multi-line-input {
+	display: flex;
+	flex-direction: column;
+	row-gap: 1em;
+}
+
+.add-new-item {
+	display: flex;
+	column-gap: 2em;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.add-new-item .new-item {
+	width: 200px;
+}
