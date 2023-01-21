@@ -1,13 +1,12 @@
-import FormContainer from 'forms/FormContainer';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from 'navigation/AppRoutes';
 import TitleBar from 'components/TitleBar/TitleBar';
-import StatusBadge from 'components/StatusBadge';
-import { FormStatuses } from 'forms';
+import FormContainer, { FormStatuses } from 'forms';
 import { TextInput, LongTextInput, MultiLineInput } from 'forms/Inputs';
 import { CancelButton, SaveButton } from 'forms/FormActions';
 import Button from 'components/Button';
+import ImageHero from './HeroImage';
 
 export default function View(props) {
 	const { existingRecipe } = props;
@@ -91,15 +90,10 @@ export default function View(props) {
 		setFormStatus(FormStatuses.Unsaved);
 	};
 
-	const editNewIngredient = event => {
-		event.preventDefault();
-		setNewIngredient(event.target.value);
-	};
-
 	return (
 		<FormContainer
 			className='recipe-form-card'
-			handler={submitHandler}
+			onSubmit={submitHandler}
 		>
 			<ImageHero
 				image={demoImage}
@@ -129,30 +123,11 @@ export default function View(props) {
 					className='recipe-content-ingredients'
 					items={ingredients}
 					newItem={newIngredient}
-					newItemHandler={editNewIngredient}
+					newItemHandler={event =>
+						setNewIngredient(event.target.value)
+					}
 					addNewItemHandler={addIngredientHandler}
 				/>
-
-				{/* <div className='recipe-content-ingredients'>
-					{ingredients.map(ingredient => (
-						<TextInput
-							key={ingredient.ingredientId}
-							name={ingredient.ingredientId}
-							value={ingredient.label}
-						/>
-					))}
-
-					<div className='add-new-ingredient'>
-						<TextInput
-							className='new-ingredient'
-							name='new-ingredient'
-							value={newIngredient}
-							handler={editNewIngredient}
-							placeholder='add another ingredient!'
-						/>
-						<Button handler={addIngredientHandler}>➕</Button>
-					</div>
-				</div> */}
 
 				<LongTextInput
 					className='recipe-content-preparation-steps'
@@ -171,23 +146,6 @@ export default function View(props) {
 		</FormContainer>
 	);
 }
-
-const ImageHero = props => {
-	const { image, label, status } = props;
-
-	return (
-		<div className='image-slot'>
-			<img
-				src={image.url}
-				alt={label}
-			/>
-			<StatusBadge
-				className='e-image-status-badge'
-				status={status}
-			/>
-		</div>
-	);
-};
 
 const demoImage = Object.freeze({
 	label: null,
