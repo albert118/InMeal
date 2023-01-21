@@ -25,10 +25,30 @@ const defaultRequestOptions = Object.freeze({
 	referrerPolicy: 'no-referrer'
 });
 
+const createIngredient = (name, numberOf) => {
+	return {
+		label: name,
+		ingredientId: crypto.randomUUID(),
+		quantity: {
+			amount: numberOf,
+			units: 0
+		}
+	};
+};
+
 export default function View(props) {
 	const { existingRecipe } = props;
 
 	const [recipe, setRecipe] = useState(existingRecipe);
+
+	const [ingredients, setIngredients] = useState(
+		existingRecipe.recipeIngredientDtos.length !== 0
+			? existingRecipe.recipeIngredientDtos
+			: []
+	);
+
+	const [newIngredient, setNewIngredient] = useState('');
+
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
 	const navigate = useNavigate();
@@ -41,7 +61,10 @@ export default function View(props) {
 		const response = await fetch(url, {
 			...defaultRequestOptions,
 			method: 'PATCH',
-			body: JSON.stringify(recipe)
+			body: JSON.stringify({
+				...recipe,
+				recipeIngredientDtos: ingredients
+			})
 		});
 
 		if (response.ok) {
@@ -56,7 +79,14 @@ export default function View(props) {
 	const clearChanges = event => {
 		event.preventDefault();
 		setRecipe(existingRecipe);
+
 		setFormStatus(FormStatuses.Saved);
+
+		setIngredients(
+			existingRecipe.recipeIngredientDtos.length !== 0
+				? existingRecipe.recipeIngredientDtos
+				: []
+		);
 	};
 
 	const handleCancel = event => {
@@ -73,6 +103,26 @@ export default function View(props) {
 		setFormStatus(FormStatuses.Unsaved);
 	};
 
+	const addIngredientHandler = event => {
+		event.preventDefault();
+
+		if (!newIngredient || newIngredient === '') {
+			alert('actually add an ingredient 😉');
+			return;
+		}
+
+		setIngredients([...ingredients, createIngredient(newIngredient, 1)]);
+
+		// allow a new ingredient to be added
+		setNewIngredient('');
+		setFormStatus(FormStatuses.Unsaved);
+	};
+
+	const editNewIngredient = event => {
+		event.preventDefault();
+		setNewIngredient(event.target.value);
+	};
+
 	return (
 		<FormContainer
 			className='recipe-form-card'
@@ -81,7 +131,7 @@ export default function View(props) {
 			<div className='image-slot'>
 				<img
 					src={demoImage.url}
-					alt={demoImage.label}
+					alt={recipe.title}
 				/>
 				<StatusBadge
 					className='e-image-status-badge'
@@ -107,13 +157,26 @@ export default function View(props) {
 					handler={updateRecipeDataHandler}
 				/>
 
-				<LongTextInput
-					className='recipe-content-ingredients'
-					name={'recipeIngredients'}
-					value={recipe.recipeIngredientDtos}
-					placeholder='What ingredients do you need?'
-					handler={updateRecipeDataHandler}
-				/>
+				<div className='recipe-content-ingredients'>
+					{ingredients.map(ingredient => (
+						<TextInput
+							key={ingredient.ingredientId}
+							name={ingredient.ingredientId}
+							value={ingredient.label}
+						/>
+					))}
+
+					<div className='add-new-ingredient'>
+						<TextInput
+							className='new-ingredient'
+							name='new-ingredient'
+							value={newIngredient}
+							handler={editNewIngredient}
+							placeholder='add another ingredient!'
+						/>
+						<Button handler={addIngredientHandler}>➕</Button>
+					</div>
+				</div>
 
 				<LongTextInput
 					className='recipe-content-preparation-steps'
