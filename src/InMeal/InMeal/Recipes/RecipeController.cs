@@ -35,7 +35,7 @@ public class RecipeController : ControllerBase
             task.Result.Id,
             task.Result.Title ?? "NO TITLE YIKES",
             task.Result.Blurb,
-            task.Result.PreparationSteps.Split(';').ToList(), // temp change while mucking about
+            task.Result.PreparationSteps.Split('\n').ToList(),
             task.Result.CookTime,
             task.Result.PrepTime,
             // TODO: include name for readonly display (split the DTO up)
@@ -75,7 +75,7 @@ public class RecipeController : ControllerBase
             newRecipe.Id!.Value,
             newRecipe.Title,
             newRecipe.Blurb,
-            newRecipe.PrepSteps[0],
+            string.Join('\n', newRecipe.PrepSteps),
             newRecipe.CookTime,
             newRecipe.PrepTime,
             ct
