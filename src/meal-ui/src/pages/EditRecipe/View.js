@@ -5,36 +5,9 @@ import AppRoutes from 'navigation/AppRoutes';
 import TitleBar from 'components/TitleBar/TitleBar';
 import StatusBadge from 'components/StatusBadge';
 import { FormStatuses } from 'forms';
-import { TextInput, LongTextInput } from 'forms/Inputs';
+import { TextInput, LongTextInput, MultiLineInput } from 'forms/Inputs';
 import { CancelButton, SaveButton } from 'forms/FormActions';
 import Button from 'components/Button';
-
-const demoImage = {
-	label: null,
-	url: 'https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif'
-};
-
-const defaultRequestOptions = Object.freeze({
-	mode: 'cors',
-	cache: 'no-cache',
-	credentials: 'same-origin',
-	headers: {
-		'Content-Type': 'application/json'
-	},
-	redirect: 'follow',
-	referrerPolicy: 'no-referrer'
-});
-
-const createIngredient = (name, numberOf) => {
-	return {
-		label: name,
-		ingredientId: crypto.randomUUID(),
-		quantity: {
-			amount: numberOf,
-			units: 0
-		}
-	};
-};
 
 export default function View(props) {
 	const { existingRecipe } = props;
@@ -128,20 +101,15 @@ export default function View(props) {
 			className='recipe-form-card'
 			handler={submitHandler}
 		>
-			<div className='image-slot'>
-				<img
-					src={demoImage.url}
-					alt={recipe.title}
-				/>
-				<StatusBadge
-					className='e-image-status-badge'
-					status={formStatus}
-				/>
-			</div>
+			<ImageHero
+				image={demoImage}
+				label={recipe.title}
+				status={formStatus}
+			/>
 
 			<TitleBar>
 				<TextInput
-					name={'title'}
+					name='title'
 					value={recipe.title}
 					placeholder='Add a descriptive title'
 					handler={updateRecipeDataHandler}
@@ -151,13 +119,21 @@ export default function View(props) {
 			<div className='recipe-data-slot recipe-content-grid'>
 				<LongTextInput
 					className='recipe-content-blurb'
-					name={'blurb'}
+					name='blurb'
 					value={recipe.blurb}
 					placeholder='Maybe some details too?'
 					handler={updateRecipeDataHandler}
 				/>
 
-				<div className='recipe-content-ingredients'>
+				<MultiLineInput
+					className='recipe-content-ingredients'
+					items={ingredients}
+					newItem={newIngredient}
+					newItemHandler={editNewIngredient}
+					addNewItemHandler={addIngredientHandler}
+				/>
+
+				{/* <div className='recipe-content-ingredients'>
 					{ingredients.map(ingredient => (
 						<TextInput
 							key={ingredient.ingredientId}
@@ -176,11 +152,11 @@ export default function View(props) {
 						/>
 						<Button handler={addIngredientHandler}>➕</Button>
 					</div>
-				</div>
+				</div> */}
 
 				<LongTextInput
 					className='recipe-content-preparation-steps'
-					name={'preparationSteps'}
+					name='preparationSteps'
 					value={recipe.prepSteps}
 					placeholder='Include the steps to make this recipe'
 					handler={updateRecipeDataHandler}
@@ -188,10 +164,54 @@ export default function View(props) {
 			</div>
 
 			<div className='action-container'>
-				<Button handler={clearChanges}>Clear changes</Button>
+				<Button handler={clearChanges}>clear changes</Button>
 				<CancelButton handler={handleCancel} />
 				<SaveButton>save and complete</SaveButton>
 			</div>
 		</FormContainer>
 	);
 }
+
+const ImageHero = props => {
+	const { image, label, status } = props;
+
+	return (
+		<div className='image-slot'>
+			<img
+				src={image.url}
+				alt={label}
+			/>
+			<StatusBadge
+				className='e-image-status-badge'
+				status={status}
+			/>
+		</div>
+	);
+};
+
+const demoImage = Object.freeze({
+	label: null,
+	url: 'https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif'
+});
+
+const defaultRequestOptions = Object.freeze({
+	mode: 'cors',
+	cache: 'no-cache',
+	credentials: 'same-origin',
+	headers: {
+		'Content-Type': 'application/json'
+	},
+	redirect: 'follow',
+	referrerPolicy: 'no-referrer'
+});
+
+const createIngredient = (name, numberOf) => {
+	return {
+		label: name,
+		ingredientId: crypto.randomUUID(),
+		quantity: {
+			amount: numberOf,
+			units: 0
+		}
+	};
+};

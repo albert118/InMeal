@@ -19,24 +19,9 @@
 .recipe-content-ingredients {
 	grid-row: details / details;
 	grid-column: ingredient / ingredient;
-
-	display: flex;
-	flex-direction: column;
-	row-gap: 1em;
 }
 
 .recipe-content-preparation-steps {
 	grid-row: details / details;
 	grid-column: preparation-steps / preparation-steps;
-}
-
-.add-new-ingredient {
-	display: flex;
-	column-gap: 2em;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.add-new-ingredient .new-ingredient {
-	width: 200px;
 }
