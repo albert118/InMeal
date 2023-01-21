@@ -19,8 +19,12 @@ export default function View(props) {
 			: []
 	);
 
-	const [newIngredient, setNewIngredient] = useState('');
+	const [preparationSteps, setPreparationSteps] = useState(
+		existingRecipe.prepSteps.length !== 0 ? existingRecipe.prepSteps : []
+	);
 
+	const [newIngredient, setNewIngredient] = useState('');
+	const [newStep, setNewStep] = useState('');
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
 	const navigate = useNavigate();
@@ -35,7 +39,8 @@ export default function View(props) {
 			method: 'PATCH',
 			body: JSON.stringify({
 				...recipe,
-				recipeIngredientDtos: ingredients
+				recipeIngredientDtos: ingredients,
+				prepSteps: preparationSteps
 			})
 		});
 
@@ -57,6 +62,12 @@ export default function View(props) {
 		setIngredients(
 			existingRecipe.recipeIngredientDtos.length !== 0
 				? existingRecipe.recipeIngredientDtos
+				: []
+		);
+
+		setPreparationSteps(
+			existingRecipe.prepSteps.length !== 0
+				? existingRecipe.prepSteps
 				: []
 		);
 	};
@@ -87,6 +98,21 @@ export default function View(props) {
 
 		// allow a new ingredient to be added
 		setNewIngredient('');
+		setFormStatus(FormStatuses.Unsaved);
+	};
+
+	const addPreparationStepHandler = event => {
+		event.preventDefault();
+
+		if (!newStep || newStep === '') {
+			alert('actually add a preparation step 😄');
+			return;
+		}
+
+		setPreparationSteps([...preparationSteps, newStep]);
+
+		// allow a new step to be added
+		setNewStep('');
 		setFormStatus(FormStatuses.Unsaved);
 	};
 
@@ -129,12 +155,12 @@ export default function View(props) {
 					addNewItemHandler={addIngredientHandler}
 				/>
 
-				<LongTextInput
+				<MultiLineInput
 					className='recipe-content-preparation-steps'
-					name='preparationSteps'
-					value={recipe.prepSteps}
-					placeholder='Include the steps to make this recipe'
-					handler={updateRecipeDataHandler}
+					items={preparationSteps}
+					newItem={newStep}
+					newItemHandler={event => setNewStep(event.target.value)}
+					addNewItemHandler={addPreparationStepHandler}
 				/>
 			</div>
 

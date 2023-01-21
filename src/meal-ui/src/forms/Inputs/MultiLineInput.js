@@ -12,13 +12,22 @@ export default function MultiLineInput(props) {
 
 	return (
 		<div className={classes}>
-			{items.map(item => (
-				<TextInput
-					key={item.id}
-					name={item.id}
-					value={item.label}
-				/>
-			))}
+			{items.map(item =>
+				item.hasOwnProperty('label') ? (
+					<TextInput
+						key={item.id}
+						name={item.id}
+						value={item.label}
+					/>
+				) : (
+					<TextInput
+						// TODO
+						key={crypto.randomUUID()}
+						name={crypto.randomUUID()}
+						value={item}
+					/>
+				)
+			)}
 
 			<div className='add-new-item'>
 				<TextInput
