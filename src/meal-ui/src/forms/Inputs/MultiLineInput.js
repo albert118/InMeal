@@ -21,9 +21,8 @@ export default function MultiLineInput(props) {
 					/>
 				) : (
 					<TextInput
-						// TODO
-						key={crypto.randomUUID()}
-						name={crypto.randomUUID()}
+						key={item.id ?? crypto.randomUUID()}
+						name={item.id ?? crypto.randomUUID()}
 						value={item}
 					/>
 				)
