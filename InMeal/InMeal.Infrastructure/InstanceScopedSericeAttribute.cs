@@ -4,4 +4,4 @@ namespace InMeal.Infrastructure;
 /// Tag a service implementation for registration as an instance scoped service
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
-public class InstanceScopedServiceAttribute : Attribute { }
+public class InstanceScopedServiceAttribute : Attribute {}
