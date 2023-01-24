@@ -1,6 +1,0 @@
-.action-container {
-    display: flex;
-    justify-content: flex-end;
-    column-gap: 1em;
-    margin-bottom: var(--ns-full);
-}
