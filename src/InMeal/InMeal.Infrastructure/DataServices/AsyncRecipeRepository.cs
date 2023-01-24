@@ -90,6 +90,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
         // include FK linkage based on the passed Ingredient.Id
         var newRecipeIngredients = recipeIngredients
+            .Where(ri => !recipeIngredients.Select(dto =>  dto.IngredientId).Contains(ri.IngredientId))
             .Select(ri => new RecipeIngredient {
                 IngredientId = ri.IngredientId, Quantity = ri.Quantity
             })
