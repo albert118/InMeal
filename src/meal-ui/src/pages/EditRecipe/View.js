@@ -170,6 +170,7 @@ export default function View(props) {
 						setNewIngredient(event.target.value)
 					}
 					addNewItemHandler={addIngredientHandler}
+					placeholder='add another ingredient'
 				/>
 
 				<MultiLineInput
@@ -178,6 +179,7 @@ export default function View(props) {
 					newItem={newStep}
 					newItemHandler={event => setNewStep(event.target.value)}
 					addNewItemHandler={addPreparationStepHandler}
+					placeholder='include a further step'
 				/>
 			</div>
 
