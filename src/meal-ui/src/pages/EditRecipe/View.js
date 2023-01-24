@@ -46,11 +46,10 @@ export default function View(props) {
 
 		if (response.ok) {
 			setFormStatus(FormStatuses.Saved);
+			navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 		} else {
 			setFormStatus(FormStatuses.Error);
 		}
-
-		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 	};
 
 	const clearChanges = event => {
@@ -86,7 +85,19 @@ export default function View(props) {
 		setFormStatus(FormStatuses.Unsaved);
 	};
 
-	const addIngredientHandler = event => {
+	const postIngredient = async ingredientName => {
+		const url = `https://localhost:7078/api/ingredient?newIngredientName=${encodeURIComponent(
+			ingredientName
+		)}`;
+
+		const response = await (
+			await fetch(url, { ...defaultRequestOptions, method: 'PUT' })
+		).json();
+
+		return response;
+	};
+
+	const addIngredientHandler = async event => {
 		event.preventDefault();
 
 		if (!newIngredient || newIngredient === '') {
@@ -94,7 +105,13 @@ export default function View(props) {
 			return;
 		}
 
-		setIngredients([...ingredients, createIngredient(newIngredient, 1)]);
+		const response = await postIngredient(newIngredient);
+
+		// include the correct ID
+		setIngredients([
+			...ingredients,
+			createIngredient(newIngredient, response.id, 1)
+		]);
 
 		// allow a new ingredient to be added
 		setNewIngredient('');
@@ -189,10 +206,10 @@ const defaultRequestOptions = Object.freeze({
 	referrerPolicy: 'no-referrer'
 });
 
-const createIngredient = (name, numberOf) => {
+const createIngredient = (name, id, numberOf) => {
 	return {
 		label: name,
-		ingredientId: crypto.randomUUID(),
+		ingredientId: id,
 		quantity: {
 			amount: numberOf,
 			units: 0
