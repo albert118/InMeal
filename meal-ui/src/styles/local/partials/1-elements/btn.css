@@ -1,0 +1,24 @@
+.btn {
+    display: flex;
+    align-items: center;
+    height: 25px;
+    padding: 8px 16px 8px 16px;
+    border: 1px solid var(--lynx-white);
+    border-radius: 4px;
+    color: var(--lynx-white);
+}
+
+.btn:hover {
+    box-shadow: 0 1px 2px var(--lynx-white);
+    color: var(--lindworm-green);
+    background-color: var(--dove-grey);
+}
+
+.icon-btn {
+    color: var(--lynx-white);
+    font-size: 1.8em;
+}
+  
+.primary-icon-btn {
+    color: var(--lindworm-green);
+}

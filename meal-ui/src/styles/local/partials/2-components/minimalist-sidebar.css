@@ -1,0 +1,45 @@
+.minimalist-sidebar {
+    --sidebar-width: 12%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: var(--sidebar-width);
+    color: var(--lynx-white);
+    background-color: var(--nero-black);
+    padding: var(--ns-full) var(--ns-half) var(--ns-half) var(--ns-half);
+}
+
+.minimalist-sidebar h1 {
+    font-size: .9em;
+}
+
+.minimalist-sidebar-active {
+    animation: minimalist-sidebar-fade-in 1s ease forwards;
+}
+
+.minimalist-sidebar-inactive {
+    animation: minimalist-sidebar-fade-out 1s ease forwards;
+}
+
+@keyframes minimalist-sidebar-fade-in {
+    from { width: var(--sidebar-width) } to { width: 30%; }
+}
+
+@keyframes minimalist-sidebar-fade-out {
+    from { width: 30%; } to { width: var(--sidebar-width) }
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50%;
+}
+
+.setting-links {
+    display: flex;
+    height: 10%;
+    align-items: stretch;
+    justify-content: center;
+}

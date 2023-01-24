@@ -1,0 +1,23 @@
+.hero-branding-header {
+    padding-right: var(--ns-half);
+    padding-left: var(--ns-half);
+}
+
+.hero-title {
+    --text-spacing-width: 20px;
+
+    font-size: 1.2em;
+    letter-spacing: var(--text-spacing-width);
+    padding-left: var(--text-spacing-width);
+    color: var(--lynx-white);
+    text-transform: uppercase;
+}
+
+.hero-branding-logo {
+    display: flex;
+    justify-content: space-around;
+
+    padding-left: var(--ns-quat);
+    padding-right: var(--ns-quat);
+    height: 100px;
+}
