@@ -7,5 +7,5 @@ public sealed record RecipeDto(
     List<string> PrepSteps,
     int? CookTime,
     int? PrepTime,
-    List<AddRecipeIngredientDto> RecipeIngredientDtos
+    List<RecipeIngredientDto> RecipeIngredientDtos
 );

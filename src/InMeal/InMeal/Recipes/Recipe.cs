@@ -10,13 +10,15 @@ namespace InMeal.Recipes;
 public class RecipeController : ControllerBase
 {
     private readonly ILogger<RecipeController> _logger;
-    private readonly IAsyncRecipeRepository _repository;
+    private readonly IAsyncRecipeIngredientRepository _recipeIngredientRepository;
+    private readonly IAsyncRecipeRepository _recipeRepository;
     private readonly ICancellationTokenAccessor _tokenAccessor;
 
-    public RecipeController(IAsyncRecipeRepository repository, ILogger<RecipeController> logger,
+    public RecipeController(IAsyncRecipeRepository recipeRepository, IAsyncRecipeIngredientRepository recipeIngredientRepository, ILogger<RecipeController> logger,
         ICancellationTokenAccessor tokenAccessor)
     {
-        _repository = repository;
+        _recipeRepository = recipeRepository;
+        _recipeIngredientRepository = recipeIngredientRepository;
         _logger = logger;
         _tokenAccessor = tokenAccessor;
     }
@@ -25,7 +27,7 @@ public class RecipeController : ControllerBase
     public RecipeDto? Get(Guid id)
     {
         var ct = _tokenAccessor.Token;
-        var task = _repository.GetRecipeAsync(id, ct);
+        var task = _recipeRepository.GetRecipeAsync(id, ct);
         task.Wait(ct);
 
         if (task.Result == null)
@@ -38,22 +40,23 @@ public class RecipeController : ControllerBase
             task.Result.PreparationSteps.Split('\n').ToList(),
             task.Result.CookTime,
             task.Result.PrepTime,
-            // TODO: include name for readonly display (split the DTO up)
-            task.Result.RecipeIngredients.Select(ri => new AddRecipeIngredientDto(ri.Ingredient.Name, ri.Id, ri.Quantity)).ToList()
+            task.Result.RecipeIngredients
+                .Select(ri => new RecipeIngredientDto(ri.Ingredient.Name, ri.Id, ri.Quantity))
+                .ToList()
         );
     }
 
     [HttpPost(Name = "Add Recipe")]
-    public IActionResult Post(RecipeDto newRecipe)
+    public IActionResult Post(RecipeDto dto)
     {
         var ct = _tokenAccessor.Token;
-        var task = _repository.AddRecipeAsync(
-            newRecipe.Title,
-            newRecipe.Blurb,
-            newRecipe.PrepSteps.ToString(),
-            newRecipe.CookTime,
-            newRecipe.PrepTime,
-            new(), // TODO
+        var task = _recipeRepository.AddRecipeAsync(
+            dto.Title,
+            dto.Blurb,
+            dto.PrepSteps.ToString(),
+            dto.CookTime,
+            dto.PrepTime,
+            dto.RecipeIngredientDtos,
             ct
         );
 
@@ -63,26 +66,17 @@ public class RecipeController : ControllerBase
     }
 
     [HttpPatch(Name = "Edit Recipe")]
-    public IActionResult Patch(RecipeDto newRecipe)
+    public async Task<IActionResult> Patch(RecipeDto dto)
     {
-        if (newRecipe.Id.IsNullOrEmpty()) {
+        if (dto.Id.IsNullOrEmpty()) {
             _logger.LogWarning("Attempted to edit a recipe without an ID (did you forget to pass the ID?)");
             return BadRequest("An ID is required to edit an existing recipe");
         }
 
         var ct = _tokenAccessor.Token;
-        var task = _repository.EditRecipeAsync(
-            newRecipe.Id!.Value,
-            newRecipe.Title,
-            newRecipe.Blurb,
-            string.Join('\n', newRecipe.PrepSteps),
-            newRecipe.CookTime,
-            newRecipe.PrepTime,
-            ct
-        );
 
-        task.Wait(ct);
+        var wasSuccessful = await _recipeRepository.EditRecipeAsync(dto.Id!.Value, dto, dto.RecipeIngredientDtos, ct);
 
-        return !task.Result ? BadRequest() : Ok();
+        return !wasSuccessful ?  BadRequest() : Ok();
     }
 }

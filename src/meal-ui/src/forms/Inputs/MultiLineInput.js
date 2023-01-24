@@ -3,8 +3,14 @@ import { TextInput } from './TextInput';
 import Button from 'components/Button';
 
 export default function MultiLineInput(props) {
-	const { className, items, newItem, newItemHandler, addNewItemHandler } =
-		props;
+	const {
+		className,
+		items,
+		newItem,
+		newItemHandler,
+		addNewItemHandler,
+		placeholder
+	} = props;
 
 	const classes = className
 		? `multi-line-input ${className}`
@@ -21,9 +27,8 @@ export default function MultiLineInput(props) {
 					/>
 				) : (
 					<TextInput
-						// TODO
-						key={crypto.randomUUID()}
-						name={crypto.randomUUID()}
+						key={item.id ?? crypto.randomUUID()}
+						name={item.id ?? crypto.randomUUID()}
 						value={item}
 					/>
 				)
@@ -35,7 +40,7 @@ export default function MultiLineInput(props) {
 					name='new-ingredient'
 					value={newItem}
 					handler={newItemHandler}
-					placeholder='add another ingredient!'
+					placeholder={placeholder}
 				/>
 				<Button handler={addNewItemHandler}>➕</Button>
 			</div>

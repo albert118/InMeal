@@ -10,23 +10,6 @@ const demoImage = {
 export default function View(props) {
 	const { recipe, isLoading } = props;
 
-	// useEffect(() => {
-	// 	const loadData = async () => {
-	// 		const url = `https://localhost:7078/api/recipe?id=${encodeURIComponent(
-	// 			recipeId
-	// 		)}`;
-
-	// 		const loadedRecipe = await (
-	// 			await fetch(url, { ...defaultRequestOptions, method: 'GET' })
-	// 		).json();
-
-	// 		setRecipe(loadedRecipe);
-	// 	};
-
-	// 	loadData();
-	// 	toggleLoading(!isLoading);
-	// }, []);
-
 	return (
 		<div className='p-recipe-view'>
 			<RecipeCard

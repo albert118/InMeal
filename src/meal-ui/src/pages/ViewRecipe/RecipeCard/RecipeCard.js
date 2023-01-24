@@ -28,6 +28,7 @@ const RecipeCard = props => {
 				<div className='recipe-content-ingredients'>
 					{recipe.recipeIngredientDtos.map(ingredient => (
 						<Checkbox
+							key={ingredient.id}
 							label={ingredient.label}
 							value={false}
 						/>
