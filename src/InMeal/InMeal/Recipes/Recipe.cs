@@ -1,9 +1,7 @@
 using InMeal.Core.DTOs;
-using InMeal.Core.Entities;
 using InMeal.Core.Globalisation;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 
 namespace InMeal.Recipes;
 
@@ -77,14 +75,7 @@ public class RecipeController : ControllerBase
 
         var ct = _tokenAccessor.Token;
 
-        var existingRecipe = await _recipeRepository.GetRecipeAsync(dto.Id!.Value, ct)
-                             ?? throw new DataException($"No {nameof(Recipe)} was found with the given ID '{dto.Id!.Value}'");
-
-        var wasSuccessful = await _recipeRepository.EditRecipeAsync(
-            existingRecipe,
-            dto.RecipeIngredientDtos,
-            ct
-        );
+        var wasSuccessful = await _recipeRepository.EditRecipeAsync(dto.Id!.Value, dto, dto.RecipeIngredientDtos, ct);
 
         return !wasSuccessful ?  BadRequest() : Ok();
     }

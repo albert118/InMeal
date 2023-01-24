@@ -65,10 +65,19 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     }
 
     // A dumb update method
-    public async Task<bool> EditRecipeAsync(Recipe existingRecipe, IReadOnlyList<RecipeIngredientDto> recipeIngredients, CancellationToken ct)
+    public async Task<bool> EditRecipeAsync(Guid recipeId, RecipeDto updatedRecipe, IReadOnlyList<RecipeIngredientDto> recipeIngredients, CancellationToken ct)
     {
         try {
+            var existingRecipe = await GetRecipeAsync(recipeId, ct)
+                                 ?? throw new DataException($"No {nameof(Recipe)} was found with the given ID '{recipeId}'");
+
             AddRecipeIngredients(existingRecipe, recipeIngredients);
+
+            existingRecipe.Title = updatedRecipe.Title;
+            existingRecipe.Blurb = updatedRecipe.Blurb;
+            existingRecipe.PreparationSteps = string.Join('\n', updatedRecipe.PrepSteps);
+            existingRecipe.PrepTime = updatedRecipe.PrepTime;
+            existingRecipe.CookTime = updatedRecipe.CookTime;
 
             _recipeDbContext.Recipes.Update(existingRecipe);
             await _recipeDbContext.SaveChangesAsync(ct);
@@ -88,14 +97,16 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
                 "Attempting to add link ingredients to a recipe with empty ID(s) ('00000000-0000-0000-0000-000000000000') is not possible");
         }
 
-        // include FK linkage based on the passed Ingredient.Id
+        var existingRecipeIngredients = existingRecipe.RecipeIngredients.Select(ri => ri.Id);
+
         var newRecipeIngredients = recipeIngredients
-            .Where(ri => !recipeIngredients.Select(dto =>  dto.IngredientId).Contains(ri.IngredientId))
+            // only add new ingredients
+            .Where(ri => !existingRecipeIngredients.Contains(ri.IngredientId))
             .Select(ri => new RecipeIngredient {
                 IngredientId = ri.IngredientId, Quantity = ri.Quantity
             })
             .ToList();
 
-        existingRecipe.RecipeIngredients = newRecipeIngredients;
+        existingRecipe.RecipeIngredients.AddRange(newRecipeIngredients);
     }
 }
