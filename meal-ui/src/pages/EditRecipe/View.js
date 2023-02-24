@@ -7,6 +7,9 @@ import { TextInput, LongTextInput, MultiLineInput } from 'forms/Inputs';
 import { CancelButton, SaveButton } from 'forms/FormActions';
 import Button from 'components/Button';
 import ImageHero from './HeroImage';
+import { patchRecipe, putIngredient } from 'dataHooks/useRecipe';
+import { demoImage } from './DemoImage';
+import { createIngredient } from './IngredientMapper';
 
 export default function View(props) {
 	const { existingRecipe } = props;
@@ -32,17 +35,11 @@ export default function View(props) {
 	const submitHandler = async event => {
 		event.preventDefault();
 
-		const url = 'https://localhost:7078/api/recipe';
-
-		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'PATCH',
-			body: JSON.stringify({
-				...recipe,
-				recipeIngredientDtos: ingredients,
-				prepSteps: preparationSteps
-			})
-		});
+		const response = await patchRecipe(
+			recipe,
+			ingredients,
+			preparationSteps
+		);
 
 		if (response.ok) {
 			setFormStatus(FormStatuses.Saved);
@@ -86,15 +83,7 @@ export default function View(props) {
 	};
 
 	const postIngredient = async ingredientName => {
-		const url = `https://localhost:7078/api/ingredient?newIngredientName=${encodeURIComponent(
-			ingredientName
-		)}`;
-
-		const response = await (
-			await fetch(url, { ...defaultRequestOptions, method: 'PUT' })
-		).json();
-
-		return response;
+		return await putIngredient(ingredientName);
 	};
 
 	const addIngredientHandler = async event => {
@@ -191,30 +180,3 @@ export default function View(props) {
 		</FormContainer>
 	);
 }
-
-const demoImage = Object.freeze({
-	label: null,
-	url: 'https://64.media.tumblr.com/2b34471a440e97cd99f5728954238b3f/c4e6a303827cff2d-07/s540x810/fd32c1315bdfc4271b125bd417c999d4abb18126.gif'
-});
-
-const defaultRequestOptions = Object.freeze({
-	mode: 'cors',
-	cache: 'no-cache',
-	credentials: 'same-origin',
-	headers: {
-		'Content-Type': 'application/json'
-	},
-	redirect: 'follow',
-	referrerPolicy: 'no-referrer'
-});
-
-const createIngredient = (name, id, numberOf) => {
-	return {
-		label: name,
-		ingredientId: id,
-		quantity: {
-			amount: numberOf,
-			units: 0
-		}
-	};
-};
