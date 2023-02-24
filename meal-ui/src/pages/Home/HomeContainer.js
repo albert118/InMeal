@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import GenericPageContainer from 'pages/GenericPageContainer';
 import HomeView from './View';
 import AppRoutes from 'navigation/AppRoutes';
