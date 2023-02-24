@@ -8,7 +8,7 @@ import { CancelButton, SaveButton } from 'forms/FormActions';
 import Button from 'components/Button';
 import ImageHero from './HeroImage';
 import { patchRecipe, putIngredient } from 'dataHooks/useRecipe';
-import { demoImage } from './DemoImage';
+import { demoImage } from '../../DemoImage';
 import { createIngredient } from './IngredientMapper';
 
 export default function View(props) {

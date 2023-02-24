@@ -2,7 +2,7 @@ import { ImageCard } from 'components/Card';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from 'navigation/AppRoutes';
 import { FormStatuses } from 'forms';
-import { demoImage } from 'pages/EditRecipe/DemoImage';
+import { demoImage } from 'DemoImage';
 import useRecipes from 'dataHooks/useRecipes';
 
 export default function View() {
