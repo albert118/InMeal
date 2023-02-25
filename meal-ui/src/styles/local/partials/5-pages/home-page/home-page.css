@@ -9,3 +9,7 @@
 	padding-left: var(--ns-full);
 	padding-right: var(--ns-full);
 }
+
+.quick-recipes-view > div:last-child {
+	margin-top: var(--ns-full);
+}
