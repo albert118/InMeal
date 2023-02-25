@@ -14,12 +14,7 @@ import { postRecipe, patchRecipe, putIngredient } from 'dataHooks/useRecipe';
 import { demoImage } from 'DemoImage';
 import { createIngredient } from './createIngredient';
 import { isFalsishOrEmpty } from 'utils';
-
-const defaultRecipe = Object.freeze({
-	id: null,
-	title: 'new recipe',
-	blurb: ''
-});
+import { defaultRecipe } from './DefaultRecipe';
 
 export default function View() {
 	const [recipe, setRecipe] = useState(defaultRecipe);
