@@ -1,4 +1,6 @@
 .simple-card {
+	--card-height: 450px;
+
 	padding: var(--ns-half);
 	padding-bottom: 0;
 
@@ -6,18 +8,31 @@
 }
 
 .simple-card > div.content-slot > div {
+	color: white;
+	letter-spacing: 3px;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.action-option {
+	margin-top: 6px;
+
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-	gap: var(--ns-half);
 
-	height: 40px;
+	height: 80px;
 	padding: var(--ns-half);
 
 	background-color: var(--nero-black);
 	border-radius: 4px;
+}
 
-	letter-spacing: 3px;
-	color: white;
+.content-slot {
+	display: flex;
+	flex-direction: column;
+	row-gap: var(--ns-full);
+	justify-content: space-around;
 }

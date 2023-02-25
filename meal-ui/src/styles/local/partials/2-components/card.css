@@ -1,5 +1,7 @@
 .card {
+	/* any derived cards should override this value to update the height and any dependent calc's */
 	--card-height: 420px;
+
 	height: var(--card-height);
 
 	min-width: 700px;
