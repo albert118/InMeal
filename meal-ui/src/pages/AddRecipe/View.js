@@ -13,16 +13,13 @@ import { postRecipe, patchRecipe, putIngredient } from 'dataHooks/useRecipe';
 
 import { demoImage } from 'DemoImage';
 import { createIngredient } from './createIngredient';
+import { isFalsishOrEmpty } from 'utils';
 
 const defaultRecipe = Object.freeze({
 	id: null,
 	title: 'new recipe',
 	blurb: ''
 });
-
-function isFalsishOrEmpty(str) {
-	return !str || (typeof response === 'string' && str.length > 0);
-}
 
 export default function View() {
 	const [recipe, setRecipe] = useState(defaultRecipe);
