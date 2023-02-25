@@ -18,3 +18,7 @@
 .quick-recipes-view > div:last-child {
 	margin-top: var(--ns-full);
 }
+
+.simple-card {
+	width: 30%;
+}
