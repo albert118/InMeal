@@ -20,11 +20,11 @@
 }
 
 .recipe-card > .title-bar,
-.recipe-data-slot {
+.recipe-card > .recipe-data-slot {
 	padding: var(--ns-half) var(--ns-full) var(--ns-half) var(--ns-full);
 }
 
-.recipe-data-slot {
+.recipe-card > .recipe-data-slot {
 	align-content: flex-start; /* keep text and button relatively aligned */
 	overflow-y: scroll;
 	overflow-x: hidden;
@@ -35,12 +35,12 @@
 		0 8px 8px rgba(0, 0, 0, 0.15);
 }
 
-.recipe-data-slot p {
+.recipe-card > .recipe-data-slot p {
 	margin: var(--ns-quat);
 	overflow-wrap: anywhere;
 }
 
-.action-container {
+.recipe-card > .action-container {
 	padding: var(--ns-half);
 	margin-bottom: var(--ns-half);
 }
