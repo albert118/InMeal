@@ -33,11 +33,16 @@ public class RecipeController : ControllerBase
         if (task.Result == null)
             return null;
 
+        var preparationStepsAsList =
+            string.IsNullOrEmpty(task.Result.PreparationSteps) || !task.Result.PreparationSteps.Contains('\n')
+                ? null
+                : task.Result.PreparationSteps.Split('\n').ToList();
+
         return new(
             task.Result.Id,
             task.Result.Title ?? "NO TITLE YIKES",
             task.Result.Blurb,
-            task.Result.PreparationSteps.Split('\n').ToList(),
+            preparationStepsAsList,
             task.Result.CookTime,
             task.Result.PrepTime,
             task.Result.RecipeIngredients
@@ -51,7 +56,7 @@ public class RecipeController : ControllerBase
     {
         var ct = _tokenAccessor.Token;
 
-        var preparationStepsStringified = dto.PrepSteps.Count > 1 ? string.Join('\n', dto.PrepSteps) : string.Empty;
+        var preparationStepsStringified = dto.PrepSteps is {Count: > 1} ? string.Join('\n', dto.PrepSteps): string.Empty;
 
         var task = _recipeRepository.AddRecipeAsync(
             dto.Title,

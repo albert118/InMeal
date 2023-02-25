@@ -15,10 +15,14 @@ import { demoImage } from 'DemoImage';
 import { createIngredient } from './createIngredient';
 
 const defaultRecipe = Object.freeze({
-	id: undefined,
+	id: null,
 	title: 'new recipe',
 	blurb: ''
 });
+
+function isFalsishOrEmpty(str) {
+	return !str || (typeof response === 'string' && str.length > 0);
+}
 
 export default function View() {
 	const [recipe, setRecipe] = useState(defaultRecipe);
@@ -37,22 +41,31 @@ export default function View() {
 		event.preventDefault();
 
 		let response;
-		console.log(recipe);
 
 		// update the recipe after adding for the first time
 		if (recipe.id) {
 			response = await patchRecipe(recipe, ingredients, preparationSteps);
-			setRecipe(response.Id, ...recipe);
+
+			if (response.ok) {
+				setFormStatus(FormStatuses.Saved);
+			} else {
+				setFormStatus(FormStatuses.Error);
+			}
 		} else {
 			response = await postRecipe(recipe, ingredients, preparationSteps);
-		}
 
-		if (response.ok) {
-			setFormStatus(FormStatuses.Saved);
-			// navigate(`${AppRoutes.recipe}/${recipe.id}`);
-		} else {
-			setFormStatus(FormStatuses.Error);
+			if (!isFalsishOrEmpty(response)) {
+				setRecipe({ ...recipe, id: response });
+				setFormStatus(FormStatuses.Saved);
+			} else {
+				setFormStatus(FormStatuses.Error);
+			}
 		}
+	};
+
+	const viewRecipe = event => {
+		event.preventDefault();
+		navigate(`${AppRoutes.recipe}/${recipe.id}`);
 	};
 
 	const clearChanges = event => {
@@ -174,6 +187,16 @@ export default function View() {
 				/>
 			</div>
 
+			{recipe.id && (
+				<div className='action-container view-recipe-action'>
+					<Button
+						className='view-recipe-btn'
+						handler={viewRecipe}
+					>
+						view recipe
+					</Button>
+				</div>
+			)}
 			<div className='action-container'>
 				<Button handler={clearChanges}>clear changes</Button>
 				<CancelButton handler={handleCancel} />
