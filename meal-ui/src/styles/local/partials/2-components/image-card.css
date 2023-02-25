@@ -1,21 +1,12 @@
 .image-card {
 	--image-card-height: 300px;
 
-	display: flex;
-	flex-direction: column;
 	margin: var(--ns-half);
 
 	height: var(--image-card-height);
-	width: calc(1.1 * var(--image-card-height));
-
-	border: 1.25px solid var(--nero-black);
+	min-width: calc(1.1 * var(--image-card-height));
+	max-width: calc(1.1 * var(--image-card-height));
 	background-color: var(--dark-cyan);
-	border-radius: 0 0 12px 12px;
-
-	/* to get a clean box shadow edge, layer box shadows and decrease the alpha sharply */
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.6), 0 2px 2px rgba(0, 0, 0, 0.2),
-		0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1),
-		0 16px 16px rgba(0, 0, 0, 0.05);
 }
 
 .image-card > .image-slot {

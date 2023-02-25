@@ -3,22 +3,10 @@
 .recipe-card {
 	--image-card-height: 1000px;
 
-	display: flex;
-	flex-direction: column;
-	margin: var(--ns-half);
-
 	height: var(--image-card-height);
-	width: 800px;
-
-	border: 1.25px solid var(--nero-black);
+	min-width: 800px;
+	max-width: 800px;
 	background-color: var(--dark-cyan);
-	border-radius: 0 0 12px 12px;
-
-	/* to get a clean box shadow edge, layer box shadows and decrease the alpha sharply */
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.6), 0 2px 2px rgba(0, 0, 0, 0.2),
-		0 4px 4px rgba(0, 0, 0, 0.1), 0 8px 8px rgba(0, 0, 0, 0.1),
-		0 16px 16px rgba(0, 0, 0, 0.05);
-
 	color: white;
 }
 
@@ -32,20 +20,27 @@
 }
 
 .recipe-card > .title-bar,
-.recipe-card > .recipe-data-slot,
-.recipe-card > .action-container {
-	margin-top: var(--ns-full);
-	padding-left: var(--ns-full);
-	padding-right: var(--ns-full);
+.recipe-data-slot {
+	padding: var(--ns-half) var(--ns-full) var(--ns-half) var(--ns-full);
 }
 
-.recipe-card > .recipe-data-slot {
-	height: 100%;
-	flex-direction: column;
+.recipe-data-slot {
 	align-content: flex-start; /* keep text and button relatively aligned */
+	overflow-y: scroll;
+	overflow-x: hidden;
+
+	box-shadow: inset 0 
+		2px 2px rgba(0, 0, 0, 0.05),
+		0 4px 4px rgba(0, 0, 0, 0.1),
+		0 8px 8px rgba(0, 0, 0, 0.15);
 }
 
-.recipe-card > .recipe-data-slot > p {
+.recipe-data-slot p {
 	margin: var(--ns-quat);
 	overflow-wrap: anywhere;
+}
+
+.action-container {
+	padding: var(--ns-half);
+	margin-bottom: var(--ns-half);
 }
