@@ -18,7 +18,7 @@ const Carousel = props => {
 	const splideOptions = Object.freeze({
 		rewind: true,
 		autoWidth: true,
-		perPage: 2
+		perPage: 3
 	});
 
 	const classes = className
