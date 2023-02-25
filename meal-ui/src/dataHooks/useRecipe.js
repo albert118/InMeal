@@ -28,7 +28,9 @@ const postRecipe = async (recipe, ingredients, preparationSteps) => {
 		})
 	});
 
-	return response;
+	const data = await response.json();
+
+	return data;
 };
 
 const patchRecipe = async (recipe, ingredients, preparationSteps) => {
