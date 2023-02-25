@@ -3,7 +3,7 @@ import GenericPageContainer from 'pages/GenericPageContainer';
 
 export default function AddRecipeContainer() {
 	return (
-		<GenericPageContainer>
+		<GenericPageContainer className='p-recipe-add'>
 			<View />
 		</GenericPageContainer>
 	);

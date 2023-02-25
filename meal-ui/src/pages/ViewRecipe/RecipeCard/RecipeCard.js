@@ -40,9 +40,7 @@ const RecipeCard = props => {
 					type='1'
 					className='recipe-content-preparation-steps simple-numbered-list'
 				>
-					{recipe.prepSteps.map(step => (
-						<li>{step}</li>
-					))}
+					{recipe.prepSteps && recipe.prepSteps.map(step => <li>{step}</li>)}
 				</ol>
 			</div>
 			<div className='action-container'>
