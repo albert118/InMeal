@@ -8,7 +8,9 @@ import { Checkbox } from 'forms/Inputs';
 const RecipeCard = props => {
 	const { className, recipe } = props;
 
-	const classes = className ? `recipe-card ${className}` : `recipe-card`;
+	const classes = className
+		? `card recipe-card ${className}`
+		: `card recipe-card`;
 
 	const navigate = useNavigate();
 
@@ -23,7 +25,7 @@ const RecipeCard = props => {
 				{recipe.title}
 			</TitleBar>
 
-			<div className='recipe-data-slot recipe-content-grid'>
+			<div className='recipe-data-slot recipe-content-grid scrollbar-vertical'>
 				<p className='recipe-content-blurb'>{recipe.blurb}</p>
 				<div className='recipe-content-ingredients'>
 					{recipe.recipeIngredientDtos.map(ingredient => (
@@ -38,9 +40,7 @@ const RecipeCard = props => {
 					type='1'
 					className='recipe-content-preparation-steps simple-numbered-list'
 				>
-					{recipe.prepSteps.map(step => (
-						<li>{step}</li>
-					))}
+					{recipe.prepSteps && recipe.prepSteps.map(step => <li>{step}</li>)}
 				</ol>
 			</div>
 			<div className='action-container'>

@@ -1,0 +1,38 @@
+.simple-card {
+	--card-height: 450px;
+
+	padding: var(--ns-half);
+	padding-bottom: 0;
+
+	width: 100%;
+}
+
+.simple-card > div.content-slot > div {
+	color: white;
+	letter-spacing: 3px;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.action-option {
+	margin-top: 6px;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	height: 80px;
+	padding: var(--ns-half);
+
+	background-color: var(--nero-black);
+	border-radius: 4px;
+}
+
+.content-slot {
+	display: flex;
+	flex-direction: column;
+	row-gap: var(--ns-full);
+	justify-content: space-around;
+}

@@ -1,33 +1,27 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AppRoutes from 'navigation/AppRoutes';
+
 import TitleBar from 'components/TitleBar/TitleBar';
 import FormContainer, { FormStatuses } from 'forms';
 import { TextInput, LongTextInput, MultiLineInput } from 'forms/Inputs';
 import { CancelButton, SaveButton } from 'forms/FormActions';
 import Button from 'components/Button';
-import ImageHero from './HeroImage';
-import { patchRecipe, putIngredient } from 'dataHooks/useRecipe';
-import { demoImage } from '../../DemoImage';
-import { createIngredient } from './IngredientMapper';
+import ImageHero from 'pages/EditRecipe/HeroImage';
 
-export default function View(props) {
-	const { existingRecipe } = props;
+import AppRoutes from 'navigation/AppRoutes';
+import { postRecipe, patchRecipe, putIngredient } from 'dataHooks/useRecipe';
 
-	const [recipe, setRecipe] = useState(existingRecipe);
+import { demoImage } from 'DemoImage';
+import { createIngredient } from './createIngredient';
+import { isFalsishOrEmpty } from 'utils';
+import { defaultRecipe } from './DefaultRecipe';
 
-	const [ingredients, setIngredients] = useState(
-		existingRecipe.recipeIngredientDtos &&
-			existingRecipe.recipeIngredientDtos.length !== 0
-			? existingRecipe.recipeIngredientDtos
-			: []
-	);
+export default function View() {
+	const [recipe, setRecipe] = useState(defaultRecipe);
 
-	const [preparationSteps, setPreparationSteps] = useState(
-		existingRecipe.prepSteps && existingRecipe.prepSteps.length !== 0
-			? existingRecipe.prepSteps
-			: []
-	);
+	const [ingredients, setIngredients] = useState([]);
+
+	const [preparationSteps, setPreparationSteps] = useState([]);
 
 	const [newIngredient, setNewIngredient] = useState('');
 	const [newStep, setNewStep] = useState('');
@@ -38,42 +32,55 @@ export default function View(props) {
 	const submitHandler = async event => {
 		event.preventDefault();
 
-		const response = await patchRecipe(
-			recipe,
-			ingredients,
-			preparationSteps
-		);
+		let response;
 
-		if (response.ok) {
-			setFormStatus(FormStatuses.Saved);
-			navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
+		// update the recipe after adding for the first time
+		if (recipe.id) {
+			response = await patchRecipe(recipe, ingredients, preparationSteps);
+
+			if (response.ok) {
+				setFormStatus(FormStatuses.Saved);
+			} else {
+				setFormStatus(FormStatuses.Error);
+			}
 		} else {
-			setFormStatus(FormStatuses.Error);
+			response = await postRecipe(recipe, ingredients, preparationSteps);
+
+			if (!isFalsishOrEmpty(response)) {
+				setRecipe({ ...recipe, id: response });
+				setFormStatus(FormStatuses.Saved);
+			} else {
+				setFormStatus(FormStatuses.Error);
+			}
 		}
+	};
+
+	const viewRecipe = event => {
+		event.preventDefault();
+		navigate(`${AppRoutes.recipe}/${recipe.id}`);
 	};
 
 	const clearChanges = event => {
 		event.preventDefault();
-		setRecipe(existingRecipe);
+
+		// clear the recipe to the latest saved recipe
+		// this is the default if no recipe has been saved yet
+		if (recipe.id) {
+			setRecipe(recipe);
+			setIngredients(ingredients);
+			setPreparationSteps(preparationSteps);
+		} else {
+			setRecipe(defaultRecipe);
+			setIngredients([]);
+			setPreparationSteps([]);
+		}
 
 		setFormStatus(FormStatuses.Saved);
-
-		setIngredients(
-			existingRecipe.recipeIngredientDtos.length !== 0
-				? existingRecipe.recipeIngredientDtos
-				: []
-		);
-
-		setPreparationSteps(
-			existingRecipe.prepSteps.length !== 0
-				? existingRecipe.prepSteps
-				: []
-		);
 	};
 
 	const handleCancel = event => {
 		event.preventDefault();
-		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
+		navigate(`${AppRoutes.root}`);
 	};
 
 	const updateRecipeDataHandler = event => {
@@ -95,14 +102,14 @@ export default function View(props) {
 
 		const response = await putIngredient(newIngredient);
 
-		// include the correct ID
+		// include the ID from the response
+		// fake the quantity
 		setIngredients([
 			...ingredients,
 			createIngredient(newIngredient, response.id, 1)
 		]);
 
-		// include the ID from the response
-		// fake the quantity
+		// allow a new ingredient to be added
 		setNewIngredient('');
 		setFormStatus(FormStatuses.Unsaved);
 	};
@@ -172,10 +179,20 @@ export default function View(props) {
 				/>
 			</div>
 
+			{recipe.id && (
+				<div className='action-container view-recipe-action'>
+					<Button
+						className='view-recipe-btn'
+						handler={viewRecipe}
+					>
+						view recipe
+					</Button>
+				</div>
+			)}
 			<div className='action-container'>
 				<Button handler={clearChanges}>clear changes</Button>
 				<CancelButton handler={handleCancel} />
-				<SaveButton>save and complete</SaveButton>
+				<SaveButton>save</SaveButton>
 			</div>
 		</FormContainer>
 	);
