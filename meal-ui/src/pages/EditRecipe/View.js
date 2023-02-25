@@ -82,10 +82,6 @@ export default function View(props) {
 		setFormStatus(FormStatuses.Unsaved);
 	};
 
-	const postIngredient = async ingredientName => {
-		return await putIngredient(ingredientName);
-	};
-
 	const addIngredientHandler = async event => {
 		event.preventDefault();
 
@@ -94,7 +90,7 @@ export default function View(props) {
 			return;
 		}
 
-		const response = await postIngredient(newIngredient);
+		const response = await putIngredient(newIngredient);
 
 		// include the correct ID
 		setIngredients([
@@ -102,7 +98,8 @@ export default function View(props) {
 			createIngredient(newIngredient, response.id, 1)
 		]);
 
-		// allow a new ingredient to be added
+		// include the ID from the response
+		// fake the quantity
 		setNewIngredient('');
 		setFormStatus(FormStatuses.Unsaved);
 	};

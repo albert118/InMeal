@@ -15,6 +15,22 @@ const getRecipe = async id => {
 	return data;
 };
 
+const postRecipe = async (recipe, ingredients, preparationSteps) => {
+	const url = `${ApiConfig.API_URL}/recipe`;
+
+	const response = await fetch(url, {
+		...defaultRequestOptions,
+		method: 'POST',
+		body: JSON.stringify({
+			...recipe,
+			recipeIngredientDtos: ingredients,
+			prepSteps: preparationSteps
+		})
+	});
+
+	return response;
+};
+
 const patchRecipe = async (recipe, ingredients, preparationSteps) => {
 	const url = `${ApiConfig.API_URL}/recipe`;
 
@@ -60,4 +76,4 @@ export default function useRecipe(recipeId) {
 	return { recipe, isLoading };
 }
 
-export { getRecipe, patchRecipe, putIngredient };
+export { getRecipe, patchRecipe, putIngredient, postRecipe };

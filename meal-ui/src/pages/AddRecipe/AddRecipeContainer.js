@@ -1,3 +1,10 @@
+import View from './View';
+import GenericPageContainer from 'pages/GenericPageContainer';
+
 export default function AddRecipeContainer() {
-	return <div className='this-container'>here</div>;
+	return (
+		<GenericPageContainer>
+			<View />
+		</GenericPageContainer>
+	);
 }
