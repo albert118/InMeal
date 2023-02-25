@@ -50,10 +50,13 @@ public class RecipeController : ControllerBase
     public Guid Post(RecipeDto dto)
     {
         var ct = _tokenAccessor.Token;
+
+        var preparationStepsStringified = dto.PrepSteps.Count > 1 ? string.Join('\n', dto.PrepSteps) : string.Empty;
+
         var task = _recipeRepository.AddRecipeAsync(
             dto.Title,
             dto.Blurb,
-            dto.PrepSteps.ToString(),
+            preparationStepsStringified,
             dto.CookTime,
             dto.PrepTime,
             dto.RecipeIngredientDtos,
