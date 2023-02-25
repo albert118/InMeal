@@ -17,13 +17,16 @@ export default function View(props) {
 	const [recipe, setRecipe] = useState(existingRecipe);
 
 	const [ingredients, setIngredients] = useState(
-		existingRecipe.recipeIngredientDtos.length !== 0
+		existingRecipe.recipeIngredientDtos &&
+			existingRecipe.recipeIngredientDtos.length !== 0
 			? existingRecipe.recipeIngredientDtos
 			: []
 	);
 
 	const [preparationSteps, setPreparationSteps] = useState(
-		existingRecipe.prepSteps.length !== 0 ? existingRecipe.prepSteps : []
+		existingRecipe.prepSteps && existingRecipe.prepSteps.length !== 0
+			? existingRecipe.prepSteps
+			: []
 	);
 
 	const [newIngredient, setNewIngredient] = useState('');
