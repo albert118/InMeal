@@ -1,4 +1,3 @@
-import React from 'react';
 import StatusBadge from 'components/StatusBadge';
 import Button from 'components/Button';
 

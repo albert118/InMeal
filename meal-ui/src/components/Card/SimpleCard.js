@@ -1,6 +1,4 @@
-import React from 'react';
-
-const Card = props => {
+const SimpleCard = props => {
 	const { className } = props;
 
 	const classes = className
@@ -14,4 +12,4 @@ const Card = props => {
 	);
 };
 
-export default Card;
+export default SimpleCard;
