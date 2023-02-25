@@ -20,9 +20,8 @@
 }
 
 .card > .title-bar {
-	display: flex;
 	background-color: var(--nero-black);
-	padding: var(--ns-half) 0 var(--ns-half) var(--ns-half);
+	padding: var(--ns-half);
 }
 
 .card .title-bar > h2.title {
