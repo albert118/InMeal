@@ -47,7 +47,7 @@ public class RecipeController : ControllerBase
     }
 
     [HttpPost(Name = "Add Recipe")]
-    public IActionResult Post(RecipeDto dto)
+    public Guid Post(RecipeDto dto)
     {
         var ct = _tokenAccessor.Token;
         var task = _recipeRepository.AddRecipeAsync(
@@ -62,7 +62,12 @@ public class RecipeController : ControllerBase
 
         task.Wait(ct);
 
-        return !task.Result.HasValue ? BadRequest(task.Result!.Value) : Ok();
+
+        if (!task.Result.HasValue) {
+            throw new BadHttpRequestException("Couldn't add the recipe");
+        }
+
+        return task.Result.Value;
     }
 
     [HttpPatch(Name = "Edit Recipe")]
