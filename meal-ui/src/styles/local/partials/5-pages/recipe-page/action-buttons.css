@@ -1,0 +1,21 @@
+.delete-recipes-btn {
+	border: 1px solid red;
+	background-color: var(--dark-cyan);
+}
+
+.delete-recipes-btn:hover {
+	box-shadow: 0 1px 2px var(--lynx-white);
+	color: var(--lynx-white);
+	background-color: red;
+}
+
+.add-recipes-btn {
+	border: 1px solid var(--lindworm-green);
+	background-color: var(--dark-cyan);
+}
+
+.add-recipes-btn:hover {
+	box-shadow: 0 1px 2px var(--lynx-white);
+	color: var(--lynx-white);
+	background-color: var(--lindworm-green);
+}

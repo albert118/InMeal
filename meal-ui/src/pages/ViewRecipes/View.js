@@ -1,4 +1,5 @@
 import { RecipeCard } from './RecipeCard';
+import { GridHeader } from './GridHeader';
 
 export default function View({ recipes }) {
 	return (
@@ -9,15 +10,9 @@ export default function View({ recipes }) {
 }
 
 function ManageRecipesTable({ recipes }) {
-	//
 	return (
 		<div className='manage-recipes'>
-			<div className='grid-header font-white-header'>
-				<div>A</div>
-				<div>B</div>
-				<div>C</div>
-			</div>
-
+			<GridHeader />
 			<RecipeGrid recipes={recipes} />
 		</div>
 	);
