@@ -8,28 +8,42 @@
 	padding-right: var(--ns-full);
 }
 
+.manage-recipes,
+.recipes-grid {
+	border-radius: 12px;
+}
+
 .manage-recipes {
 	display: flex;
 	flex-direction: column;
-	border-radius: 12px;
 	border: 1.25px solid var(--nero-black);
-
 	margin: var(--ns-full);
+
+	box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.05),
+		inset 0 -2px 2px rgba(0, 0, 0, 0.1),
+		inset 0 -4px 4px rgba(0, 0, 0, 0.15),
+		inset 0 -8px 8px rgba(0, 0, 0, 0.2);
 }
 
 .grid-header {
 	display: flex;
 	background-color: var(--nero-black);
 	border-radius: 12px 12px 0 0;
+
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 2px 2px rgba(0, 0, 0, 0.1),
+		0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.2),
+		0 16px 16px rgba(0, 0, 0, 0.25);
 }
 
 .recipes-grid {
-	height: 1000px;
+	height: 80vh;
 	overflow-y: scroll;
 
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
+	grid-template-columns: repeat(6, 1fr);
 	justify-items: center;
 	row-gap: 24px;
+
 	padding-top: var(--ns-half);
+	margin-bottom: 12px;
 }
