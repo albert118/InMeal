@@ -14,6 +14,17 @@ const getRecipes = async ids => {
 	return await response.json();
 };
 
+const getAllRecipes = async () => {
+	const url = `${ApiConfig.API_URL}/recipes`;
+
+	const response = await fetch(url, {
+		...defaultRequestOptions,
+		method: 'GET'
+	});
+
+	return await response.json();
+};
+
 export default function useRecipes(recipeIds, mapper) {
 	const [recipes, setRecipes] = useState([]);
 	const [isLoading, toggleLoading] = useState(true);
@@ -28,4 +39,18 @@ export default function useRecipes(recipeIds, mapper) {
 	return { recipes, isLoading };
 }
 
-export { getRecipes };
+function useAllRecipes(mapper) {
+	const [recipes, setRecipes] = useState([]);
+	const [isLoading, toggleLoading] = useState(true);
+
+	useEffect(() => {
+		getAllRecipes().then(data => {
+			setRecipes(data.map(mapper));
+			toggleLoading(false);
+		});
+	}, []);
+
+	return { recipes, isLoading };
+}
+
+export { useAllRecipes };

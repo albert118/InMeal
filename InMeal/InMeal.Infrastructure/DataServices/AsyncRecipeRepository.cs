@@ -44,6 +44,11 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         return recipe.Id;
     }
 
+    public Task<List<Recipe>> GetRecipesAsync(CancellationToken ct)
+    {
+        return _recipeDbContext.Recipes.Take(50).ToListAsync(ct);
+    }
+
     public Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct)
     {
         if (ids.Any(e => e.IsEmpty())) {
