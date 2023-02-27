@@ -20,7 +20,7 @@ public class ArchiveRecipesController : ControllerBase
     public IActionResult Post(ICollection<Guid> ids)
     {
         var ct = _tokenAccessor.Token;
-        var task = _repository.GetRecipesAsync(ids, ct);
+        var task = _repository.ArchiveRecipesAsync(ids.ToList(), ct);
         task.Wait(ct);
 
         return Ok();

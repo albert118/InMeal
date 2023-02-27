@@ -1,6 +1,7 @@
 ﻿using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
 using InMeal.Core.Globalisation;
+using InMeal.Infrastructure.DbContextExtensions;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using Microsoft.EntityFrameworkCore;
@@ -46,13 +47,19 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
     public Task<List<Recipe>> GetRecipesAsync(CancellationToken ct)
     {
-        return _recipeDbContext.Recipes.Take(50).ToListAsync(ct);
+        return _recipeDbContext.Recipes
+            .ExcludeArchived()
+            .Take(50)
+            .ToListAsync(ct);
     }
 
     public Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(ids);
-        return _recipeDbContext.Recipes.Where(r => ids.Distinct().Contains(r.Id)).ToListAsync(ct);
+        return _recipeDbContext.Recipes
+            .Where(r => ids.Distinct().Contains(r.Id))
+            .ExcludeArchived()
+            .ToListAsync(ct);
     }
 
     public Task<Recipe?> GetRecipeAsync(Guid id, CancellationToken ct)
@@ -62,6 +69,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
             : _recipeDbContext.Recipes
                 .Include(r => r.RecipeIngredients)
                 .ThenInclude(i => i.Ingredient)
+                .ExcludeArchived()
                 .FirstOrDefaultAsync(r => r.Id == id, ct);
     }
 
@@ -70,7 +78,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     {
         try {
             var existingRecipe = await GetRecipeAsync(recipeId, ct)
-                                 ?? throw new DataException($"No {nameof(Recipe)} was found with the given ID '{recipeId}'");
+                ?? throw new DataException($"No {nameof(Recipe)} was found with the given ID '{recipeId}'");
 
             AddRecipeIngredients(existingRecipe, recipeIngredients);
 
@@ -94,7 +102,10 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     public async Task ArchiveRecipesAsync(List<Guid> ids, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(ids);
-        var recipesToArchive = await _recipeDbContext.Recipes.Where(r => ids.Distinct().Contains(r.Id)).ToListAsync(ct);
+        var recipesToArchive = await _recipeDbContext.Recipes
+            .Where(r => ids.Distinct().Contains(r.Id))
+            .IncludeArchived()
+            .ToListAsync(ct);
 
         foreach (var recipe in recipesToArchive) {
             recipe.isArchived = true;
