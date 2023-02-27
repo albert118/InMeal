@@ -51,11 +51,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
     public Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct)
     {
-        if (ids.Any(e => e.IsEmpty())) {
-            throw new DataException(
-                "Attempting to get recipes with empty ('00000000-0000-0000-0000-000000000000') IDs is not possible");
-        }
-
+        EmptyGuidGuard.Apply(ids);
         return _recipeDbContext.Recipes.Where(r => ids.Distinct().Contains(r.Id)).ToListAsync(ct);
     }
 
@@ -93,6 +89,18 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         }
 
         return true;
+    }
+
+    public async Task ArchiveRecipesAsync(List<Guid> ids, CancellationToken ct)
+    {
+        EmptyGuidGuard.Apply(ids);
+        var recipesToArchive = await _recipeDbContext.Recipes.Where(r => ids.Distinct().Contains(r.Id)).ToListAsync(ct);
+
+        foreach (var recipe in recipesToArchive) {
+            recipe.isArchived = true;
+        }
+
+        await _recipeDbContext.SaveChangesAsync(ct);
     }
 
     private void AddRecipeIngredients(Recipe existingRecipe, IReadOnlyList<RecipeIngredientDto> recipeIngredients)

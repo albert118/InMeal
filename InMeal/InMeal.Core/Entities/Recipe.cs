@@ -1,6 +1,6 @@
 ﻿namespace InMeal.Core.Entities;
 
-public class Recipe
+public class Recipe : IArchivable
 {
     public Recipe(string? title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
     {
@@ -37,4 +37,6 @@ public class Recipe
     /// A JSON encoded field containing the relevant method to prepare and cook the recipe
     /// </summary>
     public string PreparationSteps { get; set; }
+
+    public bool isArchived { get; set; }
 }
