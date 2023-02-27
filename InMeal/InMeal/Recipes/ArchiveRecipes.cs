@@ -1,4 +1,6 @@
+using InMeal.Core.DTOs;
 using InMeal.Infrastructure.Interfaces.DataServices;
+using InMeal.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InMeal.Recipes;
@@ -24,5 +26,18 @@ public class ArchiveRecipesController : ControllerBase
         task.Wait(ct);
 
         return Ok();
+    }
+
+    [HttpGet(Name = "Get all archived recipes")]
+    public List<RecipeDto> Get()
+    {
+        var ct = _tokenAccessor.Token;
+        var task = _repository.GetAllArchivedRecipesAsync(ct);
+        task.Wait(ct);
+
+        if (task.Result.Count == 0)
+            return new();
+
+        return task.Result.Select(RecipeMapper.ToDto).ToList();
     }
 }

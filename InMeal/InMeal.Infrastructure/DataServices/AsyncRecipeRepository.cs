@@ -53,6 +53,14 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
             .ToListAsync(ct);
     }
 
+    public Task<List<Recipe>> GetAllArchivedRecipesAsync(CancellationToken ct)
+    {
+        return _recipeDbContext.Recipes
+            .IncludeArchived()
+            .Take(50)
+            .ToListAsync(ct);
+    }
+
     public Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(ids);
@@ -104,7 +112,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         EmptyGuidGuard.Apply(ids);
         var recipesToArchive = await _recipeDbContext.Recipes
             .Where(r => ids.Distinct().Contains(r.Id))
-            .IncludeArchived()
+            .ExcludeArchived()
             .ToListAsync(ct);
 
         foreach (var recipe in recipesToArchive) {
