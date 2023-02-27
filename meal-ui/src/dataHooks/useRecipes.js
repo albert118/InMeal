@@ -25,6 +25,29 @@ const getAllRecipes = async () => {
 	return await response.json();
 };
 
+const getArchivedRecipes = async () => {
+	const url = `${ApiConfig.API_URL}/archiverecipes`;
+
+	const response = await fetch(url, {
+		...defaultRequestOptions,
+		method: 'GET'
+	});
+
+	return await response.json();
+};
+
+const archiveRecipes = async ids => {
+	const url = `${ApiConfig.API_URL}/archiverecipes`;
+
+	const response = await fetch(url, {
+		...defaultRequestOptions,
+		method: 'POST',
+		body: JSON.stringify(ids)
+	});
+
+	return response;
+};
+
 export default function useRecipes(recipeIds, mapper) {
 	const [recipes, setRecipes] = useState([]);
 	const [isLoading, toggleLoading] = useState(true);
@@ -42,15 +65,33 @@ export default function useRecipes(recipeIds, mapper) {
 function useAllRecipes(mapper) {
 	const [recipes, setRecipes] = useState([]);
 	const [isLoading, toggleLoading] = useState(true);
+	const [_includeArchived, setIncludeArchived] = useState(false);
+	const [shouldRefresh, toggleRefresh] = useState(false);
+
+	const refreshData = args => {
+		if (args) {
+			const { includeArchived } = args;
+			setIncludeArchived(includeArchived);
+		}
+
+		toggleRefresh(!shouldRefresh);
+	};
 
 	useEffect(() => {
-		getAllRecipes().then(data => {
-			setRecipes(data.map(mapper));
-			toggleLoading(false);
-		});
-	}, []);
+		if (_includeArchived) {
+			getArchivedRecipes().then(data => {
+				setRecipes(data.map(mapper));
+				toggleLoading(false);
+			});
+		} else {
+			getAllRecipes().then(data => {
+				setRecipes(data.map(mapper));
+				toggleLoading(false);
+			});
+		}
+	}, [shouldRefresh]);
 
-	return { recipes, isLoading };
+	return { recipes, isLoading, refreshData };
 }
 
-export { useAllRecipes };
+export { useAllRecipes, archiveRecipes };
