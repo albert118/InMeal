@@ -1,9 +1,9 @@
 ﻿using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
 using InMeal.Core.Globalisation;
-using InMeal.Infrastructure.DbContextExtensions;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
+using InMeal.Infrastructure.IQueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Data;

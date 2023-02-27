@@ -1,6 +1,6 @@
 ﻿using InMeal.Core;
 
-namespace InMeal.Infrastructure.DbContextExtensions;
+namespace InMeal.Infrastructure.IQueryableExtensions;
 
 public static class IsArchived
 {
