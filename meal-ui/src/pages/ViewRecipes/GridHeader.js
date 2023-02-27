@@ -26,7 +26,7 @@ export function GridHeader({ handleViewArchived, handleDeleteSelected }) {
 					handler={handleDeleteSelected}
 					className='delete-recipes-btn'
 				>
-					delete
+					archive
 				</Button>
 			</div>
 		</div>
