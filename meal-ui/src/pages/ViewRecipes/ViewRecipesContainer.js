@@ -21,11 +21,18 @@ export default function ViewRecipesContainer() {
 		};
 	};
 
-	const { recipes, isLoading } = useAllRecipes(mapper);
+	const { recipes, isLoading, refreshData } = useAllRecipes(mapper);
 
 	return (
 		<GenericPageContainer>
-			{!isLoading ? <View recipes={recipes} /> : 'loading...'}
+			{!isLoading ? (
+				<View
+					recipes={recipes}
+					refreshGrid={refreshData}
+				/>
+			) : (
+				'loading...'
+			)}
 		</GenericPageContainer>
 	);
 }
