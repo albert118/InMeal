@@ -6,7 +6,7 @@
 .grid-header,
 .recipes-grid {
 	padding-right: var(--ns-full);
-    padding-left: var(--ns-full);
+	padding-left: var(--ns-full);
 }
 
 .manage-recipes {
@@ -15,8 +15,7 @@
 	border: 1.25px solid var(--nero-black);
 	margin: var(--ns-full);
 
-	box-shadow: 
-        inset 0 -1px 1px rgba(0, 0, 0, 0.05),
+	box-shadow: inset 0 -1px 1px rgba(0, 0, 0, 0.05),
 		inset 0 -2px 2px rgba(0, 0, 0, 0.1),
 		inset 0 -4px 4px rgba(0, 0, 0, 0.15),
 		inset 0 -8px 8px rgba(0, 0, 0, 0.2);
@@ -30,15 +29,11 @@
 	background-color: var(--nero-black);
 	border-radius: 12px 12px 0 0;
 
-	box-shadow: 
-        0 1px 1px rgba(0, 0, 0, 0.05),
-        0 2px 2px rgba(0, 0, 0, 0.1),
-		0 4px 4px rgba(0, 0, 0, 0.15),
-        0 8px 8px rgba(0, 0, 0, 0.2),
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 2px 2px rgba(0, 0, 0, 0.1),
+		0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.2),
 		0 16px 16px rgba(0, 0, 0, 0.25);
 
 	padding-top: var(--ns-quat);
-	
 }
 
 .grid-actions {
@@ -56,7 +51,14 @@
 
 	height: 80vh;
 	overflow-y: scroll;
+	overflow-x: hidden;
 
 	margin-top: var(--ns-quat);
 	margin-bottom: var(--ns-quat);
+}
+
+@media only screen and (max-width: 1500px) {
+	.recipes-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
 }
