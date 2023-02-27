@@ -1,55 +1,65 @@
-import { ImageCard } from 'components/Card';
-import { useNavigate } from 'react-router-dom';
-import AppRoutes from 'navigation/AppRoutes';
-import { FormStatuses } from 'forms';
-import { demoImage } from 'DemoImage';
-import useRecipes from 'dataHooks/useRecipes';
+import { useState } from 'react';
+import { GridHeader } from './GridHeader';
+import { RecipeGrid } from './RecipeGrid';
+import { archiveRecipes } from 'dataHooks/useRecipes';
 
-export default function View() {
-	const recipeIds = [
-		'2b271329-83dc-4123-be11-f1ac96873868',
-		'4cf33993-777f-497d-b007-4f2e333e2dca',
-		'918e8444-db04-452d-a40d-295039fbdf93',
-		'c24e6841-c919-4c49-b283-2d10697216f6',
-		'ea7ca771-889c-4e53-ae88-e2b11a2c20ee'
-	];
+export default function View({ recipes, refreshGrid }) {
+	return (
+		<div className='p-manage-recipes'>
+			<ManageRecipesTable
+				recipes={recipes}
+				refreshGrid={refreshGrid}
+			/>
+		</div>
+	);
+}
 
-	const navigate = useNavigate();
+function ManageRecipesTable({ recipes, refreshGrid }) {
+	const [selectedItems, setSelectedItems] = useState([]);
 
-	const mapper = dto => {
-		return {
-			id: dto.id,
-			content: dto,
-			label: 'Breakfast',
-			status: FormStatuses.Unknown,
-			handler: id => navigate(`${AppRoutes.recipe}/${id}`),
-			image: demoImage
-		};
+	const addSelectedItem = newItem => {
+		setSelectedItems([...selectedItems, newItem]);
 	};
 
-	const { recipes, isLoading } = useRecipes(recipeIds, mapper);
+	const removeSelectedItem = oldItem => {
+		const idx = selectedItems.indexOf(oldItem);
+
+		if (idx > -1) {
+			const tempItems = [...selectedItems];
+			tempItems.splice(idx, 1);
+			setSelectedItems(tempItems);
+		} else {
+			console.warn('cannot remove unknown item from grid');
+		}
+	};
+
+	const addOrRemoveSelectedItem = (item, toggle) => {
+		if (toggle) {
+			addSelectedItem(item);
+		} else {
+			removeSelectedItem(item);
+		}
+	};
+
+	const handleDeleteSelected = async () => {
+		await archiveRecipes(selectedItems);
+		refreshGrid();
+	};
+
+	const handleViewArchived = async event => {
+		await refreshGrid({ includeArchived: event.target.checked });
+	};
 
 	return (
-		<div className='p-recipe-view'>
-			<div className='recipe-grid'>
-				{isLoading
-					? 'loading...'
-					: recipes.map(r => (
-							<ImageCard
-								key={r.id}
-								id={r.id}
-								className='recipe-grid-content'
-								label={r.content.title}
-								status={r.status}
-								ctaHandler={r.handler}
-							>
-								<img
-									src={r.image.url}
-									alt={r.label}
-								/>
-							</ImageCard>
-					  ))}
-			</div>
+		<div className='manage-recipes'>
+			<GridHeader
+				handleDeleteSelected={handleDeleteSelected}
+				handleViewArchived={handleViewArchived}
+			/>
+			<RecipeGrid
+				addOrRemoveSelectedItem={addOrRemoveSelectedItem}
+				recipes={recipes}
+			/>
 		</div>
 	);
 }

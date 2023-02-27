@@ -1,8 +1,6 @@
 .image-card {
 	--image-card-height: 300px;
 
-	margin: var(--ns-half);
-
 	height: var(--image-card-height);
 	min-width: calc(1.1 * var(--image-card-height));
 	max-width: calc(1.1 * var(--image-card-height));

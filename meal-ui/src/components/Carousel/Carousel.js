@@ -34,6 +34,7 @@ const Carousel = ({ className, items }) => {
 			{items.map(item => (
 				<SplideSlide key={item.id}>
 					<ImageCard
+						className='carousel-item'
 						id={item.id}
 						label={item.label}
 						status={item.status}

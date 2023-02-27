@@ -9,9 +9,15 @@ public interface IAsyncRecipeRepository
         List<RecipeIngredientDto> recipeIngredients,
         CancellationToken ct);
 
+    Task<List<Recipe>> GetRecipesAsync(CancellationToken ct);
+
+    Task<List<Recipe>> GetAllArchivedRecipesAsync(CancellationToken ct);
+
     Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct);
 
     Task<Recipe?> GetRecipeAsync(Guid id, CancellationToken ct);
 
     Task<bool> EditRecipeAsync(Guid recipeId, RecipeDto updatedRecipe, IReadOnlyList<RecipeIngredientDto> recipeIngredients, CancellationToken ct);
+
+    Task ArchiveRecipesAsync(List<Guid> ids, CancellationToken ct);
 }
