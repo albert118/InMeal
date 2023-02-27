@@ -43,7 +43,7 @@
 .grid-actions {
 	display: flex;
 	justify-content: flex-end;
-	align-items: center;
+	align-items: baseline;
 	column-gap: 12px;
 }
 
