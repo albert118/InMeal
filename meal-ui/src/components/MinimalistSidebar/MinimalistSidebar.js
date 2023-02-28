@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import AppRoutes from 'navigation/AppRoutes';
+
+import { faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
 import { AnimatedHamburger } from './AnimatedHamburger';
-import config from 'config';
 import { NavLinkItem } from './NavLinkItem';
+
+import AppRoutes from 'navigation/AppRoutes';
+import config from 'config';
 
 export default function MinimalistSidebar() {
 	const navigate = useNavigate();
