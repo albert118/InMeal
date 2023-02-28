@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from 'navigation/AppRoutes';
-import { IconButton, LabelledIconButton } from 'components/Button';
 import { AnimatedHamburger } from './AnimatedHamburger';
 import config from 'config';
+import { NavLinkItem } from './NavLinkItem';
 
 export default function MinimalistSidebar() {
 	const navigate = useNavigate();
@@ -68,23 +68,5 @@ export default function MinimalistSidebar() {
 				</NavLinkItem>
 			</div>
 		</div>
-	);
-}
-
-function NavLinkItem(props) {
-	const { isActive, icon, handler } = props;
-
-	return isActive ? (
-		<LabelledIconButton
-			faIcon={icon}
-			handler={handler}
-		>
-			<div className='nav-label font-white'>{props.children}</div>
-		</LabelledIconButton>
-	) : (
-		<IconButton
-			faIcon={icon}
-			handler={handler}
-		/>
 	);
 }
