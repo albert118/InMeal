@@ -1,4 +1,3 @@
-import React from 'react';
 import RecipeCard from 'pages/ViewRecipe/RecipeCard';
 import { FormStatuses } from 'forms';
 import { demoImage } from 'DemoImage';

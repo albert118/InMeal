@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 import TitleBar from 'components/TitleBar/TitleBar';
 import FormContainer, { FormStatuses } from 'forms';
-import { TextInput, LongTextInput, MultiLineInput } from 'forms/Inputs';
-import { CancelButton, SaveButton } from 'forms/FormActions';
+import { TextInput } from 'forms/Inputs';
 import Button from 'components/Button';
-import ImageHero from 'pages/EditRecipe/HeroImage';
+import HeroImage from 'pages/EditRecipe/HeroImage';
+import { FormActions } from 'pages/EditRecipe/FormActions';
+import { FormBody } from 'pages/EditRecipe/FormBody';
 
 import AppRoutes from 'navigation/AppRoutes';
 import { postRecipe, patchRecipe, putIngredient } from 'dataHooks/useRecipe';
@@ -55,11 +56,6 @@ export default function View() {
 		}
 	};
 
-	const viewRecipe = event => {
-		event.preventDefault();
-		navigate(`${AppRoutes.recipe}/${recipe.id}`);
-	};
-
 	const clearChanges = event => {
 		event.preventDefault();
 
@@ -76,11 +72,6 @@ export default function View() {
 		}
 
 		setFormStatus(FormStatuses.Saved);
-	};
-
-	const handleCancel = event => {
-		event.preventDefault();
-		navigate(`${AppRoutes.root}`);
 	};
 
 	const updateRecipeDataHandler = event => {
@@ -134,7 +125,7 @@ export default function View() {
 			className='card recipe-card e-recipe-form'
 			onSubmit={submitHandler}
 		>
-			<ImageHero
+			<HeroImage
 				image={demoImage}
 				label={recipe.title}
 				status={formStatus}
@@ -149,51 +140,43 @@ export default function View() {
 				/>
 			</TitleBar>
 
-			<div className='recipe-data-slot recipe-content-grid scrollbar-vertical'>
-				<LongTextInput
-					className='recipe-content-blurb'
-					name='blurb'
-					value={recipe.blurb}
-					placeholder='Maybe some details too?'
-					handler={updateRecipeDataHandler}
-				/>
-
-				<MultiLineInput
-					className='recipe-content-ingredients'
-					items={ingredients}
-					newItem={newIngredient}
-					newItemHandler={event =>
-						setNewIngredient(event.target.value)
-					}
-					addNewItemHandler={addIngredientHandler}
-					placeholder='add another ingredient'
-				/>
-
-				<MultiLineInput
-					className='recipe-content-preparation-steps'
-					items={preparationSteps}
-					newItem={newStep}
-					newItemHandler={event => setNewStep(event.target.value)}
-					addNewItemHandler={addPreparationStepHandler}
-					placeholder='include a further step'
-				/>
-			</div>
+			<FormBody
+				blurb={recipe.blurb}
+				updateRecipeDataHandler={updateRecipeDataHandler}
+				ingredients={ingredients}
+				newIngredient={newIngredient}
+				addIngredientHandler={addIngredientHandler}
+				setNewIngredient={setNewIngredient}
+				preparationSteps={preparationSteps}
+				newStep={newStep}
+				setNewStep={setNewStep}
+				addPreparationStepHandler={addPreparationStepHandler}
+			/>
 
 			{recipe.id && (
-				<div className='action-container view-recipe-action'>
-					<Button
-						className='view-recipe-btn'
-						handler={viewRecipe}
-					>
-						view recipe
-					</Button>
-				</div>
+				<ViewRecipeBtn
+					handler={() => navigate(`${AppRoutes.recipe}/${recipe.id}`)}
+				/>
 			)}
-			<div className='action-container'>
-				<Button handler={clearChanges}>clear changes</Button>
-				<CancelButton handler={handleCancel} />
-				<SaveButton>save</SaveButton>
-			</div>
+
+			<FormActions
+				clearChanges={clearChanges}
+				handleCancel={() => navigate(`${AppRoutes.root}`)}
+				saveActionText='save'
+			/>
 		</FormContainer>
+	);
+}
+
+function ViewRecipeBtn({ viewRecipeHandler }) {
+	return (
+		<div className='action-container view-recipe-action'>
+			<Button
+				className='view-recipe-btn'
+				handler={viewRecipeHandler}
+			>
+				view recipe
+			</Button>
+		</div>
 	);
 }

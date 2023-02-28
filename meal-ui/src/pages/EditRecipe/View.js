@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from 'navigation/AppRoutes';
 import TitleBar from 'components/TitleBar/TitleBar';
 import FormContainer, { FormStatuses } from 'forms';
-import { TextInput, LongTextInput, MultiLineInput } from 'forms/Inputs';
-import { CancelButton, SaveButton } from 'forms/FormActions';
-import Button from 'components/Button';
-import ImageHero from './HeroImage';
+import { TextInput } from 'forms/Inputs';
+import HeroImage from './HeroImage';
 import { patchRecipe, putIngredient } from 'dataHooks/useRecipe';
 import { demoImage } from '../../DemoImage';
 import { createIngredient } from './IngredientMapper';
+import { FormBody } from './FormBody';
+import { FormActions } from './FormActions';
 
 export default function View(props) {
 	const { existingRecipe } = props;
@@ -127,7 +127,7 @@ export default function View(props) {
 			className='card recipe-card e-recipe-form'
 			onSubmit={submitHandler}
 		>
-			<ImageHero
+			<HeroImage
 				image={demoImage}
 				label={recipe.title}
 				status={formStatus}
@@ -160,58 +160,5 @@ export default function View(props) {
 				handleCancel={handleCancel}
 			/>
 		</FormContainer>
-	);
-}
-
-function FormBody({
-	blurb,
-	ingredients,
-	newIngredient,
-	preparationSteps,
-	updateRecipeDataHandler,
-	setNewIngredient,
-	addIngredientHandler,
-	newStep,
-	setNewStep,
-	addPreparationStepHandler
-}) {
-	return (
-		<div className='recipe-data-slot recipe-content-grid scrollbar-vertical'>
-			<LongTextInput
-				className='recipe-content-blurb'
-				name='blurb'
-				value={blurb}
-				placeholder='Maybe some details too?'
-				handler={updateRecipeDataHandler}
-			/>
-
-			<MultiLineInput
-				className='recipe-content-ingredients'
-				items={ingredients}
-				newItem={newIngredient}
-				newItemHandler={event => setNewIngredient(event.target.value)}
-				addNewItemHandler={addIngredientHandler}
-				placeholder='add another ingredient'
-			/>
-
-			<MultiLineInput
-				className='recipe-content-preparation-steps'
-				items={preparationSteps}
-				newItem={newStep}
-				newItemHandler={event => setNewStep(event.target.value)}
-				addNewItemHandler={addPreparationStepHandler}
-				placeholder='include a further step'
-			/>
-		</div>
-	);
-}
-
-function FormActions({ clearChanges, handleCancel }) {
-	return (
-		<div className='action-container'>
-			<Button handler={clearChanges}>clear changes</Button>
-			<CancelButton handler={handleCancel} />
-			<SaveButton>save and complete</SaveButton>
-		</div>
 	);
 }

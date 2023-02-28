@@ -1,6 +1,6 @@
 import GenericPageContainer from 'pages/GenericPageContainer';
-import { useParams } from 'react-router-dom';
 import View from './View';
+import { useParams } from 'react-router-dom';
 import useRecipe from 'dataHooks/useRecipe';
 
 export default function EditRecipeContainer() {

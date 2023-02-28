@@ -1,6 +1,6 @@
 import StatusBadge from 'components/StatusBadge';
 
-export default function ImageHero(props) {
+export default function HeroImage(props) {
 	const { image, label, status } = props;
 
 	return (
