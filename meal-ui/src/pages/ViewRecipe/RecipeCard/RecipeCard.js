@@ -18,12 +18,7 @@ const RecipeCard = props => {
 		<div className={classes}>
 			<div className='image-slot'>{props.children}</div>
 
-			<TitleBar
-				handler={event => event.preventDefault()}
-				btnText={'todo'}
-			>
-				{recipe.title}
-			</TitleBar>
+			<TitleBar>{recipe.title}</TitleBar>
 
 			<div className='recipe-data-slot recipe-content-grid scrollbar-vertical'>
 				<p className='recipe-content-blurb'>{recipe.blurb}</p>
@@ -40,7 +35,8 @@ const RecipeCard = props => {
 					type='1'
 					className='recipe-content-preparation-steps simple-numbered-list'
 				>
-					{recipe.prepSteps && recipe.prepSteps.map(step => <li>{step}</li>)}
+					{recipe.prepSteps &&
+						recipe.prepSteps.map(step => <li>{step}</li>)}
 				</ol>
 			</div>
 			<div className='action-container'>
