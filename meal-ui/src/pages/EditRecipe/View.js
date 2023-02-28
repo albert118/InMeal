@@ -124,7 +124,7 @@ export default function View(props) {
 
 	return (
 		<FormContainer
-			className='recipe-form-card'
+			className='card recipe-form-card'
 			onSubmit={submitHandler}
 		>
 			<ImageHero
@@ -142,41 +142,76 @@ export default function View(props) {
 				/>
 			</TitleBar>
 
-			<div className='recipe-data-slot recipe-content-grid'>
-				<LongTextInput
-					className='recipe-content-blurb'
-					name='blurb'
-					value={recipe.blurb}
-					placeholder='Maybe some details too?'
-					handler={updateRecipeDataHandler}
-				/>
+			<FormBody
+				blurb={recipe.blurb}
+				updateRecipeDataHandler={updateRecipeDataHandler}
+				ingredients={ingredients}
+				newIngredient={newIngredient}
+				addIngredientHandler={addIngredientHandler}
+				setNewIngredient={setNewIngredient}
+				preparationSteps={preparationSteps}
+				newStep={newStep}
+				setNewStep={setNewStep}
+				addPreparationStepHandler={addPreparationStepHandler}
+			/>
 
-				<MultiLineInput
-					className='recipe-content-ingredients'
-					items={ingredients}
-					newItem={newIngredient}
-					newItemHandler={event =>
-						setNewIngredient(event.target.value)
-					}
-					addNewItemHandler={addIngredientHandler}
-					placeholder='add another ingredient'
-				/>
-
-				<MultiLineInput
-					className='recipe-content-preparation-steps'
-					items={preparationSteps}
-					newItem={newStep}
-					newItemHandler={event => setNewStep(event.target.value)}
-					addNewItemHandler={addPreparationStepHandler}
-					placeholder='include a further step'
-				/>
-			</div>
-
-			<div className='action-container'>
-				<Button handler={clearChanges}>clear changes</Button>
-				<CancelButton handler={handleCancel} />
-				<SaveButton>save and complete</SaveButton>
-			</div>
+			<FormActions
+				clearChanges={clearChanges}
+				handleCancel={handleCancel}
+			/>
 		</FormContainer>
+	);
+}
+
+function FormBody({
+	blurb,
+	ingredients,
+	newIngredient,
+	preparationSteps,
+	updateRecipeDataHandler,
+	setNewIngredient,
+	addIngredientHandler,
+	newStep,
+	setNewStep,
+	addPreparationStepHandler
+}) {
+	return (
+		<div className='recipe-data-slot recipe-content-grid'>
+			<LongTextInput
+				className='recipe-content-blurb'
+				name='blurb'
+				value={blurb}
+				placeholder='Maybe some details too?'
+				handler={updateRecipeDataHandler}
+			/>
+
+			<MultiLineInput
+				className='recipe-content-ingredients'
+				items={ingredients}
+				newItem={newIngredient}
+				newItemHandler={event => setNewIngredient(event.target.value)}
+				addNewItemHandler={addIngredientHandler}
+				placeholder='add another ingredient'
+			/>
+
+			<MultiLineInput
+				className='recipe-content-preparation-steps'
+				items={preparationSteps}
+				newItem={newStep}
+				newItemHandler={event => setNewStep(event.target.value)}
+				addNewItemHandler={addPreparationStepHandler}
+				placeholder='include a further step'
+			/>
+		</div>
+	);
+}
+
+function FormActions({ clearChanges, handleCancel }) {
+	return (
+		<div className='action-container'>
+			<Button handler={clearChanges}>clear changes</Button>
+			<CancelButton handler={handleCancel} />
+			<SaveButton>save and complete</SaveButton>
+		</div>
 	);
 }
