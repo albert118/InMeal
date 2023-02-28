@@ -1,5 +1,5 @@
-import ImageHero from './HeroImage';
+import HeroImage from './HeroImage';
 
 export { default } from './EditRecipeContainer';
 
-export { ImageHero };
+export { HeroImage as ImageHero };

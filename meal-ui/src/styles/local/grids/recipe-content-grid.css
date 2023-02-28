@@ -1,5 +1,4 @@
 .recipe-content-grid {
-	width: 100%;
 	display: grid;
 	align-items: start;
 
@@ -7,8 +6,8 @@
 		[ingredient] 1fr
 		[preparation-steps] 1fr [end];
 
-	grid-template-rows: [blurb] 1fr [details] 2fr;
-	grid-column-gap: var(--ns-half);
+	grid-template-rows: [blurb] 1fr [details] 3fr;
+	grid-gap: var(--ns-full);
 }
 
 .recipe-content-blurb {

@@ -1,6 +1,7 @@
-@import './manage-recipes-grid.css';
 @import './action-buttons.css';
 
-.p-manage-recipes {
+.p-recipe {
+	display: flex;
 	width: 100%;
+	justify-content: center;
 }

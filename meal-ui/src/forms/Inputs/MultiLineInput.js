@@ -18,6 +18,17 @@ export default function MultiLineInput(props) {
 
 	return (
 		<div className={classes}>
+			<div className='add-new-item'>
+				<TextInput
+					className='new-ingredient'
+					name='new-ingredient'
+					value={newItem}
+					handler={newItemHandler}
+					placeholder={placeholder}
+				/>
+				<Button handler={addNewItemHandler}>➕</Button>
+			</div>
+
 			{items.map(item =>
 				item.hasOwnProperty('label') ? (
 					<TextInput
@@ -33,17 +44,6 @@ export default function MultiLineInput(props) {
 					/>
 				)
 			)}
-
-			<div className='add-new-item'>
-				<TextInput
-					className='new-ingredient'
-					name='new-ingredient'
-					value={newItem}
-					handler={newItemHandler}
-					placeholder={placeholder}
-				/>
-				<Button handler={addNewItemHandler}>➕</Button>
-			</div>
 		</div>
 	);
 }

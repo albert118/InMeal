@@ -1,0 +1,27 @@
+@import 'manage-recipes.grid.css';
+
+.p-manage-recipes {
+	width: 100%;
+
+	/* ensure the grid and wrapper border radius match */
+	--grid-border-radius: 12px;
+}
+
+.manage-recipes {
+	display: flex;
+	flex-direction: column;
+	border: 1.25px solid var(--nero-black);
+	margin: var(--ns-full);
+
+	border-radius: var(--grid-border-radius);
+}
+
+@media only screen and (max-width: 1500px) {
+	.manage-recipes {
+		margin: var(--ns-quat);
+	}
+
+	.recipes-grid {
+		--n-columns: 3;
+	}
+}

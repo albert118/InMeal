@@ -1,8 +1,0 @@
-@import '5-pages/page.css';
-
-@import '5-pages/home-page/home-page.css';
-
-/* recipe pages */
-@import '5-pages/recipe-page/recipe-page.css';
-@import '5-pages/recipe-edit-page/recipe-edit-page.css';
-@import '5-pages/recipe-add-page/recipe-add-page.css';

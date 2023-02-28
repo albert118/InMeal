@@ -1,5 +1,6 @@
 ﻿using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
+using InMeal.Core.Enumerations;
 
 namespace InMeal.Mappers;
 
@@ -26,6 +27,19 @@ public static class RecipeMapper
             recipe.Id,
             ToDto(recipe),
             recipe.Title ?? "NO TITLE YIKES",
+            PreparationStatus.Unknown.ToString().ToLowerInvariant(),
+            new(
+                "https://media.tenor.com/1TjGpMd7GEYAAAAC/stitch-dessert.gif"
+            )
+        );
+    }
+
+    public static RecommendedRecipe ToRecommended(Recipe recipe)
+    {
+        return new(
+            recipe.Id,
+            ToDto(recipe),
+            recipe.Title,
             PreparationStatus.Unknown.ToString().ToLowerInvariant(),
             new(
                 "https://media.tenor.com/1TjGpMd7GEYAAAAC/stitch-dessert.gif"

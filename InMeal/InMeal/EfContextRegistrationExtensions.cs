@@ -3,7 +3,6 @@ using InMeal.Infrastructure;
 using InMeal.Infrastructure.Data.RecipesDb;
 using InMeal.Infrastructure.Interfaces.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 
 namespace InMeal;
 
@@ -21,7 +20,8 @@ public static class EfContextRegistrationExtensions
             .As<ICancellationTokenAccessor>()
             .InstancePerLifetimeScope();
 
-        containerBuilder.RegisterSimpleAttributedServices(typeof(InstanceScopedServiceAttribute).Assembly);
+        containerBuilder.RegisterAttributeTaggedServices<InstanceScopedServiceAttribute>();
+        containerBuilder.RegisterAttributeTaggedServices<InstanceScopedBusinessServiceAttribute>();
 
         return containerBuilder;
     }
@@ -31,11 +31,11 @@ public static class EfContextRegistrationExtensions
     /// </summary>
     /// <param name="assembly">The assembly to search (passing the tag's assembly is an easy start)</param>
     /// <seealso cref="InstanceScopedServiceAttribute"/>
-    private static ContainerBuilder RegisterSimpleAttributedServices(this ContainerBuilder containerBuilder,
-        Assembly assembly)
+    private static ContainerBuilder RegisterAttributeTaggedServices<T>(this ContainerBuilder containerBuilder)
+        where T : Attribute
     {
-        containerBuilder.RegisterAssemblyTypes(assembly)
-            .Where(type => type.GetCustomAttributes(typeof(InstanceScopedServiceAttribute), inherit: false).Any())
+        containerBuilder.RegisterAssemblyTypes(typeof(T).Assembly)
+            .Where(type => type.GetCustomAttributes(typeof(T), inherit: false).Any())
             .AsImplementedInterfaces()
             .InstancePerLifetimeScope();
 
