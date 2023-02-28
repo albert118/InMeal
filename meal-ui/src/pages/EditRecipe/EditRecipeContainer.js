@@ -9,7 +9,9 @@ export default function EditRecipeContainer() {
 
 	return (
 		<GenericPageContainer>
-			{!isLoading ? <View existingRecipe={recipe} /> : 'loading...'}
+			<div className='p-recipe'>
+				{!isLoading ? <View existingRecipe={recipe} /> : 'loading...'}
+			</div>
 		</GenericPageContainer>
 	);
 }

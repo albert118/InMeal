@@ -131,7 +131,7 @@ export default function View() {
 
 	return (
 		<FormContainer
-			className='recipe-form-card'
+			className='card recipe-card e-recipe-form'
 			onSubmit={submitHandler}
 		>
 			<ImageHero
@@ -149,7 +149,7 @@ export default function View() {
 				/>
 			</TitleBar>
 
-			<div className='recipe-data-slot recipe-content-grid'>
+			<div className='recipe-data-slot recipe-content-grid scrollbar-vertical'>
 				<LongTextInput
 					className='recipe-content-blurb'
 					name='blurb'

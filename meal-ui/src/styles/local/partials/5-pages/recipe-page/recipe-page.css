@@ -4,3 +4,9 @@
 .p-manage-recipes {
 	width: 100%;
 }
+
+.p-recipe {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}

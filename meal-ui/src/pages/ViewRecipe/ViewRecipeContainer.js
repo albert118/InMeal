@@ -10,7 +10,9 @@ export default function ViewRecipeContainer() {
 
 	return (
 		<GenericPageContainer>
-			{isLoading ? 'loading...' : <View recipe={recipe} />}
+			<div className='p-recipe'>
+				{isLoading ? 'loading...' : <View recipe={recipe} />}
+			</div>
 		</GenericPageContainer>
 	);
 }
