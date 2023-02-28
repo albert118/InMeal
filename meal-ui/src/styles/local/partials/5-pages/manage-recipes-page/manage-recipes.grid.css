@@ -1,6 +1,8 @@
 .recipes-grid {
+	--n-columns: 5;
+
 	display: grid;
-	grid-template-columns: repeat(5, 1fr);
+	grid-template-columns: repeat(var(--n-columns), 1fr);
 	justify-items: center;
 	gap: 24px;
 
@@ -10,8 +12,16 @@
 	overflow-y: scroll;
 	overflow-x: hidden;
 
-	margin-top: var(--ns-quat);
 	margin-bottom: var(--ns-quat);
+}
+
+/* ensure that the box shadow doesn't clip */
+/* turns out this a really annoying problem to apply overflow-y: scroll 
+   and still keep the content visible without a JS + CSS 'hack' - 
+   especially on the bottom of the scrollable content 
+*/
+.grid-tile:nth-last-child(-n + 3) {
+	padding-bottom: 28px;
 }
 
 .grid-header {
