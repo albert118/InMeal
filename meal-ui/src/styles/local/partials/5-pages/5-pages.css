@@ -1,0 +1,8 @@
+/* generic page view */
+@import 'page.css';
+
+/* home view */
+@import 'home-page/home-page.css';
+
+/* recipe pages */
+@import 'recipe-page/recipe-page.css';
