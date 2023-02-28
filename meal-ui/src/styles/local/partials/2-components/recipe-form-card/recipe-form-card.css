@@ -1,8 +1,12 @@
 .e-recipe-form {
 	--card-height: 1300px;
-	background-color: var(--dove-grey);
 }
 
 .e-recipe-form .image-slot {
 	position: relative;
+}
+
+.e-recipe-form > .recipe-data-slot {
+	margin: 2px;
+	background-color: var(--dove-grey);
 }
