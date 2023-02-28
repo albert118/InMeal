@@ -1,9 +1,4 @@
-@import './manage-recipes-grid.css';
 @import './action-buttons.css';
-
-.p-manage-recipes {
-	width: 100%;
-}
 
 .p-recipe {
 	display: flex;
