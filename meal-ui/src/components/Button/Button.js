@@ -33,4 +33,23 @@ const IconButton = props => {
 	);
 };
 
-export { Button, IconButton };
+const LabelledIconButton = props => {
+	const { faIcon, handler, isPrimary } = props;
+
+	const classes = isPrimary
+		? 'icon-btn primary-icon-btn e-labelled-icon-btn'
+		: 'icon-btn e-labelled-icon-btn';
+
+	return (
+		<button
+			className={classes}
+			type='button'
+			onClick={handler}
+		>
+			<FontAwesomeIcon icon={faIcon} />
+			{props.children}
+		</button>
+	);
+};
+
+export { Button, IconButton, LabelledIconButton };
