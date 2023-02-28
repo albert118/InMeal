@@ -2,3 +2,7 @@
 	--card-height: 1200px;
 	background-color: var(--dove-grey);
 }
+
+.e-recipe-form .image-slot {
+	position: relative;
+}
