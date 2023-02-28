@@ -124,7 +124,7 @@ export default function View(props) {
 
 	return (
 		<FormContainer
-			className='card recipe-form-card'
+			className='card recipe-card e-recipe-form'
 			onSubmit={submitHandler}
 		>
 			<ImageHero
@@ -176,7 +176,7 @@ function FormBody({
 	addPreparationStepHandler
 }) {
 	return (
-		<div className='recipe-data-slot recipe-content-grid'>
+		<div className='recipe-data-slot recipe-content-grid scrollbar-vertical'>
 			<LongTextInput
 				className='recipe-content-blurb'
 				name='blurb'
