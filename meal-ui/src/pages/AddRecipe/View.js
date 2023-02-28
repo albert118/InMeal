@@ -168,12 +168,12 @@ export default function View() {
 	);
 }
 
-function ViewRecipeBtn({ viewRecipeHandler }) {
+function ViewRecipeBtn({ handler }) {
 	return (
 		<div className='action-container view-recipe-action'>
 			<Button
 				className='view-recipe-btn'
-				handler={viewRecipeHandler}
+				handler={handler}
 			>
 				view recipe
 			</Button>
