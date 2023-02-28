@@ -13,6 +13,8 @@ public interface IAsyncRecipeRepository
 
     Task<List<Recipe>> GetAllArchivedRecipesAsync(CancellationToken ct);
 
+    Task<List<Recipe>> GetRecommendedRecipes(int limit, CancellationToken ct);
+
     Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct);
 
     Task<Recipe?> GetRecipeAsync(Guid id, CancellationToken ct);

@@ -61,6 +61,15 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
             .ToListAsync(ct);
     }
 
+    public Task<List<Recipe>> GetRecommendedRecipes(int limit, CancellationToken ct)
+    {
+        return _recipeDbContext.Recipes
+            .ExcludeArchived()
+            .OrderRandomly()
+            .Take(limit)
+            .ToListAsync(ct);
+    }
+
     public Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(ids);
