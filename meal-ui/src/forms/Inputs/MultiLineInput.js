@@ -32,8 +32,8 @@ export default function MultiLineInput(props) {
 			{items.map(item =>
 				item.hasOwnProperty('label') ? (
 					<TextInput
-						key={item.id}
-						name={item.id}
+						key={item.id ?? crypto.randomUUID()}
+						name={item.id ?? crypto.randomUUID()}
 						value={item.label}
 					/>
 				) : (
