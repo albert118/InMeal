@@ -113,7 +113,7 @@ export default function View(props) {
 			</TitleBar>
 
 			<FormBody
-				recipe={recipe}
+				blurb={recipe.blurb}
 				updateRecipeDataHandler={updateRecipeDataHandler}
 				preparationSteps={recipe.preparationSteps}
 				ingredients={ingredients}

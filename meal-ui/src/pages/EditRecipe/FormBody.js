@@ -3,8 +3,8 @@ import { LongTextInput, MultiLineInput } from 'forms/Inputs';
 export function FormBody({
 	blurb,
 	updateRecipeDataHandler,
-	ingredients,
 	preparationSteps,
+	ingredients,
 	newIngredient,
 	setNewIngredient,
 	addIngredientHandler
