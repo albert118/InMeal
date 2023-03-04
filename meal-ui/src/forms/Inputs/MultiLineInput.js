@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { TextInput } from './TextInput';
 import Button from 'components/Button';
 
-import { objectMap } from './objectMap';
+import { objectMap } from 'utils';
 
 // will set newly added item IDs to 'new-item'
 export default function MultiLineInput({

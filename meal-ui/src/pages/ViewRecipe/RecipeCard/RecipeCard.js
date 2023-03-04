@@ -1,8 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+
 import Button from 'components/Button';
 import AppRoutes from 'navigation/AppRoutes';
 import TitleBar from 'components/TitleBar/TitleBar';
 import { Checkbox } from 'forms/Inputs';
+
+import { objectMap } from 'utils';
 
 export default function RecipeCard(props) {
 	const { className, recipe } = props;
@@ -19,9 +22,7 @@ export default function RecipeCard(props) {
 
 			<div className='recipe-data-slot recipe-content-grid scrollbar-vertical'>
 				<Blurb blurb={recipe.blurb} />
-				<Ingredients
-					recipeIngredientDtos={recipe.recipeIngredientDtos}
-				/>
+				<Ingredients recipeIngredients={recipe.recipeIngredients} />
 				<PreparationSteps preparationSteps={recipe.preparationSteps} />
 			</div>
 			<ActionContainer recipeId={recipe.id} />
@@ -47,16 +48,17 @@ function Blurb({ blurb }) {
 	return <p className='recipe-content-blurb'>{blurb}</p>;
 }
 
-function Ingredients({ recipeIngredientDtos }) {
+function Ingredients({ recipeIngredients }) {
 	return (
 		<div className='recipe-content-ingredients'>
-			{recipeIngredientDtos.map(ingredient => (
-				<Checkbox
-					key={ingredient.id}
-					label={ingredient.label}
-					value={false}
-				/>
-			))}
+			{recipeIngredients &&
+				objectMap(recipeIngredients, (key, value) => (
+					<Checkbox
+						key={key}
+						label={value.label}
+						value={false}
+					/>
+				))}
 		</div>
 	);
 }
