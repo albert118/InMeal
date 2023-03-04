@@ -34,6 +34,7 @@ export function FormBody({
 				value={preparationSteps}
 				placeholder='include lots of details and steps'
 				handler={updateRecipeDataHandler}
+				rows='20'
 			/>
 		</div>
 	);
