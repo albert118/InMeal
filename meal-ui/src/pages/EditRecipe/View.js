@@ -24,9 +24,9 @@ export default function View(props) {
 	const navigate = useNavigate();
 
 	const submitHandler = async () => {
-		console.log(recipe);
+		console.log(JSON.stringify(recipe.recipeIngredients));
 
-		const response = await patchRecipe(recipe, []);
+		const response = await patchRecipe(recipe);
 
 		if (response.ok) {
 			setFormStatus(FormStatuses.Saved);
@@ -55,18 +55,15 @@ export default function View(props) {
 			const fakeQuantity = 1;
 			const newIngredient = createIngredient(
 				event.target.value,
-				dto.Id,
+				dto.id,
 				fakeQuantity
 			);
 
 			// add the ingredient to the existing ingredients
-			setRecipe({
-				...recipe,
-				recipeIngredients: {
-					...recipe.recipeIngredients,
-					[dto.Id]: newIngredient
-				}
-			});
+			const recipeIngredientsCopy = { ...recipe.recipeIngredients };
+			recipeIngredientsCopy[dto.id] = newIngredient;
+
+			setRecipe({ ...recipe, recipeIngredients: recipeIngredientsCopy });
 		} else if (isFalsishOrEmpty(event.target.value)) {
 			// remove item
 			const recipeIngredientsCopy = { ...recipe.recipeIngredients };
@@ -95,17 +92,14 @@ export default function View(props) {
 	};
 
 	const updateRecipeDataHandler = async event => {
-		console.log(event.target);
-
 		if (event.target.name === 'recipeIngredients') {
 			handleRecipeIngredients(event);
-			return;
+		} else {
+			setRecipe({
+				...recipe,
+				[event.target.name]: event.target.value
+			});
 		}
-
-		setRecipe({
-			...recipe,
-			[event.target.name]: event.target.value
-		});
 
 		setFormStatus(FormStatuses.Unsaved);
 	};
