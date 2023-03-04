@@ -22,10 +22,7 @@ export default function View() {
 
 	const [ingredients, setIngredients] = useState([]);
 
-	const [preparationSteps, setPreparationSteps] = useState([]);
-
 	const [newIngredient, setNewIngredient] = useState('');
-	const [newStep, setNewStep] = useState('');
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
 	const navigate = useNavigate();
@@ -37,7 +34,7 @@ export default function View() {
 
 		// update the recipe after adding for the first time
 		if (recipe.id) {
-			response = await patchRecipe(recipe, ingredients, preparationSteps);
+			response = await patchRecipe(recipe, ingredients);
 
 			if (response.ok) {
 				setFormStatus(FormStatuses.Saved);
@@ -45,7 +42,7 @@ export default function View() {
 				setFormStatus(FormStatuses.Error);
 			}
 		} else {
-			response = await postRecipe(recipe, ingredients, preparationSteps);
+			response = await postRecipe(recipe, ingredients);
 
 			if (!isFalsishOrEmpty(response)) {
 				setRecipe({ ...recipe, id: response });
@@ -64,11 +61,9 @@ export default function View() {
 		if (recipe.id) {
 			setRecipe(recipe);
 			setIngredients(ingredients);
-			setPreparationSteps(preparationSteps);
 		} else {
 			setRecipe(defaultRecipe);
 			setIngredients([]);
-			setPreparationSteps([]);
 		}
 
 		setFormStatus(FormStatuses.Saved);
@@ -105,21 +100,6 @@ export default function View() {
 		setFormStatus(FormStatuses.Unsaved);
 	};
 
-	const addPreparationStepHandler = event => {
-		event.preventDefault();
-
-		if (!newStep || newStep === '') {
-			alert('actually add a preparation step 😄');
-			return;
-		}
-
-		setPreparationSteps([...preparationSteps, newStep]);
-
-		// allow a new step to be added
-		setNewStep('');
-		setFormStatus(FormStatuses.Unsaved);
-	};
-
 	return (
 		<FormContainer
 			className='card recipe-card e-recipe-form'
@@ -142,15 +122,12 @@ export default function View() {
 
 			<FormBody
 				blurb={recipe.blurb}
-				updateRecipeDataHandler={updateRecipeDataHandler}
+				preparationSteps={recipe.preparationSteps}
+				handler={updateRecipeDataHandler}
 				ingredients={ingredients}
 				newIngredient={newIngredient}
 				addIngredientHandler={addIngredientHandler}
 				setNewIngredient={setNewIngredient}
-				preparationSteps={preparationSteps}
-				newStep={newStep}
-				setNewStep={setNewStep}
-				addPreparationStepHandler={addPreparationStepHandler}
 			/>
 
 			{recipe.id && (

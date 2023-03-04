@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AppRoutes from 'navigation/AppRoutes';
+
 import TitleBar from 'components/TitleBar/TitleBar';
 import FormContainer, { FormStatuses } from 'forms';
 import { TextInput } from 'forms/Inputs';
-import HeroImage from './HeroImage';
-import { patchRecipe, putIngredient } from 'dataHooks/useRecipe';
-import { demoImage } from '../../DemoImage';
-import { createIngredient } from './IngredientMapper';
 import { FormBody } from './FormBody';
 import { FormActions } from './FormActions';
+import HeroImage from './HeroImage';
+
+import AppRoutes from 'navigation/AppRoutes';
+import { patchRecipe, putIngredient } from 'dataHooks/useRecipe';
+
+import { demoImage } from '../../DemoImage';
+import { createIngredient } from './IngredientMapper';
 
 export default function View(props) {
 	const { existingRecipe } = props;
@@ -60,8 +63,6 @@ export default function View(props) {
 	};
 
 	const updateRecipeDataHandler = event => {
-		console.log(event);
-
 		setRecipe({
 			...recipe,
 			[event.target.name]: event.target.value
@@ -114,8 +115,8 @@ export default function View(props) {
 
 			<FormBody
 				blurb={recipe.blurb}
-				updateRecipeDataHandler={updateRecipeDataHandler}
 				preparationSteps={recipe.preparationSteps}
+				handler={updateRecipeDataHandler}
 				ingredients={ingredients}
 				newIngredient={newIngredient}
 				addIngredientHandler={addIngredientHandler}

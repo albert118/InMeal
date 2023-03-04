@@ -2,8 +2,8 @@ import { LongTextInput, MultiLineInput } from 'forms/Inputs';
 
 export function FormBody({
 	blurb,
-	updateRecipeDataHandler,
 	preparationSteps,
+	handler,
 	ingredients,
 	newIngredient,
 	setNewIngredient,
@@ -16,7 +16,7 @@ export function FormBody({
 				name='blurb'
 				value={blurb}
 				placeholder='maybe some details too?'
-				handler={updateRecipeDataHandler}
+				handler={handler}
 			/>
 
 			<MultiLineInput
@@ -33,7 +33,7 @@ export function FormBody({
 				name='preparationSteps'
 				value={preparationSteps}
 				placeholder='include lots of details and steps'
-				handler={updateRecipeDataHandler}
+				handler={handler}
 				rows='20'
 			/>
 		</div>

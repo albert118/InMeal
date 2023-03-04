@@ -13,7 +13,7 @@ const LongTextInput = ({
 		<div className={classes}>
 			{label ?? <label htmlFor={label}>{label}</label>}
 			<textarea
-				id={label ?? 'generic-long-text-input-id'}
+				id={label ?? crypto.randomUUID()}
 				className='long-text-input scrollbar-vertical'
 				name={name}
 				value={value}
