@@ -24,7 +24,7 @@ export default function RecipeCard(props) {
 				/>
 				<PreparationSteps preparationSteps={recipe.preparationSteps} />
 			</div>
-			<ActionContainer recipeId={recipe.Id} />
+			<ActionContainer recipeId={recipe.id} />
 		</div>
 	);
 }
