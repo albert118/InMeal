@@ -23,14 +23,7 @@ export default function View(props) {
 			: []
 	);
 
-	const [preparationSteps, setPreparationSteps] = useState(
-		existingRecipe.prepSteps && existingRecipe.prepSteps.length !== 0
-			? existingRecipe.prepSteps
-			: []
-	);
-
 	const [newIngredient, setNewIngredient] = useState('');
-	const [newStep, setNewStep] = useState('');
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
 	const navigate = useNavigate();
@@ -38,11 +31,7 @@ export default function View(props) {
 	const submitHandler = async event => {
 		event.preventDefault();
 
-		const response = await patchRecipe(
-			recipe,
-			ingredients,
-			preparationSteps
-		);
+		const response = await patchRecipe(recipe, ingredients);
 
 		if (response.ok) {
 			setFormStatus(FormStatuses.Saved);
@@ -63,12 +52,6 @@ export default function View(props) {
 				? existingRecipe.recipeIngredientDtos
 				: []
 		);
-
-		setPreparationSteps(
-			existingRecipe.prepSteps.length !== 0
-				? existingRecipe.prepSteps
-				: []
-		);
 	};
 
 	const handleCancel = event => {
@@ -77,6 +60,8 @@ export default function View(props) {
 	};
 
 	const updateRecipeDataHandler = event => {
+		console.log(event);
+
 		setRecipe({
 			...recipe,
 			[event.target.name]: event.target.value
@@ -107,21 +92,6 @@ export default function View(props) {
 		setFormStatus(FormStatuses.Unsaved);
 	};
 
-	const addPreparationStepHandler = event => {
-		event.preventDefault();
-
-		if (!newStep || newStep === '') {
-			alert('actually add a preparation step 😄');
-			return;
-		}
-
-		setPreparationSteps([...preparationSteps, newStep]);
-
-		// allow a new step to be added
-		setNewStep('');
-		setFormStatus(FormStatuses.Unsaved);
-	};
-
 	return (
 		<FormContainer
 			className='card recipe-card e-recipe-form'
@@ -143,16 +113,13 @@ export default function View(props) {
 			</TitleBar>
 
 			<FormBody
-				blurb={recipe.blurb}
+				recipe={recipe}
 				updateRecipeDataHandler={updateRecipeDataHandler}
+				preparationSteps={recipe.preparationSteps}
 				ingredients={ingredients}
 				newIngredient={newIngredient}
 				addIngredientHandler={addIngredientHandler}
 				setNewIngredient={setNewIngredient}
-				preparationSteps={preparationSteps}
-				newStep={newStep}
-				setNewStep={setNewStep}
-				addPreparationStepHandler={addPreparationStepHandler}
 			/>
 
 			<FormActions
