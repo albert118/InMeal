@@ -20,7 +20,7 @@ const LongTextInput = ({
 				placeholder={placeholder}
 				onChange={handler}
 				rows={rows ?? '4'}
-				maxLength='300'
+				maxLength='1000'
 			/>
 		</div>
 	);

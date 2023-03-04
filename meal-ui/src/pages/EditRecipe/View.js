@@ -24,8 +24,6 @@ export default function View(props) {
 	const navigate = useNavigate();
 
 	const submitHandler = async () => {
-		console.log(JSON.stringify(recipe.recipeIngredients));
-
 		const response = await patchRecipe(recipe);
 
 		if (response.ok) {
