@@ -57,6 +57,7 @@ namespace InMeal.Core.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<bool>("isArchived")
