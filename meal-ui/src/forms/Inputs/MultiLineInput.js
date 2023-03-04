@@ -28,21 +28,13 @@ export default function MultiLineInput(props) {
 				<Button handler={addNewItemHandler}>➕</Button>
 			</div>
 
-			{items.map(item =>
-				item.hasOwnProperty('label') ? (
-					<TextInput
-						key={item.id ?? crypto.randomUUID()}
-						name={item.id ?? crypto.randomUUID()}
-						value={item.label}
-					/>
-				) : (
-					<TextInput
-						key={item.id ?? crypto.randomUUID()}
-						name={item.id ?? crypto.randomUUID()}
-						value={item}
-					/>
-				)
-			)}
+			{items.map(item => (
+				<TextInput
+					key={item.id ?? crypto.randomUUID()}
+					name={item.id ?? crypto.randomUUID()}
+					value={item.hasOwnProperty('label') ? item.label : item}
+				/>
+			))}
 		</div>
 	);
 }
