@@ -17,7 +17,7 @@ public interface IAsyncRecipeRepository
 
     Task<Recipe?> GetRecipeAsync(Guid id, CancellationToken ct);
 
-    Task<bool> EditRecipeAsync(Guid recipeId, RecipeDto updatedRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, CancellationToken ct);
+    Task<bool> EditRecipeAsync(RecipeDto updatedRecipe, CancellationToken ct);
 
     Task ArchiveRecipesAsync(List<Guid> ids, CancellationToken ct);
 }

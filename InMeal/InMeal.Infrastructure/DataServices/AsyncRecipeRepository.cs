@@ -29,7 +29,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         try {
             await _recipeDbContext.Recipes.AddAsync(recipe, ct);
 
-            AddRecipeIngredients(recipe, recipeIngredients);
+            UpdateRecipeIngredients(recipe, recipeIngredients);
             // _recipePhotoRepository.AddRecipePhoto(recipe, recipePhoto);
 
             await _recipeDbContext.SaveChangesAsync(ct);
@@ -90,13 +90,17 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     }
 
     // A dumb update method
-    public async Task<bool> EditRecipeAsync(Guid recipeId, RecipeDto updatedRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, CancellationToken ct)
+    public async Task<bool> EditRecipeAsync(RecipeDto updatedRecipe, CancellationToken ct)
     {
-        try {
-            var existingRecipe = await GetRecipeAsync(recipeId, ct)
-                ?? throw new DataException($"No {nameof(Recipe)} was found with the given ID '{recipeId}'");
+        if (!updatedRecipe.Id.HasValue) {
+            throw new DataException($"Can not get {nameof(Recipe)} without an ID ");
+        }
 
-            AddRecipeIngredients(existingRecipe, recipeIngredients);
+        try {
+            var existingRecipe = await GetRecipeAsync(updatedRecipe.Id.Value, ct)
+                ?? throw new DataException($"No {nameof(Recipe)} was found with the given ID '{updatedRecipe.Id.Value}'");
+
+            UpdateRecipeIngredients(existingRecipe, updatedRecipe.RecipeIngredients);
 
             existingRecipe.Title = updatedRecipe.Title;
             existingRecipe.Blurb = updatedRecipe.Blurb;
@@ -131,20 +135,19 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 
-    private void AddRecipeIngredients(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients)
+    private void UpdateRecipeIngredients(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients)
     {
+        if (!recipeIngredients.Keys.Any()) {
+            existingRecipe.RecipeIngredients = new();
+            return;
+        }
+
         EmptyGuidGuard.Apply(recipeIngredients.Keys);
 
-        var existingRecipeIngredients = existingRecipe.RecipeIngredients.Select(ri => ri.Id);
-
-        var newRecipeIngredients = recipeIngredients
-            // only add new ingredients
-            .Where(ri => !existingRecipeIngredients.Contains(ri.Key))
+        existingRecipe.RecipeIngredients = recipeIngredients
             .Select(ri => new RecipeIngredient {
                 IngredientId = ri.Key, Quantity = ri.Value.Quantity
             })
             .ToList();
-
-        existingRecipe.RecipeIngredients.AddRange(newRecipeIngredients);
     }
 }

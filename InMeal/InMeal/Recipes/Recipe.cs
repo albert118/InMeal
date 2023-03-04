@@ -65,7 +65,7 @@ public class RecipeController : ControllerBase
 
         var ct = _tokenAccessor.Token;
 
-        var wasSuccessful = await _recipeRepository.EditRecipeAsync(dto.Id!.Value, dto, dto.RecipeIngredients, ct);
+        var wasSuccessful = await _recipeRepository.EditRecipeAsync(dto, ct);
 
         return !wasSuccessful ?  BadRequest() : Ok();
     }
