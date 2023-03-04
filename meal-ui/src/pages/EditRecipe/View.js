@@ -11,6 +11,7 @@ import HeroImage from './HeroImage';
 import AppRoutes from 'navigation/AppRoutes';
 import { patchRecipe, putIngredient } from 'dataHooks/useRecipe';
 import { createIngredient } from 'pages/AddRecipe/createIngredient';
+import { isFalsishOrEmpty } from 'utils';
 
 import { demoImage } from '../../DemoImage';
 
@@ -47,6 +48,7 @@ export default function View(props) {
 
 	const handleRecipeIngredients = async event => {
 		if (event.target.id === 'new-item') {
+			// new item
 			const dto = await putIngredient(event.target.value);
 
 			// TODO: quantity logic
@@ -65,8 +67,17 @@ export default function View(props) {
 					[dto.Id]: newIngredient
 				}
 			});
+		} else if (isFalsishOrEmpty(event.target.value)) {
+			// remove item
+			const recipeIngredientsCopy = { ...recipe.recipeIngredients };
+			delete recipeIngredientsCopy[event.target.id];
+
+			setRecipe({
+				...recipe,
+				recipeIngredients: recipeIngredientsCopy
+			});
 		} else {
-			// add the ingredient to the existing ingredients
+			// existing item
 			setRecipe({
 				...recipe,
 				recipeIngredients: {
