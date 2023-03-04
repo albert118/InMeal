@@ -1,6 +1,7 @@
 using InMeal.Core.DTOs;
 using InMeal.Core.Globalisation;
 using InMeal.Infrastructure.Interfaces.DataServices;
+using InMeal.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InMeal.Recipes;
@@ -10,16 +11,13 @@ namespace InMeal.Recipes;
 public class RecipeController : ControllerBase
 {
     private readonly ILogger<RecipeController> _logger;
-    private readonly IAsyncRecipeIngredientRepository _recipeIngredientRepository;
     private readonly IAsyncRecipeRepository _recipeRepository;
     private readonly ICancellationTokenAccessor _tokenAccessor;
 
-    public RecipeController(IAsyncRecipeRepository recipeRepository, IAsyncRecipeIngredientRepository recipeIngredientRepository, ILogger<RecipeController> logger,
-        ICancellationTokenAccessor tokenAccessor)
+    public RecipeController(ILogger<RecipeController> logger, IAsyncRecipeRepository recipeRepository, ICancellationTokenAccessor tokenAccessor)
     {
-        _recipeRepository = recipeRepository;
-        _recipeIngredientRepository = recipeIngredientRepository;
         _logger = logger;
+        _recipeRepository = recipeRepository;
         _tokenAccessor = tokenAccessor;
     }
 
@@ -30,25 +28,7 @@ public class RecipeController : ControllerBase
         var task = _recipeRepository.GetRecipeAsync(id, ct);
         task.Wait(ct);
 
-        if (task.Result == null)
-            return null;
-
-        var preparationStepsAsList =
-            string.IsNullOrEmpty(task.Result.PreparationSteps) || !task.Result.PreparationSteps.Contains('\n')
-                ? null
-                : task.Result.PreparationSteps.Split('\n').ToList();
-
-        return new(
-            task.Result.Id,
-            task.Result.Title ?? "NO TITLE YIKES",
-            task.Result.Blurb,
-            preparationStepsAsList,
-            task.Result.CookTime,
-            task.Result.PrepTime,
-            task.Result.RecipeIngredients
-                .Select(ri => new RecipeIngredientDto(ri.Ingredient.Name, ri.Id, ri.Quantity))
-                .ToList()
-        );
+        return task.Result == null ? null : RecipeMapper.ToDto(task.Result);
     }
 
     [HttpPost(Name = "Add Recipe")]
@@ -56,12 +36,10 @@ public class RecipeController : ControllerBase
     {
         var ct = _tokenAccessor.Token;
 
-        var preparationStepsStringified = dto.PrepSteps is {Count: > 1} ? string.Join('\n', dto.PrepSteps): string.Empty;
-
         var task = _recipeRepository.AddRecipeAsync(
             dto.Title,
             dto.Blurb,
-            preparationStepsStringified,
+            dto.PreparationSteps,
             dto.CookTime,
             dto.PrepTime,
             dto.RecipeIngredientDtos,
@@ -69,7 +47,6 @@ public class RecipeController : ControllerBase
         );
 
         task.Wait(ct);
-
 
         if (!task.Result.HasValue) {
             throw new BadHttpRequestException("Couldn't add the recipe");

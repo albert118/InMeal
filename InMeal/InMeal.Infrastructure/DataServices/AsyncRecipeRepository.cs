@@ -22,7 +22,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         _logger = logger;
     }
 
-    public async Task<Guid?> AddRecipeAsync(string? title, string? blurb, string? prepSteps, int? cookTime, int? prepTime,
+    public async Task<Guid?> AddRecipeAsync(string title, string? blurb, string? prepSteps, int? cookTime, int? prepTime,
         List<RecipeIngredientDto> recipeIngredients,
         CancellationToken ct)
     {
@@ -73,6 +73,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     public Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(ids);
+
         return _recipeDbContext.Recipes
             .Where(r => ids.Distinct().Contains(r.Id))
             .ExcludeArchived()
@@ -101,7 +102,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
             existingRecipe.Title = updatedRecipe.Title;
             existingRecipe.Blurb = updatedRecipe.Blurb;
-            existingRecipe.PreparationSteps = string.Join('\n', updatedRecipe.PrepSteps);
+            existingRecipe.PreparationSteps = updatedRecipe.PreparationSteps;
             existingRecipe.PrepTime = updatedRecipe.PrepTime;
             existingRecipe.CookTime = updatedRecipe.CookTime;
 
@@ -119,6 +120,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     public async Task ArchiveRecipesAsync(List<Guid> ids, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(ids);
+
         var recipesToArchive = await _recipeDbContext.Recipes
             .Where(r => ids.Distinct().Contains(r.Id))
             .ExcludeArchived()
@@ -133,10 +135,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
     private void AddRecipeIngredients(Recipe existingRecipe, IReadOnlyList<RecipeIngredientDto> recipeIngredients)
     {
-        if (recipeIngredients.Any(ri => ri.IngredientId.IsEmpty())) {
-            throw new DataException(
-                "Attempting to add link ingredients to a recipe with empty ID(s) ('00000000-0000-0000-0000-000000000000') is not possible");
-        }
+        EmptyGuidGuard.Apply(recipeIngredients.Select(ri => ri.IngredientId));
 
         var existingRecipeIngredients = existingRecipe.RecipeIngredients.Select(ri => ri.Id);
 

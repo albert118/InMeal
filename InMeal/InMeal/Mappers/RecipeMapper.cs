@@ -10,9 +10,9 @@ public static class RecipeMapper
     {
         return new(
             recipe.Id,
-            recipe.Title ?? "NO TITLE YIKES",
+            recipe.Title,
             recipe.Blurb,
-            recipe.PreparationSteps.Split('\n').ToList(),
+            recipe.PreparationSteps,
             recipe.CookTime,
             recipe.PrepTime,
             recipe.RecipeIngredients
@@ -26,7 +26,7 @@ public static class RecipeMapper
         return new(
             recipe.Id,
             ToDto(recipe),
-            recipe.Title ?? "NO TITLE YIKES",
+            recipe.Title,
             PreparationStatus.Unknown.ToString().ToLowerInvariant(),
             new(
                 "https://media.tenor.com/1TjGpMd7GEYAAAAC/stitch-dessert.gif"
