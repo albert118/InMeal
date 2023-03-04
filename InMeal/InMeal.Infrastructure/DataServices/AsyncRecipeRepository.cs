@@ -22,11 +22,11 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         _logger = logger;
     }
 
-    public async Task<Guid?> AddRecipeAsync(string title, string? blurb, string? prepSteps, int? cookTime, int? prepTime,
+    public async Task<Guid?> AddRecipeAsync(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime,
         List<RecipeIngredientDto> recipeIngredients,
         CancellationToken ct)
     {
-        var recipe = new Recipe(title, blurb, prepSteps, cookTime, prepTime);
+        var recipe = new Recipe(title, blurb, preparationSteps, cookTime, prepTime);
 
         try {
             await _recipeDbContext.Recipes.AddAsync(recipe, ct);
