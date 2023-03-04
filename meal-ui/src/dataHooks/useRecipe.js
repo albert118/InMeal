@@ -23,7 +23,7 @@ const postRecipe = async (recipe, ingredients) => {
 		method: 'POST',
 		body: JSON.stringify({
 			...recipe,
-			recipeIngredientDtos: ingredients
+			RecipeIngredients: ingredients
 		})
 	});
 
@@ -40,7 +40,7 @@ const patchRecipe = async (recipe, ingredients) => {
 		method: 'PATCH',
 		body: JSON.stringify({
 			...recipe,
-			recipeIngredientDtos: ingredients
+			RecipeIngredients: ingredients
 		})
 	});
 

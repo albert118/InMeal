@@ -1,38 +1,44 @@
+import { useState } from 'react';
+
 import { TextInput } from './TextInput';
 import Button from 'components/Button';
 
-export default function MultiLineInput(props) {
-	const {
-		className,
-		items,
-		newItem,
-		newItemHandler,
-		addNewItemHandler,
-		placeholder
-	} = props;
+import { objectMap } from './objectMap';
 
+// will set newly added item IDs to 'new-item'
+export default function MultiLineInput({
+	className,
+	items,
+	attrName,
+	handler,
+	placeholder
+}) {
 	const classes = className
 		? `multi-line-input ${className}`
 		: `multi-line-input`;
 
+	const [newItem, setNewItem] = useState('');
+
 	return (
 		<div className={classes}>
 			<div className='add-new-item'>
-				<TextInput
+				{/* <TextInput
 					className='new-ingredient'
 					name='new-ingredient'
 					value={newItem}
-					handler={newItemHandler}
+					handler={event => setNewItem(event.target.value)}
 					placeholder={placeholder}
 				/>
-				<Button handler={addNewItemHandler}>➕</Button>
+				<Button handler={appendNewItem}>➕</Button> */}
 			</div>
 
-			{items.map(item => (
+			{objectMap(items, (key, value) => (
 				<TextInput
-					key={item.id ?? crypto.randomUUID()}
-					name={item.id ?? crypto.randomUUID()}
-					value={item.hasOwnProperty('label') ? item.label : item}
+					key={key}
+					id={key}
+					name={attrName}
+					value={value.hasOwnProperty('label') ? value.label : value}
+					handler={handler}
 				/>
 			))}
 		</div>

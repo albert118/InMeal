@@ -1,3 +1,4 @@
+// TODO: quantity logic
 const createIngredient = (name, id, numberOf) => {
 	return {
 		label: name,

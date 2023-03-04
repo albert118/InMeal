@@ -10,31 +10,22 @@ import HeroImage from './HeroImage';
 
 import AppRoutes from 'navigation/AppRoutes';
 import { patchRecipe, putIngredient } from 'dataHooks/useRecipe';
+import { createIngredient } from 'pages/AddRecipe/createIngredient';
 
 import { demoImage } from '../../DemoImage';
-import { createIngredient } from './IngredientMapper';
 
 export default function View(props) {
 	const { existingRecipe } = props;
 
 	const [recipe, setRecipe] = useState(existingRecipe);
-
-	const [ingredients, setIngredients] = useState(
-		existingRecipe.recipeIngredientDtos &&
-			existingRecipe.recipeIngredientDtos.length !== 0
-			? existingRecipe.recipeIngredientDtos
-			: []
-	);
-
-	const [newIngredient, setNewIngredient] = useState('');
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
 	const navigate = useNavigate();
 
-	const submitHandler = async event => {
-		event.preventDefault();
+	const submitHandler = async () => {
+		console.log(recipe);
 
-		const response = await patchRecipe(recipe, ingredients);
+		const response = await patchRecipe(recipe, []);
 
 		if (response.ok) {
 			setFormStatus(FormStatuses.Saved);
@@ -44,17 +35,9 @@ export default function View(props) {
 		}
 	};
 
-	const clearChanges = event => {
-		event.preventDefault();
+	const clearChanges = () => {
 		setRecipe(existingRecipe);
-
 		setFormStatus(FormStatuses.Saved);
-
-		setIngredients(
-			existingRecipe.recipeIngredientDtos.length !== 0
-				? existingRecipe.recipeIngredientDtos
-				: []
-		);
 	};
 
 	const handleCancel = event => {
@@ -62,34 +45,57 @@ export default function View(props) {
 		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 	};
 
-	const updateRecipeDataHandler = event => {
+	const handleRecipeIngredients = async event => {
+		if (event.target.id === 'new-item') {
+			const dto = await putIngredient(event.target.value);
+
+			// TODO: quantity logic
+			const fakeQuantity = 1;
+			const newIngredient = createIngredient(
+				event.target.value,
+				dto.Id,
+				fakeQuantity
+			);
+
+			// add the ingredient to the existing ingredients
+			setRecipe({
+				...recipe,
+				recipeIngredients: {
+					...recipe.recipeIngredients,
+					[dto.Id]: newIngredient
+				}
+			});
+		} else {
+			// add the ingredient to the existing ingredients
+			setRecipe({
+				...recipe,
+				recipeIngredients: {
+					// ... take existing ingredients
+					...recipe.recipeIngredients,
+					// ... selecting the given ID
+					[event.target.id]: {
+						// ... and applying a change only to the ingredient label
+						...[recipe.recipeIngredients[event.target.id]],
+						label: event.target.value
+					}
+				}
+			});
+		}
+	};
+
+	const updateRecipeDataHandler = async event => {
+		console.log(event.target);
+
+		if (event.target.name === 'recipeIngredients') {
+			handleRecipeIngredients(event);
+			return;
+		}
+
 		setRecipe({
 			...recipe,
 			[event.target.name]: event.target.value
 		});
 
-		setFormStatus(FormStatuses.Unsaved);
-	};
-
-	const addIngredientHandler = async event => {
-		event.preventDefault();
-
-		if (!newIngredient || newIngredient === '') {
-			alert('actually add an ingredient 😉');
-			return;
-		}
-
-		const response = await putIngredient(newIngredient);
-
-		// include the correct ID
-		setIngredients([
-			...ingredients,
-			createIngredient(newIngredient, response.id, 1)
-		]);
-
-		// include the ID from the response
-		// fake the quantity
-		setNewIngredient('');
 		setFormStatus(FormStatuses.Unsaved);
 	};
 
@@ -116,11 +122,8 @@ export default function View(props) {
 			<FormBody
 				blurb={recipe.blurb}
 				preparationSteps={recipe.preparationSteps}
+				ingredients={recipe.recipeIngredients}
 				handler={updateRecipeDataHandler}
-				ingredients={ingredients}
-				newIngredient={newIngredient}
-				addIngredientHandler={addIngredientHandler}
-				setNewIngredient={setNewIngredient}
 			/>
 
 			<FormActions
