@@ -7,5 +7,5 @@ public sealed record RecipeDto(
     string PreparationSteps,
     int? CookTime,
     int? PrepTime,
-    List<RecipeIngredientDto> RecipeIngredientDtos
+    Dictionary<Guid, RecipeIngredientDto> RecipeIngredients
 );

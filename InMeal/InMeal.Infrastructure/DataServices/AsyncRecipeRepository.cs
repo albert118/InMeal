@@ -22,9 +22,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         _logger = logger;
     }
 
-    public async Task<Guid?> AddRecipeAsync(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime,
-        List<RecipeIngredientDto> recipeIngredients,
-        CancellationToken ct)
+    public async Task<Guid?> AddRecipeAsync(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime, Dictionary<Guid, RecipeIngredientDto> recipeIngredients, CancellationToken ct)
     {
         var recipe = new Recipe(title, blurb, preparationSteps, cookTime, prepTime);
 
@@ -92,7 +90,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     }
 
     // A dumb update method
-    public async Task<bool> EditRecipeAsync(Guid recipeId, RecipeDto updatedRecipe, IReadOnlyList<RecipeIngredientDto> recipeIngredients, CancellationToken ct)
+    public async Task<bool> EditRecipeAsync(Guid recipeId, RecipeDto updatedRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, CancellationToken ct)
     {
         try {
             var existingRecipe = await GetRecipeAsync(recipeId, ct)
@@ -133,17 +131,17 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 
-    private void AddRecipeIngredients(Recipe existingRecipe, IReadOnlyList<RecipeIngredientDto> recipeIngredients)
+    private void AddRecipeIngredients(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients)
     {
-        EmptyGuidGuard.Apply(recipeIngredients.Select(ri => ri.IngredientId));
+        EmptyGuidGuard.Apply(recipeIngredients.Keys);
 
         var existingRecipeIngredients = existingRecipe.RecipeIngredients.Select(ri => ri.Id);
 
         var newRecipeIngredients = recipeIngredients
             // only add new ingredients
-            .Where(ri => !existingRecipeIngredients.Contains(ri.IngredientId))
+            .Where(ri => !existingRecipeIngredients.Contains(ri.Key))
             .Select(ri => new RecipeIngredient {
-                IngredientId = ri.IngredientId, Quantity = ri.Quantity
+                IngredientId = ri.Key, Quantity = ri.Value.Quantity
             })
             .ToList();
 

@@ -42,7 +42,7 @@ public class RecipeController : ControllerBase
             dto.PreparationSteps,
             dto.CookTime,
             dto.PrepTime,
-            dto.RecipeIngredientDtos,
+            dto.RecipeIngredients,
             ct
         );
 
@@ -65,7 +65,7 @@ public class RecipeController : ControllerBase
 
         var ct = _tokenAccessor.Token;
 
-        var wasSuccessful = await _recipeRepository.EditRecipeAsync(dto.Id!.Value, dto, dto.RecipeIngredientDtos, ct);
+        var wasSuccessful = await _recipeRepository.EditRecipeAsync(dto.Id!.Value, dto, dto.RecipeIngredients, ct);
 
         return !wasSuccessful ?  BadRequest() : Ok();
     }
