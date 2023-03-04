@@ -19,17 +19,30 @@ export default function MultiLineInput({
 
 	const [newItem, setNewItem] = useState('');
 
+	const appendNewItem = () => {
+		// by using a fake event, consumers can re-use existing form handlers that would expect event.target data
+		handler({
+			target: {
+				id: 'new-item',
+				name: 'recipeIngredients',
+				value: newItem
+			}
+		});
+
+		setNewItem('');
+	};
+
 	return (
 		<div className={classes}>
 			<div className='add-new-item'>
-				{/* <TextInput
+				<TextInput
 					className='new-ingredient'
 					name='new-ingredient'
 					value={newItem}
 					handler={event => setNewItem(event.target.value)}
 					placeholder={placeholder}
 				/>
-				<Button handler={appendNewItem}>➕</Button> */}
+				<Button handler={appendNewItem}>➕</Button>
 			</div>
 
 			{objectMap(items, (key, value) => (
