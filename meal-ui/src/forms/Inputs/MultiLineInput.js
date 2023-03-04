@@ -45,15 +45,18 @@ export default function MultiLineInput({
 				<Button handler={appendNewItem}>➕</Button>
 			</div>
 
-			{objectMap(items, (key, value) => (
-				<TextInput
-					key={key}
-					id={key}
-					name={attrName}
-					value={value.hasOwnProperty('label') ? value.label : value}
-					handler={handler}
-				/>
-			))}
+			{items &&
+				objectMap(items, (key, value) => (
+					<TextInput
+						key={key}
+						id={key}
+						name={attrName}
+						value={
+							value.hasOwnProperty('label') ? value.label : value
+						}
+						handler={handler}
+					/>
+				))}
 		</div>
 	);
 }
