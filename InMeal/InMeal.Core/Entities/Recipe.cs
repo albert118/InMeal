@@ -2,7 +2,7 @@
 
 public class Recipe : IArchivable
 {
-    public Recipe(string? title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
+    public Recipe(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
     {
         Id = Guid.NewGuid();
 
@@ -25,7 +25,7 @@ public class Recipe : IArchivable
 
     public int Servings { get; set; } = 1;
 
-    public string? Title { get; set; }
+    public string Title { get; set; }
 
     public string? Blurb { get; set; }
 
