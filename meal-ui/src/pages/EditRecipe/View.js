@@ -23,7 +23,10 @@ export default function View(props) {
 
 	const navigate = useNavigate();
 
-	const submitHandler = async () => {
+	const submitHandler = async event => {
+		event.preventDefault();
+		console.log(recipe);
+
 		const response = await patchRecipe(recipe);
 
 		if (response.ok) {
@@ -34,7 +37,8 @@ export default function View(props) {
 		}
 	};
 
-	const clearChanges = () => {
+	const clearChanges = event => {
+		event.preventDefault();
 		setRecipe(existingRecipe);
 		setFormStatus(FormStatuses.Saved);
 	};

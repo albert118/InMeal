@@ -23,7 +23,9 @@ export default function View() {
 
 	const navigate = useNavigate();
 
-	const submitHandler = async () => {
+	const submitHandler = async event => {
+		event.preventDefault();
+
 		let response;
 
 		// update the recipe after adding for the first time
@@ -47,7 +49,8 @@ export default function View() {
 		}
 	};
 
-	const clearChanges = () => {
+	const clearChanges = event => {
+		event.preventDefault();
 		recipe.id ? setRecipe(recipe) : setRecipe(defaultRecipe);
 		setFormStatus(FormStatuses.Saved);
 	};
