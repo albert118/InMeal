@@ -58,6 +58,6 @@
 .setting-links {
 	display: flex;
 	height: 10%;
-	align-items: stretch;
 	justify-content: center;
+	align-items: center;
 }

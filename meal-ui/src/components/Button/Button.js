@@ -1,55 +1,56 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Button from '@mui/joy/Button';
+import IconButton from '@mui/joy/IconButton';
 
-const Button = props => {
-	const { className, handler } = props;
-
-	const classes = className ? `btn ${className}` : `btn`;
+const CustomButton = props => {
+	const { handler } = props;
 
 	return (
-		<button
-			className={classes}
-			type='button'
+		<Button
+			fullWidth
+			variant='outlined'
 			onClick={handler}
 		>
 			{props.children}
-		</button>
+		</Button>
 	);
 };
 
-const IconButton = props => {
+const CustomIconButton = props => {
 	const { faIcon, handler, isPrimary } = props;
 
-	const classes = isPrimary ? 'icon-btn primary-icon-btn' : 'icon-btn';
-
 	return (
-		<button
-			className={classes}
-			type='button'
+		<IconButton
+			variant='plain'
+			fullWidth
+			color={isPrimary ? 'primary' : 'info'}
+			size='lg'
 			onClick={handler}
 		>
 			<FontAwesomeIcon icon={faIcon} />
-		</button>
+		</IconButton>
 	);
 };
 
 const LabelledIconButton = props => {
 	const { faIcon, handler, isPrimary } = props;
 
-	const classes = isPrimary
-		? 'icon-btn primary-icon-btn e-labelled-icon-btn'
-		: 'icon-btn e-labelled-icon-btn';
-
 	return (
-		<button
-			className={classes}
-			type='button'
+		<Button
+			startDecorator={<FontAwesomeIcon icon={faIcon} />}
+			size='lg'
+			color={isPrimary ? 'primary' : 'info'}
+			fullWidth
 			onClick={handler}
 		>
-			<FontAwesomeIcon icon={faIcon} />
 			{props.children}
-		</button>
+		</Button>
 	);
 };
 
-export { Button, IconButton, LabelledIconButton };
+export {
+	CustomButton as Button,
+	CustomIconButton as IconButton,
+	LabelledIconButton
+};
