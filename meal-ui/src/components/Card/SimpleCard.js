@@ -1,14 +1,14 @@
-const SimpleCard = props => {
-	const { className } = props;
+import { Tile } from '@carbon/react';
 
-	const classes = className
-		? `card simple-card ${className}`
-		: `card simple-card`;
-
+const SimpleCard = ({ className, children }) => {
 	return (
-		<div className={classes}>
-			<div className='content-slot'>{props.children}</div>
-		</div>
+		<Tile
+			className={
+				className ? `card simple-card ${className}` : `card simple-card`
+			}
+		>
+			<div className='content-slot'>{children}</div>
+		</Tile>
 	);
 };
 
