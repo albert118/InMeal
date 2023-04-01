@@ -3,6 +3,7 @@ import { createTheme } from '@nextui-org/react';
 export const mealUiTheme = createTheme({
 	type: 'dark',
 	theme: {
+		// brand colours
 		primaryLight: '--dove-grey',
 		primaryLightHover: '--dove-grey',
 		primaryLightActive: '--dove-grey',
