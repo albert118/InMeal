@@ -144,6 +144,8 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
         EmptyGuidGuard.Apply(recipeIngredients.Keys);
 
+        // TODO fix this and make it clever
+        // Will fail an FK constraint when replacing with existing (ef core will think new associations exist)
         existingRecipe.RecipeIngredients = recipeIngredients
             .Select(ri => new RecipeIngredient {
                 IngredientId = ri.Key, Quantity = ri.Value.Quantity
