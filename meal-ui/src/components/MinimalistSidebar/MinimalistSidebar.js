@@ -27,18 +27,17 @@ export default function MinimalistSidebar() {
 
 	return (
 		<div
+			expanded={isActive}
+			isChildOfHeader={false}
+			aria-label='Side Navigation'
 			className={`minimalist-sidebar ${
 				isActive ? 'minimalist-sidebar-active' : ''
 			} ${isInActive ? 'minimalist-sidebar-inactive' : ''}`}
 		>
-			<div className='hero-branding-logo'>
-				<button
-					type='button'
-					onClick={handleDashboardClick}
-				>
-					<h1 className='hero-title'>{config.BrandName}</h1>
-				</button>
-			</div>
+			<HeroBrandingLogo
+				config={config}
+				onClick={handleDashboardClick}
+			/>
 			<AnimatedHamburger callback={toggleActive} />
 			<div
 				className={
@@ -75,6 +74,20 @@ export default function MinimalistSidebar() {
 					Settings
 				</NavLinkItem>
 			</div>
+		</div>
+	);
+}
+
+function HeroBrandingLogo({ config, onClick }) {
+	return (
+		<div className='hero-branding-logo'>
+			<button
+				type='button'
+				onClick={onClick}
+			>
+				<h1 className='hero-title'>{config.BrandName}</h1>
+			</button>
+			<div className='divider' />
 		</div>
 	);
 }
