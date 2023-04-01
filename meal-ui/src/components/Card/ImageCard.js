@@ -23,7 +23,7 @@ const ImageCard = props => {
 					size='sm'
 					auto
 					ghost
-					handler={() => ctaHandler(id)}
+					onClick={() => ctaHandler(id)}
 				>
 					view
 				</Button>
