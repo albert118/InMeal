@@ -1,24 +1,24 @@
-.p-home-view {
-	position: relative;
-	width: 100%;
+@use '@carbon/react/scss/spacing' as *;
+@use '@carbon/react/scss/breakpoint' as *;
 
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-content: flex-start;
-	row-gap: var(--ns-full);
-
-	margin-top: var(--ns-full);
-	padding-left: var(--ns-full);
-	padding-right: var(--ns-full);
-
-	overflow-y: scroll;
+.p-home {
+	padding-top: $spacing-06;
 }
 
-.quick-recipes-view > div:last-child {
-	margin-top: var(--ns-full);
+.p-home__r1,
+.p-home__r2 {
+	margin-top: $spacing-08;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.p-home__r1 > .quick-recipes-view > div:last-child {
+	margin-top: $spacing-06;
 }
 
 .simple-card {
-	width: 30%;
+	@include breakpoint-down(xlg) {
+		width: 30%;
+	}
 }

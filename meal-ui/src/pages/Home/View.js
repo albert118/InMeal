@@ -1,23 +1,17 @@
-import { useContext } from 'react';
-import { GenericContext } from 'pages/GenericPageContainer';
 import { CommonActions } from './CommonActions';
 import { QuickRecipesView } from './QuickRecipesView';
 import { Grid, Column } from '@carbon/react';
 
 export default function View({ plannedItems, suggestedItems }) {
-	const genericContext = useContext(GenericContext);
-
 	return (
 		<Grid
 			fullWidth
-			className={
-				genericContext.className
-					? `p-home-view ${genericContext.className}`
-					: `p-home-view`
-			}
+			className='p-home'
 		>
 			<Column
-				lg={8}
+				className='p-home__r1'
+				max={8}
+				lg={16}
 				md={8}
 				sm={4}
 			>
@@ -27,7 +21,9 @@ export default function View({ plannedItems, suggestedItems }) {
 				/>
 			</Column>
 			<Column
-				lg={8}
+				className='p-home__r2'
+				max={8}
+				lg={16}
 				md={8}
 				sm={4}
 			>
