@@ -1,0 +1,12 @@
+/**
+ * Do not define any rules in this file! Only import config rulesets
+ */
+
+@import 'config/colors.css';
+@import 'config/layers.css';
+
+/* a consistent scale for padding/margins to define negative spacing across the site */
+@import 'config/negative-space-scale.css';
+
+/* include the customised carbon design system theme */
+@import 'config/themes.scss';
