@@ -7,6 +7,8 @@ import ViewRecipe from 'pages/ViewRecipe';
 import EditRecipe from 'pages/EditRecipe';
 import AddRecipeContainer from 'pages/AddRecipe/AddRecipeContainer';
 
+import { Content } from '@carbon/react';
+
 /// Route naming convention is
 ////    specific entity actions `/entitiy/action/id`
 ///     views                   `/entitiy/id`
@@ -17,25 +19,45 @@ const RouterConfig = () => {
 		<Routes>
 			<Route
 				path={AppRoutes.root}
-				element={<HomeContainer />}
+				element={
+					<Content>
+						<HomeContainer />
+					</Content>
+				}
 			/>
 			<Route
 				path={AppRoutes.recipes}
-				element={<ViewRecipesContainer />}
+				element={
+					<Content>
+						<ViewRecipesContainer />
+					</Content>
+				}
 			/>
 			<Route
 				path={`${AppRoutes.recipe}/:recipeId`}
-				element={<ViewRecipe />}
+				element={
+					<Content>
+						<ViewRecipe />
+					</Content>
+				}
 			/>
 
 			<Route
 				path={`${AppRoutes.recipe}/edit/:recipeId`}
-				element={<EditRecipe />}
+				element={
+					<Content>
+						<EditRecipe />
+					</Content>
+				}
 			/>
 
 			<Route
 				path={`${AppRoutes.recipe}/add`}
-				element={<AddRecipeContainer />}
+				element={
+					<Content>
+						<AddRecipeContainer />
+					</Content>
+				}
 			/>
 
 			{/* 
@@ -44,7 +66,11 @@ const RouterConfig = () => {
             */}
 			<Route
 				path='/'
-				element={<HomeContainer />}
+				element={
+					<Content>
+						<HomeContainer />
+					</Content>
+				}
 			/>
 		</Routes>
 	);
