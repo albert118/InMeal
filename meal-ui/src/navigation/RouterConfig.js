@@ -19,45 +19,25 @@ const RouterConfig = () => {
 		<Routes>
 			<Route
 				path={AppRoutes.root}
-				element={
-					<Content>
-						<HomeContainer />
-					</Content>
-				}
+				element={<HomeContainer />}
 			/>
 			<Route
 				path={AppRoutes.recipes}
-				element={
-					<Content>
-						<ViewRecipesContainer />
-					</Content>
-				}
+				element={<ViewRecipesContainer />}
 			/>
 			<Route
 				path={`${AppRoutes.recipe}/:recipeId`}
-				element={
-					<Content>
-						<ViewRecipe />
-					</Content>
-				}
+				element={<ViewRecipe />}
 			/>
 
 			<Route
 				path={`${AppRoutes.recipe}/edit/:recipeId`}
-				element={
-					<Content>
-						<EditRecipe />
-					</Content>
-				}
+				element={<EditRecipe />}
 			/>
 
 			<Route
 				path={`${AppRoutes.recipe}/add`}
-				element={
-					<Content>
-						<AddRecipeContainer />
-					</Content>
-				}
+				element={<AddRecipeContainer />}
 			/>
 
 			{/* 
@@ -66,11 +46,7 @@ const RouterConfig = () => {
             */}
 			<Route
 				path='/'
-				element={
-					<Content>
-						<HomeContainer />
-					</Content>
-				}
+				element={<HomeContainer />}
 			/>
 		</Routes>
 	);
