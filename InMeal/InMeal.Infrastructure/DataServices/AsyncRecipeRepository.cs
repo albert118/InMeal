@@ -22,16 +22,14 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         _logger = logger;
     }
 
-    public async Task<Guid?> AddRecipeAsync(string? title, string? blurb, string? prepSteps, int? cookTime, int? prepTime,
-        List<RecipeIngredientDto> recipeIngredients,
-        CancellationToken ct)
+    public async Task<Guid?> AddRecipeAsync(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime, Dictionary<Guid, RecipeIngredientDto> recipeIngredients, CancellationToken ct)
     {
-        var recipe = new Recipe(title, blurb, prepSteps, cookTime, prepTime);
+        var recipe = new Recipe(title, blurb, preparationSteps, cookTime, prepTime);
 
         try {
             await _recipeDbContext.Recipes.AddAsync(recipe, ct);
 
-            AddRecipeIngredients(recipe, recipeIngredients);
+            UpdateRecipeIngredients(recipe, recipeIngredients);
             // _recipePhotoRepository.AddRecipePhoto(recipe, recipePhoto);
 
             await _recipeDbContext.SaveChangesAsync(ct);
@@ -73,6 +71,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     public Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(ids);
+
         return _recipeDbContext.Recipes
             .Where(r => ids.Distinct().Contains(r.Id))
             .ExcludeArchived()
@@ -91,17 +90,21 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     }
 
     // A dumb update method
-    public async Task<bool> EditRecipeAsync(Guid recipeId, RecipeDto updatedRecipe, IReadOnlyList<RecipeIngredientDto> recipeIngredients, CancellationToken ct)
+    public async Task<bool> EditRecipeAsync(RecipeDto updatedRecipe, CancellationToken ct)
     {
-        try {
-            var existingRecipe = await GetRecipeAsync(recipeId, ct)
-                ?? throw new DataException($"No {nameof(Recipe)} was found with the given ID '{recipeId}'");
+        if (!updatedRecipe.Id.HasValue) {
+            throw new DataException($"Can not get {nameof(Recipe)} without an ID ");
+        }
 
-            AddRecipeIngredients(existingRecipe, recipeIngredients);
+        try {
+            var existingRecipe = await GetRecipeAsync(updatedRecipe.Id.Value, ct)
+                ?? throw new DataException($"No {nameof(Recipe)} was found with the given ID '{updatedRecipe.Id.Value}'");
+
+            UpdateRecipeIngredients(existingRecipe, updatedRecipe.RecipeIngredients);
 
             existingRecipe.Title = updatedRecipe.Title;
             existingRecipe.Blurb = updatedRecipe.Blurb;
-            existingRecipe.PreparationSteps = string.Join('\n', updatedRecipe.PrepSteps);
+            existingRecipe.PreparationSteps = updatedRecipe.PreparationSteps;
             existingRecipe.PrepTime = updatedRecipe.PrepTime;
             existingRecipe.CookTime = updatedRecipe.CookTime;
 
@@ -119,6 +122,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     public async Task ArchiveRecipesAsync(List<Guid> ids, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(ids);
+
         var recipesToArchive = await _recipeDbContext.Recipes
             .Where(r => ids.Distinct().Contains(r.Id))
             .ExcludeArchived()
@@ -131,23 +135,21 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 
-    private void AddRecipeIngredients(Recipe existingRecipe, IReadOnlyList<RecipeIngredientDto> recipeIngredients)
+    private void UpdateRecipeIngredients(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients)
     {
-        if (recipeIngredients.Any(ri => ri.IngredientId.IsEmpty())) {
-            throw new DataException(
-                "Attempting to add link ingredients to a recipe with empty ID(s) ('00000000-0000-0000-0000-000000000000') is not possible");
+        if (!recipeIngredients.Keys.Any()) {
+            existingRecipe.RecipeIngredients = new();
+            return;
         }
 
-        var existingRecipeIngredients = existingRecipe.RecipeIngredients.Select(ri => ri.Id);
+        EmptyGuidGuard.Apply(recipeIngredients.Keys);
 
-        var newRecipeIngredients = recipeIngredients
-            // only add new ingredients
-            .Where(ri => !existingRecipeIngredients.Contains(ri.IngredientId))
+        // TODO fix this and make it clever
+        // Will fail an FK constraint when replacing with existing (ef core will think new associations exist)
+        existingRecipe.RecipeIngredients = recipeIngredients
             .Select(ri => new RecipeIngredient {
-                IngredientId = ri.IngredientId, Quantity = ri.Quantity
+                IngredientId = ri.Key, Quantity = ri.Value.Quantity
             })
             .ToList();
-
-        existingRecipe.RecipeIngredients.AddRange(newRecipeIngredients);
     }
 }

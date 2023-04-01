@@ -1,43 +1,31 @@
 import { LongTextInput, MultiLineInput } from 'forms/Inputs';
 
-export function FormBody({
-	blurb,
-	ingredients,
-	newIngredient,
-	preparationSteps,
-	updateRecipeDataHandler,
-	setNewIngredient,
-	addIngredientHandler,
-	newStep,
-	setNewStep,
-	addPreparationStepHandler
-}) {
+export function FormBody({ blurb, preparationSteps, ingredients, handler }) {
 	return (
 		<div className='recipe-data-slot recipe-content-grid scrollbar-vertical'>
 			<LongTextInput
 				className='recipe-content-blurb'
 				name='blurb'
 				value={blurb}
-				placeholder='Maybe some details too?'
-				handler={updateRecipeDataHandler}
+				placeholder='maybe some details too?'
+				handler={handler}
 			/>
 
 			<MultiLineInput
 				className='recipe-content-ingredients'
 				items={ingredients}
-				newItem={newIngredient}
-				newItemHandler={event => setNewIngredient(event.target.value)}
-				addNewItemHandler={addIngredientHandler}
+				attrName='recipeIngredients'
+				handler={handler}
 				placeholder='add another ingredient'
 			/>
 
-			<MultiLineInput
+			<LongTextInput
 				className='recipe-content-preparation-steps'
-				items={preparationSteps}
-				newItem={newStep}
-				newItemHandler={event => setNewStep(event.target.value)}
-				addNewItemHandler={addPreparationStepHandler}
-				placeholder='include a further step'
+				name='preparationSteps'
+				value={preparationSteps}
+				placeholder='include lots of details and steps'
+				handler={handler}
+				rows='20'
 			/>
 		</div>
 	);

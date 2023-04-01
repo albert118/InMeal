@@ -1,20 +1,36 @@
-import React from 'react';
+import { useState } from 'react';
+
 import { TextInput } from './TextInput';
 import Button from 'components/Button';
 
-export default function MultiLineInput(props) {
-	const {
-		className,
-		items,
-		newItem,
-		newItemHandler,
-		addNewItemHandler,
-		placeholder
-	} = props;
+import { objectMap } from 'utils';
 
+// will set newly added item IDs to 'new-item'
+export default function MultiLineInput({
+	className,
+	items,
+	attrName,
+	handler,
+	placeholder
+}) {
 	const classes = className
 		? `multi-line-input ${className}`
 		: `multi-line-input`;
+
+	const [newItem, setNewItem] = useState('');
+
+	const appendNewItem = () => {
+		// by using a fake event, consumers can re-use existing form handlers that would expect event.target data
+		handler({
+			target: {
+				id: 'new-item',
+				name: 'recipeIngredients',
+				value: newItem
+			}
+		});
+
+		setNewItem('');
+	};
 
 	return (
 		<div className={classes}>
@@ -23,27 +39,24 @@ export default function MultiLineInput(props) {
 					className='new-ingredient'
 					name='new-ingredient'
 					value={newItem}
-					handler={newItemHandler}
+					handler={event => setNewItem(event.target.value)}
 					placeholder={placeholder}
 				/>
-				<Button handler={addNewItemHandler}>➕</Button>
+				<Button handler={appendNewItem}>➕</Button>
 			</div>
 
-			{items.map(item =>
-				item.hasOwnProperty('label') ? (
+			{items &&
+				objectMap(items, (key, value) => (
 					<TextInput
-						key={item.id}
-						name={item.id}
-						value={item.label}
+						key={key}
+						id={key}
+						name={attrName}
+						value={
+							value.hasOwnProperty('label') ? value.label : value
+						}
+						handler={handler}
 					/>
-				) : (
-					<TextInput
-						key={item.id ?? crypto.randomUUID()}
-						name={item.id ?? crypto.randomUUID()}
-						value={item}
-					/>
-				)
-			)}
+				))}
 		</div>
 	);
 }

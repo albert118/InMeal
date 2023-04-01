@@ -25,8 +25,10 @@ public class RecipeIngredientConfig
         builder
             .Property(e => e.Quantity).HasConversion(
                 data => JsonConvert.SerializeObject(data),
-                data => JsonConvert.DeserializeObject<Quantity>(data,
-                    new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore})
+                data => JsonConvert.DeserializeObject<Quantity>(
+                    data,
+                    new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}
+                )!
             ).IsRequired();
     }
 }

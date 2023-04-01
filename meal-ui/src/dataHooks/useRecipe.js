@@ -15,17 +15,13 @@ const getRecipe = async id => {
 	return data;
 };
 
-const postRecipe = async (recipe, ingredients, preparationSteps) => {
+const postRecipe = async recipe => {
 	const url = `${ApiConfig.API_URL}/recipe`;
 
 	const response = await fetch(url, {
 		...defaultRequestOptions,
 		method: 'POST',
-		body: JSON.stringify({
-			...recipe,
-			recipeIngredientDtos: ingredients,
-			prepSteps: preparationSteps
-		})
+		body: JSON.stringify(recipe)
 	});
 
 	const data = await response.json();
@@ -33,17 +29,13 @@ const postRecipe = async (recipe, ingredients, preparationSteps) => {
 	return data;
 };
 
-const patchRecipe = async (recipe, ingredients, preparationSteps) => {
+const patchRecipe = async recipe => {
 	const url = `${ApiConfig.API_URL}/recipe`;
 
 	const response = await fetch(url, {
 		...defaultRequestOptions,
 		method: 'PATCH',
-		body: JSON.stringify({
-			...recipe,
-			recipeIngredientDtos: ingredients,
-			prepSteps: preparationSteps
-		})
+		body: JSON.stringify(recipe)
 	});
 
 	return response;

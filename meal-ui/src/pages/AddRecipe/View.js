@@ -19,13 +19,6 @@ import { defaultRecipe } from './DefaultRecipe';
 
 export default function View() {
 	const [recipe, setRecipe] = useState(defaultRecipe);
-
-	const [ingredients, setIngredients] = useState([]);
-
-	const [preparationSteps, setPreparationSteps] = useState([]);
-
-	const [newIngredient, setNewIngredient] = useState('');
-	const [newStep, setNewStep] = useState('');
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
 	const navigate = useNavigate();
@@ -37,7 +30,7 @@ export default function View() {
 
 		// update the recipe after adding for the first time
 		if (recipe.id) {
-			response = await patchRecipe(recipe, ingredients, preparationSteps);
+			response = await patchRecipe(recipe);
 
 			if (response.ok) {
 				setFormStatus(FormStatuses.Saved);
@@ -45,7 +38,7 @@ export default function View() {
 				setFormStatus(FormStatuses.Error);
 			}
 		} else {
-			response = await postRecipe(recipe, ingredients, preparationSteps);
+			response = await postRecipe(recipe);
 
 			if (!isFalsishOrEmpty(response)) {
 				setRecipe({ ...recipe, id: response });
@@ -58,65 +51,65 @@ export default function View() {
 
 	const clearChanges = event => {
 		event.preventDefault();
-
-		// clear the recipe to the latest saved recipe
-		// this is the default if no recipe has been saved yet
-		if (recipe.id) {
-			setRecipe(recipe);
-			setIngredients(ingredients);
-			setPreparationSteps(preparationSteps);
-		} else {
-			setRecipe(defaultRecipe);
-			setIngredients([]);
-			setPreparationSteps([]);
-		}
-
+		recipe.id ? setRecipe(recipe) : setRecipe(defaultRecipe);
 		setFormStatus(FormStatuses.Saved);
 	};
 
-	const updateRecipeDataHandler = event => {
-		setRecipe({
-			...recipe,
-			[event.target.name]: event.target.value
-		});
+	const handleRecipeIngredients = async event => {
+		if (event.target.id === 'new-item') {
+			// new item
+			const dto = await putIngredient(event.target.value);
 
-		setFormStatus(FormStatuses.Unsaved);
+			// TODO: quantity logic
+			const fakeQuantity = 1;
+			const newIngredient = createIngredient(
+				event.target.value,
+				dto.id,
+				fakeQuantity
+			);
+
+			// add the ingredient to the existing ingredients
+			const recipeIngredientsCopy = { ...recipe.recipeIngredients };
+			recipeIngredientsCopy[dto.id] = newIngredient;
+
+			setRecipe({ ...recipe, recipeIngredients: recipeIngredientsCopy });
+		} else if (isFalsishOrEmpty(event.target.value)) {
+			// remove item
+			const recipeIngredientsCopy = { ...recipe.recipeIngredients };
+			delete recipeIngredientsCopy[event.target.id];
+
+			setRecipe({
+				...recipe,
+				recipeIngredients: recipeIngredientsCopy
+			});
+		} else {
+			// existing item
+			setRecipe({
+				...recipe,
+				recipeIngredients: {
+					// ... take existing ingredients
+					...recipe.recipeIngredients,
+					// ... selecting the given ID
+					[event.target.id]: {
+						// ... and applying a change only to the ingredient label
+						...[recipe.recipeIngredients[event.target.id]],
+						label: event.target.value
+					}
+				}
+			});
+		}
 	};
 
-	const addIngredientHandler = async event => {
-		event.preventDefault();
-
-		if (!newIngredient || newIngredient === '') {
-			alert('actually add an ingredient 😉');
-			return;
+	const updateRecipeDataHandler = async event => {
+		if (event.target.name === 'recipeIngredients') {
+			handleRecipeIngredients(event);
+		} else {
+			setRecipe({
+				...recipe,
+				[event.target.name]: event.target.value
+			});
 		}
 
-		const response = await putIngredient(newIngredient);
-
-		// include the ID from the response
-		// fake the quantity
-		setIngredients([
-			...ingredients,
-			createIngredient(newIngredient, response.id, 1)
-		]);
-
-		// allow a new ingredient to be added
-		setNewIngredient('');
-		setFormStatus(FormStatuses.Unsaved);
-	};
-
-	const addPreparationStepHandler = event => {
-		event.preventDefault();
-
-		if (!newStep || newStep === '') {
-			alert('actually add a preparation step 😄');
-			return;
-		}
-
-		setPreparationSteps([...preparationSteps, newStep]);
-
-		// allow a new step to be added
-		setNewStep('');
 		setFormStatus(FormStatuses.Unsaved);
 	};
 
@@ -142,15 +135,9 @@ export default function View() {
 
 			<FormBody
 				blurb={recipe.blurb}
-				updateRecipeDataHandler={updateRecipeDataHandler}
-				ingredients={ingredients}
-				newIngredient={newIngredient}
-				addIngredientHandler={addIngredientHandler}
-				setNewIngredient={setNewIngredient}
-				preparationSteps={preparationSteps}
-				newStep={newStep}
-				setNewStep={setNewStep}
-				addPreparationStepHandler={addPreparationStepHandler}
+				preparationSteps={recipe.preparationSteps}
+				ingredients={recipe.recipeIngredients}
+				handler={updateRecipeDataHandler}
 			/>
 
 			{recipe.id && (
