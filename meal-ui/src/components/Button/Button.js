@@ -1,55 +1,52 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const Button = props => {
+import { Button } from '@nextui-org/react';
+
+const CustomButton = props => {
 	const { className, handler } = props;
 
 	const classes = className ? `btn ${className}` : `btn`;
 
 	return (
-		<button
+		<Button
 			className={classes}
-			type='button'
 			onClick={handler}
 		>
 			{props.children}
-		</button>
+		</Button>
 	);
 };
 
 const IconButton = props => {
 	const { faIcon, handler, isPrimary } = props;
 
-	const classes = isPrimary ? 'icon-btn primary-icon-btn' : 'icon-btn';
-
 	return (
-		<button
-			className={classes}
-			type='button'
+		<Button
+			auto
+			rounded
+			color={isPrimary ? 'primary' : 'secondary'}
+			size='sm'
+			icon={<FontAwesomeIcon icon={faIcon} />}
 			onClick={handler}
-		>
-			<FontAwesomeIcon icon={faIcon} />
-		</button>
+		/>
 	);
 };
 
 const LabelledIconButton = props => {
 	const { faIcon, handler, isPrimary } = props;
 
-	const classes = isPrimary
-		? 'icon-btn primary-icon-btn e-labelled-icon-btn'
-		: 'icon-btn e-labelled-icon-btn';
-
 	return (
-		<button
-			className={classes}
-			type='button'
+		<Button
+			auto
+			rounded
+			color={isPrimary ? 'primary' : 'secondary'}
+			icon={<FontAwesomeIcon icon={faIcon} />}
 			onClick={handler}
 		>
-			<FontAwesomeIcon icon={faIcon} />
 			{props.children}
-		</button>
+		</Button>
 	);
 };
 
-export { Button, IconButton, LabelledIconButton };
+export { CustomButton as Button, IconButton, LabelledIconButton };

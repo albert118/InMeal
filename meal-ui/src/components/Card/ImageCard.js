@@ -1,5 +1,5 @@
 import StatusBadge from 'components/StatusBadge';
-import Button from 'components/Button';
+import { Button } from '@nextui-org/react';
 
 const ImageCard = props => {
 	const { id, className, label, status, ctaHandler } = props;
@@ -19,7 +19,14 @@ const ImageCard = props => {
 			</div>
 			<div className='action-slot'>
 				<label className='action-label'>{label}</label>
-				<Button handler={() => ctaHandler(id)}>view</Button>
+				<Button
+					size='sm'
+					auto
+					ghost
+					handler={() => ctaHandler(id)}
+				>
+					view
+				</Button>
 			</div>
 		</div>
 	);
