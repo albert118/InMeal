@@ -15,3 +15,6 @@ body{
     line-height: 1.3;
     color: #222;
 }
+
+/* import and use the recommended JoyUI font */
+import '@fontsource/public-sans';
