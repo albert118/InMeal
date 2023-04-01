@@ -1,24 +1,22 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@carbon/react';
 
-const CustomButton = props => {
-	const { className, handler } = props;
-
+const CustomButton = ({ className, handler, children, ...additionalProps }) => {
 	return (
 		<Button
-			size='lg'
+			{...additionalProps}
+			className={className ? `btn  ${className}` : `btn`}
 			onClick={handler}
 		>
-			{props.children}
+			{children}
 		</Button>
 	);
 };
 
-const IconButton = props => {
-	const { faIcon, handler } = props;
-
+const IconButton = ({ faIcon, handler, ...additionalProps }) => {
 	return (
 		<Button
+			{...additionalProps}
 			className='cds--btn--icon-only'
 			kind='ghost'
 			size='lg'
@@ -29,16 +27,21 @@ const IconButton = props => {
 	);
 };
 
-const LabelledIconButton = props => {
-	const { faIcon, handler, isPrimary } = props;
-
+const LabelledIconButton = ({
+	faIcon,
+	handler,
+	isPrimary,
+	children,
+	...additionalProps
+}) => {
 	return (
 		<Button
+			{...additionalProps}
 			kind={isPrimary ? 'primary' : 'secondary'}
 			onClick={handler}
 		>
 			<FontAwesomeIcon icon={faIcon} />
-			{props.children}
+			{children}
 		</Button>
 	);
 };

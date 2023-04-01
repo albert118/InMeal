@@ -19,7 +19,12 @@ const ImageCard = props => {
 			</div>
 			<div className='action-slot'>
 				<label className='action-label'>{label}</label>
-				<Button handler={() => ctaHandler(id)}>view</Button>
+				<Button
+					size='lg'
+					onClick={() => ctaHandler(id)}
+				>
+					view
+				</Button>
 			</div>
 		</div>
 	);
