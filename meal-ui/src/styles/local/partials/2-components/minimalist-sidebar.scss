@@ -1,13 +1,10 @@
 @use '@carbon/react/scss/spacing' as *;
 
 .minimalist-sidebar {
-	--sidebar-width: 12%;
-
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	width: var(--sidebar-width);
 	color: var(--lynx-white);
 	background-color: var(--nero-black);
 	padding: $spacing-08 $spacing-06 $spacing-06 $spacing-06;

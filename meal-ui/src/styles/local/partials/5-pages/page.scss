@@ -1,4 +1,15 @@
 .p-page {
+	--sidebar-width: 12%;
+
+	min-height: 100vh;
 	display: flex;
 	background-color: var(--lynx-white);
+}
+
+.p-page > :first-child {
+	width: var(--sidebar-width);
+}
+
+.p-page > :last-child {
+	width: 90%;
 }

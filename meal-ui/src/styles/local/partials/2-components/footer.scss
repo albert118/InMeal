@@ -1,8 +1,7 @@
 @use '@carbon/react/scss/spacing' as *;
 
 footer.hero-footer {
-	// width: 100vw;
-	margin-top: $spacing-08;
+	margin-top: auto;
 	display: flex;
 	flex-direction: row-reverse;
 	color: var(--lynx-white);

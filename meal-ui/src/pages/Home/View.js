@@ -10,7 +10,6 @@ export default function View({ plannedItems, suggestedItems }) {
 		>
 			<Column
 				className='p-home__r1'
-				max={8}
 				lg={16}
 				md={8}
 				sm={4}
@@ -22,7 +21,6 @@ export default function View({ plannedItems, suggestedItems }) {
 			</Column>
 			<Column
 				className='p-home__r2'
-				max={8}
 				lg={16}
 				md={8}
 				sm={4}
