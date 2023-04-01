@@ -13,14 +13,13 @@ const CustomButton = ({ className, handler, children, ...additionalProps }) => {
 	);
 };
 
-const IconButton = ({ faIcon, handler, ...additionalProps }) => {
+const IconButton = ({ faIcon, ...additionalProps }) => {
 	return (
 		<Button
 			{...additionalProps}
-			className='cds--btn--icon-only'
+			className='icon-btn cds--btn--icon-only'
 			kind='ghost'
 			size='lg'
-			onClick={handler}
 		>
 			<FontAwesomeIcon icon={faIcon} />
 		</Button>
@@ -29,7 +28,6 @@ const IconButton = ({ faIcon, handler, ...additionalProps }) => {
 
 const LabelledIconButton = ({
 	faIcon,
-	handler,
 	isPrimary,
 	children,
 	...additionalProps
@@ -37,8 +35,8 @@ const LabelledIconButton = ({
 	return (
 		<Button
 			{...additionalProps}
-			kind={isPrimary ? 'primary' : 'secondary'}
-			onClick={handler}
+			className='btn'
+			kind={isPrimary ? 'primary' : 'ghost'}
 		>
 			<FontAwesomeIcon icon={faIcon} />
 			{children}
