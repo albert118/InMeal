@@ -1,19 +1,19 @@
+@use '@carbon/react/scss/spacing' as *;
+
 footer.hero-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100vw;
-    display: flex;
-    flex-direction: row-reverse;
-    color: var(--lynx-white);
-    background-color: var(--nero-black);
-    padding: var(--ns-quat);
-    padding-right: var(--ns-half);
+	// width: 100vw;
+	margin-top: $spacing-08;
+	display: flex;
+	flex-direction: row-reverse;
+	color: var(--lynx-white);
+	background-color: var(--nero-black);
+	padding: $spacing-04;
+	padding-right: $spacing-06;
 }
 
-footer.hero-footer  .footer-content {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    flex-direction: column;
+footer.hero-footer .footer-content {
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	flex-direction: column;
 }
