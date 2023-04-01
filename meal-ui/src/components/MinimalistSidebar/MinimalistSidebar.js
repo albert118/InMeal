@@ -27,9 +27,6 @@ export default function MinimalistSidebar() {
 
 	return (
 		<div
-			expanded={isActive}
-			isChildOfHeader={false}
-			aria-label='Side Navigation'
 			className={`minimalist-sidebar ${
 				isActive ? 'minimalist-sidebar-active' : ''
 			} ${isInActive ? 'minimalist-sidebar-inactive' : ''}`}
