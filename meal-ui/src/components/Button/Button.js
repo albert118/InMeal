@@ -1,55 +1,46 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from '@carbon/react';
 
-const Button = props => {
+const CustomButton = props => {
 	const { className, handler } = props;
 
-	const classes = className ? `btn ${className}` : `btn`;
-
 	return (
-		<button
-			className={classes}
-			type='button'
+		<Button
+			size='lg'
 			onClick={handler}
 		>
 			{props.children}
-		</button>
+		</Button>
 	);
 };
 
 const IconButton = props => {
-	const { faIcon, handler, isPrimary } = props;
-
-	const classes = isPrimary ? 'icon-btn primary-icon-btn' : 'icon-btn';
+	const { faIcon, handler } = props;
 
 	return (
-		<button
-			className={classes}
-			type='button'
+		<Button
+			className='cds--btn--icon-only'
+			kind='ghost'
+			size='lg'
 			onClick={handler}
 		>
 			<FontAwesomeIcon icon={faIcon} />
-		</button>
+		</Button>
 	);
 };
 
 const LabelledIconButton = props => {
 	const { faIcon, handler, isPrimary } = props;
 
-	const classes = isPrimary
-		? 'icon-btn primary-icon-btn e-labelled-icon-btn'
-		: 'icon-btn e-labelled-icon-btn';
-
 	return (
-		<button
-			className={classes}
-			type='button'
+		<Button
+			kind={isPrimary ? 'primary' : 'secondary'}
 			onClick={handler}
 		>
 			<FontAwesomeIcon icon={faIcon} />
 			{props.children}
-		</button>
+		</Button>
 	);
 };
 
-export { Button, IconButton, LabelledIconButton };
+export { CustomButton as Button, IconButton, LabelledIconButton };

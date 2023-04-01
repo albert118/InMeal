@@ -60,7 +60,13 @@ export default function MinimalistSidebar() {
 					Manage Recipes
 				</NavLinkItem>
 			</div>
-			<div className='setting-links'>
+			<div
+				className={
+					isActive
+						? 'setting-links setting-links-active'
+						: 'setting-links'
+				}
+			>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faGear}
