@@ -5,7 +5,7 @@ import Footer from 'components/Navigation';
 // create a generic context to inject data to children
 const GenericContext = createContext();
 
-const GenericPageContainer = ({ className, children }) => {
+const Layout = ({ className, children }) => {
 	const genericContextProps = {};
 
 	return (
@@ -21,5 +21,5 @@ const GenericPageContainer = ({ className, children }) => {
 	);
 };
 
-export default GenericPageContainer;
+export default Layout;
 export { GenericContext };
