@@ -7,6 +7,7 @@ import { NavLinkItem } from './NavLinkItem';
 
 import AppRoutes from 'navigation/AppRoutes';
 import config from 'config';
+import { HeroBrandingLogo } from './HeroBrandingLogo';
 
 export default function MinimalistSidebar() {
 	const navigate = useNavigate();
@@ -72,19 +73,5 @@ export default function MinimalistSidebar() {
 				</NavLinkItem>
 			</div>
 		</header>
-	);
-}
-
-function HeroBrandingLogo({ config, onClick }) {
-	return (
-		<div className='hero-branding-logo'>
-			<button
-				type='button'
-				onClick={onClick}
-			>
-				<h1 className='hero-title'>{config.BrandName}</h1>
-			</button>
-			<div className='divider' />
-		</div>
 	);
 }
