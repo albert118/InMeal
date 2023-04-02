@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from 'pages/GenericPageContainer';
+import Layout from 'pages/Layout';
 import View from './View';
 import AppRoutes from 'navigation/AppRoutes';
 import { FormStatuses } from 'forms';

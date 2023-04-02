@@ -1,4 +1,4 @@
-import Layout from 'pages/GenericPageContainer';
+import Layout from 'pages/Layout';
 import View from './View';
 import { useParams } from 'react-router-dom';
 import useRecipe from 'dataHooks/useRecipe';

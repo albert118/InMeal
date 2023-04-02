@@ -1,4 +1,4 @@
-import Layout from 'pages/GenericPageContainer';
+import Layout from 'pages/Layout';
 import HomeView from './View';
 import AppRoutes from 'navigation/AppRoutes';
 import { useNavigate } from 'react-router-dom';

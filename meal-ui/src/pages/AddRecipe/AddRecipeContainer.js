@@ -1,5 +1,5 @@
 import View from './View';
-import Layout from 'pages/GenericPageContainer';
+import Layout from 'pages/Layout';
 
 export default function AddRecipeContainer() {
 	return (
