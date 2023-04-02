@@ -13,32 +13,6 @@
 	font-size: 0.9em;
 }
 
-.minimalist-sidebar-active {
-	animation: minimalist-sidebar-fade-in 1s ease forwards;
-}
-
-.minimalist-sidebar-inactive {
-	animation: minimalist-sidebar-fade-out 1s ease forwards;
-}
-
-@keyframes minimalist-sidebar-fade-in {
-	from {
-		width: var(--sidebar-width);
-	}
-	to {
-		width: 30%;
-	}
-}
-
-@keyframes minimalist-sidebar-fade-out {
-	from {
-		width: 30%;
-	}
-	to {
-		width: var(--sidebar-width);
-	}
-}
-
 .nav-links {
 	display: flex;
 	flex-direction: column;
@@ -65,4 +39,45 @@
 	height: 10%;
 	align-items: center;
 	justify-content: center;
+}
+
+// header moves to top of page - change to row direction
+@media (max-width: 1056px) {
+	.minimalist-sidebar {
+		flex-direction: row;
+	}
+
+	.nav-links,
+	.setting-links {
+		display: none;
+	}
+}
+
+/* toggling the sidebar-heading shifts the layout around - but only for larger screens */
+@media (min-width: 1056px) {
+	.minimalist-sidebar-active {
+		animation: minimalist-sidebar-fade-in 1s ease forwards;
+	}
+
+	.minimalist-sidebar-inactive {
+		animation: minimalist-sidebar-fade-out 1s ease forwards;
+	}
+
+	@keyframes minimalist-sidebar-fade-in {
+		from {
+			width: var(--sidebar-width);
+		}
+		to {
+			width: 30%;
+		}
+	}
+
+	@keyframes minimalist-sidebar-fade-out {
+		from {
+			width: 30%;
+		}
+		to {
+			width: var(--sidebar-width);
+		}
+	}
 }
