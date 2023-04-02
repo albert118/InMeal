@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import MinimalistSidebar from 'components/MinimalistSidebar';
-import Footer from 'components/Navigation';
 
 const Layout = ({ children }) => {
 	// control the toggle'able sidebar-heading
@@ -23,7 +22,6 @@ const Layout = ({ children }) => {
 			>
 				{children}
 			</main>
-			{/* <Footer className='footer-grid' /> */}
 		</div>
 	);
 };

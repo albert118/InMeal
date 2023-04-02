@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 
 import { faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { AnimatedHamburger } from './AnimatedHamburger';
 import { NavLinkItem } from './NavLinkItem';
 
 import AppRoutes from 'navigation/AppRoutes';
 import config from 'config';
+import VersionInfo from 'VersionInfo';
 import { HeroBrandingLogo } from './HeroBrandingLogo';
 
 export default function MinimalistSidebar({
@@ -51,20 +53,22 @@ export default function MinimalistSidebar({
 				>
 					Manage Recipes
 				</NavLinkItem>
-			</div>
-			<div
-				className={
-					isActive
-						? 'setting-links setting-links-active'
-						: 'setting-links'
-				}
-			>
+
 				<NavLinkItem
 					isActive={isActive}
 					icon={faGear}
 					handler={() => navigate(AppRoutes.settings)}
 				>
 					Settings
+				</NavLinkItem>
+			</div>
+			<div className='social-links'>
+				<NavLinkItem
+					isActive={isActive}
+					icon={faGithub}
+					handler={() => window.open(config.GitSocialLink, '_blank')}
+				>
+					release: {VersionInfo.toString()}
 				</NavLinkItem>
 			</div>
 		</header>
