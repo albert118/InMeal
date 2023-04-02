@@ -11,9 +11,13 @@ body {
 }
 
 body {
-	padding-left: var(--sidebar-width);
 	background-color: var(--lynx-white);
 	color: var(--angel-number-black, black);
+}
+
+// main instead of body, as main is where our content lives
+main {
+	padding-left: var(--sidebar-width);
 }
 
 header {
@@ -34,7 +38,7 @@ header {
 		width: 100%;
 	}
 
-	body {
+	main {
 		padding-left: 0;
 	}
 }
