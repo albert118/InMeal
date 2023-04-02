@@ -70,8 +70,5 @@ header {
 	}
 }
 
-/* content is a sublayout*/
-@import 'content-layout.scss';
-
 /* recipe content has a special grid */
 @import 'recipe-content-grid.scss';
