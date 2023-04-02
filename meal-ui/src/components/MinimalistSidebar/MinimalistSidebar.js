@@ -26,7 +26,7 @@ export default function MinimalistSidebar() {
 	};
 
 	return (
-		<div
+		<header
 			className={`minimalist-sidebar ${
 				isActive ? 'minimalist-sidebar-active' : ''
 			} ${isInActive ? 'minimalist-sidebar-inactive' : ''}`}
@@ -71,7 +71,7 @@ export default function MinimalistSidebar() {
 					Settings
 				</NavLinkItem>
 			</div>
-		</div>
+		</header>
 	);
 }
 

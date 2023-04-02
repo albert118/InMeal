@@ -1,0 +1,46 @@
+/* all pages follow this layout */
+html,
+body {
+	--sidebar-width: 300px;
+
+	margin: 0;
+	padding: 0;
+	// full height pages
+	height: 100%;
+	min-height: 100%;
+}
+
+body {
+	padding-left: var(--sidebar-width);
+	background-color: var(--lynx-white);
+	color: var(--angel-number-black, black);
+}
+
+header {
+	// header as sidebar
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+}
+
+// header moves to top of page
+@media (max-width: 1000px) {
+	header {
+		position: relative;
+		bottom: auto;
+		left: auto;
+		top: auto;
+		width: 100%;
+	}
+
+	body {
+		padding-left: 0;
+	}
+}
+
+/* content is a sublayout*/
+@import 'content-layout.scss';
+
+/* recipe content has a special grid */
+@import 'recipe-content-grid.scss';
