@@ -1,19 +1,15 @@
-import React from "react";
+import { Button } from '@carbon/react';
 
-
-const CancelButton = props => {
-    const { className, handler } = props;
-
-    const classes = className 
-        ? `btn cancel-btn ${className}` 
-        : `btn cancel-btn`;
-
-        return (
-            <button className={classes} type="button" onClick={handler}>
-                { props.children ?? "Cancel" }
-            </button>
-        );
+const CancelButton = ({ className, children, ...aditionalProps }) => {
+	return (
+		<Button
+			{...aditionalProps}
+			className={className ? `btn  ${className}` : `btn cancel-btn`}
+			kind='tertiary'
+		>
+			{children ?? 'Save'}
+		</Button>
+	);
 };
-
 
 export default CancelButton;

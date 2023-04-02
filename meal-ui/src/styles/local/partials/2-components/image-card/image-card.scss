@@ -1,0 +1,39 @@
+@use './overrides';
+
+.image-card {
+	--image-card-height: 300px;
+
+	height: var(--image-card-height);
+	min-width: calc(1.1 * var(--image-card-height));
+	max-width: calc(1.1 * var(--image-card-height));
+	background-color: var(--dark-cyan);
+}
+
+.image-card > .image-slot {
+	position: relative;
+}
+
+.image-card > .image-slot > img {
+	/* 2/3 of the card is allocated for the image */
+	height: calc(2 / 3 * var(--image-card-height));
+	width: 100%;
+}
+
+.e-image-status-badge {
+	position: absolute;
+	top: var(--ns-half);
+	right: var(--ns-half);
+}
+
+.image-card > .action-slot {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline; /* keep text and button relatively aligned */
+	padding: var(--ns-half);
+	color: white;
+}
+
+.image-card > .action-slot > label.action-label {
+	font-size: 1.4em;
+	letter-spacing: 4px;
+}

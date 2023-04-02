@@ -1,0 +1,9 @@
+/**
+ * Do not define any rules in this file! Only import config rulesets
+ */
+
+@import 'config/colors.scss';
+@import 'config/layers.scss';
+
+/* a consistent scale for padding/margins to define negative spacing across the site */
+@import 'config/negative-space-scale.scss';

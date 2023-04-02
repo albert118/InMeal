@@ -1,12 +1,12 @@
 import View from './View';
-import GenericPageContainer from 'pages/GenericPageContainer';
+import Layout from 'pages/Layout';
 
 export default function AddRecipeContainer() {
 	return (
-		<GenericPageContainer>
+		<Layout>
 			<div className='p-recipe'>
 				<View />
 			</div>
-		</GenericPageContainer>
+		</Layout>
 	);
 }

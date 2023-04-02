@@ -1,0 +1,14 @@
+.icon-btn.cds--btn--ghost:hover,
+.icon-btn.cds--btn--ghost:active {
+	color: unset;
+	background-color: unset;
+}
+
+.icon-btn.cds--btn--ghost {
+	border: unset;
+}
+
+.icon-btn.cds--btn--ghost:focus {
+	border-color: unset;
+	box-shadow: unset;
+}

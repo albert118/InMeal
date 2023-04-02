@@ -1,24 +1,22 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { AnimatedHamburger } from './AnimatedHamburger';
 import { NavLinkItem } from './NavLinkItem';
 
 import AppRoutes from 'navigation/AppRoutes';
 import config from 'config';
+import VersionInfo from 'VersionInfo';
+import { HeroBrandingLogo } from './HeroBrandingLogo';
 
-export default function MinimalistSidebar() {
+export default function MinimalistSidebar({
+	isActive,
+	setActive,
+	isInActive,
+	setInActive
+}) {
 	const navigate = useNavigate();
-
-	const handleDashboardClick = () => navigate(AppRoutes.root);
-	const handleRecipeViewClick = () => navigate(AppRoutes.recipes);
-	const handlePlanningClick = () => navigate(AppRoutes.planning);
-	const handleSettingsClick = () => navigate(AppRoutes.settings);
-
-	// the initial state is falsy inactive, the animation begins after the first click
-	const [isActive, setActive] = useState(false);
-	const [isInActive, setInActive] = useState(null);
 
 	const toggleActive = () => {
 		setActive(!isActive);
@@ -26,19 +24,15 @@ export default function MinimalistSidebar() {
 	};
 
 	return (
-		<div
-			className={`minimalist-sidebar ${
-				isActive ? 'minimalist-sidebar-active' : ''
-			} ${isInActive ? 'minimalist-sidebar-inactive' : ''}`}
+		<header
+			className={`minimalist-sidebar
+			 	${isActive ? 'minimalist-sidebar-active' : ''} 
+				${isInActive ? 'minimalist-sidebar-inactive' : ''}`}
 		>
-			<div className='hero-branding-logo'>
-				<button
-					type='button'
-					onClick={handleDashboardClick}
-				>
-					<h1 className='hero-title'>{config.BrandName}</h1>
-				</button>
-			</div>
+			<HeroBrandingLogo
+				config={config}
+				onClick={() => navigate(AppRoutes.root)}
+			/>
 			<AnimatedHamburger callback={toggleActive} />
 			<div
 				className={
@@ -48,27 +42,35 @@ export default function MinimalistSidebar() {
 				<NavLinkItem
 					isActive={isActive}
 					icon={faCalendar}
-					handler={handlePlanningClick}
+					handler={() => navigate(AppRoutes.planning)}
 				>
 					Meal Planning
 				</NavLinkItem>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faBoxes}
-					handler={handleRecipeViewClick}
+					handler={() => navigate(AppRoutes.recipes)}
 				>
 					Manage Recipes
 				</NavLinkItem>
-			</div>
-			<div className='setting-links'>
+
 				<NavLinkItem
 					isActive={isActive}
 					icon={faGear}
-					handler={handleSettingsClick}
+					handler={() => navigate(AppRoutes.settings)}
 				>
 					Settings
 				</NavLinkItem>
 			</div>
-		</div>
+			<div className='social-links'>
+				<NavLinkItem
+					isActive={isActive}
+					icon={faGithub}
+					handler={() => window.open(config.GitSocialLink, '_blank')}
+				>
+					release: {VersionInfo.toString()}
+				</NavLinkItem>
+			</div>
+		</header>
 	);
 }

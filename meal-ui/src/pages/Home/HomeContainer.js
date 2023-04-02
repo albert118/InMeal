@@ -1,4 +1,4 @@
-import GenericPageContainer from 'pages/GenericPageContainer';
+import Layout from 'pages/Layout';
 import HomeView from './View';
 import AppRoutes from 'navigation/AppRoutes';
 import { useNavigate } from 'react-router-dom';
@@ -25,7 +25,7 @@ export default function HomeContainer() {
 	const { upcomingRecipes, isLoading } = useUpcomingRecipes(mapper);
 
 	return (
-		<GenericPageContainer>
+		<Layout>
 			{!isLoading ? (
 				<HomeView
 					plannedItems={upcomingRecipes}
@@ -34,6 +34,6 @@ export default function HomeContainer() {
 			) : (
 				'loading...'
 			)}
-		</GenericPageContainer>
+		</Layout>
 	);
 }

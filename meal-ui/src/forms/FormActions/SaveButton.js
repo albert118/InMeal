@@ -1,19 +1,16 @@
-import React from "react";
+import { Button } from '@carbon/react';
 
-
-const SaveButton = props => {
-    const { className, handler } = props;
-
-    const classes = className 
-        ? `btn save-btn ${className}` 
-        : `btn save-btn`;
-
-        return (
-            <button className={classes} type="submit" onClick={handler}>
-                { props.children ?? "Save" }
-            </button>
-        );
+const SaveButton = ({ className, children, ...additionalProps }) => {
+	return (
+		<Button
+			{...additionalProps}
+			className={className ? `btn  ${className}` : `btn save-btn`}
+			kind='tertiary'
+			type='submit'
+		>
+			{children ?? 'Save'}
+		</Button>
+	);
 };
-
 
 export default SaveButton;

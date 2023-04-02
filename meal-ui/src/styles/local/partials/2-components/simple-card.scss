@@ -1,0 +1,40 @@
+@use '@carbon/react/scss/spacing' as *;
+
+.simple-card {
+	--card-height: 450px;
+
+	padding: $spacing-06;
+	padding-bottom: 0;
+
+	width: 100%;
+}
+
+.simple-card > div.content-slot > div {
+	color: white;
+	letter-spacing: $spacing-02;
+
+	display: flex;
+	flex-direction: column;
+}
+
+.action-option {
+	margin-top: $spacing-03;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+
+	height: 80px;
+	padding: $spacing-06;
+
+	background-color: var(--nero-black);
+	border-radius: 4px;
+}
+
+.content-slot {
+	display: flex;
+	flex-direction: column;
+	row-gap: $spacing-08;
+	justify-content: space-around;
+}

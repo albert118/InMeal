@@ -6,14 +6,14 @@ export function NavLinkItem(props) {
 	return isActive ? (
 		<LabelledIconButton
 			faIcon={icon}
-			handler={handler}
+			onClick={handler}
 		>
 			<div className='nav-label font-white'>{props.children}</div>
 		</LabelledIconButton>
 	) : (
 		<IconButton
 			faIcon={icon}
-			handler={handler}
+			onClick={handler}
 		/>
 	);
 }

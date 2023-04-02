@@ -1,0 +1,25 @@
+@use '@carbon/react/scss/spacing' as *;
+
+.hero-title {
+	font-size: 1.2em;
+	letter-spacing: $spacing-06;
+	padding-left: $spacing-06;
+	color: var(--lynx-white);
+	text-transform: uppercase;
+}
+
+.hero-branding-logo {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+
+	padding-left: $spacing-04;
+	padding-right: $spacing-04;
+	height: 100px;
+}
+
+.hero-branding-logo .divider {
+	width: 80%;
+	border: 1px solid var(--lynx-white);
+}

@@ -1,0 +1,30 @@
+@use '@carbon/react/scss/spacing' as *;
+@use './overrides';
+
+.btn {
+	display: flex;
+	gap: $spacing-03;
+	align-items: center;
+	height: 25px;
+	padding: $spacing-03 $spacing-05 $spacing-03 $spacing-05;
+	border: 1px solid var(--lynx-white);
+	border-radius: 4px;
+	color: var(--lynx-white);
+}
+
+.btn:hover,
+.btn:active {
+	box-shadow: 0 1px 2px var(--lynx-white);
+	color: var(--lindworm-green);
+	background-color: var(--dove-grey);
+}
+
+.icon-btn {
+	color: var(--lynx-white);
+	font-size: 1.4em;
+}
+
+.icon-btn:hover,
+.icon-btn:active {
+	color: var(--lindworm-green);
+}

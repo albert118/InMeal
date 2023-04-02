@@ -1,9 +1,0 @@
-.p-page {
-	position: relative;
-	display: flex;
-	height: 100vh;
-	background-color: var(--lynx-white);
-
-	/* pages should create scrollable elements on a per page basis */
-	overflow: hidden;
-}

@@ -1,0 +1,19 @@
+.status-badge {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	min-width: 100px;
+	height: 25px;
+	padding: 5px 10px 5px 10px;
+	border-radius: 8px;
+
+	background-color: orange;
+
+	font-size: 0.9em;
+	color: white;
+}
+
+.status-badge p {
+	text-transform: lowercase;
+}
