@@ -4,11 +4,8 @@
 .p-home__r1,
 .p-home__r2 {
 	margin-top: $spacing-08;
-}
-
-.p-home__r2 {
-	display: flex;
-	justify-content: center;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .simple-card {
