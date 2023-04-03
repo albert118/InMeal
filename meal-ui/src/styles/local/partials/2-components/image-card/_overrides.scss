@@ -1,7 +1,22 @@
+@use '@carbon/react/scss/spacing' as *;
+
 .image-card.cds--tile {
 	padding: 0;
 }
 
 .image-card.cds--tile .action:hover {
 	background-color: var(--nero-black);
+}
+
+.image-card .cds--tile__checkmark {
+	position: absolute;
+	top: $spacing-06;
+	left: $spacing-06;
+
+	height: 1rem;
+	width: 1rem;
+}
+
+.image-card .cds--tile--is-selected .cds--tile__checkmark svg {
+	fill: var(--lindworm-green);
 }

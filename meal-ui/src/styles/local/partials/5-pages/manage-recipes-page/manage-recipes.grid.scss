@@ -15,15 +15,6 @@
 	margin-bottom: var(--ns-quat);
 }
 
-/* ensure that the box shadow doesn't clip */
-/* turns out this a really annoying problem to apply overflow-y: scroll 
-   and still keep the content visible without a JS + CSS 'hack' - 
-   especially on the bottom of the scrollable content 
-*/
-.grid-tile:nth-last-child(-n + 3) {
-	padding-bottom: 28px;
-}
-
 .grid-header {
 	display: flex;
 	justify-content: space-between;
