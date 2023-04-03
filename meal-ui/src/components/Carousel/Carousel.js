@@ -1,6 +1,7 @@
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-import { ImageCard } from 'components/Card';
+import { RecipeCard } from 'components/RecipeCard';
+
 import '@splidejs/react-splide/css';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
 
 const splideOptions = Object.freeze({
 	rewind: true,
@@ -33,18 +34,13 @@ const Carousel = ({ className, items }) => {
 		>
 			{items.map(item => (
 				<SplideSlide key={item.id}>
-					<ImageCard
+					<RecipeCard
+						key={item.id}
 						className='carousel-item'
-						id={item.id}
 						label={item.label}
-						status={item.status}
-						ctaHandler={item.handler}
-					>
-						<img
-							src={item.image.url}
-							alt={item.label}
-						/>
-					</ImageCard>
+						onClick={item.handler}
+						recipe={item}
+					/>
 				</SplideSlide>
 			))}
 		</Splide>
@@ -52,3 +48,19 @@ const Carousel = ({ className, items }) => {
 };
 
 export default Carousel;
+
+{
+	/* <ImageCard
+						className='carousel-item'
+						id={item.id}
+						label={item.label}
+						status={item.status}
+						ctaHandler={item.handler}
+						entityName
+					>
+						<img
+							src={item.image.url}
+							alt={item.label}
+						/>
+					</ImageCard> */
+}
