@@ -2,15 +2,14 @@
 
 This project runs and manages the frontend incl. associated dependencies.
 
-* The frontend project watches files using *React*
-* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+-   The frontend project watches files using _React_
+-   This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
 All the usual so far,
 
 #### `npm start`
-#### `npm test`
 
 #### `npm run build`
 
@@ -18,9 +17,9 @@ All the usual so far,
 
 ### Install VS Code extensions
 
-* prettier
-* ES7+ React/Redux/React-Native snippets
-* GitLens — Git supercharged
+-   prettier
+-   ES7+ React/Redux/React-Native snippets
+-   GitLens — Git supercharged
 
 ## Package installation and running the app in dev mode
 
@@ -28,7 +27,6 @@ Install the dependencies, run the app tests, then spin-up the app.
 
 ```
 npm install
-npm test
 npm start
 ```
 
