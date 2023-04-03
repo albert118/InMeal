@@ -23,9 +23,10 @@ const ImageCard = ({
 				status={status}
 			/>
 			<div className='action-slot'>
-				<label className='action-label'>{label}</label>
-				Got to {additionalProps.entityName ?? ''}
-				<ArrowRight />
+				<h4>{label}</h4>
+				<label>
+					Got to {additionalProps.entityName ?? ''} <ArrowRight />
+				</label>
 			</div>
 		</ClickableTile>
 	);

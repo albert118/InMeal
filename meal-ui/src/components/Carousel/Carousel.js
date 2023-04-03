@@ -18,7 +18,7 @@ const splideOptions = Object.freeze({
 //      handler: handlerFunc,
 //      image: { url: "url", label: "string" }
 // }
-const Carousel = ({ className, items }) => {
+export default function Carousel({ className, items }) {
 	const classes = className
 		? `simple-carousel ${className}`
 		: 'simple-carousel';
@@ -45,22 +45,4 @@ const Carousel = ({ className, items }) => {
 			))}
 		</Splide>
 	);
-};
-
-export default Carousel;
-
-{
-	/* <ImageCard
-						className='carousel-item'
-						id={item.id}
-						label={item.label}
-						status={item.status}
-						ctaHandler={item.handler}
-						entityName
-					>
-						<img
-							src={item.image.url}
-							alt={item.label}
-						/>
-					</ImageCard> */
 }

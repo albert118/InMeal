@@ -12,6 +12,7 @@ export function GridTile({ item, gridHandler }) {
 			<RecipeCard
 				key={`recipecard_${item.id}`}
 				recipe={item}
+				className='recipe-grid-content'
 				label={item.content.title}
 				onClick={item.handler}
 			/>

@@ -7,8 +7,8 @@ export function RecipeCard({ recipe, label, onClick, ...additionalProps }) {
 			id={recipe.id}
 			className={
 				additionalProps.className
-					? `${additionalProps.className} recipe-grid-content`
-					: 'recipe-grid-content'
+					? `recipe-tile ${additionalProps.className}`
+					: 'recipe-tile'
 			}
 			label={label}
 			status={recipe.status}
