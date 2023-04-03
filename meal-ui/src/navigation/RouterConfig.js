@@ -2,12 +2,10 @@ import { Route, Routes } from 'react-router-dom';
 
 import AppRoutes from 'navigation/AppRoutes';
 import HomeContainer from 'pages/Home';
-import ViewRecipesContainer from 'pages/ViewRecipes';
+import ViewRecipesContainer from 'pages/Recipes';
 import ViewRecipe from 'pages/ViewRecipe';
 import EditRecipe from 'pages/EditRecipe';
 import AddRecipeContainer from 'pages/AddRecipe/AddRecipeContainer';
-
-import { Content } from '@carbon/react';
 
 /// Route naming convention is
 ////    specific entity actions `/entitiy/action/id`
