@@ -1,4 +1,5 @@
 @use './overrides';
+@use '@carbon/react/scss/spacing' as *;
 
 .image-card {
 	--image-card-height: 300px;
@@ -9,31 +10,45 @@
 	background-color: var(--dark-cyan);
 }
 
-.image-card > .image-slot {
+.image-card .image-slot {
 	position: relative;
 }
 
-.image-card > .image-slot > img {
+.image-card .image-slot img {
 	/* 2/3 of the card is allocated for the image */
 	height: calc(2 / 3 * var(--image-card-height));
 	width: 100%;
 }
 
+.action,
+.action > * {
+	cursor: pointer;
+}
+
+.action {
+	display: flex;
+	flex-direction: column;
+	padding: $spacing-05 $spacing-07 0 $spacing-07;
+	color: white;
+	border-radius: 0 0 12px 12px;
+	height: 100%;
+
+	h4 {
+		font-size: 1.4em;
+		letter-spacing: 4px;
+	}
+
+	label {
+		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		padding-top: $spacing-04;
+		letter-spacing: 4px;
+	}
+}
+
 .e-image-status-badge {
 	position: absolute;
-	top: var(--ns-half);
-	right: var(--ns-half);
-}
-
-.image-card > .action-slot {
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline; /* keep text and button relatively aligned */
-	padding: var(--ns-half);
-	color: white;
-}
-
-.image-card > .action-slot > label.action-label {
-	font-size: 1.4em;
-	letter-spacing: 4px;
+	top: $spacing-06;
+	right: $spacing-06;
 }

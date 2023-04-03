@@ -1,5 +1,5 @@
 import StatusBadge from 'components/StatusBadge';
-import { ClickableTile } from '@carbon/react';
+import { Tile } from '@carbon/react';
 import { ArrowRight } from '@carbon/icons-react';
 
 const ImageCard = ({
@@ -11,8 +11,7 @@ const ImageCard = ({
 	...additionalProps
 }) => {
 	return (
-		<ClickableTile
-			onClick={() => ctaHandler(id)}
+		<Tile
 			className={
 				className ? `card image-card ${className}` : `card image-card`
 			}
@@ -22,13 +21,16 @@ const ImageCard = ({
 				className='e-image-status-badge'
 				status={status}
 			/>
-			<div className='action-slot'>
+			<div
+				className='action'
+				onClick={() => ctaHandler(id)}
+			>
 				<h4>{label}</h4>
 				<label>
 					Got to {additionalProps.entityName ?? ''} <ArrowRight />
 				</label>
 			</div>
-		</ClickableTile>
+		</Tile>
 	);
 };
 
