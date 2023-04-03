@@ -7,8 +7,6 @@ import ViewRecipe from 'pages/ViewRecipe';
 import EditRecipe from 'pages/EditRecipe';
 import AddRecipeContainer from 'pages/AddRecipe/AddRecipeContainer';
 
-import { Content } from '@carbon/react';
-
 /// Route naming convention is
 ////    specific entity actions `/entitiy/action/id`
 ///     views                   `/entitiy/id`
