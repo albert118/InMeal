@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { GridHeader } from './GridHeader';
-import { RecipeGrid } from './RecipeGrid';
+import { Grid, Column } from '@carbon/react';
 import { archiveRecipes } from 'dataHooks/useRecipes';
+import { ManagementHeader } from './GridHeader';
+import { RecipeGrid } from './RecipeGrid';
 
 export default function View({ recipes, refreshGrid }) {
 	return (
@@ -51,15 +52,32 @@ function ManageRecipesTable({ recipes, refreshGrid }) {
 	};
 
 	return (
-		<div className='manage-recipes'>
-			<GridHeader
-				handleDeleteSelected={handleDeleteSelected}
-				handleViewArchived={handleViewArchived}
-			/>
-			<RecipeGrid
-				addOrRemoveSelectedItem={addOrRemoveSelectedItem}
-				recipes={recipes}
-			/>
-		</div>
+		<Grid
+			fullwidth
+			className='p-manage-recipes'
+		>
+			<Column
+				className='p-manage-recipes__r1'
+				lg={16}
+				md={8}
+				sm={4}
+			>
+				<ManagementHeader
+					handleDeleteSelected={handleDeleteSelected}
+					handleViewArchived={handleViewArchived}
+				/>
+			</Column>
+			<Column
+				className='p-manage-recipes__r2'
+				lg={16}
+				md={8}
+				sm={4}
+			>
+				<RecipeGrid
+					addOrRemoveSelectedItem={addOrRemoveSelectedItem}
+					recipes={recipes}
+				/>
+			</Column>
+		</Grid>
 	);
 }
