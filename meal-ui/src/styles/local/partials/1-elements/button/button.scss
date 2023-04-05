@@ -2,11 +2,6 @@
 @use './overrides';
 
 .btn {
-	display: flex;
-	gap: $spacing-03;
-	align-items: center;
-	height: 25px;
-	padding: $spacing-03 $spacing-05 $spacing-03 $spacing-05;
 	border: 1px solid var(--lynx-white);
 	border-radius: 4px;
 	color: var(--lynx-white);
