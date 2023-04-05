@@ -7,6 +7,14 @@ const Layout = ({ children }) => {
 	const [isActive, setActive] = useState(false);
 	const [isInActive, setInActive] = useState(null);
 
+	const getClassNames = () => {
+		const layoutClasses = 'scrollbar-vertical';
+
+		return `${
+			isActive ? `header-active ${layoutClasses}` : layoutClasses
+		} ${isInActive ? `header-inactive ${layoutClasses}` : layoutClasses}`;
+	};
+
 	return (
 		<div>
 			<MinimalistSidebar
@@ -15,13 +23,7 @@ const Layout = ({ children }) => {
 				isInActive={isInActive}
 				setInActive={setInActive}
 			/>
-			<main
-				className={`${isActive ? 'header-active' : ''} ${
-					isInActive ? 'header-inactive' : ''
-				}`}
-			>
-				{children}
-			</main>
+			<main className={getClassNames()}>{children}</main>
 		</div>
 	);
 };
