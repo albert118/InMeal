@@ -2,7 +2,7 @@ import { SelectableRecipeCard } from 'components/RecipeCard';
 
 export function RecipeGrid({ recipes, addOrRemoveSelectedItem }) {
 	return (
-		<div className='recipes-grid scrollbar-vertical'>
+		<div className='recipes-grid'>
 			{recipes.map(recipe => (
 				<SelectableRecipeCard
 					recipe={recipe}
