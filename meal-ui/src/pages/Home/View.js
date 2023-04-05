@@ -11,6 +11,7 @@ export default function View({ plannedItems, suggestedItems }) {
 			<Column
 				className='p-home__r1'
 				max={8}
+				additionalProps
 				lg={16}
 				md={8}
 				sm={4}

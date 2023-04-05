@@ -1,4 +1,4 @@
-import { RecipeCard } from 'components/RecipeCard/RecipeCard';
+import RecipeCard from 'components/RecipeCard';
 
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide } from '@splidejs/react-splide';

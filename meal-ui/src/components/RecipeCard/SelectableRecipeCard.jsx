@@ -1,9 +1,11 @@
 import { ImageCard } from 'components/Card';
+import Selectable from 'components/Selectable';
 
-export default function RecipeCard({
+export function SelectableRecipeCard({
 	recipe,
 	label,
 	onClick,
+	onCheck,
 	...additionalProps
 }) {
 	return (
@@ -20,10 +22,15 @@ export default function RecipeCard({
 			ctaHandler={onClick}
 			entityName='recipe'
 		>
-			<img
-				src={recipe.image.url}
-				alt={label}
-			/>
+			<Selectable
+				className='image-slot'
+				onClick={() => onCheck(recipe.id)}
+			>
+				<img
+					src={recipe.image.url}
+					alt={label}
+				/>
+			</Selectable>
 		</ImageCard>
 	);
 }
