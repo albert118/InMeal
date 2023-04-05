@@ -1,27 +1,38 @@
-@import 'manage-recipes.grid.scss';
+@use '@carbon/react/scss/spacing' as *;
 
-.p-manage-recipes {
-	width: 100%;
+// .p-manage-recipes {
+// }
 
-	/* ensure the grid and wrapper border radius match */
-	--grid-border-radius: 12px;
+.p-manage-recipes__r1,
+.p-manage-recipes__r2 {
+	margin-top: $spacing-06;
 }
 
-.manage-recipes {
+.recipes-grid {
 	display: flex;
-	flex-direction: column;
-	border: 1.25px solid var(--nero-black);
-	margin: var(--ns-full);
-
-	border-radius: var(--grid-border-radius);
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: $spacing-08;
 }
 
-@media only screen and (max-width: 1500px) {
-	.manage-recipes {
-		margin: var(--ns-quat);
-	}
+.grid-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: $spacing-04;
+	padding-bottom: $spacing-05;
+	padding-right: $spacing-08;
+	padding-left: $spacing-08;
+	height: 6rem;
+	background-color: var(--nero-black);
+	border-radius: 4px 4px 0 0;
+}
 
-	.recipes-grid {
-		--n-columns: 3;
-	}
+.grid-actions {
+	display: flex;
+	justify-content: flex-end;
+	align-items: self-end;
+	column-gap: $spacing-04;
+	margin-top: auto;
+	margin-bottom: auto;
 }

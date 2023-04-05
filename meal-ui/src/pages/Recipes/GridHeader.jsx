@@ -1,9 +1,10 @@
-import Button from 'components/Button';
-import { Checkbox } from 'forms/Inputs';
-import AppRoutes from 'navigation/AppRoutes';
 import { useNavigate } from 'react-router-dom';
 
-export function GridHeader({ handleViewArchived, handleDeleteSelected }) {
+import AppRoutes from 'navigation/AppRoutes';
+import { Checkbox } from 'forms/Inputs';
+import Button from 'components/Button';
+
+export function ManagementHeader({ handleViewArchived, handleDeleteSelected }) {
 	const navigate = useNavigate();
 
 	return (
