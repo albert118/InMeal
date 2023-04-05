@@ -24,7 +24,7 @@ export function SelectableRecipeCard({
 		>
 			<Selectable
 				className='image-slot'
-				onClick={() => onCheck(recipe.id)}
+				onClick={isSelected => onCheck(recipe.id, isSelected)}
 			>
 				<img
 					src={recipe.image.url}
