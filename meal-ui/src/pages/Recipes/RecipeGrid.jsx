@@ -5,6 +5,7 @@ export function RecipeGrid({ recipes, addOrRemoveSelectedItem }) {
 		<div className='recipes-grid'>
 			{recipes.map(recipe => (
 				<SelectableRecipeCard
+					className='recipe-grid-tile'
 					recipe={recipe}
 					label={recipe.content.title}
 					onClick={recipe.handler}

@@ -5,11 +5,15 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-	gap: $spacing-08;
+	row-gap: $spacing-08;
 	padding: $spacing-06;
 	background-color: var(--background-neutral);
 	border-radius: 0 0 12px 12px;
 	@include card-shadow;
+}
+
+.recipe-grid-tile {
+	flex: 1;
 }
 
 .grid-header {
