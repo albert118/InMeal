@@ -16,7 +16,7 @@ const ImageCard = ({
 				className ? `card image-card ${className}` : `card image-card`
 			}
 		>
-			{additionalProps.children}
+			<div className='image-slot'>{additionalProps.children}</div>
 			<StatusBadge
 				className='e-image-status-badge'
 				status={status}

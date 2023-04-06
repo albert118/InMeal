@@ -1,22 +1,14 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/card-shadow' as *;
 
-// .p-manage-recipes {
-// }
-
-.p-manage-recipes__r1,
-.p-manage-recipes__r2 {
-	margin-top: $spacing-06;
-}
-
 .recipes-grid {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	gap: $spacing-08;
 	padding: $spacing-06;
-	background-color: var(--cultured);
-
+	background-color: var(--background-neutral);
+	border-radius: 0 0 12px 12px;
 	@include card-shadow;
 }
 
@@ -28,9 +20,9 @@
 	padding-bottom: $spacing-05;
 	padding-right: $spacing-08;
 	padding-left: $spacing-08;
+	margin-top: $spacing-08;
 	height: 6rem;
-	background-color: var(--nero-black);
-	border-radius: 4px 4px 0 0;
+	background-color: var(--background);
 }
 
 .grid-actions {

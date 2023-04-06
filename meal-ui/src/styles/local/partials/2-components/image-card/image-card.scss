@@ -18,6 +18,7 @@
 	/* 2/3 of the card is allocated for the image */
 	height: calc(2 / 3 * var(--image-card-height));
 	width: 100%;
+	vertical-align: bottom;
 }
 
 .action,

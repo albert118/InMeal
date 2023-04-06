@@ -12,11 +12,7 @@ export function SelectableRecipeCard({
 		<ImageCard
 			key={additionalProps.key ?? recipe.id}
 			id={recipe.id}
-			className={
-				additionalProps.className
-					? `recipe-tile ${additionalProps.className}`
-					: 'recipe-tile'
-			}
+			className={additionalProps.className}
 			label={label}
 			status={recipe.status}
 			ctaHandler={onClick}
