@@ -1,12 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@carbon/react';
 
-const CustomButton = ({ className, handler, children, ...additionalProps }) => {
+const CustomButton = ({ className, children, ...additionalProps }) => {
 	return (
 		<Button
 			{...additionalProps}
 			className={className ? `btn  ${className}` : `btn`}
-			onClick={handler}
 		>
 			{children}
 		</Button>

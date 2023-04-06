@@ -15,7 +15,7 @@ export function CommonActions() {
 						<label>Recipes</label>
 						<span>Add a new recipe</span>
 						<Button
-							kind='secondary'
+							kind='ghost'
 							onClick={() => navigate(`${AppRoutes.recipe}/add`)}
 						>
 							Add
@@ -27,7 +27,7 @@ export function CommonActions() {
 						<label>Pantry</label>
 						<span>Update the pantry</span>
 						<Button
-							kind='secondary'
+							kind='ghost'
 							onClick={() => navigate(`${AppRoutes.root}`)}
 						>
 							add ingredients
@@ -39,7 +39,7 @@ export function CommonActions() {
 						<label>Planning</label>
 						<span>Create a meal plan</span>
 						<Button
-							kind='secondary'
+							kind='ghost'
 							onClick={() => navigate(`${AppRoutes.root}`)}
 						>
 							plan
