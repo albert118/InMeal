@@ -19,12 +19,14 @@ export function ManagementHeader({ handleViewArchived, handleDeleteSelected }) {
 				/>
 				<Button
 					handler={() => navigate(`${AppRoutes.recipe}/add`)}
+					kind='secondary'
 					className='add-recipes-btn'
 				>
 					add
 				</Button>
 				<Button
 					handler={handleDeleteSelected}
+					kind='secondary'
 					className='delete-recipes-btn'
 				>
 					archive

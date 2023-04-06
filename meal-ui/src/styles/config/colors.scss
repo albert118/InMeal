@@ -19,6 +19,10 @@
 	--mealui-colors-lynx-white: #f7f7f7;
 	--mealui-colors-lindworm-green: #9feb73;
 	--mealui-colors-gray900: #ecedee;
+	--mealui-colors-success: #04d137ff;
+	--mealui-colors-error: #ba0000ff;
+	--mealui-colors-warning: rgb(254, 148, 19);
+	--mealui-colors-note: hsla(210, 39%, 47%, 1);
 
 	--primary: var(--mealui-colors-purple700);
 	--secondary: var(--meal-ui-colors-blue100);
@@ -29,4 +33,8 @@
 	--background-neutral: var(--mealui-colors-black-russian);
 	--background-details: rgba(255, 255, 255, 0.05);
 	--text: var(--mealui-colors-gray900);
+	--success: var(--mealui-colors-success);
+	--error: var(--mealui-colors-error);
+	--warning: var(--mealui-colors-warning);
+	--note: var(--mealui-colors-note);
 }
