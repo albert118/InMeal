@@ -34,11 +34,7 @@ export default function MinimalistSidebar({
 				onClick={() => navigate(AppRoutes.root)}
 			/>
 			<AnimatedHamburger callback={toggleActive} />
-			<div
-				className={
-					isActive ? 'nav-links nav-links-active' : 'nav-links'
-				}
-			>
+			<div className='nav-links'>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faCalendar}

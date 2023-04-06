@@ -16,19 +16,9 @@
 .nav-links {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
+	justify-content: space-evenly;
+	align-items: flex-start;
 	height: 50%;
-}
-
-.nav-links-active > button,
-.setting-links-active > button {
-	width: 100%;
-}
-
-.nav-links-active {
-	align-items: center;
-	width: 30%;
 }
 
 .nav-label {
@@ -49,8 +39,6 @@
 	}
 
 	.minimalist-sidebar-active {
-		transition: 0.6s ease-in;
-
 		.labelled-icon-btn,
 		.labelled-icon-btn > span {
 			transition: width 0.2s ease-in;
@@ -59,12 +47,9 @@
 	}
 
 	.minimalist-sidebar-inactive {
-		transition: 0.6s ease-out;
-
-		.labelled-icon-btn,
-		.labelled-icon-btn > span {
+		.icon-btn {
 			transition: width 0.2s ease-out;
-			animation: fadeOut 1.2s;
+			animation: fadeIn 0.8s;
 		}
 	}
 
@@ -81,18 +66,17 @@
 
 		.labelled-icon-btn,
 		.labelled-icon-btn > span {
-			transition: width 0.2s ease-in;
+			transition: width 0.2s ease-out;
 			animation: fadeIn 1.2s;
 		}
 	}
 
 	.minimalist-sidebar-inactive {
-		animation: minimalist-sidebar-fade-out 0.4s ease-out forwards;
+		animation: minimalist-sidebar-fade-out 0.8s ease-out forwards;
 
-		.labelled-icon-btn,
-		.labelled-icon-btn > span {
-			transition: width 0.4s ease-in;
-			animation: fadeOut 0.4s;
+		.icon-btn {
+			transition: width 0.2s ease-out;
+			animation: fadeIn 1.2s;
 		}
 	}
 
