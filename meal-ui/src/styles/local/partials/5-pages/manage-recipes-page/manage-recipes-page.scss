@@ -4,7 +4,7 @@
 .recipes-grid {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: space-around;
 	gap: $spacing-08;
 	padding: $spacing-06;
 	background-color: var(--background-neutral);
@@ -28,7 +28,7 @@
 .grid-actions {
 	display: flex;
 	justify-content: flex-end;
-	align-items: self-end;
+	align-items: baseline;
 	column-gap: $spacing-04;
 	margin-top: auto;
 	margin-bottom: auto;
