@@ -13,12 +13,12 @@ const CustomButton = ({ className, handler, children, ...additionalProps }) => {
 	);
 };
 
-const IconButton = ({ faIcon, ...additionalProps }) => {
+const IconButton = ({ faIcon, isPrimary, ...additionalProps }) => {
 	return (
 		<Button
 			{...additionalProps}
 			className='icon-btn cds--btn--icon-only'
-			kind='ghost'
+			kind={isPrimary ? 'primary' : 'ghost'}
 			size='lg'
 		>
 			<FontAwesomeIcon icon={faIcon} />
