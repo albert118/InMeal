@@ -11,11 +11,11 @@ export function CommonActions() {
 		<SimpleCard>
 			<Stack gap={8}>
 				<div>
-					Recipes
 					<div className='action-option'>
-						Add a new recipe
+						<label>Recipes</label>
+						<span>Add a new recipe</span>
 						<Button
-							kind='secondary'
+							kind='ghost'
 							onClick={() => navigate(`${AppRoutes.recipe}/add`)}
 						>
 							Add
@@ -23,11 +23,11 @@ export function CommonActions() {
 					</div>
 				</div>
 				<div>
-					Pantry
 					<div className='action-option'>
-						Update the pantry
+						<label>Pantry</label>
+						<span>Update the pantry</span>
 						<Button
-							kind='secondary'
+							kind='ghost'
 							onClick={() => navigate(`${AppRoutes.root}`)}
 						>
 							add ingredients
@@ -35,11 +35,11 @@ export function CommonActions() {
 					</div>
 				</div>
 				<div>
-					Planning
 					<div className='action-option'>
-						Create a meal plan
+						<label>Planning</label>
+						<span>Create a meal plan</span>
 						<Button
-							kind='secondary'
+							kind='ghost'
 							onClick={() => navigate(`${AppRoutes.root}`)}
 						>
 							plan

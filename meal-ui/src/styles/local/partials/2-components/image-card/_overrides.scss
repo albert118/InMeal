@@ -4,10 +4,6 @@
 	padding: 0;
 }
 
-.image-card.cds--tile .action:hover {
-	background-color: var(--nero-black);
-}
-
 .image-card .cds--tile__checkmark {
 	position: absolute;
 	top: $spacing-06;
@@ -18,5 +14,5 @@
 }
 
 .image-card .cds--tile--is-selected .cds--tile__checkmark svg {
-	fill: var(--lindworm-green);
+	fill: var(--mealui-colors-lindworm-green);
 }

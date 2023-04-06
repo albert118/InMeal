@@ -8,11 +8,7 @@ body {
 	// full height pages
 	height: 100%;
 	min-height: 100%;
-}
-
-body {
-	background-color: var(--lynx-white);
-	color: var(--angel-number-black, black);
+	overflow-x: hidden;
 }
 
 // main instead of body, as main is where our content lives
@@ -70,6 +66,26 @@ header {
 			padding-left: var(--sidebar-width);
 		}
 	}
+}
+
+body {
+	background-color: var(--background--neutral, black);
+	color: var(--text, white);
+}
+
+.theming-gradient-1,
+.theming-gradient-2 {
+	z-index: -1;
+	position: absolute;
+}
+
+.theming-gradient-1 {
+	top: -10%;
+}
+
+.theming-gradient-2 {
+	top: 10%;
+	left: 60%;
 }
 
 /* recipe content has a special grid */

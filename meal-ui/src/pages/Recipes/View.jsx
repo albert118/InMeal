@@ -57,7 +57,6 @@ function ManageRecipesTable({ recipes, refreshGrid }) {
 			className='p-manage-recipes'
 		>
 			<Column
-				className='p-manage-recipes__r1'
 				lg={16}
 				md={8}
 				sm={4}
@@ -66,13 +65,6 @@ function ManageRecipesTable({ recipes, refreshGrid }) {
 					handleDeleteSelected={handleDeleteSelected}
 					handleViewArchived={handleViewArchived}
 				/>
-			</Column>
-			<Column
-				className='p-manage-recipes__r2'
-				lg={16}
-				md={8}
-				sm={4}
-			>
 				<RecipeGrid
 					addOrRemoveSelectedItem={addOrRemoveSelectedItem}
 					recipes={recipes}

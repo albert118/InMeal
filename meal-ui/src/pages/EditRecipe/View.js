@@ -37,12 +37,6 @@ export default function View(props) {
 		}
 	};
 
-	const clearChanges = event => {
-		event.preventDefault();
-		setRecipe(existingRecipe);
-		setFormStatus(FormStatuses.Saved);
-	};
-
 	const handleCancel = event => {
 		event.preventDefault();
 		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
@@ -108,7 +102,7 @@ export default function View(props) {
 
 	return (
 		<FormContainer
-			className='card recipe-card e-recipe-form'
+			className='card recipe-card'
 			onSubmit={submitHandler}
 		>
 			<HeroImage
@@ -133,10 +127,7 @@ export default function View(props) {
 				handler={updateRecipeDataHandler}
 			/>
 
-			<FormActions
-				clearChanges={clearChanges}
-				handleCancel={handleCancel}
-			/>
+			<FormActions handleCancel={handleCancel} />
 		</FormContainer>
 	);
 }

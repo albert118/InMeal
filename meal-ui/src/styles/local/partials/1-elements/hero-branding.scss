@@ -1,13 +1,5 @@
 @use '@carbon/react/scss/spacing' as *;
 
-.hero-title {
-	font-size: 1.2em;
-	letter-spacing: $spacing-06;
-	padding-left: $spacing-06;
-	color: var(--lynx-white);
-	text-transform: uppercase;
-}
-
 .hero-branding-logo {
 	display: flex;
 	flex-direction: column;
@@ -17,9 +9,26 @@
 	padding-left: $spacing-04;
 	padding-right: $spacing-04;
 	height: 100px;
+
+	.divider {
+		width: 70%;
+		border: 1px solid var(--mealui-colors-gray900);
+	}
 }
 
-.hero-branding-logo .divider {
-	width: 80%;
-	border: 1px solid var(--lynx-white);
+.hero-branding-logo:hover,
+.hero-branding-logo:active {
+	opacity: 0.8;
+
+	.divider {
+		opacity: 0.8;
+	}
+}
+
+.hero-title {
+	font-size: 1.2em;
+	letter-spacing: $spacing-06;
+	padding-left: $spacing-06;
+	color: var(--text);
+	text-transform: uppercase;
 }

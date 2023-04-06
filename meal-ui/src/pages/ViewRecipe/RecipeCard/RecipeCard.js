@@ -36,7 +36,7 @@ function ActionContainer({ recipeId }) {
 	return (
 		<div className='action-container'>
 			<Button
-				handler={() => navigate(`${AppRoutes.recipe}/edit/${recipeId}`)}
+				onClick={() => navigate(`${AppRoutes.recipe}/edit/${recipeId}`)}
 			>
 				edit
 			</Button>

@@ -1,6 +1,8 @@
+@use '@carbon/react/scss/spacing' as *;
+
 .action-container {
-    display: flex;
-    justify-content: flex-end;
-    column-gap: 1em;
-    margin-bottom: var(--ns-full);
+	padding: $spacing-06;
+	display: flex;
+	justify-content: flex-end;
+	column-gap: 1em;
 }

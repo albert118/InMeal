@@ -1,15 +1,22 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '@carbon/react/scss/breakpoint' as *;
+@use '../../../mixins/glass-background' as *;
 
 .p-home__r1,
 .p-home__r2 {
 	margin-top: $spacing-08;
 }
 
-.p-home__r1 > .quick-recipes-view > .common-card {
+.p-home__r1 > .quick-recipes-view > :last-child {
 	margin-top: $spacing-06;
+}
+
+.planning-quick-view,
+.explore-quick-view {
+	@include glass-background();
 }
 
 .simple-card {
 	max-width: 30%;
+	@include glass-background();
 }

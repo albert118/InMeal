@@ -1,12 +1,13 @@
 @use '@carbon/react/scss/spacing' as *;
+@use '../../mixins/text-mixins' as *;
 
 .minimalist-sidebar {
+	@include text();
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	color: var(--lynx-white);
-	background-color: var(--nero-black);
+	background-color: var(--background);
 }
 
 .minimalist-sidebar h1 {
@@ -16,19 +17,9 @@
 .nav-links {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
+	justify-content: space-evenly;
+	align-items: flex-start;
 	height: 50%;
-}
-
-.nav-links-active > button,
-.setting-links-active > button {
-	width: 100%;
-}
-
-.nav-links-active {
-	align-items: center;
-	width: 30%;
 }
 
 .nav-label {
@@ -48,6 +39,21 @@
 		flex-direction: row;
 	}
 
+	.minimalist-sidebar-active {
+		.labelled-icon-btn,
+		.labelled-icon-btn > span {
+			transition: width 0.2s ease-in;
+			animation: fadeIn 1.2s;
+		}
+	}
+
+	.minimalist-sidebar-inactive {
+		.icon-btn {
+			transition: width 0.2s ease-out;
+			animation: fadeIn 0.8s;
+		}
+	}
+
 	.nav-links,
 	.setting-links {
 		display: none;
@@ -57,11 +63,22 @@
 /* toggling the sidebar-heading shifts the layout around - but only for larger screens */
 @media (min-width: 1056px) {
 	.minimalist-sidebar-active {
-		animation: minimalist-sidebar-fade-in 1s ease forwards;
+		animation: minimalist-sidebar-fade-in 0.8s ease-out forwards;
+
+		.labelled-icon-btn,
+		.labelled-icon-btn > span {
+			transition: width 0.2s ease-out;
+			animation: fadeIn 1.2s;
+		}
 	}
 
 	.minimalist-sidebar-inactive {
-		animation: minimalist-sidebar-fade-out 1s ease forwards;
+		animation: minimalist-sidebar-fade-out 0.8s ease-out forwards;
+
+		.icon-btn {
+			transition: width 0.2s ease-out;
+			animation: fadeIn 1.2s;
+		}
 	}
 
 	@keyframes minimalist-sidebar-fade-in {

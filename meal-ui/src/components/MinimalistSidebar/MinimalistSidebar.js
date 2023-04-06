@@ -34,22 +34,18 @@ export default function MinimalistSidebar({
 				onClick={() => navigate(AppRoutes.root)}
 			/>
 			<AnimatedHamburger callback={toggleActive} />
-			<div
-				className={
-					isActive ? 'nav-links nav-links-active' : 'nav-links'
-				}
-			>
+			<div className='nav-links'>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faCalendar}
-					handler={() => navigate(AppRoutes.planning)}
+					onClick={() => navigate(AppRoutes.planning)}
 				>
 					Meal Planning
 				</NavLinkItem>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faBoxes}
-					handler={() => navigate(AppRoutes.recipes)}
+					onClick={() => navigate(AppRoutes.recipes)}
 				>
 					Manage Recipes
 				</NavLinkItem>
@@ -57,7 +53,7 @@ export default function MinimalistSidebar({
 				<NavLinkItem
 					isActive={isActive}
 					icon={faGear}
-					handler={() => navigate(AppRoutes.settings)}
+					onClick={() => navigate(AppRoutes.settings)}
 				>
 					Settings
 				</NavLinkItem>
@@ -66,7 +62,7 @@ export default function MinimalistSidebar({
 				<NavLinkItem
 					isActive={isActive}
 					icon={faGithub}
-					handler={() => window.open(config.GitSocialLink, '_blank')}
+					onClick={() => window.open(config.GitSocialLink, '_blank')}
 				>
 					release: {VersionInfo.toString()}
 				</NavLinkItem>

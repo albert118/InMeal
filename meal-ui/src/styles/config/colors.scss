@@ -1,18 +1,40 @@
 /* the base colour kit, minimalist and simple */
-.meal-ui-basekit-theme {
-	--lynx-white: #f7f7f7;
+body {
 	--cultured: #f8f9faff;
 	--dove-grey: #6b6b6b;
-	--black-russian: #20232a;
-	--dark-cyan: #282c34;
-	--nero-black: #1a1a1a;
+	--dark-cyan: ;
 	--angel-number-black: #121212;
-	--lindworm-green: #9feb73;
-}
 
-.meal-ui-form-theme {
 	--success: #04d137ff;
 	--error: #ba0000ff;
 	--warning: rgb(254, 148, 19);
 	--note: hsla(210, 39%, 47%, 1);
+
+	--mealui-colors-purple700: #9750dd;
+	--mealui-colors-blue100: #102c4c;
+	--mealui-colors-blue600: #0072f5;
+	--mealui-colors-nero-black: #1a1a1a;
+	--mealui-colors-black-russian: #20232a;
+	--mealui-colors-dark-cyan: #282c34;
+	--mealui-colors-lynx-white: #f7f7f7;
+	--mealui-colors-lindworm-green: #9feb73;
+	--mealui-colors-gray900: #ecedee;
+	--mealui-colors-success: #04d137ff;
+	--mealui-colors-error: #ba0000ff;
+	--mealui-colors-warning: rgb(254, 148, 19);
+	--mealui-colors-note: hsla(210, 39%, 47%, 1);
+
+	--primary: var(--mealui-colors-purple700);
+	--secondary: var(--meal-ui-colors-blue100);
+	--primary-action: var(--mealui-colors-purple700);
+	--secondary-action: var(--mealui-colors-blue600);
+	--foreground: var(--mealui-colors-lynx-white);
+	--background: var(--mealui-colors-nero-black);
+	--background-neutral: var(--mealui-colors-black-russian);
+	--background-details: rgba(255, 255, 255, 0.05);
+	--text: var(--mealui-colors-gray900);
+	--success: var(--mealui-colors-success);
+	--error: var(--mealui-colors-error);
+	--warning: var(--mealui-colors-warning);
+	--note: var(--mealui-colors-note);
 }

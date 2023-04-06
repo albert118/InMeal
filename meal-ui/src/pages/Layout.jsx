@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import MinimalistSidebar from 'components/MinimalistSidebar';
+import ThemingGradient from 'assets/theming-gradient.svg';
 
 const Layout = ({ children }) => {
 	// control the toggle'able sidebar-heading
@@ -22,6 +23,14 @@ const Layout = ({ children }) => {
 				setActive={setActive}
 				isInActive={isInActive}
 				setInActive={setInActive}
+			/>
+			<img
+				className='theming-gradient-1'
+				src={ThemingGradient}
+			/>
+			<img
+				className='theming-gradient-2'
+				src={ThemingGradient}
 			/>
 			<main className={getClassNames()}>{children}</main>
 		</div>

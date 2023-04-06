@@ -1,10 +1,9 @@
+@use '../mixins/text-mixins' as *;
+
 .font-white-header {
-	font-size: 1.8em;
-	letter-spacing: 3px;
-	color: white;
+	@include text-header();
 }
 
 .font-white {
-	letter-spacing: 3px;
-	color: white;
+	@include text();
 }
