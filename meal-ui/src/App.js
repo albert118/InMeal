@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 export default function App() {
 	return (
-		<div className='meal-ui-theme negative-space-scale'>
+		<div className='negative-space-scale'>
 			<BrowserRouter>
 				<RouterConfig />
 			</BrowserRouter>

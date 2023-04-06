@@ -6,10 +6,25 @@
 	margin-top: $spacing-08;
 }
 
-.p-home__r1 > .quick-recipes-view > .common-card {
+.p-home__r1 > .quick-recipes-view > :last-child {
 	margin-top: $spacing-06;
 }
 
 .simple-card {
 	max-width: 30%;
+}
+
+.theming-gradient-1,
+.theming-gradient-2 {
+	z-index: -1;
+	position: absolute;
+}
+
+.theming-gradient-1 {
+	top: -10%;
+}
+
+.theming-gradient-2 {
+	top: 10%;
+	left: 60%;
 }

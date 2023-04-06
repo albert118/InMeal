@@ -1,6 +1,7 @@
 import { CommonActions } from './CommonActions';
 import { QuickRecipesView } from './QuickRecipesView';
 import { Grid, Column } from '@carbon/react';
+import ThemingGradient from 'assets/theming-gradient.svg';
 
 export default function View({ plannedItems, suggestedItems }) {
 	return (
@@ -15,6 +16,10 @@ export default function View({ plannedItems, suggestedItems }) {
 				md={8}
 				sm={4}
 			>
+				<img
+					className='theming-gradient-1'
+					src={ThemingGradient}
+				/>
 				<QuickRecipesView
 					plannedRecipes={plannedItems}
 					suggestedRecipes={suggestedItems}
@@ -27,6 +32,10 @@ export default function View({ plannedItems, suggestedItems }) {
 				md={8}
 				sm={4}
 			>
+				<img
+					className='theming-gradient-2'
+					src={ThemingGradient}
+				/>
 				<CommonActions />
 			</Column>
 		</Grid>
