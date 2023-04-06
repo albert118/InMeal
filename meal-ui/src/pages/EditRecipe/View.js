@@ -37,12 +37,6 @@ export default function View(props) {
 		}
 	};
 
-	const clearChanges = event => {
-		event.preventDefault();
-		setRecipe(existingRecipe);
-		setFormStatus(FormStatuses.Saved);
-	};
-
 	const handleCancel = event => {
 		event.preventDefault();
 		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
@@ -133,10 +127,7 @@ export default function View(props) {
 				handler={updateRecipeDataHandler}
 			/>
 
-			<FormActions
-				clearChanges={clearChanges}
-				handleCancel={handleCancel}
-			/>
+			<FormActions handleCancel={handleCancel} />
 		</FormContainer>
 	);
 }

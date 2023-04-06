@@ -7,7 +7,7 @@ const CancelButton = ({ className, children, ...aditionalProps }) => {
 			className={className ? `btn  ${className}` : `btn cancel-btn`}
 			kind='tertiary'
 		>
-			{children ?? 'Save'}
+			{children ?? 'Cancel'}
 		</Button>
 	);
 };
