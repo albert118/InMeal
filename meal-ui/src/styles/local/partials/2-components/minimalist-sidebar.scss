@@ -77,7 +77,7 @@
 /* toggling the sidebar-heading shifts the layout around - but only for larger screens */
 @media (min-width: 1056px) {
 	.minimalist-sidebar-active {
-		animation: minimalist-sidebar-fade-in 0.6s ease forwards;
+		animation: minimalist-sidebar-fade-in 0.8s ease-out forwards;
 
 		.labelled-icon-btn,
 		.labelled-icon-btn > span {
@@ -87,12 +87,12 @@
 	}
 
 	.minimalist-sidebar-inactive {
-		animation: minimalist-sidebar-fade-out 0.6s ease forwards;
+		animation: minimalist-sidebar-fade-out 0.4s ease-out forwards;
 
 		.labelled-icon-btn,
 		.labelled-icon-btn > span {
-			transition: width 0.2s ease-out;
-			animation: fadeOut 1.2s;
+			transition: width 0.4s ease-in;
+			animation: fadeOut 0.4s;
 		}
 	}
 
