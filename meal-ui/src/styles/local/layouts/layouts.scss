@@ -73,5 +73,20 @@ body {
 	color: var(--text, white);
 }
 
+.theming-gradient-1,
+.theming-gradient-2 {
+	z-index: -1;
+	position: absolute;
+}
+
+.theming-gradient-1 {
+	top: -10%;
+}
+
+.theming-gradient-2 {
+	top: 10%;
+	left: 60%;
+}
+
 /* recipe content has a special grid */
 @import 'recipe-content-grid.scss';

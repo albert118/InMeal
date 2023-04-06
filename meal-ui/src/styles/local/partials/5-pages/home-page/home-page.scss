@@ -1,5 +1,6 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '@carbon/react/scss/breakpoint' as *;
+@use '../../../mixins/glass-background' as *;
 
 .p-home__r1,
 .p-home__r2 {
@@ -10,21 +11,12 @@
 	margin-top: $spacing-06;
 }
 
+.planning-quick-view,
+.explore-quick-view {
+	@include glass-background();
+}
+
 .simple-card {
 	max-width: 30%;
-}
-
-.theming-gradient-1,
-.theming-gradient-2 {
-	z-index: -1;
-	position: absolute;
-}
-
-.theming-gradient-1 {
-	top: -10%;
-}
-
-.theming-gradient-2 {
-	top: 10%;
-	left: 60%;
+	@include glass-background();
 }

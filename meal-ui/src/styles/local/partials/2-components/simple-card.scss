@@ -6,8 +6,6 @@
 	--card-height: max-content;
 	padding: $spacing-06;
 	width: 100%;
-	border: unset;
-	@include glass-background();
 }
 
 .simple-card > div.content-slot > div {
