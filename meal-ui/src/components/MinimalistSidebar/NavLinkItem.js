@@ -1,19 +1,25 @@
 import { IconButton, LabelledIconButton } from 'components/Button';
 
-export function NavLinkItem(props) {
-	const { isActive, icon, handler } = props;
-
+export function NavLinkItem({
+	isActive,
+	icon,
+	onClick,
+	isPrimary,
+	...additionalProps
+}) {
 	return isActive ? (
 		<LabelledIconButton
 			faIcon={icon}
-			onClick={handler}
+			onClick={onClick}
+			isPrimary={isPrimary}
 		>
-			<div className='nav-label font-white'>{props.children}</div>
+			<div className='nav-label'>{additionalProps.children}</div>
 		</LabelledIconButton>
 	) : (
 		<IconButton
 			faIcon={icon}
-			onClick={handler}
+			onClick={onClick}
+			isPrimary={isPrimary}
 		/>
 	);
 }
