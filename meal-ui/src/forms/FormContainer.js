@@ -1,18 +1,14 @@
-import React from 'react';
-
-export default function FormContainer(props) {
-	const { className, onSubmit } = props;
-
-	const classes = className
-		? `meal-ui-form-theme form ${className}`
-		: `meal-ui-form-theme form`;
-
+export default function FormContainer({
+	className,
+	onSubmit,
+	...additionalProps
+}) {
 	return (
 		<form
-			className={classes}
+			className={className ? `form ${className}` : `form`}
 			onSubmit={onSubmit}
 		>
-			{props.children}
+			{additionalProps.children}
 		</form>
 	);
 }

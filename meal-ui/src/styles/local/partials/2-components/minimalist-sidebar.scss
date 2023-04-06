@@ -1,12 +1,13 @@
 @use '@carbon/react/scss/spacing' as *;
+@use '../../mixins/text-mixins' as *;
 
 .minimalist-sidebar {
+	@include text();
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	color: var(--lynx-white);
-	background-color: var(--nero-black);
+	background-color: var(--background);
 }
 
 .minimalist-sidebar h1 {

@@ -1,0 +1,10 @@
+@mixin text-header {
+	font-size: 1.8em;
+	letter-spacing: 3px;
+	color: var(--text);
+}
+
+@mixin text {
+	letter-spacing: 3px;
+	color: var(--text);
+}

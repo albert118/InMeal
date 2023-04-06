@@ -12,3 +12,8 @@
 	border-color: unset;
 	box-shadow: unset;
 }
+
+.icon-btn.cds--btn--primary {
+	color: var(--primary-action);
+	background-color: transparent;
+}
