@@ -1,4 +1,6 @@
 @mixin card-shadow {
+	/* to get a clean box shadow edge, layer box shadows and decrease the alpha sharply */
+	/* great article on box shadows https://tobiasahlin.com/blog/layered-smooth-box-shadows/ */
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 2px 2px rgba(0, 0, 0, 0.1),
 		0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.2),
 		0 16px 16px rgba(0, 0, 0, 0.25);

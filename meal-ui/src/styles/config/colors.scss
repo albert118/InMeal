@@ -2,10 +2,8 @@
 .meal-ui-theme {
 	--cultured: #f8f9faff;
 	--dove-grey: #6b6b6b;
-	--black-russian: #20232a;
-	--dark-cyan: #282c34;
+	--dark-cyan: ;
 	--angel-number-black: #121212;
-	--lindworm-green: #9feb73;
 
 	--success: #04d137ff;
 	--error: #ba0000ff;
@@ -16,7 +14,10 @@
 	--mealui-colors-blue100: #102c4c;
 	--mealui-colors-blue600: #0072f5;
 	--mealui-colors-nero-black: #1a1a1a;
+	--mealui-colors-black-russian: #20232a;
+	--mealui-colors-dark-cyan: #282c34;
 	--mealui-colors-lynx-white: #f7f7f7;
+	--mealui-colors-lindworm-green: #9feb73;
 	--mealui-colors-gray900: #ecedee;
 
 	--primary: var(--mealui-colors-purple700);
@@ -25,5 +26,7 @@
 	--secondary-action: var(--mealui-colors-blue600);
 	--foreground: var(--mealui-colors-lynx-white);
 	--background: var(--mealui-colors-nero-black);
+	--background-neutral: var(--mealui-colors-black-russian);
+	--background-details: rgba(255, 255, 255, 0.05);
 	--text: var(--mealui-colors-gray900);
 }

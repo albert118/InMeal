@@ -1,13 +1,13 @@
 @use './overrides';
 @use '@carbon/react/scss/spacing' as *;
+@use '../../../mixins/glass-background' as *;
 
 .image-card {
 	--image-card-height: 300px;
-
 	height: var(--image-card-height);
 	min-width: calc(1.1 * var(--image-card-height));
 	max-width: calc(1.1 * var(--image-card-height));
-	background-color: var(--dark-cyan);
+	@include glass-background();
 }
 
 .image-card .image-slot {
@@ -23,6 +23,10 @@
 .action,
 .action > * {
 	cursor: pointer;
+}
+
+.action:hover {
+	background-color: var(--primary);
 }
 
 .action {
