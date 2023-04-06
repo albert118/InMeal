@@ -1,11 +1,14 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/card-shadow' as *;
+@use '../../../mixins/glass-background' as *;
+
 .recipe-card {
 	--card-height: 1200px;
-
 	width: 900px;
-	margin: var(--ns-full);
-	background-color: var(--dark-cyan);
-
-	color: white;
+	margin: $spacing-08;
+	background-color: var(--background);
+	@include text();
 }
 
 .image-slot > img {
@@ -15,25 +18,24 @@
 
 .recipe-card > .title-bar,
 .recipe-card > .recipe-data-slot {
-	padding: var(--ns-half) var(--ns-full) var(--ns-half) var(--ns-full);
+	padding-top: $spacing-06;
+	padding-bottom: $spacing-06;
+	padding-right: $spacing-08;
+	padding-left: $spacing-08;
 }
 
 .recipe-card > .recipe-data-slot {
 	overflow-y: scroll;
 	overflow-x: hidden;
 	height: 100%;
-
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 4px 4px rgba(0, 0, 0, 0.1),
-		0 8px 8px rgba(0, 0, 0, 0.15);
+	@include card-shadow-3();
 }
 
 .recipe-card > .recipe-data-slot p {
-	white-space: break-spaces;
-	margin: var(--ns-quat);
-	overflow-wrap: anywhere;
+	@include wrappable-text();
 }
 
 .recipe-card > .action-container {
-	padding: var(--ns-half);
-	margin-bottom: var(--ns-half);
+	border-radius: 0 0 12px 12px;
+	@include glass-background();
 }

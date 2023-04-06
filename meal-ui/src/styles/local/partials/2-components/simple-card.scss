@@ -1,40 +1,44 @@
 @use '@carbon/react/scss/spacing' as *;
+@use '../../mixins/text-mixins' as *;
 
 .simple-card {
-	--card-height: 450px;
-
+	--card-height: max-content;
 	padding: $spacing-06;
-	padding-bottom: 0;
-
 	width: 100%;
 }
 
 .simple-card > div.content-slot > div {
-	color: white;
-	letter-spacing: $spacing-02;
-
 	display: flex;
 	flex-direction: column;
+	@include text();
 }
 
 .action-option {
-	margin-top: $spacing-03;
-
+	position: relative;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
-
 	height: 80px;
+	margin-top: $spacing-03;
 	padding: $spacing-06;
-
-	background-color: var(--nero-black);
+	background-color: var(--background);
 	border-radius: 4px;
+
+	label {
+		position: absolute;
+		top: $spacing-03;
+		@include label();
+	}
+
+	span {
+		@include action-text();
+	}
 }
 
 .content-slot {
 	display: flex;
 	flex-direction: column;
-	row-gap: $spacing-08;
 	justify-content: space-around;
+	row-gap: $spacing-08;
 }

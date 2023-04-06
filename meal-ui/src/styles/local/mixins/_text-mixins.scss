@@ -1,3 +1,5 @@
+@use '@carbon/react/scss/spacing' as *;
+
 @mixin text-header {
 	font-size: 1.8em;
 	letter-spacing: 3px;
@@ -7,4 +9,21 @@
 @mixin text {
 	letter-spacing: 3px;
 	color: var(--text);
+}
+
+@mixin label {
+	@include text();
+	opacity: 0.6;
+}
+
+@mixin action-text {
+	@include text();
+	margin-top: $spacing-04;
+	margin-bottom: $spacing-04;
+}
+
+@mixin wrappable-text {
+	white-space: break-spaces;
+	overflow-wrap: anywhere;
+	margin: $spacing-04;
 }

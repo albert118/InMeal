@@ -108,7 +108,7 @@ export default function View(props) {
 
 	return (
 		<FormContainer
-			className='card recipe-card e-recipe-form'
+			className='card recipe-card'
 			onSubmit={submitHandler}
 		>
 			<HeroImage
