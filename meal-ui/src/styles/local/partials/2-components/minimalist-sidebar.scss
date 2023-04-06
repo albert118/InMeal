@@ -48,6 +48,26 @@
 		flex-direction: row;
 	}
 
+	.minimalist-sidebar-active {
+		transition: 0.6s ease-in;
+
+		.labelled-icon-btn,
+		.labelled-icon-btn > span {
+			transition: width 0.2s ease-in;
+			animation: fadeIn 1.2s;
+		}
+	}
+
+	.minimalist-sidebar-inactive {
+		transition: 0.6s ease-out;
+
+		.labelled-icon-btn,
+		.labelled-icon-btn > span {
+			transition: width 0.2s ease-out;
+			animation: fadeOut 1.2s;
+		}
+	}
+
 	.nav-links,
 	.setting-links {
 		display: none;
@@ -57,11 +77,23 @@
 /* toggling the sidebar-heading shifts the layout around - but only for larger screens */
 @media (min-width: 1056px) {
 	.minimalist-sidebar-active {
-		animation: minimalist-sidebar-fade-in 1s ease forwards;
+		animation: minimalist-sidebar-fade-in 0.6s ease forwards;
+
+		.labelled-icon-btn,
+		.labelled-icon-btn > span {
+			transition: width 0.2s ease-in;
+			animation: fadeIn 1.2s;
+		}
 	}
 
 	.minimalist-sidebar-inactive {
-		animation: minimalist-sidebar-fade-out 1s ease forwards;
+		animation: minimalist-sidebar-fade-out 0.6s ease forwards;
+
+		.labelled-icon-btn,
+		.labelled-icon-btn > span {
+			transition: width 0.2s ease-out;
+			animation: fadeOut 1.2s;
+		}
 	}
 
 	@keyframes minimalist-sidebar-fade-in {

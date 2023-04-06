@@ -35,11 +35,11 @@ const LabelledIconButton = ({
 	return (
 		<Button
 			{...additionalProps}
-			className='btn'
+			className='btn labelled-icon-btn'
 			kind={isPrimary ? 'primary' : 'ghost'}
 		>
 			<FontAwesomeIcon icon={faIcon} />
-			{children}
+			<span>{children}</span>
 		</Button>
 	);
 };
