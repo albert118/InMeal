@@ -2,8 +2,6 @@
 body {
 	--cultured: #f8f9faff;
 	--dove-grey: #6b6b6b;
-	--dark-cyan: ;
-	--angel-number-black: #121212;
 
 	--success: #04d137ff;
 	--error: #ba0000ff;
@@ -13,6 +11,7 @@ body {
 	--mealui-colors-purple700: #9750dd;
 	--mealui-colors-blue100: #102c4c;
 	--mealui-colors-blue600: #0072f5;
+	--mealui-colours-angel-number-black: #121212;
 	--mealui-colors-nero-black: #1a1a1a;
 	--mealui-colors-black-russian: #20232a;
 	--mealui-colors-dark-cyan: #282c34;
@@ -29,8 +28,8 @@ body {
 	--primary-action: var(--mealui-colors-purple700);
 	--secondary-action: var(--mealui-colors-blue600);
 	--foreground: var(--mealui-colors-lynx-white);
-	--background: var(--mealui-colors-nero-black);
-	--background-neutral: var(--mealui-colors-black-russian);
+	--background: var(--mealui-colours-angel-number-black);
+	--background-neutral: var(--mealui-colors-nero-black);
 	--background-details: rgba(255, 255, 255, 0.05);
 	--text: var(--mealui-colors-gray900);
 	--success: var(--mealui-colors-success);
