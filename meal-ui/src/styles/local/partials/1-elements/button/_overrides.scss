@@ -1,3 +1,14 @@
+.cds--btn--primary.btn {
+	background-color: transparent;
+	border: 1px solid var(--primary);
+}
+
+.cds--btn--primary.btn:hover,
+.cds--btn--primary.btn:active {
+	border: 1px solid transparent;
+	background-color: var(--primary);
+}
+
 .icon-btn.cds--btn--ghost:hover,
 .icon-btn.cds--btn--ghost:active {
 	color: unset;

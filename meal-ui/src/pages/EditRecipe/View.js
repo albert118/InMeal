@@ -15,9 +15,7 @@ import { isFalsishOrEmpty } from 'utils';
 
 import { demoImage } from '../../DemoImage';
 
-export default function View(props) {
-	const { existingRecipe } = props;
-
+export default function View({ existingRecipe }) {
 	const [recipe, setRecipe] = useState(existingRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 

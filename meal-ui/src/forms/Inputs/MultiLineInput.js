@@ -1,8 +1,6 @@
 import { useState } from 'react';
-
 import { TextInput } from './TextInput';
 import Button from 'components/Button';
-
 import { objectMap } from 'utils';
 
 // will set newly added item IDs to 'new-item'
@@ -13,10 +11,6 @@ export default function MultiLineInput({
 	handler,
 	placeholder
 }) {
-	const classes = className
-		? `multi-line-input ${className}`
-		: `multi-line-input`;
-
 	const [newItem, setNewItem] = useState('');
 
 	const appendNewItem = () => {
@@ -33,8 +27,12 @@ export default function MultiLineInput({
 	};
 
 	return (
-		<div className={classes}>
-			<div className='add-new-item'>
+		<div
+			className={
+				className ? `multi-line-input ${className}` : `multi-line-input`
+			}
+		>
+			<span className='add-new-item'>
 				<TextInput
 					className='new-ingredient'
 					name='new-ingredient'
@@ -42,8 +40,13 @@ export default function MultiLineInput({
 					handler={event => setNewItem(event.target.value)}
 					placeholder={placeholder}
 				/>
-				<Button handler={appendNewItem}>➕</Button>
-			</div>
+				<Button
+					disabled={newItem === ''}
+					onClick={appendNewItem}
+				>
+					add
+				</Button>
+			</span>
 
 			{items &&
 				objectMap(items, (key, value) => (

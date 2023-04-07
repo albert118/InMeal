@@ -11,7 +11,7 @@ const LongTextInput = ({
 
 	return (
 		<div className={classes}>
-			{label ?? <label htmlFor={label}>{label}</label>}
+			{label ? <label htmlFor={label}>{label}</label> : ''}
 			<textarea
 				id={label ?? crypto.randomUUID()}
 				className='long-text-input scrollbar-vertical'
