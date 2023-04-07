@@ -9,11 +9,9 @@ const Layout = ({ children }) => {
 	const [isInActive, setInActive] = useState(null);
 
 	const getClassNames = () => {
-		const layoutClasses = 'scrollbar-vertical';
-
-		return `${
-			isActive ? `header-active ${layoutClasses}` : layoutClasses
-		} ${isInActive ? `header-inactive ${layoutClasses}` : layoutClasses}`;
+		return `${isActive ? 'header-active' : ''} ${
+			isInActive ? 'header-inactive' : ''
+		}`;
 	};
 
 	return (
