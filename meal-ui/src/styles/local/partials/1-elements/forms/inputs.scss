@@ -1,45 +1,42 @@
-/* visibility styling and general inputs */
+@use '@carbon/react/scss/spacing' as *;
+@use '../../../mixins/card-shadow' as *;
+
+.form-input > ::placeholder {
+	opacity: 1;
+}
+
+.form-input > :focus::placeholder {
+	opacity: 0;
+	transition: opacity 0.4s ease-out;
+}
+
 .form-input > input[type='text'],
 .form-input > textarea {
 	width: 100%;
-
-	background-color: var(--dark-cyan);
-	border-radius: 8px;
-
-	padding: var(--ns-quat);
+	background-color: var(--background-details);
+	border-radius: 12px;
+	padding: $spacing-04;
 	border: none;
 }
 
-/* text inputs */
-
 .form-input > input:focus-visible,
 .form-input > textarea:focus-visible {
-	/* drop some of the default interaction */
 	outline: none;
-	border: 1px solid var(--lindworm-green);
-	border-radius: 8px;
-
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 2px 2px rgba(0, 0, 0, 0.1),
-		0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.2);
+	border: 1px solid var(--primary-action);
+	transition: border 0.4s ease-out;
+	border-radius: 12px;
+	@include card-shadow();
 }
 
-/* text inputs */
 .form-input > input[type='text'].text-input,
 .form-input > textarea.long-text-input {
-	color: var(--lynx-white);
+	color: var(--text);
 }
-
-/* .form-input > input[type=text].text-input:focus-visible,
-.form-input > textarea.long-text-input:focus-visible {
-    color: var(--lynx-white);
-} */
 
 .form-input > textarea {
 	resize: vertical;
 }
 
-/* checkboxes */
-
 .form-input > input[type='checkbox'] {
-	margin: var(--ns-quat);
+	margin: $spacing-04;
 }
