@@ -1,5 +1,6 @@
-/* action containers */
+/* action containers and actions */
 @import 'action-containers.scss';
+@import 'form-buttons.scss';
 
 /* fonts */
 @import 'fonts.scss';
@@ -8,10 +9,6 @@
 @import 'inputs.scss';
 
 @import 'multi-line-inputs.scss';
-
-/* action buttons */
-@import 'save-btn.scss';
-@import 'cancel-btn.scss';
 
 /* utils */
 @import 'utils.scss';

@@ -1,13 +1,36 @@
 /* to get a clean box shadow edge, layer box shadows and decrease the alpha sharply */
 /* great article on box shadows https://tobiasahlin.com/blog/layered-smooth-box-shadows/ */
 
-@mixin card-shadow {
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 2px 2px rgba(0, 0, 0, 0.1),
-		0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.2),
-		0 16px 16px rgba(0, 0, 0, 0.25);
+@mixin card-shadow($theme: 'dark') {
+	@if $theme == 'dark' {
+		box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05), 0 2px 2px rgba(0, 0, 0, 0.1),
+			0 4px 4px rgba(0, 0, 0, 0.15), 0 8px 8px rgba(0, 0, 0, 0.2),
+			0 16px 16px rgba(0, 0, 0, 0.25);
+	} @else {
+		box-shadow: 0 1px 1px rgba(255, 255, 255, 0.05),
+			0 2px 2px rgba(255, 255, 255, 0.1),
+			0 4px 4px rgba(255, 255, 255, 0.15),
+			0 8px 8px rgba(255, 255, 255, 0.2),
+			0 16px 16px rgba(255, 255, 255, 0.25);
+	}
 }
 
-@mixin card-shadow-3 {
-	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 4px 4px rgba(0, 0, 0, 0.1),
-		0 8px 8px rgba(0, 0, 0, 0.15);
+@mixin card-shadow-3($theme: 'dark') {
+	@if $theme == 'dark' {
+		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 4px 4px rgba(0, 0, 0, 0.1),
+			0 8px 8px rgba(0, 0, 0, 0.15);
+	} @else {
+		box-shadow: 0 2px 2px rgba(255, 255, 255, 0.05),
+			0 4px 4px rgba(255, 255, 255, 0.1),
+			0 8px 8px rgba(255, 255, 255, 0.15);
+	}
+}
+
+@mixin card-shadow-2($theme: 'dark') {
+	@if $theme == 'dark' {
+		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 4px 4px rgba(0, 0, 0, 0.1);
+	} @else {
+		box-shadow: 0 2px 2px rgba(255, 255, 255, 0.05),
+			0 4px 4px rgba(255, 255, 255, 0.1);
+	}
 }
