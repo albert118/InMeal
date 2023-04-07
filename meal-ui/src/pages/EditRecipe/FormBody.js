@@ -2,9 +2,9 @@ import { LongTextInput, MultiLineInput } from 'forms/Inputs';
 
 export function FormBody({ blurb, preparationSteps, ingredients, handler }) {
 	return (
-		<div className='recipe-data-slot recipe-content-grid scrollbar-vertical'>
+		<div className='recipe--data scrollbar-vertical'>
 			<LongTextInput
-				className='recipe-content-blurb'
+				className='recipe--blurb'
 				name='blurb'
 				value={blurb}
 				placeholder='maybe some details too?'
@@ -12,7 +12,7 @@ export function FormBody({ blurb, preparationSteps, ingredients, handler }) {
 			/>
 
 			<MultiLineInput
-				className='recipe-content-ingredients'
+				className='recipe--ingredients'
 				items={ingredients}
 				attrName='recipeIngredients'
 				handler={handler}
@@ -20,7 +20,7 @@ export function FormBody({ blurb, preparationSteps, ingredients, handler }) {
 			/>
 
 			<LongTextInput
-				className='recipe-content-preparation-steps'
+				className='recipe--steps'
 				name='preparationSteps'
 				value={preparationSteps}
 				placeholder='include lots of details and steps'

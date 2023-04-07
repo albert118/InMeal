@@ -9,34 +9,58 @@
 	margin: $spacing-08;
 	background-color: transparent;
 	@include text();
+
+	img {
+		height: 100%;
+		width: 100%;
+	}
+
+	.recipe--data p {
+		@include wrappable-text();
+	}
+
+	.action-container {
+		border-radius: 0 0 12px 12px;
+		@include glass-background();
+	}
 }
 
-.image-slot > img {
-	height: 100%;
-	width: 100%;
-}
-
-.recipe-card > .title-bar,
-.recipe-card > .recipe-data-slot {
+.image-slot .recipe-card .title-bar,
+.recipe-card .recipe--data {
 	padding-top: $spacing-06;
 	padding-bottom: $spacing-06;
 	padding-right: $spacing-08;
 	padding-left: $spacing-08;
 }
 
-.recipe-card > .recipe-data-slot {
+.recipe-card .recipe--data {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: flex-start;
+	gap: $spacing-06;
 	overflow-y: scroll;
 	overflow-x: hidden;
 	height: 100%;
 	background-color: var(--background-neutral);
 	@include card-shadow-3();
+
+	.recipe--blurb {
+		flex-basis: 100%;
+	}
+
+	.recipe--ingredients {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+	}
+
+	// .recipe--steps {
+
+	// }
 }
 
-.recipe-card > .recipe-data-slot p {
-	@include wrappable-text();
-}
-
-.recipe-card > .action-container {
-	border-radius: 0 0 12px 12px;
-	@include glass-background();
+.recipe--data > * {
+	flex: 1;
 }
