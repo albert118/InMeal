@@ -1,5 +1,12 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/card-shadow' as *;
+@use '../../../mixins/text-mixins' as *;
+
+.form-input * {
+	width: 100%;
+	border: none;
+	@include form-input();
+}
 
 .form-input > ::placeholder {
 	opacity: 1;
@@ -12,11 +19,9 @@
 
 .form-input > input[type='text'],
 .form-input > textarea {
-	width: 100%;
 	background-color: var(--background-details);
+	border: 1px solid transparent;
 	border-radius: 12px;
-	padding: $spacing-04;
-	border: none;
 }
 
 .form-input > input:focus-visible,
@@ -25,7 +30,7 @@
 	border: 1px solid var(--primary-action);
 	transition: border 0.4s ease-out;
 	border-radius: 12px;
-	@include card-shadow();
+	@include card-shadow-3();
 }
 
 .form-input > input[type='text'].text-input,
