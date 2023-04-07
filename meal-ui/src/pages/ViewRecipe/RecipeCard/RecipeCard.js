@@ -7,23 +7,21 @@ import { Checkbox } from 'forms/Inputs';
 
 import { objectMap } from 'utils';
 
-export default function RecipeCard(props) {
-	const { className, recipe } = props;
-
-	const classes = className
-		? `card recipe-card ${className}`
-		: `card recipe-card`;
-
+export default function RecipeCard({ className, recipe, ...additionalProps }) {
 	return (
-		<div className={classes}>
-			<div className='image-slot'>{props.children}</div>
+		<div
+			className={
+				className ? `card recipe-card ${className}` : `card recipe-card`
+			}
+		>
+			<div className='image-slot'>{additionalProps.children}</div>
 
 			<TitleBar>{recipe.title}</TitleBar>
 
 			<div className='recipe-data-slot recipe-content-grid scrollbar-vertical'>
-				<Blurb blurb={recipe.blurb} />
+				<Blurb>{recipe.blurb}</Blurb>
 				<Ingredients recipeIngredients={recipe.recipeIngredients} />
-				<PreparationSteps preparationSteps={recipe.preparationSteps} />
+				<PreparationSteps>{recipe.preparationSteps}</PreparationSteps>
 			</div>
 			<ActionContainer recipeId={recipe.id} />
 		</div>
@@ -44,8 +42,8 @@ function ActionContainer({ recipeId }) {
 	);
 }
 
-function Blurb({ blurb }) {
-	return <p className='recipe-content-blurb'>{blurb}</p>;
+function Blurb(props) {
+	<p className='recipe-content-blurb'>{props.children}</p>;
 }
 
 function Ingredients({ recipeIngredients }) {
@@ -63,10 +61,10 @@ function Ingredients({ recipeIngredients }) {
 	);
 }
 
-function PreparationSteps({ preparationSteps }) {
+function PreparationSteps(props) {
 	return (
 		<p className='recipe-content-preparation-steps simple-numbered-list'>
-			{preparationSteps}
+			{props.children}
 		</p>
 	);
 }
