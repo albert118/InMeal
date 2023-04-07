@@ -11,6 +11,10 @@ body {
 	overflow-x: hidden;
 }
 
+body::-webkit-scrollbar {
+	display: none;
+}
+
 // main instead of body, as main is where our content lives
 main {
 	padding-left: var(--sidebar-width);

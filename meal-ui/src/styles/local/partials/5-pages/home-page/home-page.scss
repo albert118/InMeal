@@ -1,6 +1,7 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '@carbon/react/scss/breakpoint' as *;
 @use '../../../mixins/glass-background' as *;
+@use '../../../mixins/alignment' as *;
 
 .p-home__r1,
 .p-home__r2 {
@@ -12,11 +13,8 @@
 }
 
 .planning-quick-view,
-.explore-quick-view {
-	@include glass-background();
-}
-
+.explore-quick-view,
 .simple-card {
-	max-width: 30%;
 	@include glass-background();
+	@include align-center();
 }
