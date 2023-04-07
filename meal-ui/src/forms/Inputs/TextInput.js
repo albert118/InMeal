@@ -14,7 +14,7 @@ const TextInput = props => {
 
 	return (
 		<div className={classes}>
-			{label ?? <label htmlFor={label}>{label}</label>}
+			{label ? <label htmlFor={label}>{label}</label> : ''}
 			<input
 				id={getIdOrLabel()}
 				className='text-input'
