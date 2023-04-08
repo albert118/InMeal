@@ -144,12 +144,30 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
         EmptyGuidGuard.Apply(recipeIngredients.Keys);
 
-        // TODO fix this and make it clever
-        // Will fail an FK constraint when replacing with existing (ef core will think new associations exist)
-        existingRecipe.RecipeIngredients = recipeIngredients
-            .Select(ri => new RecipeIngredient {
-                IngredientId = ri.Key, Quantity = ri.Value.Quantity
-            })
-            .ToList();
+        var existingRecipeIngredientIds = existingRecipe.RecipeIngredients.Select(e => e.Id).ToList();
+        var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Contains(ri.Key));
+
+        // case #1: add all the new ingredients
+        existingRecipe.RecipeIngredients.AddRange(
+            toAdd.Select(ri => new RecipeIngredient { IngredientId = ri.Key, Quantity = ri.Value.Quantity })
+        );
+
+        // case #2: update all the existing ingredients with the remaining incoming
+        var toUpdate = recipeIngredients
+            .Where(ri => existingRecipe.RecipeIngredients.Select(e => e.Id).Contains(ri.Key));
+
+        foreach (var incoming in toUpdate) {
+            // all the entities retrieved here must exist with the expected IDs - hence no FirstOrDefault
+            // if this throws an NRE, there's a bigger issue
+            var entity = existingRecipe.RecipeIngredients.First(e => e.Id == incoming.Key);
+            entity.Quantity = incoming.Value.Quantity;
+        }
+
+        // case #3: remove ingredients that were neither added or updated (all remaining)
+        var toRemove = existingRecipe.RecipeIngredients
+            .Where(e => !recipeIngredients.Select(ri => ri.Key).Contains(e.Id))
+            .Select(e => e.Id);
+
+        existingRecipe.RecipeIngredients.RemoveAll(e => toRemove.Contains(e.Id));
     }
 }
