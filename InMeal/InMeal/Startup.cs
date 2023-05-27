@@ -5,12 +5,7 @@ namespace InMeal;
 
 public class Startup
 {
-    private IConfiguration _configuration;
-
-    public Startup(IConfiguration configuration)
-    {
-        _configuration = configuration;
-    }
+    public Startup(IConfiguration configuration) { }
 
     /// <summary>
     /// Add and configure services for the container

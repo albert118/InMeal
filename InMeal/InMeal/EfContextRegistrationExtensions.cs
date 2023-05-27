@@ -1,5 +1,5 @@
 ﻿using Autofac;
-using InMeal.Infrastructure;
+using InMeal.Core;
 using InMeal.Infrastructure.Data.RecipesDb;
 using InMeal.Infrastructure.Interfaces.Data;
 using Microsoft.EntityFrameworkCore;
@@ -9,45 +9,13 @@ namespace InMeal;
 public static class EfContextRegistrationExtensions
 {
     /// <summary>
-    /// Add the application layer services
-    /// </summary>
-    /// <param name="containerBuilder"></param>
-    /// <returns></returns>
-    public static ContainerBuilder AddApplicationServices(this ContainerBuilder containerBuilder)
-    {
-        containerBuilder
-            .RegisterType<CancellationTokenAccessor>()
-            .As<ICancellationTokenAccessor>()
-            .InstancePerLifetimeScope();
-
-        containerBuilder.RegisterAttributeTaggedServices<InstanceScopedServiceAttribute>();
-        containerBuilder.RegisterAttributeTaggedServices<InstanceScopedBusinessServiceAttribute>();
-
-        return containerBuilder;
-    }
-
-    /// <summary>
-    /// Register any services tagged with the instance registration attribute
-    /// </summary>
-    /// <param name="assembly">The assembly to search (passing the tag's assembly is an easy start)</param>
-    /// <seealso cref="InstanceScopedServiceAttribute"/>
-    private static ContainerBuilder RegisterAttributeTaggedServices<T>(this ContainerBuilder containerBuilder)
-        where T : Attribute
-    {
-        containerBuilder.RegisterAssemblyTypes(typeof(T).Assembly)
-            .Where(type => type.GetCustomAttributes(typeof(T), inherit: false).Any())
-            .AsImplementedInterfaces()
-            .InstancePerLifetimeScope();
-
-        return containerBuilder;
-    }
-
-    /// <summary>
     /// Add the relevant EF Core db contexts
     /// </summary>
     public static ContainerBuilder AddEfCoreDbContexts(this ContainerBuilder builder)
     {
-        return builder.AddRecipeDbContextDbContext();
+        return builder
+            .AddRecipeDbContextDbContext()
+            .AddInMealDbMigrationsContextDbContext();
     }
 
     /// <summary>
@@ -80,7 +48,8 @@ public static class EfContextRegistrationExtensions
                     .UseMySql(dbSettings.ConnectionString, dbSettings.ServerVersion)
                     .EnableDetailedErrors()
                     .EnableSensitiveDataLogging()
-                    .Options; // make sure to return options here! Otherwise we'll register the builder
+                    // make sure to return options here! Otherwise we'll register the builder
+                    .Options;
             })
             .AsSelf()
             .SingleInstance();
@@ -91,11 +60,19 @@ public static class EfContextRegistrationExtensions
     private static ContainerBuilder AddRecipeDbContextDbContext(this ContainerBuilder builder)
     {
         builder
-            // Add the context option with logging to Autofac (inject the db settings)
             .AddDbContextOptions<RecipeDbContext>()
-            // set up the container registration and scoping
             .RegisterType<RecipeDbContext>()
             .As<IRecipeDbContext>()
+            .InstancePerLifetimeScope();
+
+        return builder;
+    }
+
+    private static ContainerBuilder AddInMealDbMigrationsContextDbContext(this ContainerBuilder builder)
+    {
+        builder
+            .RegisterType<InMealDbMigrationContext>()
+            .WithParameter("opts", InMealDbMigrationContextFactory.GetDbContextOptions())
             .InstancePerLifetimeScope();
 
         return builder;
