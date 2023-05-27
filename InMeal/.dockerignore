@@ -9,5 +9,4 @@ Dockerfile.*
 .vscode
 .idea
 .DS_Store
-*.sln
-*.sln.*
+*.sln.DotSettings.*

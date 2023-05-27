@@ -34,4 +34,5 @@ if (builder.Environment.IsProduction()) {
     migrationDbContext.Database.Migrate();
 }
 
+app.Logger.LogInformation("starting application");
 app.Run();
