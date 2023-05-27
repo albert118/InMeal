@@ -31,8 +31,6 @@ public class InMealDbMigrationContextFactory : IDesignTimeDbContextFactory<InMea
         if (string.IsNullOrEmpty(connectionString))
             Console.WriteLine("a connection string was not discovered, attempting to continue may result in connection errors");
 
-        Console.WriteLine("attempting to run migrations");
-
         var majorVersion = int.Parse(configuration.GetSection("ConnectionStrings:ServerVersionMajor").Value!);
         var minorVersion = int.Parse(configuration.GetSection("ConnectionStrings:ServerVersionMinor").Value!);
         var buildVersion = int.Parse(configuration.GetSection("ConnectionStrings:ServerVersionBuild").Value!);
@@ -42,7 +40,7 @@ public class InMealDbMigrationContextFactory : IDesignTimeDbContextFactory<InMea
         var dbContextBuilder = new DbContextOptionsBuilder<InMealDbMigrationContext>()
             .UseMySql(connectionString!, serverVersion);
 
-        Console.WriteLine("Attempting to run migrations with connection");
+        Console.WriteLine("successfully discovered migration connection settings");
 
         return dbContextBuilder.Options;
     }
