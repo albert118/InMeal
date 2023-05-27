@@ -1,19 +1,12 @@
 version: '3.9'
 
-secrets:
-    database_connection:
-        file: db_connection.secret
-
 services:
-    inmeal-api:
-        container_name: api
+    api:
         restart: unless-stopped
-        build:
-            context: .
+        build: .
         ports:
             - '${API_PORT}:7078'
         environment:
             ASPNETCORE_ENVIRONMENT: 'Production'
             ASPNETCORE_URLS: 'http://+:7078'
-        secrets:
-            - database_connection
+            DATABASE_CONNECTION: ${DATABASE_CONNECTION}
