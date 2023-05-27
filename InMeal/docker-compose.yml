@@ -4,3 +4,10 @@ services:
     inmeal-api:
         container_name: inmeal-api
         restart: unless-stopped
+        build:
+            context: .
+        ports:
+            - '7078:7078'
+        environment:
+            DATABASE_CONNECTION: 'Server=daedalus-project.net;Port=3306;Database=InMeal;User=inmeal;Password=Q3tNkga534'
+            ASPNETCORE_ENVIRONMENT: 'Production'
