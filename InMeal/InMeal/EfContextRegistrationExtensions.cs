@@ -11,11 +11,14 @@ public static class EfContextRegistrationExtensions
     /// <summary>
     /// Add the relevant EF Core db contexts
     /// </summary>
-    public static ContainerBuilder AddEfCoreDbContexts(this ContainerBuilder builder)
+    public static ContainerBuilder AddEfCoreDbContexts(this ContainerBuilder builder, IWebHostEnvironment env)
     {
-        return builder
-            .AddRecipeDbContextDbContext()
-            .AddInMealDbMigrationsContextDbContext();
+        if (env.IsProduction())
+            builder.AddInMealDbMigrationsContextDbContext();
+
+        builder.AddRecipeDbContextDbContext(env);
+
+        return builder;
     }
 
     /// <summary>
@@ -37,19 +40,22 @@ public static class EfContextRegistrationExtensions
         return containerBuilder;
     }
 
-    private static ContainerBuilder AddDbContextOptions<TContext>(this ContainerBuilder containerBuilder)
+    private static ContainerBuilder AddDbContextOptions<TContext>(this ContainerBuilder containerBuilder, IWebHostEnvironment env)
         where TContext : DbContext
     {
         containerBuilder.Register(sp => {
                 var loggerFactory = sp.Resolve<ILoggerFactory>();
                 var dbSettings = sp.Resolve<DatabaseSettings>();
-                return new DbContextOptionsBuilder<TContext>()
+                var builder = new DbContextOptionsBuilder<TContext>()
                     .UseLoggerFactory(loggerFactory)
-                    .UseMySql(dbSettings.ConnectionString, dbSettings.ServerVersion)
-                    .EnableDetailedErrors()
-                    .EnableSensitiveDataLogging()
-                    // make sure to return options here! Otherwise we'll register the builder
-                    .Options;
+                    .UseMySql(dbSettings.ConnectionString, dbSettings.ServerVersion);
+
+                if (env.IsDevelopment()) {
+                    builder.EnableDetailedErrors().EnableSensitiveDataLogging();
+                }
+
+                // make sure to return options here! Otherwise we'll register the builder
+                return builder.Options;
             })
             .AsSelf()
             .SingleInstance();
@@ -57,10 +63,10 @@ public static class EfContextRegistrationExtensions
         return containerBuilder;
     }
 
-    private static ContainerBuilder AddRecipeDbContextDbContext(this ContainerBuilder builder)
+    private static ContainerBuilder AddRecipeDbContextDbContext(this ContainerBuilder builder, IWebHostEnvironment env)
     {
         builder
-            .AddDbContextOptions<RecipeDbContext>()
+            .AddDbContextOptions<RecipeDbContext>(env)
             .RegisterType<RecipeDbContext>()
             .As<IRecipeDbContext>()
             .InstancePerLifetimeScope();

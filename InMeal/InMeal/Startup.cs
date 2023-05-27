@@ -28,14 +28,14 @@ public class Startup
     /// <summary>
     /// Configure the Autofac container
     /// </summary>
-    public static void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config)
+    public static void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config, IWebHostEnvironment env)
     {
         hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
         hostBuilder.ConfigureContainer<ContainerBuilder>(containerBuilder => {
             containerBuilder
                 .AddDatabaseSettings(config)
-                .AddEfCoreDbContexts()
+                .AddEfCoreDbContexts(env)
                 .AddApplicationServices();
         });
     }
