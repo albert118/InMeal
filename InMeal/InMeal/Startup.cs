@@ -23,22 +23,12 @@ public class Startup
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
-
-        // TODO: enable only in development
-        services.AddCors(options =>
-        {
-            options.AddDefaultPolicy(policy => policy
-                    .WithOrigins("http://localhost:3000")
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-            );
-        });
     }
 
     /// <summary>
     /// Configure the Autofac container
     /// </summary>
-    public void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config)
+    public static void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config)
     {
         hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
@@ -53,23 +43,22 @@ public class Startup
     /// <summary>
     /// Configure the webapplication depending on the environment
     /// </summary>
-    public void Configure(WebApplication app, IWebHostEnvironment env)
+    public static void Configure(WebApplication app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment()) {
             app.UseSwagger()
                 .UseSwaggerUI()
                 .UseDeveloperExceptionPage()
                 .UseCors();
-        }
-        else {
+        } else {
             // Enable the exception handler route
             app.UseExceptionHandler("/error")
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                .UseHsts();
+                .UseHsts()
+                .UseHttpsRedirection();;
         }
 
-        app.UseHttpsRedirection();
-
+        app.UseCors();
         app.MapControllers();
     }
 }
