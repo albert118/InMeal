@@ -7,3 +7,7 @@ bin/
 
 .idea/
 *.DotSettings.user
+
+# sensitive and local dev data
+.env
+*.env
