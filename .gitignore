@@ -8,6 +8,8 @@ bin/
 .idea/
 *.DotSettings.user
 
-# sensitive and local dev data
+# secrets and local env files
+
 .env
 *.env
+*.secret
