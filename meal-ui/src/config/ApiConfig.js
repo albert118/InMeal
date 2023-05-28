@@ -1,5 +1,6 @@
 const ApiConfig = Object.freeze({
-	API_URL: 'https://localhost:7078/api'
+	API_HTTPS_HOST: 'https://localhost:7078',
+	API_URL: '/api'
 });
 
 export default ApiConfig;
