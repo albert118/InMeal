@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-## frontend-spa hosted with production-proxy (nginx)
+## SPA static site hosted with nginx
 
 FROM node:18-alpine as spa-builder
 
@@ -24,8 +24,9 @@ RUN npm run build
 FROM nginx:1.23.4-alpine-slim as nginx-spa
 
 # copy nginx config
-COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY nginx/includes/ /etc/nginx/includes
+COPY nginx/default.conf /etc/nginx/conf.d/
+COPY nginx/proxy.conf /etc/nginx/includes/
 
 # copy the SPA app
-COPY --from=spa-builder /src/dist /www/inmeal/
+RUN mkdir -p /www/inmeal
+COPY --from=spa-builder /src/build /www/inmeal/
