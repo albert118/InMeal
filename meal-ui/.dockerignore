@@ -1,0 +1,12 @@
+# misc. files that shouldn't be bundled
+.dockerignore
+Dockerfile
+Dockerfile.*
+.gitignore
+
+# settings and editors
+.vs
+.vscode
+.idea
+.DS_Store
+*.sln.DotSettings.*
