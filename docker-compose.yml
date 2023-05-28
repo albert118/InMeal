@@ -1,0 +1,29 @@
+version: '3.9'
+
+networks:
+    in-meal-network:
+        driver: bridge
+
+services:
+    backend:
+        container_name: backend
+        restart: unless-stopped
+        build:
+            context: ./InMeal
+        ports:
+            - '${API_PORT}:7078'
+        environment:
+            ASPNETCORE_ENVIRONMENT: 'Production'
+            ASPNETCORE_URLS: 'http://+:7078'
+            DATABASE_CONNECTION: ${DATABASE_CONNECTION}
+        networks:
+            - in-meal-network
+    spa:
+        container_name: spa
+        restart: unless-stopped
+        build:
+            context: ./meal-ui/
+        ports:
+            - '${SPA_PORT}:80'
+        networks:
+            - in-meal-network
