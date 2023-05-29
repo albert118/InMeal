@@ -160,7 +160,7 @@ function ViewRecipeBtn({ handler }) {
 		<div className='action-container view-recipe-action'>
 			<Button
 				className='view-recipe-btn'
-				handler={handler}
+				onClick={handler}
 			>
 				view recipe
 			</Button>
