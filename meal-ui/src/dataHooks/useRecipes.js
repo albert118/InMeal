@@ -81,7 +81,6 @@ function useAllRecipes(mapper) {
 		if (_includeArchived) {
 			getArchivedRecipes().then(data => {
 				setRecipes(data.map(mapper));
-				toggleLoading(false);
 			});
 		} else {
 			getAllRecipes().then(data => {
