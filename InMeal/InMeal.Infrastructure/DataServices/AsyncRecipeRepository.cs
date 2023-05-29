@@ -33,10 +33,8 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
             // _recipePhotoRepository.AddRecipePhoto(recipe, recipePhoto);
 
             await _recipeDbContext.SaveChangesAsync(ct);
-        }
-        catch (Exception ex) {
-            _logger.LogError(ex, "An error occured while saving a recipe");
-
+        } catch (Exception ex) {
+            _logger.LogError(ex, "an error occured while saving a recipe");
             return null;
         }
 
@@ -93,12 +91,12 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     public async Task<bool> EditRecipeAsync(RecipeDto updatedRecipe, CancellationToken ct)
     {
         if (!updatedRecipe.Id.HasValue) {
-            throw new DataException($"Can not get {nameof(Recipe)} without an ID ");
+            throw new DataException($"can not get {nameof(Recipe)} without an ID ");
         }
 
         try {
             var existingRecipe = await GetRecipeAsync(updatedRecipe.Id.Value, ct)
-                ?? throw new DataException($"No {nameof(Recipe)} was found with the given ID '{updatedRecipe.Id.Value}'");
+                ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{updatedRecipe.Id.Value}'");
 
             UpdateRecipeIngredients(existingRecipe, updatedRecipe.RecipeIngredients);
 
@@ -112,7 +110,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
             await _recipeDbContext.SaveChangesAsync(ct);
         }
         catch (Exception ex) {
-            _logger.LogError(ex, "An error occured while editing an existing recipe");
+            _logger.LogError(ex, "an error occured while editing an existing recipe");
             return false;
         }
 
@@ -145,16 +143,37 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         EmptyGuidGuard.Apply(recipeIngredients.Keys);
 
         var existingRecipeIngredientIds = existingRecipe.RecipeIngredients.Select(e => e.Id).ToList();
-        var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Contains(ri.Key));
 
         // case #1: add all the new ingredients
+        AddChildren(existingRecipe, recipeIngredients, existingRecipeIngredientIds);
+
+        // case #2: update all the existing ingredients with the remaining incoming
+        UpdateExistingChildren(existingRecipe, recipeIngredients, existingRecipeIngredientIds);
+
+        // case #3: remove ingredients that were neither added or updated
+        RemoveDeletedChildren(existingRecipe, recipeIngredients, existingRecipeIngredientIds);
+    }
+
+    private void AddChildren(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<Guid> existingRecipeIngredientIds)
+    {
+        var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Contains(ri.Key)).ToList();
+
         existingRecipe.RecipeIngredients.AddRange(
             toAdd.Select(ri => new RecipeIngredient { IngredientId = ri.Key, Quantity = ri.Value.Quantity })
         );
 
-        // case #2: update all the existing ingredients with the remaining incoming
-        var toUpdate = recipeIngredients
-            .Where(ri => existingRecipe.RecipeIngredients.Select(e => e.Id).Contains(ri.Key));
+        _logger.LogInformation(
+            "added {NumberOfNewIngredients} {RecipeIngredients} to existing {Recipe} '{RecipeId}'",
+            toAdd.Count,
+            nameof(RecipeIngredient),
+            nameof(Recipe),
+            existingRecipe.Id
+        );
+    }
+
+    private void UpdateExistingChildren(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<Guid> existingRecipeIngredientIds)
+    {
+        var toUpdate = recipeIngredients.Where(ri => existingRecipeIngredientIds.Contains(ri.Key)).ToList();
 
         foreach (var incoming in toUpdate) {
             // all the entities retrieved here must exist with the expected IDs - hence no FirstOrDefault
@@ -163,11 +182,27 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
             entity.Quantity = incoming.Value.Quantity;
         }
 
-        // case #3: remove ingredients that were neither added or updated (all remaining)
-        var toRemove = existingRecipe.RecipeIngredients
-            .Where(e => !recipeIngredients.Select(ri => ri.Key).Contains(e.Id))
-            .Select(e => e.Id);
+        _logger.LogInformation(
+            "updated {NumberOfNewIngredients} {RecipeIngredients} for existing {Recipe} '{RecipeId}'",
+            toUpdate.Count,
+            nameof(RecipeIngredient),
+            nameof(Recipe),
+            existingRecipe.Id
+        );
+    }
 
+    private void RemoveDeletedChildren(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<Guid> existingRecipeIngredientIds)
+    {
+        var incomingRecipeIngredientIds = recipeIngredients.Select(ri => ri.Key).ToList();
+        var toRemove = existingRecipeIngredientIds.Where(id => !incomingRecipeIngredientIds.Contains(id)).ToList();
         existingRecipe.RecipeIngredients.RemoveAll(e => toRemove.Contains(e.Id));
+
+        _logger.LogInformation(
+            "removed {NumberOfNewIngredients} {RecipeIngredients} from existing {Recipe} '{RecipeId}'",
+            toRemove.Count,
+            nameof(RecipeIngredient),
+            nameof(Recipe),
+            existingRecipe.Id
+        );
     }
 }
