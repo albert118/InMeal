@@ -46,13 +46,19 @@ export default function MultiLineInput({
 			}
 		>
 			<span className='add-new-item'>
+				<TextInput
+					className='new-ingredient other-thing'
+					name='new-ingredient'
+					value={newItem}
+					handler={event => setNewItem(event.target.value)}
+					handleKeyDown={handleKeyDown}
+					placeholder={placeholder}
+				/>
+			</span>
+			<span className='add-new-item'>
 				<MultiSelectCustom
 					className='new-ingredient'
 					name='new-ingredient'
-					value={newItem}
-					// handler={event => setNewItem(event.target.value)}
-					// handleKeyDown={handleKeyDown}
-					placeholder={placeholder}
 					id='new-ingredient'
 					label='choose ingredients'
 					items={selectionOptions}
