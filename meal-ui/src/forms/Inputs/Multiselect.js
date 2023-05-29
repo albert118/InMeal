@@ -1,6 +1,8 @@
+import { MultiSelect } from '@carbon/react';
+
 const defaultItem = 'default-select-option';
 
-export function Multiselect({ children, ...additionalProps }) {
+export function AMultiselect({ children, ...additionalProps }) {
 	return (
 		<div {...additionalProps}>
 			<select>
@@ -12,6 +14,27 @@ export function Multiselect({ children, ...additionalProps }) {
 				{children}
 			</select>
 		</div>
+	);
+}
+
+function mapToDropdownItems(items) {
+	return items.map(item => {
+		return {
+			id: item.id,
+			label: item.name
+		};
+	});
+}
+
+export function MultiSelectCustom({ items, id, label }) {
+	return (
+		<MultiSelect
+			className='e-cds-form-input'
+			id={id}
+			label={label}
+			defaultValue={defaultItem}
+			items={mapToDropdownItems(items)}
+		/>
 	);
 }
 

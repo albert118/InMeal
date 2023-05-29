@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TextInput } from './TextInput';
-import { Multiselect, Option } from './Multiselect';
+import { MultiSelectCustom } from './Multiselect';
 import Button from 'components/Button';
 import { objectMap } from 'utils';
 
@@ -13,6 +13,12 @@ export default function MultiLineInput({
 	placeholder
 }) {
 	const [newItem, setNewItem] = useState('');
+
+	const selectionOptions = [
+		{ id: 1, name: 'option A' },
+		{ id: 2, name: 'option B' },
+		{ id: 3, name: 'option C' }
+	];
 
 	const appendNewItem = () => {
 		// by using a fake event, consumers can re-use existing form handlers that would expect event.target data
@@ -40,19 +46,17 @@ export default function MultiLineInput({
 			}
 		>
 			<span className='add-new-item'>
-				<Multiselect
+				<MultiSelectCustom
 					className='new-ingredient'
 					name='new-ingredient'
 					value={newItem}
-					handler={event => setNewItem(event.target.value)}
-					handleKeyDown={handleKeyDown}
+					// handler={event => setNewItem(event.target.value)}
+					// handleKeyDown={handleKeyDown}
 					placeholder={placeholder}
-				>
-					<Option
-						value='A'
-						label='A'
-					/>
-				</Multiselect>
+					id='new-ingredient'
+					label='choose ingredients'
+					items={selectionOptions}
+				/>
 				<Button
 					disabled={newItem === ''}
 					onClick={appendNewItem}

@@ -1,11 +1,24 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/text-mixins' as *;
+@use './overrides';
 
 .form-input * {
 	width: 100%;
 	border: none;
 	@include form-input();
+}
+
+.e-cds-form-input > * {
+	width: 100%;
+	border: none;
+
+	span,
+	svg {
+		@include form-input();
+		fill: var(--text);
+		padding: 0;
+	}
 }
 
 .form-input > ::placeholder {
@@ -18,6 +31,8 @@
 }
 
 .form-input > input[type='text'],
+.form-input > select .select-items,
+.form-input > option,
 .form-input > textarea {
 	background-color: var(--background-details);
 	border: 1px solid transparent;
