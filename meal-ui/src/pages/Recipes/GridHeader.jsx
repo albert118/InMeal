@@ -13,19 +13,18 @@ export function ManagementHeader({ handleViewArchived, handleDeleteSelected }) {
 			<div className='grid-actions'>
 				<Checkbox
 					className='font-white'
-					value={false}
 					label='view archived'
 					handler={handleViewArchived}
 				/>
 				<Button
-					handler={() => navigate(`${AppRoutes.recipe}/add`)}
+					onClick={() => navigate(`${AppRoutes.recipe}/add`)}
 					kind='secondary'
 					className='add-recipes-btn'
 				>
 					add
 				</Button>
 				<Button
-					handler={handleDeleteSelected}
+					onClick={handleDeleteSelected}
 					kind='secondary'
 					className='delete-recipes-btn'
 				>

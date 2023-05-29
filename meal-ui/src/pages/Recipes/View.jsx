@@ -47,15 +47,12 @@ function ManageRecipesTable({ recipes, refreshGrid }) {
 		refreshGrid();
 	};
 
-	const handleViewArchived = async event => {
-		await refreshGrid({ includeArchived: event.target.checked });
+	const handleViewArchived = event => {
+		refreshGrid({ includeArchived: event.target.checked });
 	};
 
 	return (
-		<Grid
-			fullwidth
-			className='p-manage-recipes'
-		>
+		<Grid className='p-manage-recipes'>
 			<Column
 				lg={16}
 				md={8}
