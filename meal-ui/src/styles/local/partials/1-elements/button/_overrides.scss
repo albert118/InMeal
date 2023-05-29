@@ -4,7 +4,8 @@
 }
 
 .cds--btn--primary.btn:hover,
-.cds--btn--primary.btn:active {
+.cds--btn--primary.btn:active,
+.cds--btn--primary.btn:focus {
 	border: 1px solid transparent;
 	background-color: var(--primary);
 }
