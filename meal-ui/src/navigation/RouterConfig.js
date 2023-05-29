@@ -1,11 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 
+import Layout from 'pages/Layout';
+
 import AppRoutes from 'navigation/AppRoutes';
-import HomeContainer from 'pages/Home';
-import ViewRecipesContainer from 'pages/Recipes';
-import ViewRecipe from 'pages/ViewRecipe';
-import EditRecipe from 'pages/EditRecipe';
-import AddRecipeContainer from 'pages/AddRecipe/AddRecipeContainer';
+import { Home, AddRecipe, EditRecipe, Recipes, ViewRecipe } from 'pages';
 
 /// Route naming convention is
 ////    specific entity actions `/entitiy/action/id`
@@ -17,11 +15,11 @@ const RouterConfig = () => {
 		<Routes>
 			<Route
 				path={AppRoutes.root}
-				element={<HomeContainer />}
+				element={<Home />}
 			/>
 			<Route
 				path={AppRoutes.recipes}
-				element={<ViewRecipesContainer />}
+				element={<Recipes />}
 			/>
 			<Route
 				path={`${AppRoutes.recipe}/:recipeId`}
@@ -30,12 +28,16 @@ const RouterConfig = () => {
 
 			<Route
 				path={`${AppRoutes.recipe}/edit/:recipeId`}
-				element={<EditRecipe />}
+				element={
+					<Layout>
+						<EditRecipe />
+					</Layout>
+				}
 			/>
 
 			<Route
 				path={`${AppRoutes.recipe}/add`}
-				element={<AddRecipeContainer />}
+				element={<AddRecipe />}
 			/>
 
 			{/* 
@@ -44,7 +46,7 @@ const RouterConfig = () => {
             */}
 			<Route
 				path='/'
-				element={<HomeContainer />}
+				element={<Home />}
 			/>
 		</Routes>
 	);
