@@ -10,7 +10,8 @@
 }
 
 .btn:hover,
-.btn:active {
+.btn:active,
+.btn:focus {
 	@include card-shadow-2('light');
 	color: var(--background);
 }
