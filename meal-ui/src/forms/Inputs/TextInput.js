@@ -1,8 +1,15 @@
 import React from 'react';
 
-const TextInput = props => {
-	const { className, name, label, value, placeholder, handler, id } = props;
-
+const TextInput = ({
+	className,
+	name,
+	label,
+	value,
+	placeholder,
+	handler,
+	id,
+	handleKeyDown
+}) => {
 	const classes = className ? `form-input ${className}` : `form-input`;
 
 	const getIdOrLabel = () => {
@@ -22,6 +29,7 @@ const TextInput = props => {
 				value={value}
 				placeholder={placeholder}
 				onChange={handler}
+				onKeyDown={handleKeyDown}
 				type='text'
 			/>
 		</div>
