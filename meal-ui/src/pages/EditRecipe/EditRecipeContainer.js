@@ -8,10 +8,8 @@ export default function EditRecipeContainer() {
 	const { recipe, isLoading } = useRecipe(recipeId);
 
 	return (
-		<Layout>
-			<div className='p-recipe'>
-				{!isLoading ? <View existingRecipe={recipe} /> : 'loading...'}
-			</div>
+		<Layout className='p-recipe'>
+			{!isLoading ? <View existingRecipe={recipe} /> : 'loading...'}
 		</Layout>
 	);
 }
