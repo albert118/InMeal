@@ -10,6 +10,20 @@
 	background-color: var(--primary);
 }
 
+.cancel-btn.cds--btn--tertiary.btn:hover,
+.cancel-btn.cds--btn--tertiary.btn:active,
+.cancel-btn.cds--btn--tertiary.btn:focus {
+	border: 1px solid transparent;
+	background-color: var(--warning);
+}
+
+.save-btn.cds--btn--tertiary.btn:hover,
+.save-btn.cds--btn--tertiary.btn:active,
+.save-btn.cds--btn--tertiary.btn:focus {
+	border: 1px solid transparent;
+	background-color: var(--success);
+}
+
 .icon-btn.cds--btn--ghost:hover,
 .icon-btn.cds--btn--ghost:active {
 	color: unset;
