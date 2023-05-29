@@ -14,6 +14,10 @@ export default function MultiLineInput({
 }) {
 	const [newItem, setNewItem] = useState('');
 
+	// TODO:
+	// 	* pipe real data through
+	//  * extract the util for mapping to select options
+	//  * add form logic to handle, ignoring the default; adding the selected options; also choosing to add the text box; disable the other when one is being edited
 	const selectionOptions = [
 		{ id: 1, name: 'option A' },
 		{ id: 2, name: 'option B' },
