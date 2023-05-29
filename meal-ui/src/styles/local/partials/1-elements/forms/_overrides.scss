@@ -28,10 +28,16 @@
 }
 
 .cds--list-box__menu,
+.cds--list-box__menu:focus,
 .cds--list-box__menu-item,
 .cds--list-box__menu-item__option {
-	background-color: var(--background-neutral);
+	background-color: var(--foreground-details);
 	border: 1px transparent;
+	outline: transparent;
+}
+
+.cds--list-box__menu-item__option {
+	background-color: transparent;
 }
 
 .cds--list-box__menu-item:hover {
