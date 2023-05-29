@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { TextInput } from './TextInput';
+import { Multiselect, Option } from './Multiselect';
 import Button from 'components/Button';
 import { objectMap } from 'utils';
 
@@ -39,14 +40,19 @@ export default function MultiLineInput({
 			}
 		>
 			<span className='add-new-item'>
-				<TextInput
+				<Multiselect
 					className='new-ingredient'
 					name='new-ingredient'
 					value={newItem}
 					handler={event => setNewItem(event.target.value)}
 					handleKeyDown={handleKeyDown}
 					placeholder={placeholder}
-				/>
+				>
+					<Option
+						value='A'
+						label='A'
+					/>
+				</Multiselect>
 				<Button
 					disabled={newItem === ''}
 					onClick={appendNewItem}
