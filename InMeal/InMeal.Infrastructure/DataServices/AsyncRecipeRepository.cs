@@ -87,7 +87,6 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
                 .FirstOrDefaultAsync(r => r.Id == id, ct);
     }
 
-    // A dumb update method
     public async Task<bool> EditRecipeAsync(RecipeDto updatedRecipe, CancellationToken ct)
     {
         if (!updatedRecipe.Id.HasValue) {
