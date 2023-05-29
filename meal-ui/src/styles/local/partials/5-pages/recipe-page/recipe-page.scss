@@ -1,7 +1,14 @@
+@use '@carbon/react/scss/spacing' as *;
 @import './action-buttons.scss';
 
 .p-recipe {
 	display: flex;
 	width: 100%;
 	justify-content: center;
+
+	.left-panel {
+		display: flex;
+		align-items: flex-start;
+		margin: $spacing-08;
+	}
 }

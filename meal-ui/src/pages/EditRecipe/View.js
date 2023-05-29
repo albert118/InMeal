@@ -4,7 +4,9 @@ import { EditRecipeForm } from './Forms/EditRecipeForm';
 export default function View({ existingRecipe }) {
 	return (
 		<div className='p-recipe'>
-			<HomeButton />
+			<div className='left-panel'>
+				<HomeButton />
+			</div>
 			<EditRecipeForm existingRecipe={existingRecipe} />
 		</div>
 	);
