@@ -107,8 +107,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
             _recipeDbContext.Recipes.Update(existingRecipe);
             await _recipeDbContext.SaveChangesAsync(ct);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             _logger.LogError(ex, "an error occured while editing an existing recipe");
             return false;
         }
