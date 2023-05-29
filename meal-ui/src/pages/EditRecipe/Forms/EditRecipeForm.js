@@ -11,6 +11,7 @@ import { patchRecipe, putIngredient } from 'dataHooks/useRecipe';
 import { createIngredient } from 'pages/AddRecipe/createIngredient';
 import { isFalsishOrEmpty } from 'utils';
 import { demoImage } from '../../../DemoImage';
+import StatusBadge from 'components/StatusBadge';
 
 export function EditRecipeForm({ existingRecipe }) {
 	const [recipe, setRecipe] = useState(existingRecipe);
@@ -102,7 +103,6 @@ export function EditRecipeForm({ existingRecipe }) {
 			<HeroImage
 				image={demoImage}
 				label={recipe.title}
-				status={formStatus}
 			/>
 
 			<TitleBar>
@@ -111,6 +111,10 @@ export function EditRecipeForm({ existingRecipe }) {
 					value={recipe.title}
 					placeholder='Add a descriptive title'
 					handler={updateRecipeDataHandler}
+				/>
+				<StatusBadge
+					className='e-image-status-badge'
+					status={formStatus}
 				/>
 			</TitleBar>
 

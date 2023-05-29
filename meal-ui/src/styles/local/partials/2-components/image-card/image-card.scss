@@ -56,7 +56,7 @@
 }
 
 .e-image-status-badge {
-	position: absolute;
-	top: $spacing-06;
-	right: $spacing-06;
+	margin-top: $spacing-04;
+	margin-bottom: $spacing-04;
+	width: fit-content;
 }
