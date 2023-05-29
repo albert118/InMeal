@@ -26,6 +26,12 @@ export default function MultiLineInput({
 		setNewItem('');
 	};
 
+	const handleKeyDown = event => {
+		if (event.key !== 'Enter') return;
+		event.preventDefault();
+		appendNewItem();
+	};
+
 	return (
 		<div
 			className={
@@ -38,6 +44,7 @@ export default function MultiLineInput({
 					name='new-ingredient'
 					value={newItem}
 					handler={event => setNewItem(event.target.value)}
+					handleKeyDown={handleKeyDown}
 					placeholder={placeholder}
 				/>
 				<Button

@@ -23,7 +23,6 @@ export default function View({ existingRecipe }) {
 
 	const submitHandler = async event => {
 		event.preventDefault();
-		console.log(recipe);
 
 		const response = await patchRecipe(recipe);
 
