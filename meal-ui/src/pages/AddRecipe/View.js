@@ -1,9 +1,9 @@
-import { AddRecipeForm } from './AddRecipeForm';
+import { AddRecipeForm } from './Forms/AddRecipeForm';
 import { HomeButton } from 'components/Button';
 
 export default function View() {
 	return (
-		<div className='p-recipe-view'>
+		<div className='p-recipe'>
 			<div className='left-panel'>
 				<HomeButton />
 			</div>

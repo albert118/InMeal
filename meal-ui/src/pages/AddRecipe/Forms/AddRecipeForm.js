@@ -9,7 +9,7 @@ import { FormBody } from 'pages/EditRecipe/Forms/FormBody';
 import AppRoutes from 'navigation/AppRoutes';
 import { postRecipe, patchRecipe, putIngredient } from 'dataHooks/useRecipe';
 import { demoImage } from 'DemoImage';
-import { createIngredient } from './createIngredient';
+import { createIngredient } from '../createIngredient';
 import { isFalsishOrEmpty } from 'utils';
 import { defaultRecipe } from './DefaultRecipe';
 import Button from 'components/Button';
