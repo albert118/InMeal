@@ -19,11 +19,19 @@ const RouterConfig = () => {
 			/>
 			<Route
 				path={AppRoutes.recipes}
-				element={<Recipes />}
+				element={
+					<Layout>
+						<Recipes />
+					</Layout>
+				}
 			/>
 			<Route
 				path={`${AppRoutes.recipe}/:recipeId`}
-				element={<ViewRecipe />}
+				element={
+					<Layout>
+						<ViewRecipe />
+					</Layout>
+				}
 			/>
 
 			<Route
@@ -37,7 +45,11 @@ const RouterConfig = () => {
 
 			<Route
 				path={`${AppRoutes.recipe}/add`}
-				element={<AddRecipe />}
+				element={
+					<Layout>
+						<AddRecipe />
+					</Layout>
+				}
 			/>
 
 			{/* 
