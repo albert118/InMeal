@@ -1,5 +1,4 @@
 import React from 'react';
-import Layout from 'pages/Layout';
 import View from './View';
 import AppRoutes from 'navigation/AppRoutes';
 import { FormStatuses } from 'forms';
@@ -23,16 +22,12 @@ export default function ViewRecipesContainer() {
 
 	const { recipes, isLoading, refreshData } = useAllRecipes(mapper);
 
-	return (
-		<Layout>
-			{!isLoading ? (
-				<View
-					recipes={recipes}
-					refreshGrid={refreshData}
-				/>
-			) : (
-				'loading...'
-			)}
-		</Layout>
+	return !isLoading ? (
+		<View
+			recipes={recipes}
+			refreshGrid={refreshData}
+		/>
+	) : (
+		'loading...'
 	);
 }
