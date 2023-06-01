@@ -2,30 +2,6 @@ import { MultiSelect } from '@carbon/react';
 
 const defaultItem = 'default-select-option';
 
-export function AMultiselect({ children, ...additionalProps }) {
-	return (
-		<div {...additionalProps}>
-			<select>
-				<Option
-					key={defaultItem}
-					label='Select an item'
-					value={defaultItem}
-				/>
-				{children}
-			</select>
-		</div>
-	);
-}
-
-function mapToDropdownItems(items) {
-	return items.map(item => {
-		return {
-			id: item.id,
-			label: item.name
-		};
-	});
-}
-
 export function MultiSelectCustom({ items, id, label }) {
 	return (
 		<MultiSelect
@@ -38,6 +14,15 @@ export function MultiSelectCustom({ items, id, label }) {
 	);
 }
 
-export function Option({ label, value }) {
+function mapToDropdownItems(items) {
+	return items.map(item => {
+		return {
+			id: item.id,
+			label: item.name
+		};
+	});
+}
+
+function Option({ label, value }) {
 	return <option value={value}>{label}</option>;
 }
