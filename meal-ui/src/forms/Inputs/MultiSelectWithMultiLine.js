@@ -30,9 +30,11 @@ export default function MultiSelectWithMultiLine({
 	};
 
 	const getSelectableItems = () => {
-		return objectMap(items, (key, value) => {
-			return { id: key, label: value.label };
-		});
+		return items
+			? objectMap(items, (key, value) => {
+					return { id: key, label: value.label };
+			  })
+			: [];
 	};
 
 	const handleKeyDown = event => {
