@@ -12,7 +12,6 @@ export default function RecipeCard({
 			id={recipe.id}
 			className={additionalProps.className}
 			label={label}
-			status={recipe.status}
 			ctaHandler={onClick}
 			entityName='recipe'
 		>
