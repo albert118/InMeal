@@ -1,3 +1,4 @@
+@use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/text-mixins' as *;
 @use './overrides';
 
@@ -12,5 +13,13 @@
 		@include form-input();
 		fill: var(--text);
 		padding: 0;
+	}
+
+	button[aria-expanded='true'] {
+		outline: none;
+		border: 1px solid var(--primary-action);
+		transition: border 0.4s ease-out;
+		border-radius: 12px;
+		@include card-shadow-3();
 	}
 }
