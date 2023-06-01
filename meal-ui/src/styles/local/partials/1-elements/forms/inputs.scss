@@ -9,20 +9,6 @@
 	@include form-input();
 }
 
-.e-cds-form-input > * {
-	padding-right: 0;
-	padding-left: 0;
-	width: 100%;
-	border: none;
-
-	span,
-	svg {
-		@include form-input();
-		fill: var(--text);
-		padding: 0;
-	}
-}
-
 .form-input > ::placeholder {
 	opacity: 1;
 }
