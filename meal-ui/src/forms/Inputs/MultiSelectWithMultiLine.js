@@ -61,8 +61,7 @@ export default function MultiSelectWithMultiLine({
 		>
 			<span className='add-new-item'>
 				<TextInput
-					className='new-ingredient other-thing'
-					name='new-ingredient'
+					className='e-full-width-new-item'
 					value={newItem}
 					handler={event => addSingleItem(event.target.value)}
 					handleKeyDown={handleKeyDown}
@@ -71,9 +70,6 @@ export default function MultiSelectWithMultiLine({
 			</span>
 			<span className='add-new-item'>
 				<MultiSelectCustom
-					className='new-ingredient'
-					name='new-ingredient'
-					id='new-ingredient'
 					label={
 						selectedItemIds.length === 0
 							? 'choose ingredients'
