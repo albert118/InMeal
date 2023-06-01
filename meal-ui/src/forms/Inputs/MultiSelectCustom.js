@@ -2,7 +2,7 @@ import { MultiSelect } from '@carbon/react';
 
 const defaultItem = 'default-select-option';
 
-export function MultiSelectCustom({ items, id, label }) {
+export default function MultiSelectCustom({ items, id, label }) {
 	return (
 		<MultiSelect
 			className='e-cds-form-input'

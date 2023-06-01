@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextInput } from './TextInput';
+import { default as TextInput } from './TextInput';
 import Button from 'components/Button';
 import { objectMap } from 'utils';
 

@@ -1,4 +1,4 @@
-const LongTextInput = ({
+export default function LongTextInput({
 	className,
 	name,
 	label,
@@ -6,7 +6,7 @@ const LongTextInput = ({
 	placeholder,
 	handler,
 	rows
-}) => {
+}) {
 	const classes = className ? `form-input ${className}` : `form-input`;
 
 	return (
@@ -24,6 +24,4 @@ const LongTextInput = ({
 			/>
 		</div>
 	);
-};
-
-export { LongTextInput };
+}
