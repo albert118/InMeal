@@ -5,7 +5,7 @@ import Button from 'components/Button';
 import { objectMap } from 'utils';
 
 // will set newly added item IDs to 'new-item'
-export default function MultiLineInput({
+export default function MultiSelectWithMultiLine({
 	className,
 	items,
 	attrName,
@@ -13,16 +13,7 @@ export default function MultiLineInput({
 	placeholder
 }) {
 	const [newItem, setNewItem] = useState('');
-
-	// TODO:
-	// 	* pipe real data through
-	//  * extract the util for mapping to select options
-	//  * add form logic to handle, ignoring the default; adding the selected options; also choosing to add the text box; disable the other when one is being edited
-	const selectionOptions = [
-		{ id: 1, name: 'option A' },
-		{ id: 2, name: 'option B' },
-		{ id: 3, name: 'option C' }
-	];
+	const [selectedItemIds, setSelectedItemIds] = useState([]);
 
 	const appendNewItem = () => {
 		// by using a fake event, consumers can re-use existing form handlers that would expect event.target data
@@ -35,6 +26,14 @@ export default function MultiLineInput({
 		});
 
 		setNewItem('');
+		setSelectedItemIds([]);
+	};
+
+	const getSelectableItems = () => {
+		return objectMap(items, (key, value) => {
+			console.log(value);
+			return { id: key, label: value.label };
+		});
 	};
 
 	const handleKeyDown = event => {
@@ -65,7 +64,8 @@ export default function MultiLineInput({
 					name='new-ingredient'
 					id='new-ingredient'
 					label='choose ingredients'
-					items={selectionOptions}
+					items={getSelectableItems()}
+					setSelectedItemIds={setSelectedItemIds}
 				/>
 				<Button
 					disabled={newItem === ''}
