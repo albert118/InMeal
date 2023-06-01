@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TextInput = ({
+export default function TextInput({
 	className,
 	name,
 	label,
@@ -9,7 +9,7 @@ const TextInput = ({
 	handler,
 	id,
 	handleKeyDown
-}) => {
+}) {
 	const classes = className ? `form-input ${className}` : `form-input`;
 
 	const getIdOrLabel = () => {
@@ -34,6 +34,4 @@ const TextInput = ({
 			/>
 		</div>
 	);
-};
-
-export { TextInput };
+}
