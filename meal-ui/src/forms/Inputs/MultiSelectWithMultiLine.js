@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { default as TextInput } from './TextInput';
-import { MultiSelectCustom } from './MultiSelectCustom';
+import { default as MultiSelectCustom } from './MultiSelectCustom';
 import Button from 'components/Button';
 import { objectMap } from 'utils';
 
