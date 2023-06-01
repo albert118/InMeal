@@ -1,4 +1,4 @@
-import { LongTextInput, MultiLineInput } from 'forms/Inputs';
+import { LongTextInput, MultiSelectWithMultiLine } from 'forms/Inputs';
 
 export function FormBody({ blurb, preparationSteps, ingredients, handler }) {
 	return (
@@ -11,7 +11,7 @@ export function FormBody({ blurb, preparationSteps, ingredients, handler }) {
 				handler={handler}
 			/>
 
-			<MultiLineInput
+			<MultiSelectWithMultiLine
 				className='recipe--ingredients'
 				items={ingredients}
 				attrName='recipeIngredients'
