@@ -31,7 +31,6 @@ export default function MultiSelectWithMultiLine({
 
 	const getSelectableItems = () => {
 		return objectMap(items, (key, value) => {
-			console.log(value);
 			return { id: key, label: value.label };
 		});
 	};
