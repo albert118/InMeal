@@ -1,4 +1,3 @@
-import StatusBadge from 'components/StatusBadge';
 import { Tile } from '@carbon/react';
 import { ArrowRight } from '@carbon/icons-react';
 
@@ -6,7 +5,6 @@ const ImageCard = ({
 	id,
 	className,
 	label,
-	status,
 	ctaHandler,
 	...additionalProps
 }) => {
@@ -17,10 +15,6 @@ const ImageCard = ({
 			}
 		>
 			<div className='image-slot'>{additionalProps.children}</div>
-			<StatusBadge
-				className='e-image-status-badge'
-				status={status}
-			/>
 			<div
 				className='action'
 				onClick={() => ctaHandler(id)}
