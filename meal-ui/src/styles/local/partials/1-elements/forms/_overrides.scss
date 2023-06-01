@@ -15,6 +15,10 @@
 	border: 1px solid transparent;
 }
 
+.cds--multi-select.cds--list-box .cds--list-box__field--wrapper--input-focused {
+	outline: transparent;
+}
+
 .cds--multi-select .cds--list-box.cds--list-box__field--wrapper--input-focused {
 	outline: transparent;
 }
