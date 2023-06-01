@@ -45,14 +45,14 @@ export default function useRecipeIngredients() {
 		// TODO: quantity logic
 		const fakeQuantity = 1;
 		const recipeIngredient = createRecipeIngredient(
-			recipeIngredient,
+			additionalIngredient,
 			persistedIngredient.id,
 			fakeQuantity
 		);
 
 		// add the new recipe ingredient to the existing recipe ingredients
 		const recipeIngredientsCopy = { ...recipe.recipeIngredients };
-		recipeIngredientsCopy[persistedIngredient.id] = additionalIngredient;
+		recipeIngredientsCopy[persistedIngredient.id] = recipeIngredient;
 
 		return {
 			...recipe,
