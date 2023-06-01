@@ -15,7 +15,7 @@ export function FormBody({ blurb, preparationSteps, ingredients, handler }) {
 				className='recipe--ingredients'
 				items={ingredients}
 				attrName='recipeIngredients'
-				handler={handler}
+				onChange={handler}
 				placeholder='add another ingredient'
 			/>
 

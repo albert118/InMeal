@@ -9,7 +9,7 @@ export default function MultiSelectWithMultiLine({
 	className,
 	items,
 	attrName,
-	handler,
+	onChange,
 	placeholder
 }) {
 	const [newItem, setNewItem] = useState('');
@@ -17,7 +17,7 @@ export default function MultiSelectWithMultiLine({
 
 	const appendNewItem = () => {
 		// by using a fake event, consumers can re-use existing form handlers that would expect event.target data
-		handler({
+		onChange({
 			target: {
 				id: 'new-item',
 				name: 'recipeIngredients',
@@ -62,7 +62,11 @@ export default function MultiSelectWithMultiLine({
 					className='new-ingredient'
 					name='new-ingredient'
 					id='new-ingredient'
-					label='choose ingredients'
+					label={
+						selectedItemIds.length === 0
+							? 'choose ingredients'
+							: `ingredients selected`
+					}
 					items={getSelectableItems()}
 					setSelectedItemIds={setSelectedItemIds}
 				/>
@@ -83,7 +87,7 @@ export default function MultiSelectWithMultiLine({
 						value={
 							value.hasOwnProperty('label') ? value.label : value
 						}
-						handler={handler}
+						handler={onChange}
 					/>
 				))}
 		</div>
