@@ -1,6 +1,12 @@
 import { LongTextInput, MultiSelectWithMultiLine } from 'forms/Inputs';
 
-export function FormBody({ blurb, preparationSteps, ingredients, handler }) {
+export function FormBody({
+	blurb,
+	preparationSteps,
+	ingredients,
+	ingredientOptions,
+	handler
+}) {
 	return (
 		<div className='recipe--data scrollbar-vertical'>
 			<LongTextInput
@@ -14,6 +20,7 @@ export function FormBody({ blurb, preparationSteps, ingredients, handler }) {
 			<MultiSelectWithMultiLine
 				className='recipe--ingredients'
 				items={ingredients}
+				selectableOptions={ingredientOptions}
 				attrName='recipeIngredients'
 				onChange={handler}
 				placeholder='add another ingredient'

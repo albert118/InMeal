@@ -8,6 +8,7 @@ import { objectMap } from 'utils';
 export default function MultiSelectWithMultiLine({
 	className,
 	items,
+	selectableOptions,
 	attrName,
 	onChange,
 	placeholder
@@ -30,8 +31,8 @@ export default function MultiSelectWithMultiLine({
 	};
 
 	const getSelectableItems = () => {
-		return items
-			? objectMap(items, (key, value) => {
+		return selectableOptions
+			? objectMap(selectableOptions, (key, value) => {
 					return { id: key, label: value.label };
 			  })
 			: [];

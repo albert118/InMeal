@@ -1,6 +1,43 @@
+import { useState, useEffect } from 'react';
+import defaultRequestOptions from './defaultRequestOptions';
 import { putIngredient } from 'dataHooks/useRecipe';
 
 export default function useRecipeIngredients() {
+	const [ingredientOptions, setIngredientOptions] = useState([]);
+	const [isLoading, setLoading] = useState(true);
+	const [errors, setErrors] = useState(null);
+
+	useEffect(() => {
+		const fetchIngredientOptions = async () => {
+			setLoading(true);
+
+			// TODO: add an API
+			// const response = await fetch(
+			// 	`${ApiConfig.API_URL}/ingredients/options`,
+			// 	{
+			// 		...defaultRequestOptions
+			// 	}
+			// );
+
+			// if (response.ok) {
+			// 	setIngredientOptions(await response.json());
+			// } else {
+			// 	setErrors(response.errors);
+			// }
+
+			setIngredientOptions([
+				{
+					id: '123456-12345-234567',
+					label: 'a test ingredient option'
+				}
+			]);
+
+			setLoading(false);
+		};
+
+		fetchIngredientOptions();
+	}, []);
+
 	const handleAddingAsync = async (additionalIngredient, recipe) => {
 		// persist to the data layer
 		const persistedIngredient = await putIngredient(additionalIngredient);
@@ -47,7 +84,14 @@ export default function useRecipeIngredients() {
 		};
 	};
 
-	return { handleAddingAsync, handleRemoving, handleUpdating };
+	return {
+		ingredientOptions,
+		handleAddingAsync,
+		handleRemoving,
+		handleUpdating,
+		errors,
+		isLoading
+	};
 }
 
 function createRecipeIngredient(name, id, numberOf) {
