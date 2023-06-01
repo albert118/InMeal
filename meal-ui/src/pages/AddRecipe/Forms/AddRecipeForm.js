@@ -17,8 +17,12 @@ import Button from 'components/Button';
 export function AddRecipeForm() {
 	const [recipe, setRecipe] = useState(defaultRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
-	const { handleAddingAsync, handleRemoving, handleUpdating } =
-		useRecipeIngredients();
+	const {
+		ingredientOptions,
+		handleAddingAsync,
+		handleRemoving,
+		handleUpdating
+	} = useRecipeIngredients();
 
 	const navigate = useNavigate();
 
@@ -103,6 +107,7 @@ export function AddRecipeForm() {
 				blurb={recipe.blurb}
 				preparationSteps={recipe.preparationSteps}
 				ingredients={recipe.recipeIngredients}
+				ingredientOptions={ingredientOptions}
 				handler={updateRecipeDataHandler}
 			/>
 
