@@ -20,12 +20,14 @@ export default function ViewRecipesContainer() {
 		};
 	};
 
-	const { recipes, isLoading, refreshData } = useAllRecipes(mapper);
+	const { recipes, isLoading, refreshData, archiveRecipes } =
+		useAllRecipes(mapper);
 
 	return !isLoading ? (
 		<View
 			recipes={recipes}
 			refreshGrid={refreshData}
+			archiveRecipes={archiveRecipes}
 		/>
 	) : (
 		'loading...'

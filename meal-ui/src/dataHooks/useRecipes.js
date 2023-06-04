@@ -36,18 +36,6 @@ const getArchivedRecipes = async () => {
 	return await response.json();
 };
 
-const archiveRecipes = async ids => {
-	const url = `${ApiConfig.API_URL}/archiverecipes`;
-
-	const response = await fetch(url, {
-		...defaultRequestOptions,
-		method: 'POST',
-		body: JSON.stringify(ids)
-	});
-
-	return response;
-};
-
 export default function useRecipes(recipeIds, mapper) {
 	const [recipes, setRecipes] = useState([]);
 	const [isLoading, toggleLoading] = useState(true);

@@ -61,5 +61,15 @@ export default function useAllRecipes(mapper) {
 		toggleRefresh(!shouldRefresh);
 	};
 
-	return { recipes, isLoading, errors, refreshData };
+	const archiveRecipes = async ids => {
+		const url = `${ApiConfig.API_URL}/archiverecipes`;
+
+		await fetch(url, {
+			...defaultRequestOptions,
+			method: 'POST',
+			body: JSON.stringify(ids)
+		});
+	};
+
+	return { recipes, archiveRecipes, isLoading, errors, refreshData };
 }
