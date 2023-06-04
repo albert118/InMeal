@@ -1,6 +1,6 @@
 import View from './View';
-import { useIngredients } from 'dataHooks';
-import { useRecipe } from 'dataHooks';
+import { useIngredients } from 'hooks';
+import { useRecipe } from 'hooks';
 
 export default function AddRecipeContainer() {
 	const { ingredients, isLoading: isLoadingIngredients } = useIngredients();

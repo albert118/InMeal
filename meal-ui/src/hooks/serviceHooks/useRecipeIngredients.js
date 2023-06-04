@@ -1,4 +1,4 @@
-import { useIngredients } from 'dataHooks';
+import { useIngredients } from 'hooks';
 import { isFalsishOrEmpty } from 'utils';
 
 export default function useRecipeIngredients() {
