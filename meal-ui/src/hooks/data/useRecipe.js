@@ -20,13 +20,13 @@ export default function useRecipe(recipeId) {
 				...defaultRequestOptions
 			});
 
-			setLoading(false);
-
 			if (response.ok) {
 				setRecipe(await response.json());
 			} else {
 				setErrors(response.errors);
 			}
+
+			setLoading(false);
 		};
 
 		if (!recipeId) {

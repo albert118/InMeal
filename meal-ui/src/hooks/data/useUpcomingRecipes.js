@@ -21,15 +21,13 @@ export default function useUpcomingRecipes(mapper) {
 			method: 'POST'
 		});
 
-		setLoading(false);
-
 		if (response.ok) {
 			setUpcomingRecipes((await response.json()).map(mapper));
 		} else {
 			setErrors(response.errors);
 		}
 
-		return;
+		setLoading(false);
 	};
 
 	return { upcomingRecipes, fetchUpcomingRecipes, isLoading, errors };

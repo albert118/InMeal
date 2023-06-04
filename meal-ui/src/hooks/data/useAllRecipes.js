@@ -19,12 +19,12 @@ export default function useAllRecipes(mapper) {
 		} else {
 			getAllRecipes();
 		}
-
-		setLoading(false);
 	}, [shouldRefresh]);
 
 	const getAllRecipes = async () => {
 		const url = `${ApiConfig.API_URL}/recipes`;
+
+		setLoading(true);
 
 		const response = await fetch(url, {
 			...defaultRequestOptions,
@@ -36,10 +36,14 @@ export default function useAllRecipes(mapper) {
 		} else {
 			setErrors(response.errors);
 		}
+
+		setLoading(false);
 	};
 
 	const getRecipesWithArchivedResults = async () => {
 		const url = `${ApiConfig.API_URL}/archiverecipes`;
+
+		setLoading(true);
 
 		const response = await fetch(url, {
 			...defaultRequestOptions
@@ -50,6 +54,8 @@ export default function useAllRecipes(mapper) {
 		} else {
 			setErrors(response.errors);
 		}
+
+		setLoading(false);
 	};
 
 	const refreshData = args => {
