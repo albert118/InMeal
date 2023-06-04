@@ -71,8 +71,11 @@ const putIngredients = async ingredientNames => {
 	// we also assume it comes back in the same order, so that the consumer can zip these back together
 	// later this may become an issue and using the name or an explicit tracking ID might become the solution
 	// return data;
-	return ingredientNames.map((_, idx) => {
-		return { id: `1234-5678-91${idx}`, name: 'mock API ingredient result' };
+	return ingredientNames.map(_ => {
+		return {
+			id: Math.random().toString(),
+			name: 'mock API ingredient result'
+		};
 	});
 };
 

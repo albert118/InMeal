@@ -4,13 +4,20 @@ import { default as MultiSelectCustom } from './MultiSelectCustom';
 import Button from 'components/Button';
 import { objectMap } from 'utils';
 
-const getSelectableItems = selectableOptions => {
+function getSelectableItems(selectableOptions) {
 	return selectableOptions
 		? objectMap(selectableOptions, (key, value) => {
 				return { id: key, label: value.label };
 		  })
 		: [];
-};
+}
+
+function createNewItem(textValue) {
+	return {
+		id: 0,
+		label: textValue
+	};
+}
 
 // will set newly added item IDs to 'new-item'
 export default function MultiSelectWithMultiLine({
@@ -21,7 +28,7 @@ export default function MultiSelectWithMultiLine({
 	onChange,
 	placeholder
 }) {
-	const [newItem, setNewItem] = useState('');
+	const [newItem, setNewItem] = useState(createNewItem(''));
 	const [canAddItems, setCanAddItems] = useState(false);
 	const [selectedItemIds, setSelectedItemIds] = useState([]);
 	const [updatedKey, setUpdatedKey] = useState(0);
@@ -44,15 +51,15 @@ export default function MultiSelectWithMultiLine({
 			}
 		});
 
-		setNewItem('');
+		setNewItem(createNewItem(''));
 		setSelectedItemIds([]);
 		setUpdatedKey(Math.random());
 		setCanAddItems(false);
 	};
 
-	const addSingleItem = newItem => {
-		setNewItem(newItem);
-		setCanAddItems(newItem !== '');
+	const addSingleItem = textValue => {
+		setNewItem(createNewItem(textValue));
+		setCanAddItems(textValue !== '');
 	};
 
 	const handleKeyDown = event => {
@@ -70,10 +77,8 @@ export default function MultiSelectWithMultiLine({
 			<span className='add-new-item'>
 				<TextInput
 					className='e-full-width-new-item'
-					value={newItem}
-					handler={event =>
-						addSingleItem({ id: 0, label: event.target.value })
-					}
+					value={newItem.label}
+					handler={event => addSingleItem(event.target.value)}
 					handleKeyDown={handleKeyDown}
 					placeholder={placeholder}
 				/>
