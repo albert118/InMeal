@@ -1,9 +1,7 @@
 ﻿using InMeal.Core.Entities;
-using InMeal.Core.Globalisation;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace InMeal.Infrastructure.DataServices;
 
@@ -17,29 +15,47 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         _recipeDbContext = recipeDbContext;
     }
 
-    public Task<List<Ingredient>> GetIngredientsAsync(ICollection<Guid> ids, CancellationToken ct)
+    public Task<List<Ingredient>> GetIngredientsAsync(int skip, int take, CancellationToken ct)
     {
-        if (ids.Any(e => e.IsEmpty())) {
-            throw new DataException(
-                "Attempting to get ingredients with empty ('00000000-0000-0000-0000-000000000000') IDs is not possible");
-        }
-
-        return _recipeDbContext.Ingredients.Where(i => ids.Contains(i.Id)).ToListAsync(ct);
+        return _recipeDbContext.Ingredients
+            .OrderBy(i => i.Name)
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync(ct);
     }
 
-    // enforce lower case names for ingredients
-    public async Task<Guid> AddOrGetExistingIngredientAsync(string name, CancellationToken ct)
+    public async Task<List<Ingredient>> AddOrGetExistingIngredientsAsync(List<string> names, CancellationToken ct)
     {
-        var existingIngredient = await _recipeDbContext.Ingredients.FirstOrDefaultAsync(i => i.Name == name.ToLowerInvariant(), ct);
+        var existingIngredients = await GetIngredientsByNameAsync(names, ct);
+        var returnValue = existingIngredients.ToList();
+        var ingredientNamesToAdd = names.Except(existingIngredients.Select(i => i.Name)).ToList();
 
-        if (existingIngredient != null) {
-            return existingIngredient.Id;
-        }
+        // skip adding any new ingredients, as we have persisted them all already
+        if (!ingredientNamesToAdd.Any())
+            return returnValue;
 
-        var result = await _recipeDbContext.Ingredients.AddAsync(new() {Name = name.ToLowerInvariant()}, ct);
+        var newIngredientIds = await AddNewIngredientsAsync(ingredientNamesToAdd, ct);
+        returnValue.AddRange(newIngredientIds);
 
+        return returnValue;
+    }
+
+    private async Task<List<Ingredient>> GetIngredientsByNameAsync(List<string> names, CancellationToken ct)
+    {
+        return await _recipeDbContext.Ingredients
+            .Where(i => names.Contains(i.Name))
+            .ToListAsync(ct);
+    }
+
+    private async Task<IEnumerable<Ingredient>> AddNewIngredientsAsync(List<string> names, CancellationToken ct)
+    {
+        var newIngredients = names
+            .Select(newIngredientName => new Ingredient() {Name = newIngredientName.ToLowerInvariant()})
+            .ToList();
+
+        await _recipeDbContext.Ingredients.AddRangeAsync(newIngredients, ct);
         await _recipeDbContext.SaveChangesAsync(ct);
 
-        return result.Entity.Id;
+        return newIngredients;
     }
 }

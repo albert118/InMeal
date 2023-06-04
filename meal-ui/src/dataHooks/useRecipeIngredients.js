@@ -1,58 +1,33 @@
-import { useState, useEffect } from 'react';
-import { putIngredients } from 'dataHooks/useRecipe';
+import { useIngredients } from 'dataHooks';
+import { isFalsishOrEmpty } from 'utils';
 
 export default function useRecipeIngredients() {
-	const [ingredientOptions, setIngredientOptions] = useState([]);
-	const [isLoading, setLoading] = useState(true);
-	const [errors, setErrors] = useState(null);
+	const { putIngredients } = useIngredients();
 
-	useEffect(() => {
-		const fetchIngredientOptions = async () => {
-			setLoading(true);
-
-			// TODO: add an API
-			// const response = await fetch(
-			// 	`${ApiConfig.API_URL}/ingredients/options`,
-			// 	{
-			// 		...defaultRequestOptions
-			// 	}
-			// );
-
-			// if (response.ok) {
-			// 	setIngredientOptions(await response.json());
-			// } else {
-			// 	setErrors(response.errors);
-			// }
-
-			setIngredientOptions([
-				{
-					id: '123456-12345-234567',
-					label: '#1 a test ingredient option'
-				},
-				{
-					id: '123456-12345-234567',
-					label: '#2 a test ingredient option'
-				},
-				{
-					id: '123456-12345-234567',
-					label: '#3 a test ingredient option'
-				},
-				{
-					id: '123456-12345-234567',
-					label: '#4 a test ingredient option'
-				}
-			]);
-
-			setLoading(false);
+	const handleRecipeIngredients = async (event, recipe) => {
+		const strategies = {
+			'new-item': handleAddingAsync,
+			'existing-items': handleAddingExisting,
+			'remove-item': handleRemoving,
+			'update-item': handleUpdating
 		};
 
-		fetchIngredientOptions();
-	}, []);
+		const strategyName = isFalsishOrEmpty(event.target.value)
+			? 'remove-item'
+			: event.target.id;
 
-	const handleAddingAsync = async (
-		additionalIngredientOrIngedients,
-		recipe
-	) => {
+		console.info(
+			`editing recipe ingredient data with '${strategyName}' strategy`
+		);
+
+		const strategy = strategies[strategyName] ?? strategies['update-item'];
+
+		return await strategy(event, recipe);
+	};
+
+	const handleAddingAsync = async (event, recipe) => {
+		const additionalIngredientOrIngedients = event.target.value;
+
 		if (
 			!additionalIngredientOrIngedients ||
 			additionalIngredientOrIngedients.length === 0
@@ -75,7 +50,9 @@ export default function useRecipeIngredients() {
 	const handleAddingManyAsync = async (additionalIngredients, recipe) => {
 		// persist to the data layer
 		const persistedIngredients = await putIngredients(
-			additionalIngredients
+			additionalIngredients.map(
+				additionalIngredient => additionalIngredient.label
+			)
 		);
 
 		// TODO: quantity logic
@@ -92,9 +69,8 @@ export default function useRecipeIngredients() {
 		// add the new recipe ingredients to the existing recipe ingredients
 		const recipeIngredientsCopy = { ...recipe.recipeIngredients };
 
-		recipeIngredients.forEach(recipeIngredient => {
-			recipeIngredientsCopy[recipeIngredient.ingredientId] =
-				recipeIngredient;
+		recipeIngredients.forEach(ri => {
+			recipeIngredientsCopy[ri.ingredientId] = ri;
 		});
 
 		return {
@@ -103,9 +79,26 @@ export default function useRecipeIngredients() {
 		};
 	};
 
-	const handleRemoving = (removingRecipeIngredientId, recipe) => {
+	const handleAddingExisting = (event, recipe) => {
+		const additionalIngredients = event.target.value;
+
+		// TODO: quantity logic
+		const fakeQuantity = 1;
+		const recipeIngredients = additionalIngredients.map(
+			additionalIngredient =>
+				createRecipeIngredient(
+					additionalIngredient.label,
+					additionalIngredient.id,
+					fakeQuantity
+				)
+		);
+
+		// add the new recipe ingredients to the existing recipe ingredients
 		const recipeIngredientsCopy = { ...recipe.recipeIngredients };
-		delete recipeIngredientsCopy[removingRecipeIngredientId];
+
+		recipeIngredients.forEach(ri => {
+			recipeIngredientsCopy[ri.ingredientId] = ri;
+		});
 
 		return {
 			...recipe,
@@ -113,28 +106,32 @@ export default function useRecipeIngredients() {
 		};
 	};
 
-	const handleUpdating = (updatingId, updatedValue, recipe) => {
+	const handleRemoving = (event, recipe) => {
+		const recipeIngredientsCopy = { ...recipe.recipeIngredients };
+		delete recipeIngredientsCopy[event.target.id];
+
 		return {
-			// take the existing recipe ingredients
-			...recipe.recipeIngredients,
-			// but update the given object with the new data
-			[updatingId]: {
-				// we only care to update the label at this point
-				// in the future this may grow to further fields
-				...[recipe.recipeIngredients[updatingId]],
-				label: updatedValue
-			}
+			...recipe,
+			recipeIngredients: recipeIngredientsCopy
 		};
 	};
 
-	return {
-		ingredientOptions,
-		handleAddingAsync,
-		handleRemoving,
-		handleUpdating,
-		errors,
-		isLoading
+	const handleUpdating = (event, recipe) => {
+		const recipeIngredientsCopy = { ...recipe.recipeIngredients };
+		recipeIngredientsCopy[event.target.id] = {
+			// we only care to update the label at this point
+			// in the future this may grow to further fields
+			...[recipeIngredientsCopy[event.target.id]],
+			label: event.target.value
+		};
+
+		return {
+			...recipe,
+			recipeIngredients: recipeIngredientsCopy
+		};
 	};
+
+	return { handleRecipeIngredients };
 }
 
 function createRecipeIngredient(name, id, numberOf) {

@@ -4,19 +4,20 @@ import { default as MultiSelectCustom } from './MultiSelectCustom';
 import Button from 'components/Button';
 import { objectMap } from 'utils';
 
-function getSelectableItems(selectableOptions) {
-	return selectableOptions
-		? objectMap(selectableOptions, (key, value) => {
-				return { id: key, label: value.label };
-		  })
-		: [];
-}
-
 function createNewItem(textValue) {
 	return {
 		id: 0,
 		label: textValue
 	};
+}
+
+function mapToDropdownItems(items) {
+	return items.map(item => {
+		return {
+			id: item.id,
+			label: item.name
+		};
+	});
 }
 
 // will set newly added item IDs to 'new-item'
@@ -30,29 +31,31 @@ export default function MultiSelectWithMultiLine({
 }) {
 	const [newItem, setNewItem] = useState(createNewItem(''));
 	const [canAddItems, setCanAddItems] = useState(false);
-	const [selectedItemIds, setSelectedItemIds] = useState([]);
+	const [selectedItems, setSelectedItems] = useState([]);
 	const [updatedKey, setUpdatedKey] = useState(0);
 
 	const appendNewItems = () => {
 		// by using a fake event, consumers can re-use existing form handlers that would expect event.target data
-
-		const newItems =
-			selectedItemIds && selectedItemIds.length > 0
-				? getSelectableItems(selectableOptions).filter(item =>
-						selectedItemIds.includes(item.id)
-				  )
-				: newItem;
-
-		onChange({
-			target: {
-				id: 'new-item',
-				name: attrName,
-				value: newItems
-			}
-		});
+		if (selectedItems && selectedItems.length > 0) {
+			onChange({
+				target: {
+					id: 'existing-items',
+					name: attrName,
+					value: selectedItems
+				}
+			});
+		} else {
+			onChange({
+				target: {
+					id: 'new-item',
+					name: attrName,
+					value: newItem
+				}
+			});
+		}
 
 		setNewItem(createNewItem(''));
-		setSelectedItemIds([]);
+		setSelectedItems([]);
 		setUpdatedKey(Math.random());
 		setCanAddItems(false);
 	};
@@ -86,15 +89,15 @@ export default function MultiSelectWithMultiLine({
 			<span className='add-new-item'>
 				<MultiSelectCustom
 					label={
-						selectedItemIds.length === 0
+						selectedItems.length === 0
 							? 'choose ingredients'
 							: `ingredients selected`
 					}
 					id='add-new-item-multi-select'
-					items={getSelectableItems(selectableOptions)}
-					setSelectedItemIds={ids => {
-						setSelectedItemIds(ids);
-						setCanAddItems(ids.length > 0);
+					items={mapToDropdownItems(selectableOptions)}
+					setSelectedItems={items => {
+						setSelectedItems(items);
+						setCanAddItems(items.length > 0);
 					}}
 					// this key hack forces the multiselect to reset after using it's selection
 					key={updatedKey}
