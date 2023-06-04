@@ -19,7 +19,9 @@ export default function useIngredients() {
 		const response = await fetch(url, {
 			...defaultRequestOptions,
 			method: 'POST',
-			body: JSON.stringify(ingredientNames)
+			body: JSON.stringify({
+				ingredientNames: ingredientNames
+			})
 		});
 
 		setLoading(false);
