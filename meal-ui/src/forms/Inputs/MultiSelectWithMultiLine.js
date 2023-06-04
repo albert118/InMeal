@@ -17,15 +17,21 @@ export default function MultiSelectWithMultiLine({
 	const [selectedItemIds, setSelectedItemIds] = useState([]);
 	const [canAddItems, setCanAddItems] = useState(false);
 
-	const appendNewItem = () => {
+	const appendNewItems = () => {
 		// by using a fake event, consumers can re-use existing form handlers that would expect event.target data
 
-		// TODO: handle dropdown populating multiple items to the event
+		const newItems =
+			selectedItemIds && selectedItemIds.length > 0
+				? getSelectableItems().filter(item =>
+						selectedItemIds.includes(item.id)
+				  )
+				: newItem;
+
 		onChange({
 			target: {
 				id: 'new-item',
 				name: attrName,
-				value: newItem
+				value: newItems
 			}
 		});
 
@@ -50,7 +56,7 @@ export default function MultiSelectWithMultiLine({
 	const handleKeyDown = event => {
 		if (event.key !== 'Enter') return;
 		event.preventDefault();
-		appendNewItem();
+		appendNewItems();
 	};
 
 	return (
@@ -63,7 +69,9 @@ export default function MultiSelectWithMultiLine({
 				<TextInput
 					className='e-full-width-new-item'
 					value={newItem}
-					handler={event => addSingleItem(event.target.value)}
+					handler={event =>
+						addSingleItem({ id: 0, label: event.target.value })
+					}
 					handleKeyDown={handleKeyDown}
 					placeholder={placeholder}
 				/>
@@ -83,7 +91,7 @@ export default function MultiSelectWithMultiLine({
 				/>
 				<Button
 					disabled={!canAddItems}
-					onClick={appendNewItem}
+					onClick={appendNewItems}
 				>
 					add
 				</Button>

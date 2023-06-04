@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import defaultRequestOptions from './defaultRequestOptions';
-import { putIngredient } from 'dataHooks/useRecipe';
+import { putIngredients } from 'dataHooks/useRecipe';
 
 export default function useRecipeIngredients() {
 	const [ingredientOptions, setIngredientOptions] = useState([]);
@@ -38,21 +37,49 @@ export default function useRecipeIngredients() {
 		fetchIngredientOptions();
 	}, []);
 
-	const handleAddingAsync = async (additionalIngredient, recipe) => {
+	const handleAddingAsync = async (
+		additionalIngredientOrIngedients,
+		recipe
+	) => {
+		if (
+			!additionalIngredientOrIngedients ||
+			additionalIngredientOrIngedients.length === 0
+		)
+			console.warn(
+				'attempting to handle adding recipe ingredients that are undefined or empty is probably unintented'
+			);
+
+		return Array.isArray(additionalIngredientOrIngedients)
+			? handleAddingManyAsync(additionalIngredientOrIngedients, recipe)
+			: handleAddingManyAsync([additionalIngredientOrIngedients], recipe);
+	};
+
+	const handleAddingManyAsync = async (additionalIngredients, recipe) => {
 		// persist to the data layer
-		const persistedIngredient = await putIngredient(additionalIngredient);
+		const persistedIngredients = await putIngredients(
+			additionalIngredients
+		);
 
 		// TODO: quantity logic
 		const fakeQuantity = 1;
-		const recipeIngredient = createRecipeIngredient(
-			additionalIngredient,
-			persistedIngredient.id,
-			fakeQuantity
+		const recipeIngredients = additionalIngredients.map(
+			(additionalIngredient, idx) =>
+				createRecipeIngredient(
+					additionalIngredient.label,
+					persistedIngredients[idx].id,
+					fakeQuantity
+				)
 		);
 
-		// add the new recipe ingredient to the existing recipe ingredients
+		// add the new recipe ingredients to the existing recipe ingredients
 		const recipeIngredientsCopy = { ...recipe.recipeIngredients };
-		recipeIngredientsCopy[persistedIngredient.id] = recipeIngredient;
+
+		recipeIngredients.forEach(recipeIngredient => {
+			recipeIngredientsCopy[recipeIngredient.ingredientId] =
+				recipeIngredient;
+		});
+
+		console.log(recipeIngredientsCopy);
 
 		return {
 			...recipe,
