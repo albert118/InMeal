@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
-import { putIngredients } from 'dataHooks/useRecipe';
+import { useIngredients } from 'dataHooks';
 
 export default function useRecipeIngredients() {
 	const [ingredientOptions, setIngredientOptions] = useState([]);
 	const [isLoading, setLoading] = useState(true);
 	const [errors, setErrors] = useState(null);
+
+	const { putIngredients } = useIngredients();
 
 	useEffect(() => {
 		const fetchIngredientOptions = async () => {
