@@ -5,34 +5,36 @@ import { defaultRecipe } from 'types/DefaultRecipe';
 
 export default function useRecipe(recipeId) {
 	const [recipe, setRecipe] = useState(defaultRecipe);
-	const [isLoading, setLoading] = useState(true);
+	const [isLoading, setLoading] = useState(false);
 	const [errors, setErrors] = useState(null);
 
 	useEffect(() => {
-		if (recipeId === undefined) {
+		const getRecipe = async id => {
+			const url = `${ApiConfig.API_URL}/recipe?id=${encodeURIComponent(
+				id
+			)}`;
+
+			setLoading(true);
+
+			const response = await fetch(url, {
+				...defaultRequestOptions
+			});
+
+			setLoading(false);
+
+			if (response.ok) {
+				setRecipe(await response.json());
+			} else {
+				setErrors(response.errors);
+			}
+		};
+
+		if (!recipeId) {
 			return;
 		}
 
 		getRecipe(recipeId);
 	}, []);
-
-	const getRecipe = async id => {
-		const url = `${ApiConfig.API_URL}/recipe?id=${encodeURIComponent(id)}`;
-
-		setLoading(true);
-
-		const response = await fetch(url, {
-			...defaultRequestOptions
-		});
-
-		setLoading(false);
-
-		if (response.ok) {
-			setRecipe(await response.json());
-		} else {
-			setErrors(response.errors);
-		}
-	};
 
 	const postRecipe = async recipe => {
 		const url = `${ApiConfig.API_URL}/recipe`;
