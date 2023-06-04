@@ -1,7 +1,11 @@
 import { HomeButton } from 'components/Button';
 import { EditRecipeForm } from './Forms/EditRecipeForm';
 
-export default function View({ existingRecipe, ingredientOptions }) {
+export default function View({
+	existingRecipe,
+	ingredientOptions,
+	patchRecipe
+}) {
 	return (
 		<div className='p-recipe'>
 			<div className='left-panel'>
@@ -10,6 +14,7 @@ export default function View({ existingRecipe, ingredientOptions }) {
 			<EditRecipeForm
 				existingRecipe={existingRecipe}
 				ingredientOptions={ingredientOptions}
+				patchRecipe={patchRecipe}
 			/>
 		</div>
 	);

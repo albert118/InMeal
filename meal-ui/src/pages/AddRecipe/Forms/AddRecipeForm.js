@@ -10,14 +10,13 @@ import {
 import HeroImage from 'pages/EditRecipe/Forms/HeroImage';
 import { FormActions } from 'pages/EditRecipe/Forms/FormActions';
 import AppRoutes from 'navigation/AppRoutes';
-import { postRecipe, patchRecipe } from 'dataHooks/useRecipe';
-import { useRecipeIngredients } from 'dataHooks';
+import { useRecipeIngredients } from 'hooks/services';
 import { demoImage } from 'DemoImage';
-import { defaultRecipe } from './DefaultRecipe';
+import { defaultRecipe } from 'types/DefaultRecipe';
 import { ViewRecipeBtn } from './ViewRecipeBtn';
 import { isFalsishOrEmpty } from 'utils';
 
-export function AddRecipeForm({ ingredientOptions }) {
+export function AddRecipeForm({ ingredientOptions, patchRecipe, postRecipe }) {
 	const [recipe, setRecipe] = useState(defaultRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 	const { handleRecipeIngredients } = useRecipeIngredients();

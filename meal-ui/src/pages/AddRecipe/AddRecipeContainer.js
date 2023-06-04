@@ -1,8 +1,21 @@
 import View from './View';
-import { useIngredients } from 'dataHooks';
+import { useIngredients, useRecipe } from 'hooks/data';
 
 export default function AddRecipeContainer() {
-	const { ingredients, isLoading } = useIngredients();
+	const { ingredients, isLoading: isLoadingIngredients } = useIngredients();
+	const {
+		patchRecipe,
+		postRecipe,
+		isLoading: isLoadingRecipe
+	} = useRecipe(undefined);
 
-	return !isLoading ? <View ingredientOptions={ingredients} /> : 'loading...';
+	return !(isLoadingIngredients && isLoadingRecipe) ? (
+		<View
+			ingredientOptions={ingredients}
+			patchRecipe={patchRecipe}
+			postRecipe={postRecipe}
+		/>
+	) : (
+		'loading...'
+	);
 }

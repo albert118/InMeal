@@ -44,14 +44,14 @@ export default function useIngredients() {
 			method: 'GET'
 		});
 
-		setLoading(false);
-
 		if (response.ok) {
 			setIngredients(await response.json());
 		} else {
 			setErrors(response.errors);
 			setIngredients([]);
 		}
+
+		setLoading(false);
 	};
 
 	return { isLoading, errors, putIngredients, ingredients };

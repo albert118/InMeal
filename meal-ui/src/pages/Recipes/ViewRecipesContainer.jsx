@@ -4,7 +4,7 @@ import AppRoutes from 'navigation/AppRoutes';
 import { FormStatuses } from 'forms';
 import { demoImage } from 'DemoImage';
 import { useNavigate } from 'react-router-dom';
-import { useAllRecipes } from 'dataHooks/useRecipes';
+import { useAllRecipes } from 'hooks/data';
 
 export default function ViewRecipesContainer() {
 	const navigate = useNavigate();
@@ -20,12 +20,14 @@ export default function ViewRecipesContainer() {
 		};
 	};
 
-	const { recipes, isLoading, refreshData } = useAllRecipes(mapper);
+	const { recipes, isLoading, refreshData, archiveRecipes } =
+		useAllRecipes(mapper);
 
 	return !isLoading ? (
 		<View
 			recipes={recipes}
 			refreshGrid={refreshData}
+			archiveRecipes={archiveRecipes}
 		/>
 	) : (
 		'loading...'

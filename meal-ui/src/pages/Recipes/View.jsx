@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Grid, Column } from '@carbon/react';
-import { archiveRecipes } from 'dataHooks/useRecipes';
 import { ManagementHeader } from './GridHeader';
 import { RecipeGrid } from './RecipeGrid';
 
-export default function View({ recipes, refreshGrid }) {
+export default function View({ recipes, refreshGrid, archiveRecipes }) {
 	return (
 		<div className='p-manage-recipes'>
 			<ManageRecipesTable
+				archiveRecipes={archiveRecipes}
 				recipes={recipes}
 				refreshGrid={refreshGrid}
 			/>
@@ -15,7 +15,7 @@ export default function View({ recipes, refreshGrid }) {
 	);
 }
 
-function ManageRecipesTable({ recipes, refreshGrid }) {
+function ManageRecipesTable({ recipes, refreshGrid, archiveRecipes }) {
 	const [selectedItems, setSelectedItems] = useState([]);
 
 	const addSelectedItem = newItem => {
