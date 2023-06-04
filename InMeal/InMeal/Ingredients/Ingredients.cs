@@ -18,20 +18,18 @@ public class IngredientsController : ControllerBase
         _tokenAccessor = tokenAccessor;
     }
 
-    [HttpGet("[action]", Name = "View all ingredients")]
+    [HttpGet("[action]", Name = "View all ingredients (paginated)")]
     [ActionName("all")]
-    public List<IngredientDto> Post(ICollection<Guid> ids)
+    public List<IngredientDto> Get(int? skip, int? take)
     {
         var ct = _tokenAccessor.Token;
 
-        var task = _ingredientRepository.GetIngredientsAsync(ids, ct);
+        var task = _ingredientRepository.GetIngredientsAsync(skip ?? 0, take ?? 25, ct);
         task.Wait(ct);
 
-        if (task.Result.Count == 0) {
-            return new();
-        }
-
-        return task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
+        return task.Result.Count == 0
+            ? new()
+            : task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
 
     [HttpPost(Name = "Post new ingredients (potentially existing)")]
@@ -40,18 +38,6 @@ public class IngredientsController : ControllerBase
         var ct = _tokenAccessor.Token;
 
         var task = _ingredientRepository.AddOrGetExistingIngredientsAsync(dto.IngredientNames, ct);
-        task.Wait(ct);
-
-        return task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
-    }
-
-    [HttpGet("[action]", Name = "Get ingredient options")]
-    [ActionName("options")]
-    public List<IngredientDto> Get()
-    {
-        var ct = _tokenAccessor.Token;
-
-        var task = _ingredientRepository.GetIngredientOptionsAsync(ct);
         task.Wait(ct);
 
         return task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
