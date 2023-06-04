@@ -2,27 +2,26 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TitleBar from 'components/TitleBar/TitleBar';
 import FormContainer, { FormStatuses } from 'forms';
-import { TextInput } from 'forms/Inputs';
+import {
+	LongTextInput,
+	MultiSelectWithMultiLine,
+	TextInput
+} from 'forms/Inputs';
 import HeroImage from 'pages/EditRecipe/Forms/HeroImage';
 import { FormActions } from 'pages/EditRecipe/Forms/FormActions';
-import { FormBody } from 'pages/EditRecipe/Forms/FormBody';
 import AppRoutes from 'navigation/AppRoutes';
 import { postRecipe, patchRecipe } from 'dataHooks/useRecipe';
 import { useRecipeIngredients } from 'dataHooks';
 import { demoImage } from 'DemoImage';
 import { isFalsishOrEmpty } from 'utils';
 import { defaultRecipe } from './DefaultRecipe';
-import Button from 'components/Button';
+import { ViewRecipeBtn } from './ViewRecipeBtn';
 
-export function AddRecipeForm() {
+export function AddRecipeForm({ ingredientOptions }) {
 	const [recipe, setRecipe] = useState(defaultRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
-	const {
-		ingredientOptions,
-		handleAddingAsync,
-		handleRemoving,
-		handleUpdating
-	} = useRecipeIngredients();
+	const { handleAddingAsync, handleRemoving, handleUpdating } =
+		useRecipeIngredients();
 
 	const navigate = useNavigate();
 
@@ -103,13 +102,33 @@ export function AddRecipeForm() {
 				/>
 			</TitleBar>
 
-			<FormBody
-				blurb={recipe.blurb}
-				preparationSteps={recipe.preparationSteps}
-				ingredients={recipe.recipeIngredients}
-				ingredientOptions={ingredientOptions}
-				handler={updateRecipeDataHandler}
-			/>
+			<div className='recipe--data scrollbar-vertical'>
+				<LongTextInput
+					className='recipe--blurb'
+					name='blurb'
+					value={recipe.blurb}
+					placeholder='maybe some details too?'
+					handler={updateRecipeDataHandler}
+				/>
+
+				<MultiSelectWithMultiLine
+					className='recipe--ingredients'
+					items={recipe.ingredients}
+					selectableOptions={ingredientOptions}
+					attrName='recipeIngredients'
+					onChange={updateRecipeDataHandler}
+					placeholder='add another ingredient'
+				/>
+
+				<LongTextInput
+					className='recipe--steps'
+					name='preparationSteps'
+					value={recipe.preparationSteps}
+					placeholder='include lots of details and steps'
+					handler={updateRecipeDataHandler}
+					rows='20'
+				/>
+			</div>
 
 			{recipe.id && (
 				<ViewRecipeBtn
@@ -123,18 +142,5 @@ export function AddRecipeForm() {
 				saveActionText='save'
 			/>
 		</FormContainer>
-	);
-}
-
-export function ViewRecipeBtn({ handler }) {
-	return (
-		<div className='action-container view-recipe-action'>
-			<Button
-				className='view-recipe-btn'
-				onClick={handler}
-			>
-				view recipe
-			</Button>
-		</div>
 	);
 }
