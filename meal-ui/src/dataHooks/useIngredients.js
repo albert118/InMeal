@@ -1,4 +1,11 @@
+import { useState } from 'react';
+import defaultRequestOptions from './defaultRequestOptions';
+import { ApiConfig } from 'config';
+
 export default function useIngredients() {
+	const [isLoading, setLoading] = useState(true);
+	const [errors, setErrors] = useState(null);
+
 	const putIngredient = async ingredientName => {
 		const url = `${
 			ApiConfig.API_URL
@@ -37,5 +44,25 @@ export default function useIngredients() {
 		});
 	};
 
-	return { putIngredients };
+	const getIngredientOptions = async () => {
+		const url = `${ApiConfig.API_URL}/ingredients/options`;
+
+		setLoading(true);
+
+		const response = await fetch(url, {
+			...defaultRequestOptions,
+			method: 'GET'
+		});
+
+		setLoading(false);
+
+		if (response.ok) {
+			return await response.json();
+		} else {
+			setErrors(response.errors);
+			return [];
+		}
+	};
+
+	return { isLoading, errors, putIngredients, getIngredientOptions };
 }
