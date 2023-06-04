@@ -12,19 +12,13 @@ import HeroImage from './HeroImage';
 import AppRoutes from 'navigation/AppRoutes';
 import { patchRecipe } from 'dataHooks/useRecipe';
 import { useRecipeIngredients } from 'dataHooks';
-import { isFalsishOrEmpty } from 'utils';
 import { demoImage } from '../../../DemoImage';
 import StatusBadge from 'components/StatusBadge';
 
 export function EditRecipeForm({ existingRecipe, ingredientOptions }) {
 	const [recipe, setRecipe] = useState(existingRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
-	const {
-		handleAddingAsync,
-		handleAddingExisting,
-		handleRemoving,
-		handleUpdating
-	} = useRecipeIngredients();
+	const { handleRecipeIngredients } = useRecipeIngredients();
 
 	const navigate = useNavigate();
 
@@ -46,23 +40,9 @@ export function EditRecipeForm({ existingRecipe, ingredientOptions }) {
 		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 	};
 
-	const handleRecipeIngredients = async event => {
-		if (event.target.id === 'new-item') {
-			setRecipe(await handleAddingAsync(event.target.value, recipe));
-		} else if (event.target.id === 'existing-items') {
-			setRecipe(handleAddingExisting(event.target.value, recipe));
-		} else if (isFalsishOrEmpty(event.target.value)) {
-			setRecipe(handleRemoving(event.target.id, recipe));
-		} else {
-			setRecipe(
-				handleUpdating(event.target.id, event.target.value, recipe)
-			);
-		}
-	};
-
 	const updateRecipeDataHandler = async event => {
 		if (event.target.name === 'recipeIngredients') {
-			handleRecipeIngredients(event);
+			setRecipe(await handleRecipeIngredients(event, recipe));
 		} else {
 			setRecipe({
 				...recipe,
