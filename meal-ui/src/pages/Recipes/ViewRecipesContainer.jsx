@@ -4,7 +4,7 @@ import AppRoutes from 'navigation/AppRoutes';
 import { FormStatuses } from 'forms';
 import { demoImage } from 'DemoImage';
 import { useNavigate } from 'react-router-dom';
-import { useAllRecipes } from 'dataHooks/useRecipes';
+import { useAllRecipes } from 'dataHooks';
 
 export default function ViewRecipesContainer() {
 	const navigate = useNavigate();
