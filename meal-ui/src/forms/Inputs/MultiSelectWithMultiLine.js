@@ -4,6 +4,14 @@ import { default as MultiSelectCustom } from './MultiSelectCustom';
 import Button from 'components/Button';
 import { objectMap } from 'utils';
 
+const getSelectableItems = selectableOptions => {
+	return selectableOptions
+		? objectMap(selectableOptions, (key, value) => {
+				return { id: key, label: value.label };
+		  })
+		: [];
+};
+
 // will set newly added item IDs to 'new-item'
 export default function MultiSelectWithMultiLine({
 	className,
@@ -14,15 +22,16 @@ export default function MultiSelectWithMultiLine({
 	placeholder
 }) {
 	const [newItem, setNewItem] = useState('');
-	const [selectedItemIds, setSelectedItemIds] = useState([]);
 	const [canAddItems, setCanAddItems] = useState(false);
+	const [selectedItemIds, setSelectedItemIds] = useState([]);
+	const [updatedKey, setUpdatedKey] = useState(0);
 
 	const appendNewItems = () => {
 		// by using a fake event, consumers can re-use existing form handlers that would expect event.target data
 
 		const newItems =
 			selectedItemIds && selectedItemIds.length > 0
-				? getSelectableItems().filter(item =>
+				? getSelectableItems(selectableOptions).filter(item =>
 						selectedItemIds.includes(item.id)
 				  )
 				: newItem;
@@ -37,20 +46,13 @@ export default function MultiSelectWithMultiLine({
 
 		setNewItem('');
 		setSelectedItemIds([]);
+		setUpdatedKey(Math.random());
 		setCanAddItems(false);
 	};
 
 	const addSingleItem = newItem => {
 		setNewItem(newItem);
 		setCanAddItems(newItem !== '');
-	};
-
-	const getSelectableItems = () => {
-		return selectableOptions
-			? objectMap(selectableOptions, (key, value) => {
-					return { id: key, label: value.label };
-			  })
-			: [];
 	};
 
 	const handleKeyDown = event => {
@@ -84,11 +86,13 @@ export default function MultiSelectWithMultiLine({
 							: `ingredients selected`
 					}
 					id='add-new-item-multi-select'
-					items={getSelectableItems()}
+					items={getSelectableItems(selectableOptions)}
 					setSelectedItemIds={ids => {
 						setSelectedItemIds(ids);
 						setCanAddItems(ids.length > 0);
 					}}
+					// this key hack forces the multiselect to reset after using it's selection
+					key={updatedKey}
 				/>
 				<Button
 					disabled={!canAddItems}
