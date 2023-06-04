@@ -10,9 +10,7 @@ export default function useRecipe(recipeId) {
 
 	useEffect(() => {
 		const getRecipe = async id => {
-			const url = `${ApiConfig.API_URL}/recipe?id=${encodeURIComponent(
-				id
-			)}`;
+			const url = `${ApiConfig.API_URL}/recipes/${id}`;
 
 			setLoading(true);
 
@@ -37,7 +35,7 @@ export default function useRecipe(recipeId) {
 	}, []);
 
 	const postRecipe = async recipe => {
-		const url = `${ApiConfig.API_URL}/recipe`;
+		const url = `${ApiConfig.API_URL}/recipes/add`;
 
 		setLoading(true);
 
@@ -59,7 +57,7 @@ export default function useRecipe(recipeId) {
 	};
 
 	const patchRecipe = async recipe => {
-		const url = `${ApiConfig.API_URL}/recipe`;
+		const url = `${ApiConfig.API_URL}/recipes/edit`;
 
 		setLoading(true);
 
