@@ -1,16 +1,8 @@
-import { useMemo } from 'react';
 import View from './View';
 import { useIngredients } from 'dataHooks';
 
-export default async function AddRecipeContainer() {
-	const { getIngredientOptions, isLoading: isLoadingIngredientOptions } =
-		useIngredients();
+export default function AddRecipeContainer() {
+	const { ingredients, isLoading } = useIngredients();
 
-	const ingredientOptions = useMemo(async () => await getIngredientOptions());
-
-	return !isLoadingIngredientOptions ? (
-		<View ingredientOptions={ingredientOptions} />
-	) : (
-		'loading...'
-	);
+	return !isLoading ? <View ingredientOptions={ingredients} /> : 'loading...';
 }
