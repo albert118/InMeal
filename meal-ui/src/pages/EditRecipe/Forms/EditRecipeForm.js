@@ -7,8 +7,8 @@ import { FormBody } from './FormBody';
 import { FormActions } from './FormActions';
 import HeroImage from './HeroImage';
 import AppRoutes from 'navigation/AppRoutes';
-import { patchRecipe, putIngredient } from 'dataHooks/useRecipe';
-import { createIngredient } from 'pages/AddRecipe/createIngredient';
+import { patchRecipe } from 'dataHooks/useRecipe';
+import { useRecipeIngredients } from 'dataHooks';
 import { isFalsishOrEmpty } from 'utils';
 import { demoImage } from '../../../DemoImage';
 import StatusBadge from 'components/StatusBadge';
@@ -16,6 +16,12 @@ import StatusBadge from 'components/StatusBadge';
 export function EditRecipeForm({ existingRecipe }) {
 	const [recipe, setRecipe] = useState(existingRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
+	const {
+		ingredientOptions,
+		handleAddingAsync,
+		handleRemoving,
+		handleUpdating
+	} = useRecipeIngredients();
 
 	const navigate = useNavigate();
 
@@ -39,46 +45,13 @@ export function EditRecipeForm({ existingRecipe }) {
 
 	const handleRecipeIngredients = async event => {
 		if (event.target.id === 'new-item') {
-			// new item
-			const dto = await putIngredient(event.target.value);
-
-			// TODO: quantity logic
-			const fakeQuantity = 1;
-			const newIngredient = createIngredient(
-				event.target.value,
-				dto.id,
-				fakeQuantity
-			);
-
-			// add the ingredient to the existing ingredients
-			const recipeIngredientsCopy = { ...recipe.recipeIngredients };
-			recipeIngredientsCopy[dto.id] = newIngredient;
-
-			setRecipe({ ...recipe, recipeIngredients: recipeIngredientsCopy });
+			setRecipe(await handleAddingAsync(event.target.value, recipe));
 		} else if (isFalsishOrEmpty(event.target.value)) {
-			// remove item
-			const recipeIngredientsCopy = { ...recipe.recipeIngredients };
-			delete recipeIngredientsCopy[event.target.id];
-
-			setRecipe({
-				...recipe,
-				recipeIngredients: recipeIngredientsCopy
-			});
+			setRecipe(handleRemoving(event.target.id, recipe));
 		} else {
-			// existing item
-			setRecipe({
-				...recipe,
-				recipeIngredients: {
-					// ... take existing ingredients
-					...recipe.recipeIngredients,
-					// ... selecting the given ID
-					[event.target.id]: {
-						// ... and applying a change only to the ingredient label
-						...[recipe.recipeIngredients[event.target.id]],
-						label: event.target.value
-					}
-				}
-			});
+			setRecipe(
+				handleUpdating(event.target.id, event.target.value, recipe)
+			);
 		}
 	};
 
@@ -122,6 +95,7 @@ export function EditRecipeForm({ existingRecipe }) {
 				blurb={recipe.blurb}
 				preparationSteps={recipe.preparationSteps}
 				ingredients={recipe.recipeIngredients}
+				ingredientOptions={ingredientOptions}
 				handler={updateRecipeDataHandler}
 			/>
 

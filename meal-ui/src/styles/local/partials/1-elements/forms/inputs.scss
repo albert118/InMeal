@@ -1,6 +1,7 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/text-mixins' as *;
+@use './overrides';
 
 .form-input * {
 	width: 100%;
@@ -18,6 +19,8 @@
 }
 
 .form-input > input[type='text'],
+.form-input > select .select-items,
+.form-input > option,
 .form-input > textarea {
 	background-color: var(--background-details);
 	border: 1px solid transparent;

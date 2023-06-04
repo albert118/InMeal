@@ -1,0 +1,17 @@
+@use '../../../mixins/card-shadow' as *;
+@use '../../../mixins/text-mixins' as *;
+@use './overrides';
+
+.e-cds-form-input > * {
+	padding-right: 0;
+	padding-left: 0;
+	width: 100%;
+	border: none;
+
+	span,
+	svg {
+		@include form-input();
+		fill: var(--text);
+		padding: 0;
+	}
+}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { TextInput } from './TextInput';
+import { default as TextInput } from './TextInput';
 import Button from 'components/Button';
 import { objectMap } from 'utils';
 
@@ -40,8 +40,6 @@ export default function MultiLineInput({
 		>
 			<span className='add-new-item'>
 				<TextInput
-					className='new-ingredient'
-					name='new-ingredient'
 					value={newItem}
 					handler={event => setNewItem(event.target.value)}
 					handleKeyDown={handleKeyDown}
