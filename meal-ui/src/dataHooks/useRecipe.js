@@ -2,57 +2,75 @@ import { useEffect, useState } from 'react';
 import defaultRequestOptions from './defaultRequestOptions';
 import { ApiConfig } from 'config';
 
-const getRecipe = async id => {
-	const url = `${ApiConfig.API_URL}/recipe?id=${encodeURIComponent(id)}`;
-
-	const response = await fetch(url, {
-		...defaultRequestOptions,
-		method: 'GET'
-	});
-
-	const data = await response.json();
-
-	return data;
-};
-
-const postRecipe = async recipe => {
-	const url = `${ApiConfig.API_URL}/recipe`;
-
-	const response = await fetch(url, {
-		...defaultRequestOptions,
-		method: 'POST',
-		body: JSON.stringify(recipe)
-	});
-
-	const data = await response.json();
-
-	return data;
-};
-
-const patchRecipe = async recipe => {
-	const url = `${ApiConfig.API_URL}/recipe`;
-
-	const response = await fetch(url, {
-		...defaultRequestOptions,
-		method: 'PATCH',
-		body: JSON.stringify(recipe)
-	});
-
-	return response;
-};
-
 export default function useRecipe(recipeId) {
 	const [recipe, setRecipe] = useState(null);
-	const [isLoading, toggleLoading] = useState(true);
+	const [isLoading, setLoading] = useState(true);
+	const [errors, setErrors] = useState(null);
 
 	useEffect(() => {
-		getRecipe(recipeId).then(data => {
-			setRecipe(data);
-			toggleLoading(false);
-		});
+		getRecipe(recipeId);
 	}, []);
 
-	return { recipe, isLoading };
-}
+	const getRecipe = async id => {
+		const url = `${ApiConfig.API_URL}/recipe?id=${encodeURIComponent(id)}`;
 
-export { getRecipe, patchRecipe, postRecipe };
+		setLoading(true);
+
+		const response = await fetch(url, {
+			...defaultRequestOptions,
+			method: 'GET'
+		});
+
+		setLoading(false);
+
+		if (response.ok) {
+			setRecipe(await response.json());
+		} else {
+			setErrors(response.errors);
+		}
+	};
+
+	const postRecipe = async recipe => {
+		const url = `${ApiConfig.API_URL}/recipe`;
+
+		setLoading(true);
+
+		const response = await fetch(url, {
+			...defaultRequestOptions,
+			method: 'POST',
+			body: JSON.stringify(recipe)
+		});
+
+		setLoading(false);
+
+		if (response.ok) {
+			const persistedRecipeId = await response.json();
+			recipe.id = persistedRecipeId;
+			setRecipe(recipe);
+		} else {
+			setErrors(response.errors);
+		}
+	};
+
+	const patchRecipe = async recipe => {
+		const url = `${ApiConfig.API_URL}/recipe`;
+
+		setLoading(true);
+
+		const response = await fetch(url, {
+			...defaultRequestOptions,
+			method: 'PATCH',
+			body: JSON.stringify(recipe)
+		});
+
+		setLoading(false);
+
+		if (response.ok) {
+			setRecipe(recipe);
+		} else {
+			setErrors(response.errors);
+		}
+	};
+
+	return { patchRecipe, postRecipe, recipe, isLoading, errors };
+}
