@@ -37,7 +37,9 @@ public class IngredientsController : ControllerBase
     {
         var ct = _tokenAccessor.Token;
 
-        var task = _ingredientRepository.AddOrGetExistingIngredientsAsync(dto.IngredientNames, ct);
+        // enforce lower case names for ingredients
+        // this should be some biz service enforcing this
+        var task = _ingredientRepository.AddOrGetExistingIngredientsAsync(dto.IngredientNames.Select(i => i.ToLowerInvariant()).ToList(), ct);
         task.Wait(ct);
 
         return task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();

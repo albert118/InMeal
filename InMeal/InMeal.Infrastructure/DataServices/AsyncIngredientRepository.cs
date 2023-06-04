@@ -24,12 +24,11 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
             .ToListAsync(ct);
     }
 
-    // enforce lower case names for ingredients
     public async Task<List<Ingredient>> AddOrGetExistingIngredientsAsync(List<string> names, CancellationToken ct)
     {
         var existingIngredients = await GetIngredientsByNameAsync(names, ct);
         var returnValue = existingIngredients.ToList();
-        var ingredientNamesToAdd = existingIngredients.Select(i => i.Name).Except(names).ToList();
+        var ingredientNamesToAdd = names.Except(existingIngredients.Select(i => i.Name)).ToList();
 
         // skip adding any new ingredients, as we have persisted them all already
         if (!ingredientNamesToAdd.Any())
@@ -44,7 +43,7 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
     private async Task<List<Ingredient>> GetIngredientsByNameAsync(List<string> names, CancellationToken ct)
     {
         return await _recipeDbContext.Ingredients
-            .Where(i => names.Contains(i.Name.ToLowerInvariant()))
+            .Where(i => names.Contains(i.Name))
             .ToListAsync(ct);
     }
 
