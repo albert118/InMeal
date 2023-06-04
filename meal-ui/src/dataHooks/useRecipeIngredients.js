@@ -27,7 +27,19 @@ export default function useRecipeIngredients() {
 			setIngredientOptions([
 				{
 					id: '123456-12345-234567',
-					label: 'a test ingredient option'
+					label: '#1 a test ingredient option'
+				},
+				{
+					id: '123456-12345-234567',
+					label: '#2 a test ingredient option'
+				},
+				{
+					id: '123456-12345-234567',
+					label: '#3 a test ingredient option'
+				},
+				{
+					id: '123456-12345-234567',
+					label: '#4 a test ingredient option'
 				}
 			]);
 
@@ -50,8 +62,14 @@ export default function useRecipeIngredients() {
 			);
 
 		return Array.isArray(additionalIngredientOrIngedients)
-			? handleAddingManyAsync(additionalIngredientOrIngedients, recipe)
-			: handleAddingManyAsync([additionalIngredientOrIngedients], recipe);
+			? await handleAddingManyAsync(
+					additionalIngredientOrIngedients,
+					recipe
+			  )
+			: await handleAddingManyAsync(
+					[additionalIngredientOrIngedients],
+					recipe
+			  );
 	};
 
 	const handleAddingManyAsync = async (additionalIngredients, recipe) => {
@@ -78,8 +96,6 @@ export default function useRecipeIngredients() {
 			recipeIngredientsCopy[recipeIngredient.ingredientId] =
 				recipeIngredient;
 		});
-
-		console.log(recipeIngredientsCopy);
 
 		return {
 			...recipe,

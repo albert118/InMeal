@@ -57,7 +57,7 @@ const putIngredient = async ingredientName => {
 };
 
 const putIngredients = async ingredientNames => {
-	const url = `${ApiConfig.API_URL}/ingredients`;
+	// const url = `${ApiConfig.API_URL}/ingredients`;
 
 	// const response = await fetch(url, {
 	// 	...defaultRequestOptions,
@@ -71,8 +71,8 @@ const putIngredients = async ingredientNames => {
 	// we also assume it comes back in the same order, so that the consumer can zip these back together
 	// later this may become an issue and using the name or an explicit tracking ID might become the solution
 	// return data;
-	return ingredientNames.map(_ => {
-		return { id: '1234-5678-9101', name: 'mock API ingredient result' };
+	return ingredientNames.map((_, idx) => {
+		return { id: `1234-5678-91${idx}`, name: 'mock API ingredient result' };
 	});
 };
 
