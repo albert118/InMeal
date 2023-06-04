@@ -12,8 +12,6 @@ export default function EditRecipeContainer() {
 	const { ingredients, isLoading: isLoadingIngredientOptions } =
 		useIngredients();
 
-	console.log(recipe);
-
 	return isLoadingIngredientOptions || isLoadingRecipe ? (
 		'loading...'
 	) : (
