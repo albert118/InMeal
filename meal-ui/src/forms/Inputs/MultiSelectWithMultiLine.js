@@ -83,6 +83,7 @@ export default function MultiSelectWithMultiLine({
 							? 'choose ingredients'
 							: `ingredients selected`
 					}
+					id='add-new-item-multi-select'
 					items={getSelectableItems()}
 					setSelectedItemIds={ids => {
 						setSelectedItemIds(ids);
