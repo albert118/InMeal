@@ -19,8 +19,12 @@ import StatusBadge from 'components/StatusBadge';
 export function EditRecipeForm({ existingRecipe, ingredientOptions }) {
 	const [recipe, setRecipe] = useState(existingRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
-	const { handleAddingAsync, handleRemoving, handleUpdating } =
-		useRecipeIngredients();
+	const {
+		handleAddingAsync,
+		handleAddingExisting,
+		handleRemoving,
+		handleUpdating
+	} = useRecipeIngredients();
 
 	const navigate = useNavigate();
 
@@ -45,6 +49,8 @@ export function EditRecipeForm({ existingRecipe, ingredientOptions }) {
 	const handleRecipeIngredients = async event => {
 		if (event.target.id === 'new-item') {
 			setRecipe(await handleAddingAsync(event.target.value, recipe));
+		} else if (event.target.id === 'existing-items') {
+			setRecipe(handleAddingExisting(event.target.value, recipe));
 		} else if (isFalsishOrEmpty(event.target.value)) {
 			setRecipe(handleRemoving(event.target.id, recipe));
 		} else {
@@ -101,7 +107,7 @@ export function EditRecipeForm({ existingRecipe, ingredientOptions }) {
 
 				<MultiSelectWithMultiLine
 					className='recipe--ingredients'
-					items={recipe.ingredients}
+					items={recipe.recipeIngredients}
 					selectableOptions={ingredientOptions}
 					attrName='recipeIngredients'
 					onChange={updateRecipeDataHandler}

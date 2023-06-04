@@ -16,17 +16,18 @@ export default function useRecipeIngredients() {
 			? 'remove-item'
 			: event.target.id;
 
-		console.log(strategyName);
+		console.info(
+			`editing recipe ingredient data with '${strategyName}' strategy`
+		);
 
 		const strategy = strategies[strategyName] ?? strategies['update-item'];
 
-		return await strategy(event.target.value, recipe);
+		return await strategy(event, recipe);
 	};
 
-	const handleAddingAsync = async (
-		additionalIngredientOrIngedients,
-		recipe
-	) => {
+	const handleAddingAsync = async (event, recipe) => {
+		const additionalIngredientOrIngedients = event.target.value;
+
 		if (
 			!additionalIngredientOrIngedients ||
 			additionalIngredientOrIngedients.length === 0
@@ -78,7 +79,9 @@ export default function useRecipeIngredients() {
 		};
 	};
 
-	const handleAddingExisting = (additionalIngredients, recipe) => {
+	const handleAddingExisting = (event, recipe) => {
+		const additionalIngredients = event.target.value;
+
 		// TODO: quantity logic
 		const fakeQuantity = 1;
 		const recipeIngredients = additionalIngredients.map(
@@ -97,19 +100,15 @@ export default function useRecipeIngredients() {
 			recipeIngredientsCopy[ri.ingredientId] = ri;
 		});
 
-		console.log(recipeIngredientsCopy);
-
 		return {
 			...recipe,
 			recipeIngredients: recipeIngredientsCopy
 		};
 	};
 
-	const handleRemoving = (removingRecipeIngredient, recipe) => {
-		console.log(`handle removing for: ${removingRecipeIngredient}`);
-
+	const handleRemoving = (event, recipe) => {
 		const recipeIngredientsCopy = { ...recipe.recipeIngredients };
-		delete recipeIngredientsCopy[removingRecipeIngredient.ingrdientId];
+		delete recipeIngredientsCopy[event.target.id];
 
 		return {
 			...recipe,
@@ -117,16 +116,16 @@ export default function useRecipeIngredients() {
 		};
 	};
 
-	const handleUpdating = (updatingId, updatedValue, recipe) => {
+	const handleUpdating = (event, recipe) => {
 		return {
 			// take the existing recipe ingredients
 			...recipe.recipeIngredients,
 			// but update the given object with the new data
-			[updatingId]: {
+			[event.target.id]: {
 				// we only care to update the label at this point
 				// in the future this may grow to further fields
-				...[recipe.recipeIngredients[updatingId]],
-				label: updatedValue
+				...[recipe.recipeIngredients[event.target.id]],
+				label: event.target.value
 			}
 		};
 	};

@@ -13,15 +13,14 @@ import AppRoutes from 'navigation/AppRoutes';
 import { postRecipe, patchRecipe } from 'dataHooks/useRecipe';
 import { useRecipeIngredients } from 'dataHooks';
 import { demoImage } from 'DemoImage';
-import { isFalsishOrEmpty } from 'utils';
 import { defaultRecipe } from './DefaultRecipe';
 import { ViewRecipeBtn } from './ViewRecipeBtn';
+import { isFalsishOrEmpty } from 'utils';
 
 export function AddRecipeForm({ ingredientOptions }) {
 	const [recipe, setRecipe] = useState(defaultRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
-	const { handleAddingAsync, handleRemoving, handleUpdating } =
-		useRecipeIngredients();
+	const { handleRecipeIngredients } = useRecipeIngredients();
 
 	const navigate = useNavigate();
 
@@ -57,21 +56,9 @@ export function AddRecipeForm({ ingredientOptions }) {
 		setFormStatus(FormStatuses.Saved);
 	};
 
-	const handleRecipeIngredients = async event => {
-		if (event.target.id === 'new-item') {
-			setRecipe(await handleAddingAsync(event.target.value, recipe));
-		} else if (isFalsishOrEmpty(event.target.value)) {
-			setRecipe(handleRemoving(event.target.id, recipe));
-		} else {
-			setRecipe(
-				handleUpdating(event.target.id, event.target.value, recipe)
-			);
-		}
-	};
-
 	const updateRecipeDataHandler = async event => {
 		if (event.target.name === 'recipeIngredients') {
-			handleRecipeIngredients(event);
+			setRecipe(await handleRecipeIngredients(event, recipe));
 		} else {
 			setRecipe({
 				...recipe,
@@ -113,7 +100,7 @@ export function AddRecipeForm({ ingredientOptions }) {
 
 				<MultiSelectWithMultiLine
 					className='recipe--ingredients'
-					items={recipe.ingredients}
+					items={recipe.recipeIngredients}
 					selectableOptions={ingredientOptions}
 					attrName='recipeIngredients'
 					onChange={updateRecipeDataHandler}
