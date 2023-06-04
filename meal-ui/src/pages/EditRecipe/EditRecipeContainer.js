@@ -1,7 +1,6 @@
 import View from './View';
 import { useParams } from 'react-router-dom';
-import useRecipe from 'hooks/data/useRecipe';
-import { useIngredients } from 'hooks';
+import { useRecipe, useIngredients } from 'hooks/data';
 
 export default function EditRecipeContainer() {
 	const { recipeId } = useParams();

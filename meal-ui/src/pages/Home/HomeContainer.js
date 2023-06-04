@@ -1,7 +1,7 @@
 import HomeView from './View';
 import AppRoutes from 'navigation/AppRoutes';
 import { useNavigate } from 'react-router-dom';
-import { useUpcomingRecipes } from 'hooks';
+import { useUpcomingRecipes } from 'hooks/data';
 
 export default function HomeContainer() {
 	const navigate = useNavigate();

@@ -8,7 +8,7 @@ import {
 	TextInput
 } from 'forms/Inputs';
 import AppRoutes from 'navigation/AppRoutes';
-import { useRecipeIngredients } from 'hooks';
+import { useRecipeIngredients } from 'hooks/services';
 import StatusBadge from 'components/StatusBadge';
 
 import { FormActions } from './FormActions';

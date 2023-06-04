@@ -10,7 +10,7 @@ import {
 import HeroImage from 'pages/EditRecipe/Forms/HeroImage';
 import { FormActions } from 'pages/EditRecipe/Forms/FormActions';
 import AppRoutes from 'navigation/AppRoutes';
-import { useRecipeIngredients } from 'hooks';
+import { useRecipeIngredients } from 'hooks/services';
 import { demoImage } from 'DemoImage';
 import { defaultRecipe } from 'types/DefaultRecipe';
 import { ViewRecipeBtn } from './ViewRecipeBtn';
