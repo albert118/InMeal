@@ -6,7 +6,7 @@ export default function MultiSelectCustom({
 	items,
 	id,
 	label,
-	setSelectedItemIds
+	setSelectedItems
 }) {
 	return (
 		<MultiSelect
@@ -16,9 +16,7 @@ export default function MultiSelectCustom({
 			defaultValue={defaultItem}
 			items={items}
 			// the onChange passes back an array of selectedItems which is the same structure as whatever we passed in
-			onChange={event =>
-				setSelectedItemIds(event.selectedItems.map(item => item.id))
-			}
+			onChange={event => setSelectedItems(event.selectedItems)}
 		/>
 	);
 }
