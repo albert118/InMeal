@@ -44,5 +44,16 @@ public class IngredientsController : ControllerBase
         return task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
 
+    [HttpGet(Name = "Get ingredient options")]
+    public List<IngredientDto> Get()
+    {
+        var ct = _tokenAccessor.Token;
+
+        var task = _ingredientRepository.GetIngredientOptionsAsync(ct);
+        task.Wait(ct);
+
+        return task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
+    }
+
     public record PostIngredientsDto(List<string> IngredientNames);
 }

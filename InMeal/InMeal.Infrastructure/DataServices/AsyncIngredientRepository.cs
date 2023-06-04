@@ -44,6 +44,14 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         return returnValue;
     }
 
+    public Task<List<Ingredient>> GetIngredientOptionsAsync(CancellationToken ct)
+    {
+        return _recipeDbContext.Ingredients
+            .OrderBy(i => i.Name)
+            .Take(25)
+            .ToListAsync(ct);
+    }
+
     private async Task<List<Ingredient>> GetIngredientsByNameAsync(List<string> names, CancellationToken ct)
     {
         return await _recipeDbContext.Ingredients
