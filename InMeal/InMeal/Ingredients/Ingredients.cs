@@ -18,7 +18,8 @@ public class IngredientsController : ControllerBase
         _tokenAccessor = tokenAccessor;
     }
 
-    [HttpPost(Name = "View all ingredients")]
+    [HttpGet("[action]", Name = "View all ingredients")]
+    [ActionName("all")]
     public List<IngredientDto> Post(ICollection<Guid> ids)
     {
         var ct = _tokenAccessor.Token;
@@ -44,7 +45,8 @@ public class IngredientsController : ControllerBase
         return task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
 
-    [HttpGet(Name = "Get ingredient options")]
+    [HttpGet("[action]", Name = "Get ingredient options")]
+    [ActionName("options")]
     public List<IngredientDto> Get()
     {
         var ct = _tokenAccessor.Token;
