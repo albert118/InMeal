@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import defaultRequestOptions from './defaultRequestOptions';
 import { ApiConfig } from 'config';
+import { defaultRecipe } from 'types/DefaultRecipe';
 
 export default function useRecipe(recipeId) {
-	const [recipe, setRecipe] = useState(null);
+	const [recipe, setRecipe] = useState(defaultRecipe);
 	const [isLoading, setLoading] = useState(true);
 	const [errors, setErrors] = useState(null);
 
@@ -17,8 +18,7 @@ export default function useRecipe(recipeId) {
 		setLoading(true);
 
 		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'GET'
+			...defaultRequestOptions
 		});
 
 		setLoading(false);

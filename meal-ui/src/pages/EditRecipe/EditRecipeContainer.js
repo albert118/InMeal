@@ -5,16 +5,23 @@ import { useIngredients } from 'dataHooks';
 
 export default function EditRecipeContainer() {
 	const { recipeId } = useParams();
-	const { recipe, isLoading: isLoadingRecipe } = useRecipe(recipeId);
+	const {
+		patchRecipe,
+		recipe,
+		isLoading: isLoadingRecipe
+	} = useRecipe(recipeId);
 	const { ingredients, isLoading: isLoadingIngredientOptions } =
 		useIngredients();
 
-	return !(isLoadingIngredientOptions && isLoadingRecipe) ? (
+	console.log(recipe);
+
+	return isLoadingIngredientOptions || isLoadingRecipe ? (
+		'loading...'
+	) : (
 		<View
 			existingRecipe={recipe}
 			ingredientOptions={ingredients}
+			patchRecipe={patchRecipe}
 		/>
-	) : (
-		'loading...'
 	);
 }
