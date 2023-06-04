@@ -19,6 +19,15 @@ function createNewItem(textValue) {
 	};
 }
 
+function mapToDropdownItems(items) {
+	return items.map(item => {
+		return {
+			id: item.id,
+			label: item.name
+		};
+	});
+}
+
 // will set newly added item IDs to 'new-item'
 export default function MultiSelectWithMultiLine({
 	className,
@@ -91,7 +100,7 @@ export default function MultiSelectWithMultiLine({
 							: `ingredients selected`
 					}
 					id='add-new-item-multi-select'
-					items={getSelectableItems(selectableOptions)}
+					items={mapToDropdownItems(selectableOptions)}
 					setSelectedItemIds={ids => {
 						setSelectedItemIds(ids);
 						setCanAddItems(ids.length > 0);

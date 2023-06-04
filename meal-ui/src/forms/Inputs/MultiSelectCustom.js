@@ -14,20 +14,11 @@ export default function MultiSelectCustom({
 			id={id}
 			label={label}
 			defaultValue={defaultItem}
-			items={mapToDropdownItems(items)}
+			items={items}
 			// the onChange passes back an array of selectedItems which is the same structure as whatever we passed in
 			onChange={event =>
 				setSelectedItemIds(event.selectedItems.map(item => item.id))
 			}
 		/>
 	);
-}
-
-function mapToDropdownItems(items) {
-	return items.map(item => {
-		return {
-			id: item.id,
-			label: item.label
-		};
-	});
 }
