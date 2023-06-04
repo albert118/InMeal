@@ -117,16 +117,17 @@ export default function useRecipeIngredients() {
 	};
 
 	const handleUpdating = (event, recipe) => {
+		const recipeIngredientsCopy = { ...recipe.recipeIngredients };
+		recipeIngredientsCopy[event.target.id] = {
+			// we only care to update the label at this point
+			// in the future this may grow to further fields
+			...[recipeIngredientsCopy[event.target.id]],
+			label: event.target.value
+		};
+
 		return {
-			// take the existing recipe ingredients
-			...recipe.recipeIngredients,
-			// but update the given object with the new data
-			[event.target.id]: {
-				// we only care to update the label at this point
-				// in the future this may grow to further fields
-				...[recipe.recipeIngredients[event.target.id]],
-				label: event.target.value
-			}
+			...recipe,
+			recipeIngredients: recipeIngredientsCopy
 		};
 	};
 
