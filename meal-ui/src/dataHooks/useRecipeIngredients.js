@@ -1,55 +1,7 @@
-import { useState, useEffect } from 'react';
 import { useIngredients } from 'dataHooks';
 
 export default function useRecipeIngredients() {
-	const [ingredientOptions, setIngredientOptions] = useState([]);
-	const [isLoading, setLoading] = useState(true);
-	const [errors, setErrors] = useState(null);
-
 	const { putIngredients } = useIngredients();
-
-	useEffect(() => {
-		const fetchIngredientOptions = async () => {
-			setLoading(true);
-
-			// TODO: add an API
-			// const response = await fetch(
-			// 	`${ApiConfig.API_URL}/ingredients/options`,
-			// 	{
-			// 		...defaultRequestOptions
-			// 	}
-			// );
-
-			// if (response.ok) {
-			// 	setIngredientOptions(await response.json());
-			// } else {
-			// 	setErrors(response.errors);
-			// }
-
-			setIngredientOptions([
-				{
-					id: '123456-12345-234567',
-					label: '#1 a test ingredient option'
-				},
-				{
-					id: '123456-12345-234567',
-					label: '#2 a test ingredient option'
-				},
-				{
-					id: '123456-12345-234567',
-					label: '#3 a test ingredient option'
-				},
-				{
-					id: '123456-12345-234567',
-					label: '#4 a test ingredient option'
-				}
-			]);
-
-			setLoading(false);
-		};
-
-		fetchIngredientOptions();
-	}, []);
 
 	const handleAddingAsync = async (
 		additionalIngredientOrIngedients,
@@ -130,12 +82,9 @@ export default function useRecipeIngredients() {
 	};
 
 	return {
-		ingredientOptions,
 		handleAddingAsync,
 		handleRemoving,
-		handleUpdating,
-		errors,
-		isLoading
+		handleUpdating
 	};
 }
 
