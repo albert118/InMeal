@@ -2,29 +2,35 @@ import { useEffect, useState } from 'react';
 import defaultRequestOptions from './defaultRequestOptions';
 import { ApiConfig } from 'config';
 
-const postUpcomingRecipes = async () => {
-	const url = `${ApiConfig.API_URL}/upcoming`;
-
-	const response = await fetch(url, {
-		...defaultRequestOptions,
-		method: 'POST'
-	});
-
-	return await response.json();
-};
-
-export default function useUpcomingRecipes(mapper) {
+export default function useUpcomingRecipes() {
 	const [upcomingRecipes, setUpcomingRecipes] = useState([]);
-	const [isLoading, toggleLoading] = useState(true);
+	const [isLoading, setLoading] = useState(false);
+	const [errors, setErrors] = useState(null);
 
 	useEffect(() => {
-		postUpcomingRecipes().then(data => {
-			setUpcomingRecipes(data.map(mapper));
-			toggleLoading(false);
-		});
+		fetchUpcomingRecipes();
 	}, []);
 
-	return { upcomingRecipes, isLoading };
-}
+	const fetchUpcomingRecipes = async mapper => {
+		const url = `${ApiConfig.API_URL}/upcoming`;
 
-export { postUpcomingRecipes };
+		setLoading(true);
+
+		const response = await fetch(url, {
+			...defaultRequestOptions,
+			method: 'POST'
+		});
+
+		setLoading(false);
+
+		if (response.ok) {
+			setUpcomingRecipes((await response.json()).map(mapper));
+		} else {
+			setErrors(response.errors);
+		}
+
+		return;
+	};
+
+	return { upcomingRecipes, fetchUpcomingRecipes, isLoading, errors };
+}
