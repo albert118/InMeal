@@ -28,18 +28,38 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
     }
 
     // enforce lower case names for ingredients
-    public async Task<Guid> AddOrGetExistingIngredientAsync(string name, CancellationToken ct)
+    public async Task<List<Ingredient>> AddOrGetExistingIngredientsAsync(List<string> names, CancellationToken ct)
     {
-        var existingIngredient = await _recipeDbContext.Ingredients.FirstOrDefaultAsync(i => i.Name == name.ToLowerInvariant(), ct);
+        var existingIngredients = await GetIngredientsByNameAsync(names, ct);
+        var returnValue = existingIngredients.ToList();
+        var ingredientNamesToAdd = existingIngredients.Select(i => i.Name).Except(names).ToList();
 
-        if (existingIngredient != null) {
-            return existingIngredient.Id;
-        }
+        // skip adding any new ingredients, as we have persisted them all already
+        if (!ingredientNamesToAdd.Any())
+            return returnValue;
 
-        var result = await _recipeDbContext.Ingredients.AddAsync(new() {Name = name.ToLowerInvariant()}, ct);
+        var newIngredientIds = await AddNewIngredientsAsync(ingredientNamesToAdd, ct);
+        returnValue.AddRange(newIngredientIds);
 
+        return returnValue;
+    }
+
+    private async Task<List<Ingredient>> GetIngredientsByNameAsync(List<string> names, CancellationToken ct)
+    {
+        return await _recipeDbContext.Ingredients
+            .Where(i => names.Contains(i.Name.ToLowerInvariant()))
+            .ToListAsync(ct);
+    }
+
+    private async Task<IEnumerable<Ingredient>> AddNewIngredientsAsync(List<string> names, CancellationToken ct)
+    {
+        var newIngredients = names
+            .Select(newIngredientName => new Ingredient() {Name = newIngredientName.ToLowerInvariant()})
+            .ToList();
+
+        await _recipeDbContext.Ingredients.AddRangeAsync(newIngredients, ct);
         await _recipeDbContext.SaveChangesAsync(ct);
 
-        return result.Entity.Id;
+        return newIngredients;
     }
 }

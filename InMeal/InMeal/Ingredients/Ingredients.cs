@@ -1,26 +1,24 @@
 ﻿using InMeal.Core.DTOs;
 using InMeal.Infrastructure.Interfaces.DataServices;
+using InMeal.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InMeal.Ingredients;
 
 [ApiController]
 [Route("api/[controller]")]
-public class IngredientController : ControllerBase
+public class IngredientsController : ControllerBase
 {
     private readonly IAsyncIngredientRepository _ingredientRepository;
-    private readonly ILogger<IngredientController> _logger;
     private readonly ICancellationTokenAccessor _tokenAccessor;
 
-    public IngredientController(IAsyncIngredientRepository ingredientRepository, ILogger<IngredientController> logger,
-        ICancellationTokenAccessor tokenAccessor)
+    public IngredientsController(IAsyncIngredientRepository ingredientRepository, ICancellationTokenAccessor tokenAccessor)
     {
         _ingredientRepository = ingredientRepository;
-        _logger = logger;
         _tokenAccessor = tokenAccessor;
     }
 
-    [HttpPost(Name = "View All Ingredients")]
+    [HttpPost(Name = "View all ingredients")]
     public List<IngredientDto> Post(ICollection<Guid> ids)
     {
         var ct = _tokenAccessor.Token;
@@ -32,23 +30,19 @@ public class IngredientController : ControllerBase
             return new();
         }
 
-        return task.Result.Select(i => new IngredientDto(
-            i.Id,
-            i.Name
-        )).ToList();
+        return task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
 
-    [HttpPut(Name = "Put new Ingredient (potentially existing)")]
-    public IngredientDto Put(string newIngredientName)
+    [HttpPost(Name = "Post new ingredients (potentially existing)")]
+    public List<IngredientDto> Post(PostIngredientsDto dto)
     {
         var ct = _tokenAccessor.Token;
 
-        var task = _ingredientRepository.AddOrGetExistingIngredientAsync(newIngredientName, ct);
+        var task = _ingredientRepository.AddOrGetExistingIngredientsAsync(dto.IngredientNames, ct);
         task.Wait(ct);
 
-        return new(
-            task.Result,
-            newIngredientName.ToLowerInvariant()
-        );
+        return task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
+
+    public record PostIngredientsDto(List<string> IngredientNames);
 }
