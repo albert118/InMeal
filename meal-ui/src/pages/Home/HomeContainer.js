@@ -1,4 +1,3 @@
-import Layout from 'pages/Layout';
 import HomeView from './View';
 import AppRoutes from 'navigation/AppRoutes';
 import { useNavigate } from 'react-router-dom';
@@ -24,16 +23,12 @@ export default function HomeContainer() {
 
 	const { upcomingRecipes, isLoading } = useUpcomingRecipes(mapper);
 
-	return (
-		<Layout>
-			{!isLoading ? (
-				<HomeView
-					plannedItems={upcomingRecipes}
-					suggestedItems={randomSortArray(upcomingRecipes)}
-				/>
-			) : (
-				'loading...'
-			)}
-		</Layout>
+	return !isLoading ? (
+		<HomeView
+			plannedItems={upcomingRecipes}
+			suggestedItems={randomSortArray(upcomingRecipes)}
+		/>
+	) : (
+		'loading...'
 	);
 }

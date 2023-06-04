@@ -15,7 +15,11 @@ const RouterConfig = () => {
 		<Routes>
 			<Route
 				path={AppRoutes.root}
-				element={<Home />}
+				element={
+					<Layout>
+						<Home />
+					</Layout>
+				}
 			/>
 			<Route
 				path={AppRoutes.recipes}
@@ -58,7 +62,11 @@ const RouterConfig = () => {
             */}
 			<Route
 				path='/'
-				element={<Home />}
+				element={
+					<Layout>
+						<Home />
+					</Layout>
+				}
 			/>
 		</Routes>
 	);
