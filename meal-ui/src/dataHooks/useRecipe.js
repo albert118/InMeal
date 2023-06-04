@@ -9,6 +9,10 @@ export default function useRecipe(recipeId) {
 	const [errors, setErrors] = useState(null);
 
 	useEffect(() => {
+		if (recipeId === undefined) {
+			return;
+		}
+
 		getRecipe(recipeId);
 	}, []);
 
