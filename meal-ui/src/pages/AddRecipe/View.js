@@ -1,7 +1,11 @@
 import { AddRecipeForm } from 'forms/Recipe';
 import { HomeButton } from 'components/Button';
 
-export default function View({ ingredientOptions, patchRecipe, postRecipe }) {
+export default function View({
+	ingredientOptions,
+	postEditedRecpie,
+	postRecipe
+}) {
 	return (
 		<div className='p-recipe'>
 			<div className='left-panel'>
@@ -9,7 +13,7 @@ export default function View({ ingredientOptions, patchRecipe, postRecipe }) {
 			</div>
 			<AddRecipeForm
 				ingredientOptions={ingredientOptions}
-				patchRecipe={patchRecipe}
+				postEditedRecpie={postEditedRecpie}
 				postRecipe={postRecipe}
 			/>
 		</div>

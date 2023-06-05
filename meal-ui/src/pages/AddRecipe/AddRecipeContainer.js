@@ -4,7 +4,7 @@ import { useIngredients, useRecipe } from 'hooks/data';
 export default function AddRecipeContainer() {
 	const { ingredients, isLoading: isLoadingIngredients } = useIngredients();
 	const {
-		patchRecipe,
+		postEditedRecpie,
 		postRecipe,
 		isLoading: isLoadingRecipe
 	} = useRecipe(undefined);
@@ -12,7 +12,7 @@ export default function AddRecipeContainer() {
 	return !(isLoadingIngredients && isLoadingRecipe) ? (
 		<View
 			ingredientOptions={ingredients}
-			patchRecipe={patchRecipe}
+			postEditedRecpie={postEditedRecpie}
 			postRecipe={postRecipe}
 		/>
 	) : (

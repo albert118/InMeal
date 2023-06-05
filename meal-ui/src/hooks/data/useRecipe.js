@@ -56,7 +56,7 @@ export default function useRecipe(recipeId) {
 		}
 	};
 
-	const patchRecipe = async recipe => {
+	const postEditedRecpie = async recipe => {
 		const url = `${ApiConfig.API_URL}/recipes/edit`;
 
 		setLoading(true);
@@ -76,5 +76,5 @@ export default function useRecipe(recipeId) {
 		}
 	};
 
-	return { patchRecipe, postRecipe, recipe, isLoading, errors };
+	return { postEditedRecpie, postRecipe, recipe, isLoading, errors };
 }

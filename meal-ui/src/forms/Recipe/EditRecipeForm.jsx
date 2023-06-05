@@ -13,7 +13,7 @@ import useRecipeFormData from './useRecipeFormData';
 export default function EditRecipeForm({
 	existingRecipe,
 	ingredientOptions,
-	patchRecipe
+	postEditedRecpie
 }) {
 	const {
 		recipe,
@@ -22,7 +22,7 @@ export default function EditRecipeForm({
 		handleCancel,
 		updateRecipeDataHandler
 	} = useRecipeFormData({
-		patchRecipe,
+		postEditedRecpie,
 		existingRecipe
 	});
 

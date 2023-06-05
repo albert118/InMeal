@@ -9,7 +9,7 @@ import { useRecipeIngredients } from 'hooks/services';
 import { isFalsishOrEmpty } from 'utils';
 
 export default function useRecipeFormData({
-	patchRecipe,
+	postEditedRecpie,
 	postRecipe,
 	existingRecipe
 }) {
@@ -53,7 +53,7 @@ export default function useRecipeFormData({
 
 		// update the recipe after adding for the first time
 		if (recipe.id) {
-			response = await patchRecipe(recipe);
+			response = await postEditedRecpie(recipe);
 
 			if (response.ok) {
 				setFormStatus(FormStatuses.Saved);
@@ -75,7 +75,7 @@ export default function useRecipeFormData({
 	const submitEditHandler = async event => {
 		event.preventDefault();
 
-		const response = await patchRecipe(recipe);
+		const response = await postEditedRecpie(recipe);
 
 		if (response.ok) {
 			setFormStatus(FormStatuses.Saved);

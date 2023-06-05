@@ -13,7 +13,7 @@ import useRecipeFormData from './useRecipeFormData';
 
 export default function AddRecipeForm({
 	ingredientOptions,
-	patchRecipe,
+	postEditedRecpie,
 	postRecipe
 }) {
 	const {
@@ -22,7 +22,7 @@ export default function AddRecipeForm({
 		submitHandler,
 		clearChanges,
 		updateRecipeDataHandler
-	} = useRecipeFormData({ patchRecipe, postRecipe });
+	} = useRecipeFormData({ postEditedRecpie, postRecipe });
 
 	const navigate = useNavigate();
 

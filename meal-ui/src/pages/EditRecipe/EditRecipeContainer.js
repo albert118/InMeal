@@ -5,7 +5,7 @@ import { useRecipe, useIngredients } from 'hooks/data';
 export default function EditRecipeContainer() {
 	const { recipeId } = useParams();
 	const {
-		patchRecipe,
+		postEditedRecpie,
 		recipe,
 		isLoading: isLoadingRecipe
 	} = useRecipe(recipeId);
@@ -18,7 +18,7 @@ export default function EditRecipeContainer() {
 		<View
 			existingRecipe={recipe}
 			ingredientOptions={ingredients}
-			patchRecipe={patchRecipe}
+			postEditedRecpie={postEditedRecpie}
 		/>
 	);
 }
