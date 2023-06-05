@@ -22,13 +22,13 @@ export default function useAllRecipes(mapper) {
 	}, [shouldRefresh]);
 
 	const getAllRecipes = async () => {
-		const url = `${ApiConfig.API_URL}/recipes`;
+		const url = `${ApiConfig.API_URL}/recipes/everything`;
 
 		setLoading(true);
 
 		const response = await fetch(url, {
 			...defaultRequestOptions,
-			method: 'GET'
+			method: 'POST'
 		});
 
 		if (response.ok) {
