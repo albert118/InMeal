@@ -1,6 +1,6 @@
 import Button from 'components/Button';
 
-export function ViewRecipeBtn({ handler }) {
+export default function ViewRecipeButton({ handler }) {
 	return (
 		<div className='action-container view-recipe-action'>
 			<Button
