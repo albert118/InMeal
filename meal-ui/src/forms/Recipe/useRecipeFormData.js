@@ -15,6 +15,7 @@ export default function useRecipeFormData({
 }) {
 	const [recipe, setRecipe] = useState(existingRecipe ?? defaultRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
+	const [errorMessages, setErrorMessages] = useState(null);
 
 	const navigate = useNavigate();
 
@@ -75,19 +76,22 @@ export default function useRecipeFormData({
 	const submitEditHandler = async event => {
 		event.preventDefault();
 
-		const response = await postEditedRecpie(recipe);
+		const errors = await postEditedRecpie(recipe);
 
-		if (response.ok) {
+		if (!errors) {
 			setFormStatus(FormStatuses.Saved);
+			setErrorMessages(null);
 			navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 		} else {
 			setFormStatus(FormStatuses.Error);
+			setErrorMessages(errors);
 		}
 	};
 
 	return {
 		recipe,
 		formStatus,
+		errorMessages,
 		clearChanges,
 		handleCancel,
 		submitAdditionalHandler,
