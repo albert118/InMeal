@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import TitleBar from 'components/TitleBar/TitleBar';
+import { TitleBar, StatusBadge } from 'components';
 import FormContainer, { FormStatuses } from 'forms';
 import {
 	LongTextInput,
@@ -9,7 +9,6 @@ import {
 } from 'forms/Inputs';
 import AppRoutes from 'navigation/AppRoutes';
 import { useRecipeIngredients } from 'hooks/services';
-import StatusBadge from 'components/StatusBadge';
 
 import { FormActions } from './FormActions';
 import HeroImage from './HeroImage';

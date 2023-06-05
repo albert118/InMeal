@@ -13,10 +13,14 @@ import AppRoutes from 'navigation/AppRoutes';
 import { useRecipeIngredients } from 'hooks/services';
 import { demoImage } from 'DemoImage';
 import { defaultRecipe } from 'types/DefaultRecipe';
-import { ViewRecipeBtn } from './ViewRecipeBtn';
+import { ViewRecipeButton } from './components';
 import { isFalsishOrEmpty } from 'utils';
 
-export function AddRecipeForm({ ingredientOptions, patchRecipe, postRecipe }) {
+export default function AddRecipeForm({
+	ingredientOptions,
+	patchRecipe,
+	postRecipe
+}) {
 	const [recipe, setRecipe] = useState(defaultRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 	const { handleRecipeIngredients } = useRecipeIngredients();
@@ -121,7 +125,7 @@ export function AddRecipeForm({ ingredientOptions, patchRecipe, postRecipe }) {
 			</div>
 
 			{recipe.id && (
-				<ViewRecipeBtn
+				<ViewRecipeButton
 					handler={() => navigate(`${AppRoutes.recipe}/${recipe.id}`)}
 				/>
 			)}

@@ -1,4 +1,4 @@
-import { AddRecipeForm } from './Forms/AddRecipeForm';
+import { AddRecipeForm } from 'forms/Recipe';
 import { HomeButton } from 'components/Button';
 
 export default function View({ ingredientOptions, patchRecipe, postRecipe }) {

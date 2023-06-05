@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AppRoutes from 'navigation/AppRoutes';
+
+import { FormActions } from 'pages/EditRecipe/Forms/FormActions';
+
 import { TitleBar, StatusBadge } from 'components';
 import FormContainer, { FormStatuses } from 'forms';
 import {
@@ -8,16 +12,16 @@ import {
 	TextInput
 } from 'forms/Inputs';
 import HeroImage from 'pages/EditRecipe/Forms/HeroImage';
-import { FormActions } from 'pages/EditRecipe/Forms/FormActions';
-import AppRoutes from 'navigation/AppRoutes';
-import { useRecipeIngredients } from 'hooks/services';
 import { demoImage } from 'DemoImage';
-import { defaultRecipe } from 'types/DefaultRecipe';
-import { ViewRecipeBtn } from './ViewRecipeBtn';
-import { isFalsishOrEmpty } from 'utils';
 
-export function AddRecipeForm({ ingredientOptions, patchRecipe, postRecipe }) {
-	const [recipe, setRecipe] = useState(defaultRecipe);
+import { useRecipeIngredients } from 'hooks/services';
+
+export default function EditRecipeForm({
+	existingRecipe,
+	ingredientOptions,
+	patchRecipe
+}) {
+	const [recipe, setRecipe] = useState(existingRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 	const { handleRecipeIngredients } = useRecipeIngredients();
 
@@ -26,33 +30,19 @@ export function AddRecipeForm({ ingredientOptions, patchRecipe, postRecipe }) {
 	const submitHandler = async event => {
 		event.preventDefault();
 
-		let response;
+		const response = await patchRecipe(recipe);
 
-		// update the recipe after adding for the first time
-		if (recipe.id) {
-			response = await patchRecipe(recipe);
-
-			if (response.ok) {
-				setFormStatus(FormStatuses.Saved);
-			} else {
-				setFormStatus(FormStatuses.Error);
-			}
+		if (response.ok) {
+			setFormStatus(FormStatuses.Saved);
+			navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 		} else {
-			response = await postRecipe(recipe);
-
-			if (!isFalsishOrEmpty(response)) {
-				setRecipe({ ...recipe, id: response });
-				setFormStatus(FormStatuses.Saved);
-			} else {
-				setFormStatus(FormStatuses.Error);
-			}
+			setFormStatus(FormStatuses.Error);
 		}
 	};
 
-	const clearChanges = event => {
+	const handleCancel = event => {
 		event.preventDefault();
-		recipe.id ? setRecipe(recipe) : setRecipe(defaultRecipe);
-		setFormStatus(FormStatuses.Saved);
+		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 	};
 
 	const updateRecipeDataHandler = async event => {
@@ -70,13 +60,12 @@ export function AddRecipeForm({ ingredientOptions, patchRecipe, postRecipe }) {
 
 	return (
 		<FormContainer
-			className='card recipe-card e-recipe-form'
+			className='card recipe-card'
 			onSubmit={submitHandler}
 		>
 			<HeroImage
 				image={demoImage}
 				label={recipe.title}
-				status={formStatus}
 			/>
 
 			<TitleBar>
@@ -120,17 +109,7 @@ export function AddRecipeForm({ ingredientOptions, patchRecipe, postRecipe }) {
 				/>
 			</div>
 
-			{recipe.id && (
-				<ViewRecipeBtn
-					handler={() => navigate(`${AppRoutes.recipe}/${recipe.id}`)}
-				/>
-			)}
-
-			<FormActions
-				clearChanges={clearChanges}
-				handleCancel={() => navigate(`${AppRoutes.root}`)}
-				saveActionText='save'
-			/>
+			<FormActions handleCancel={handleCancel} />
 		</FormContainer>
 	);
 }

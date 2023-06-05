@@ -1,5 +1,5 @@
 import { HomeButton } from 'components/Button';
-import { EditRecipeForm } from './Forms/EditRecipeForm';
+import { EditRecipeForm } from 'forms/Recipe';
 
 export default function View({
 	existingRecipe,
