@@ -1,6 +1,6 @@
 import { CancelButton, SaveButton } from 'forms/FormActions';
 
-export function FormActions({ handleCancel, saveActionText }) {
+export default function FormActions({ handleCancel, saveActionText }) {
 	return (
 		<div className='action-container'>
 			<CancelButton onClick={handleCancel} />

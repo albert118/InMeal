@@ -1,4 +1,4 @@
-import HeroImage from './Forms/HeroImage';
+import HeroImage from '../../forms/Recipe/components/HeroImage';
 
 export { default } from './EditRecipeContainer';
 

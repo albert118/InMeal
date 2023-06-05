@@ -2,8 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from 'navigation/AppRoutes';
 
-import { FormActions } from 'pages/EditRecipe/Forms/FormActions';
-
 import { TitleBar, StatusBadge } from 'components';
 import FormContainer, { FormStatuses } from 'forms';
 import {
@@ -11,7 +9,7 @@ import {
 	MultiSelectWithMultiLine,
 	TextInput
 } from 'forms/Inputs';
-import HeroImage from 'pages/EditRecipe/Forms/HeroImage';
+import { HeroImage, FormActions } from './components';
 import { demoImage } from 'DemoImage';
 
 import { useRecipeIngredients } from 'hooks/services';

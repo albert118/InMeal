@@ -7,13 +7,11 @@ import {
 	MultiSelectWithMultiLine,
 	TextInput
 } from 'forms/Inputs';
-import HeroImage from 'pages/EditRecipe/Forms/HeroImage';
-import { FormActions } from 'pages/EditRecipe/Forms/FormActions';
 import AppRoutes from 'navigation/AppRoutes';
 import { useRecipeIngredients } from 'hooks/services';
 import { demoImage } from 'DemoImage';
 import { defaultRecipe } from 'types/DefaultRecipe';
-import { ViewRecipeButton } from './components';
+import { ViewRecipeButton, HeroImage, FormActions } from './components';
 import { isFalsishOrEmpty } from 'utils';
 
 export default function AddRecipeForm({
