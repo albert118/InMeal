@@ -54,6 +54,8 @@ export default function useRecipe(recipeId) {
 		} else {
 			setErrors(response.errors);
 		}
+
+		return errors;
 	};
 
 	const postEditedRecpie = async recipe => {
@@ -74,6 +76,8 @@ export default function useRecipe(recipeId) {
 		} else {
 			setErrors(response.errors);
 		}
+
+		return errors;
 	};
 
 	return { postEditedRecpie, postRecipe, recipe, isLoading, errors };
