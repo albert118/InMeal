@@ -22,8 +22,8 @@ export default function EditRecipeForm({
 		handleCancel,
 		updateRecipeDataHandler
 	} = useRecipeFormData({
-		patchRecipe: patchRecipe,
-		existingRecipe: existingRecipe
+		patchRecipe,
+		existingRecipe
 	});
 
 	return (

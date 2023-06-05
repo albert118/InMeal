@@ -22,7 +22,7 @@ export default function AddRecipeForm({
 		submitHandler,
 		clearChanges,
 		updateRecipeDataHandler
-	} = useRecipeFormData({ patchRecipe: patchRecipe, postRecipe: postRecipe });
+	} = useRecipeFormData({ patchRecipe, postRecipe });
 
 	const navigate = useNavigate();
 
