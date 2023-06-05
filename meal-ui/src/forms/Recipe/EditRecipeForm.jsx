@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { TitleBar, StatusBadge } from 'components';
 import FormContainer from 'forms';
 import {
@@ -5,7 +6,7 @@ import {
 	MultiSelectWithMultiLine,
 	TextInput
 } from 'forms/Inputs';
-import { HeroImage, FormActions } from './components';
+import { HeroImage, FormActions, ValidationErrors } from './components';
 import { demoImage } from 'DemoImage';
 
 import useRecipeFormData from './useRecipeFormData';
@@ -15,6 +16,8 @@ export default function EditRecipeForm({
 	ingredientOptions,
 	postEditedRecpie
 }) {
+	const [errorMessages, setErrorMessages] = useState(null);
+
 	const {
 		recipe,
 		formStatus,
@@ -35,6 +38,16 @@ export default function EditRecipeForm({
 				image={demoImage}
 				label={recipe.title}
 			/>
+			<button
+				onClick={() =>
+					setErrorMessages(prev =>
+						!prev ? ['errorMessages', 'errorMessages'] : null
+					)
+				}
+				type='button'
+			>
+				toggle
+			</button>
 
 			<TitleBar>
 				<TextInput
@@ -47,6 +60,7 @@ export default function EditRecipeForm({
 					className='e-image-status-badge'
 					status={formStatus}
 				/>
+				<ValidationErrors errors={errorMessages} />
 			</TitleBar>
 
 			<div className='recipe--data scrollbar-vertical'>
