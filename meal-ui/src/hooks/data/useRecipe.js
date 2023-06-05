@@ -63,7 +63,7 @@ export default function useRecipe(recipeId) {
 
 		const response = await fetch(url, {
 			...defaultRequestOptions,
-			method: 'PATCH',
+			method: 'POST',
 			body: JSON.stringify(recipe)
 		});
 
