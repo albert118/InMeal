@@ -1,74 +1,30 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TitleBar, StatusBadge } from 'components';
-import FormContainer, { FormStatuses } from 'forms';
+import FormContainer from 'forms';
 import {
 	LongTextInput,
 	MultiSelectWithMultiLine,
 	TextInput
 } from 'forms/Inputs';
 import AppRoutes from 'navigation/AppRoutes';
-import { useRecipeIngredients } from 'hooks/services';
 import { demoImage } from 'DemoImage';
-import { defaultRecipe } from 'types/DefaultRecipe';
 import { ViewRecipeButton, HeroImage, FormActions } from './components';
-import { isFalsishOrEmpty } from 'utils';
+import useRecipeFormData from './useRecipeFormData';
 
 export default function AddRecipeForm({
 	ingredientOptions,
 	patchRecipe,
 	postRecipe
 }) {
-	const [recipe, setRecipe] = useState(defaultRecipe);
-	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
-	const { handleRecipeIngredients } = useRecipeIngredients();
+	const {
+		recipe,
+		formStatus,
+		submitHandler,
+		clearChanges,
+		updateRecipeDataHandler
+	} = useRecipeFormData({ patchRecipe: patchRecipe, postRecipe: postRecipe });
 
 	const navigate = useNavigate();
-
-	const submitHandler = async event => {
-		event.preventDefault();
-
-		let response;
-
-		// update the recipe after adding for the first time
-		if (recipe.id) {
-			response = await patchRecipe(recipe);
-
-			if (response.ok) {
-				setFormStatus(FormStatuses.Saved);
-			} else {
-				setFormStatus(FormStatuses.Error);
-			}
-		} else {
-			response = await postRecipe(recipe);
-
-			if (!isFalsishOrEmpty(response)) {
-				setRecipe({ ...recipe, id: response });
-				setFormStatus(FormStatuses.Saved);
-			} else {
-				setFormStatus(FormStatuses.Error);
-			}
-		}
-	};
-
-	const clearChanges = event => {
-		event.preventDefault();
-		recipe.id ? setRecipe(recipe) : setRecipe(defaultRecipe);
-		setFormStatus(FormStatuses.Saved);
-	};
-
-	const updateRecipeDataHandler = async event => {
-		if (event.target.name === 'recipeIngredients') {
-			setRecipe(await handleRecipeIngredients(event, recipe));
-		} else {
-			setRecipe({
-				...recipe,
-				[event.target.name]: event.target.value
-			});
-		}
-
-		setFormStatus(FormStatuses.Unsaved);
-	};
 
 	return (
 		<FormContainer

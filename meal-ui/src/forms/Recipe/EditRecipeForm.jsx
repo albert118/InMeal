@@ -1,9 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import AppRoutes from 'navigation/AppRoutes';
-
 import { TitleBar, StatusBadge } from 'components';
-import FormContainer, { FormStatuses } from 'forms';
+import FormContainer from 'forms';
 import {
 	LongTextInput,
 	MultiSelectWithMultiLine,
@@ -12,49 +8,23 @@ import {
 import { HeroImage, FormActions } from './components';
 import { demoImage } from 'DemoImage';
 
-import { useRecipeIngredients } from 'hooks/services';
+import useRecipeFormData from './useRecipeFormData';
 
 export default function EditRecipeForm({
 	existingRecipe,
 	ingredientOptions,
 	patchRecipe
 }) {
-	const [recipe, setRecipe] = useState(existingRecipe);
-	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
-	const { handleRecipeIngredients } = useRecipeIngredients();
-
-	const navigate = useNavigate();
-
-	const submitHandler = async event => {
-		event.preventDefault();
-
-		const response = await patchRecipe(recipe);
-
-		if (response.ok) {
-			setFormStatus(FormStatuses.Saved);
-			navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
-		} else {
-			setFormStatus(FormStatuses.Error);
-		}
-	};
-
-	const handleCancel = event => {
-		event.preventDefault();
-		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
-	};
-
-	const updateRecipeDataHandler = async event => {
-		if (event.target.name === 'recipeIngredients') {
-			setRecipe(await handleRecipeIngredients(event, recipe));
-		} else {
-			setRecipe({
-				...recipe,
-				[event.target.name]: event.target.value
-			});
-		}
-
-		setFormStatus(FormStatuses.Unsaved);
-	};
+	const {
+		recipe,
+		formStatus,
+		submitEditHandler: submitHandler,
+		handleCancel,
+		updateRecipeDataHandler
+	} = useRecipeFormData({
+		patchRecipe: patchRecipe,
+		existingRecipe: existingRecipe
+	});
 
 	return (
 		<FormContainer
