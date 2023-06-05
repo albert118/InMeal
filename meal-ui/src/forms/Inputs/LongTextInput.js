@@ -20,7 +20,7 @@ export default function LongTextInput({
 				placeholder={placeholder}
 				onChange={handler}
 				rows={rows ?? '4'}
-				maxLength='1000'
+				maxLength='5000'
 			/>
 		</div>
 	);
