@@ -11,7 +11,6 @@ export function useLayoutContext() {
 	const [layoutState, setLayoutState] = useState(DefaultLayoutContext);
 
 	const setIsLoading = useCallback(flag => {
-		console.log(`setIsLoading from: ${layoutState.isLoading} to: ${flag}`);
 		setLayoutState({ ...DefaultLayoutContext, isLoading: flag });
 	}, []);
 
