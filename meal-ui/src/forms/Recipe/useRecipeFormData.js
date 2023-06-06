@@ -8,7 +8,7 @@ import { FormStatuses } from 'forms';
 import { useRecipeIngredients } from 'hooks/services';
 
 export default function useRecipeFormData({
-	postEditedRecpie,
+	postEditedRecipe,
 	postRecipe,
 	existingRecipe
 }) {
@@ -63,7 +63,7 @@ export default function useRecipeFormData({
 
 		// update the recipe after adding for the first time
 		if (recipe.id) {
-			const errors = await postEditedRecpie(recipe);
+			const errors = await postEditedRecipe(recipe);
 			handleErrorResponse(errors);
 		} else {
 			const errors = await postRecipe(recipe);
@@ -74,7 +74,7 @@ export default function useRecipeFormData({
 	const submitEditHandler = async event => {
 		event.preventDefault();
 
-		const errors = await postEditedRecpie(recipe);
+		const errors = await postEditedRecipe(recipe);
 
 		if (handleErrorResponse(errors)) {
 			navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);

@@ -4,7 +4,7 @@ import { EditRecipeForm } from 'forms/Recipe';
 export default function View({
 	existingRecipe,
 	ingredientOptions,
-	postEditedRecpie
+	postEditedRecipe
 }) {
 	return (
 		<div className='p-recipe'>
@@ -14,7 +14,7 @@ export default function View({
 			<EditRecipeForm
 				existingRecipe={existingRecipe}
 				ingredientOptions={ingredientOptions}
-				postEditedRecpie={postEditedRecpie}
+				postEditedRecipe={postEditedRecipe}
 			/>
 		</div>
 	);

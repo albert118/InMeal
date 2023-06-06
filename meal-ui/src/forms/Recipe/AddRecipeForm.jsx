@@ -18,7 +18,7 @@ import useRecipeFormData from './useRecipeFormData';
 
 export default function AddRecipeForm({
 	ingredientOptions,
-	postEditedRecpie,
+	postEditedRecipe,
 	postRecipe
 }) {
 	const {
@@ -28,7 +28,7 @@ export default function AddRecipeForm({
 		submitHandler,
 		clearChanges,
 		updateRecipeDataHandler
-	} = useRecipeFormData({ postEditedRecpie, postRecipe });
+	} = useRecipeFormData({ postEditedRecipe, postRecipe });
 
 	const navigate = useNavigate();
 

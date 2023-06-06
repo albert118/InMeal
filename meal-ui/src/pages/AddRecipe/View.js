@@ -3,7 +3,7 @@ import { HomeButton } from 'components/Button';
 
 export default function View({
 	ingredientOptions,
-	postEditedRecpie,
+	postEditedRecipe,
 	postRecipe
 }) {
 	return (
@@ -13,7 +13,7 @@ export default function View({
 			</div>
 			<AddRecipeForm
 				ingredientOptions={ingredientOptions}
-				postEditedRecpie={postEditedRecpie}
+				postEditedRecipe={postEditedRecipe}
 				postRecipe={postRecipe}
 			/>
 		</div>
