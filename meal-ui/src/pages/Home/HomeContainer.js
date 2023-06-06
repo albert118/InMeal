@@ -29,7 +29,7 @@ export default function HomeContainer() {
 
 	useEffect(() => {
 		setIsLoading(isLoading);
-	}, []);
+	}, [isLoading]);
 
 	return (
 		<HomeView
