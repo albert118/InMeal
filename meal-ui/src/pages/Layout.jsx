@@ -41,6 +41,13 @@ export default function Layout({ children }) {
 			/>
 			<main className={getClassNames()}>
 				<LoadingSpinner show={layoutState.isLoading} />
+				<div
+					className={
+						layoutState.isLoading
+							? 'background-cover background-cover--active'
+							: 'background-cover background-cover--inactive'
+					}
+				/>
 				{children}
 			</main>
 		</LayoutContext.Provider>
