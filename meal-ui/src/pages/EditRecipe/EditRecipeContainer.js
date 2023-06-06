@@ -17,14 +17,17 @@ export default function EditRecipeContainer() {
 	const { setIsLoading } = useContext(LayoutContext);
 
 	useEffect(() => {
+		console.log(recipe);
 		setIsLoading(isLoadingIngredientOptions || isLoadingRecipe);
 	}, [isLoadingIngredientOptions, isLoadingRecipe]);
 
 	return (
-		<View
-			existingRecipe={recipe}
-			ingredientOptions={ingredients}
-			postEditedRecipe={postEditedRecipe}
-		/>
+		!isLoadingRecipe && (
+			<View
+				existingRecipe={recipe}
+				ingredientOptions={ingredients}
+				postEditedRecipe={postEditedRecipe}
+			/>
+		)
 	);
 }
