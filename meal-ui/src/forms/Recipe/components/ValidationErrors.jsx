@@ -6,5 +6,15 @@ export default function ValidationErrors({ errors }) {
 		showErrors ? 'validation-error--active' : ''
 	}`;
 
-	return <div className={classes}>{errors && errors.map(e => <>{e}</>)}</div>;
+	return (
+		<div className={classes}>
+			{errors &&
+				errors.map(e => (
+					<>
+						{e}
+						<br />
+					</>
+				))}
+		</div>
+	);
 }

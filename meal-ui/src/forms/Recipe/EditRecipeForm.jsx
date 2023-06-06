@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { TitleBar, StatusBadge } from 'components';
 import FormContainer from 'forms';
 import {
@@ -16,11 +15,10 @@ export default function EditRecipeForm({
 	ingredientOptions,
 	postEditedRecpie
 }) {
-	const [errorMessages, setErrorMessages] = useState(null);
-
 	const {
 		recipe,
 		formStatus,
+		errorMessages,
 		submitEditHandler: submitHandler,
 		handleCancel,
 		updateRecipeDataHandler
@@ -38,16 +36,6 @@ export default function EditRecipeForm({
 				image={demoImage}
 				label={recipe.title}
 			/>
-			<button
-				onClick={() =>
-					setErrorMessages(prev =>
-						!prev ? ['errorMessages', 'errorMessages'] : null
-					)
-				}
-				type='button'
-			>
-				toggle
-			</button>
 
 			<TitleBar>
 				<TextInput

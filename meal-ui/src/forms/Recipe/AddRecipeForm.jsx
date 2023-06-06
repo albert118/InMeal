@@ -8,7 +8,12 @@ import {
 } from 'forms/Inputs';
 import AppRoutes from 'navigation/AppRoutes';
 import { demoImage } from 'DemoImage';
-import { ViewRecipeButton, HeroImage, FormActions } from './components';
+import {
+	ViewRecipeButton,
+	HeroImage,
+	FormActions,
+	ValidationErrors
+} from './components';
 import useRecipeFormData from './useRecipeFormData';
 
 export default function AddRecipeForm({
@@ -19,6 +24,7 @@ export default function AddRecipeForm({
 	const {
 		recipe,
 		formStatus,
+		errorMessages,
 		submitHandler,
 		clearChanges,
 		updateRecipeDataHandler
@@ -48,6 +54,7 @@ export default function AddRecipeForm({
 					className='e-image-status-badge'
 					status={formStatus}
 				/>
+				<ValidationErrors errors={errorMessages} />
 			</TitleBar>
 
 			<div className='recipe--data scrollbar-vertical'>
