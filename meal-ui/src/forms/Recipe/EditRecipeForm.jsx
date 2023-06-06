@@ -5,7 +5,7 @@ import {
 	MultiSelectWithMultiLine,
 	TextInput
 } from 'forms/Inputs';
-import { HeroImage, FormActions } from './components';
+import { HeroImage, FormActions, ValidationErrors } from './components';
 import { demoImage } from 'DemoImage';
 
 import useRecipeFormData from './useRecipeFormData';
@@ -13,16 +13,17 @@ import useRecipeFormData from './useRecipeFormData';
 export default function EditRecipeForm({
 	existingRecipe,
 	ingredientOptions,
-	postEditedRecpie
+	postEditedRecipe
 }) {
 	const {
 		recipe,
 		formStatus,
+		errorMessages,
 		submitEditHandler: submitHandler,
 		handleCancel,
 		updateRecipeDataHandler
 	} = useRecipeFormData({
-		postEditedRecpie,
+		postEditedRecipe,
 		existingRecipe
 	});
 
@@ -47,6 +48,7 @@ export default function EditRecipeForm({
 					className='e-image-status-badge'
 					status={formStatus}
 				/>
+				<ValidationErrors errors={errorMessages} />
 			</TitleBar>
 
 			<div className='recipe--data scrollbar-vertical'>

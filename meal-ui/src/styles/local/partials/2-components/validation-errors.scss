@@ -1,0 +1,25 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../mixins/text-mixins' as *;
+
+.validation-errors {
+	@include form-validation-error();
+	border: 1px solid var(--mealui-colors-error);
+	background-color: var(--mealui-colors-error-background);
+	border-radius: 4px;
+	max-height: 0px;
+	opacity: 0;
+	transition: 0.3s ease-in;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	row-gap: $spacing-02;
+}
+
+.validation-error--active {
+	opacity: 1;
+	// min dynamic height to avoid jumping
+	// this height is font-size + padding + border
+	min-height: calc(1rem + $spacing-04 * 2 + 1px * 2);
+	// maximum dynamic height
+	max-height: 100px;
+}
