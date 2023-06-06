@@ -23,9 +23,11 @@
 .background-cover--active {
 	opacity: 1;
 	transition: 0.2s ease-in;
+	display: inherit;
 }
 
 .background-cover--inactive {
 	opacity: 0;
 	transition: 0.2s ease-in;
+	display: none;
 }
