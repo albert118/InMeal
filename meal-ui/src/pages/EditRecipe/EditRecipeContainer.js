@@ -17,7 +17,6 @@ export default function EditRecipeContainer() {
 	const { setIsLoading } = useContext(LayoutContext);
 
 	useEffect(() => {
-		console.log(recipe);
 		setIsLoading(isLoadingIngredientOptions || isLoadingRecipe);
 	}, [isLoadingIngredientOptions, isLoadingRecipe]);
 
