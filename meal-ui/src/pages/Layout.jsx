@@ -1,8 +1,9 @@
-import { useState, createContext, useContext } from 'react';
+import { useState, createContext } from 'react';
 import MinimalistSidebar from 'components/MinimalistSidebar';
 import ThemingGradient from 'assets/theming-gradient.svg';
 import { LoadingSpinner } from 'components';
 import { DefaultLayoutContext } from 'types/DefaultLayoutContext';
+import { useLayoutContext } from './useLayoutContext';
 
 export const LayoutContext = createContext(DefaultLayoutContext);
 
@@ -12,7 +13,7 @@ export default function Layout({ children }) {
 	const [isActive, setActive] = useState(false);
 	const [isInActive, setInActive] = useState(null);
 
-	const layoutContext = useContext(LayoutContext);
+	const { layoutContextValue, layoutState } = useLayoutContext();
 
 	const getClassNames = () => {
 		return `${isActive ? 'header-active' : ''} ${
@@ -21,7 +22,7 @@ export default function Layout({ children }) {
 	};
 
 	return (
-		<LayoutContext.Provider>
+		<LayoutContext.Provider value={layoutContextValue}>
 			<MinimalistSidebar
 				isActive={isActive}
 				setActive={setActive}
@@ -39,7 +40,8 @@ export default function Layout({ children }) {
 				src={ThemingGradient}
 			/>
 			<main className={getClassNames()}>
-				{layoutContext.isLoading ? <LoadingSpinner /> : children}
+				<LoadingSpinner show={layoutState.isLoading} />
+				{children}
 			</main>
 		</LayoutContext.Provider>
 	);

@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import defaultRequestOptions from './defaultRequestOptions';
 import { ApiConfig } from 'config';
+import errorHandler from './errorHandler';
 
 export default function useUpcomingRecipes(mapper) {
-	const [upcomingRecipes, setUpcomingRecipes] = useState([]);
 	const [isLoading, setLoading] = useState(false);
-	const [errors, setErrors] = useState(null);
+	const upcomingRecipesRef = useRef([]);
+	const errorsRef = useRef(null);
 
 	useEffect(() => {
 		fetchUpcomingRecipes();
@@ -21,14 +22,23 @@ export default function useUpcomingRecipes(mapper) {
 			method: 'POST'
 		});
 
+		const responseBody = await response.json();
+
 		if (response.ok) {
-			setUpcomingRecipes((await response.json()).map(mapper));
+			upcomingRecipesRef.current = responseBody.map(mapper);
+			errorsRef.current = null;
 		} else {
-			setErrors(response.errors);
+			const mappedErrors = errorHandler(responseBody);
+			errorsRef.current = mappedErrors;
 		}
 
-		setLoading(false);
+		// setLoading(false);
 	};
 
-	return { upcomingRecipes, fetchUpcomingRecipes, isLoading, errors };
+	return {
+		upcomingRecipes: upcomingRecipesRef.current,
+		fetchUpcomingRecipes,
+		isLoading,
+		errors: errorsRef.current
+	};
 }
