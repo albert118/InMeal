@@ -1,5 +1,7 @@
 import View from './View';
 import { useIngredients, useRecipe } from 'hooks/data';
+import { useContext, useEffect } from 'react';
+import { LayoutContext } from 'pages/Layout';
 
 export default function AddRecipeContainer() {
 	const { ingredients, isLoading: isLoadingIngredients } = useIngredients();
@@ -9,13 +11,17 @@ export default function AddRecipeContainer() {
 		isLoading: isLoadingRecipe
 	} = useRecipe(undefined);
 
-	return !(isLoadingIngredients && isLoadingRecipe) ? (
+	const { setIsLoading } = useContext(LayoutContext);
+
+	useEffect(() => {
+		setIsLoading(isLoadingIngredients || isLoadingRecipe);
+	}, [isLoadingIngredients, isLoadingRecipe]);
+
+	return (
 		<View
 			ingredientOptions={ingredients}
 			postEditedRecipe={postEditedRecipe}
 			postRecipe={postRecipe}
 		/>
-	) : (
-		'loading...'
 	);
 }

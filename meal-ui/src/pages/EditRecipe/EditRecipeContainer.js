@@ -1,6 +1,8 @@
 import View from './View';
 import { useParams } from 'react-router-dom';
 import { useRecipe, useIngredients } from 'hooks/data';
+import { useContext, useEffect } from 'react';
+import { LayoutContext } from 'pages/Layout';
 
 export default function EditRecipeContainer() {
 	const { recipeId } = useParams();
@@ -12,9 +14,13 @@ export default function EditRecipeContainer() {
 	const { ingredients, isLoading: isLoadingIngredientOptions } =
 		useIngredients();
 
-	return isLoadingIngredientOptions || isLoadingRecipe ? (
-		'loading...'
-	) : (
+	const { setIsLoading } = useContext(LayoutContext);
+
+	useEffect(() => {
+		setIsLoading(isLoadingIngredientOptions || isLoadingRecipe);
+	}, [isLoadingIngredientOptions, isLoadingRecipe]);
+
+	return (
 		<View
 			existingRecipe={recipe}
 			ingredientOptions={ingredients}
