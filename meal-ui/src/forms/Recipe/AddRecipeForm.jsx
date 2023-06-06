@@ -25,7 +25,7 @@ export default function AddRecipeForm({
 		recipe,
 		formStatus,
 		errorMessages,
-		submitHandler,
+		submitAdditionalHandler: submitHandler,
 		clearChanges,
 		updateRecipeDataHandler
 	} = useRecipeFormData({ postEditedRecipe, postRecipe });
