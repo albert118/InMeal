@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import defaultRequestOptions from './defaultRequestOptions';
 import { ApiConfig } from 'config';
+import errorHandler from './errorHandler';
 
 export default function useIngredients() {
 	const [ingredients, setIngredients] = useState([]);
@@ -8,6 +9,30 @@ export default function useIngredients() {
 	const [errors, setErrors] = useState(null);
 
 	useEffect(() => {
+		const getIngredients = async () => {
+			const url = `${ApiConfig.API_URL}/ingredients/all`;
+
+			setLoading(true);
+
+			const response = await fetch(url, {
+				...defaultRequestOptions,
+				method: 'GET'
+			});
+
+			const responseBody = await response.json();
+
+			if (response.ok) {
+				setIngredients(responseBody);
+				setErrors(null);
+			} else {
+				setIngredients([]);
+				const mappedErrors = errorHandler(responseBody);
+				setErrors(mappedErrors);
+			}
+
+			setLoading(false);
+		};
+
 		getIngredients();
 	}, []);
 
@@ -24,34 +49,19 @@ export default function useIngredients() {
 			})
 		});
 
-		setLoading(false);
+		const responseBody = await response.json();
+		let retVal = [];
 
 		if (response.ok) {
-			return await response.json();
+			retVal = await response.json();
+			setErrors(null);
 		} else {
-			setErrors(response.errors);
-			return [];
-		}
-	};
-
-	const getIngredients = async () => {
-		const url = `${ApiConfig.API_URL}/ingredients/all`;
-
-		setLoading(true);
-
-		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'GET'
-		});
-
-		if (response.ok) {
-			setIngredients(await response.json());
-		} else {
-			setErrors(response.errors);
-			setIngredients([]);
+			const mappedErrors = errorHandler(responseBody);
+			setErrors(mappedErrors);
 		}
 
 		setLoading(false);
+		return retVal;
 	};
 
 	return { isLoading, errors, putIngredients, ingredients };
