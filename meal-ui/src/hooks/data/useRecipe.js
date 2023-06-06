@@ -15,14 +15,15 @@ export default function useRecipe(recipeId) {
 
 			setLoading(true);
 
-			const response = await fetch(url, {
-				...defaultRequestOptions
-			});
+			const response = await fetch(url, { ...defaultRequestOptions });
+			const responseBody = await response.json();
 
 			if (response.ok) {
-				setRecipe(await response.json());
+				setRecipe(responseBody);
+				setErrors(null);
 			} else {
-				setErrors(await response.json());
+				const mappedErrors = errorHandler(responseBody);
+				setErrors(mappedErrors);
 			}
 
 			setLoading(false);
@@ -46,17 +47,19 @@ export default function useRecipe(recipeId) {
 			body: JSON.stringify(recipe)
 		});
 
-		setLoading(false);
 		const responseBody = await response.json();
 
 		if (response.ok) {
 			const persistedRecipeId = responseBody;
 			recipe.id = persistedRecipeId;
 			setRecipe(recipe);
+			setErrors(null);
 		} else {
 			const mappedErrors = errorHandler(responseBody);
 			setErrors(mappedErrors);
 		}
+
+		setLoading(false);
 
 		return errors;
 	};
@@ -72,15 +75,17 @@ export default function useRecipe(recipeId) {
 			body: JSON.stringify(recipe)
 		});
 
-		setLoading(false);
 		const responseBody = await response.json();
 
 		if (response.ok) {
 			setRecipe(recipe);
+			setErrors(null);
 		} else {
 			const mappedErrors = errorHandler(responseBody);
 			setErrors(mappedErrors);
 		}
+
+		setLoading(false);
 
 		return errors;
 	};
