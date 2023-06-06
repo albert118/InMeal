@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import defaultRequestOptions from './defaultRequestOptions';
+import errorHandler from './errorHandler';
 import { ApiConfig } from 'config';
 import { defaultRecipe } from 'types/DefaultRecipe';
 
@@ -21,7 +22,7 @@ export default function useRecipe(recipeId) {
 			if (response.ok) {
 				setRecipe(await response.json());
 			} else {
-				setErrors(response.errors);
+				setErrors(await response.json());
 			}
 
 			setLoading(false);
@@ -46,16 +47,18 @@ export default function useRecipe(recipeId) {
 		});
 
 		setLoading(false);
+		const responseBody = await response.json();
 
 		if (response.ok) {
-			const persistedRecipeId = await response.json();
+			const persistedRecipeId = responseBody;
 			recipe.id = persistedRecipeId;
 			setRecipe(recipe);
 		} else {
-			setErrors(response.errors);
+			const mappedErrors = errorHandler(responseBody);
+			setErrors(mappedErrors);
 		}
 
-		return response.errors;
+		return errors;
 	};
 
 	const postEditedRecipe = async recipe => {
@@ -70,14 +73,16 @@ export default function useRecipe(recipeId) {
 		});
 
 		setLoading(false);
+		const responseBody = await response.json();
 
 		if (response.ok) {
 			setRecipe(recipe);
 		} else {
-			setErrors(response.errors);
+			const mappedErrors = errorHandler(responseBody);
+			setErrors(mappedErrors);
 		}
 
-		return response.errors;
+		return errors;
 	};
 
 	return { postEditedRecipe, postRecipe, recipe, isLoading, errors };

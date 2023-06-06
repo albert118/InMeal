@@ -36,5 +36,5 @@
 
 @mixin form-validation-error {
 	@include form-input();
-	font-size: 1rem;
+	font-size: 0.8rem;
 }

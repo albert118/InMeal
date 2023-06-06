@@ -6,11 +6,13 @@
 	border: 1px solid var(--mealui-colors-error);
 	background-color: var(--mealui-colors-error-background);
 	border-radius: 4px;
-
 	max-height: 0px;
 	opacity: 0;
 	transition: 0.3s ease-in;
 	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	row-gap: $spacing-02;
 }
 
 .validation-error--active {

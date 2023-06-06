@@ -9,11 +9,8 @@ export default function ValidationErrors({ errors }) {
 	return (
 		<div className={classes}>
 			{errors &&
-				errors.map(e => (
-					<>
-						{e}
-						<br />
-					</>
+				errors.map((e, idx) => (
+					<label key={`validation-error--${idx}`}>{e}</label>
 				))}
 		</div>
 	);
