@@ -6,7 +6,6 @@ import { defaultRecipe } from 'types/DefaultRecipe';
 import { FormStatuses } from 'forms';
 
 import { useRecipeIngredients } from 'hooks/services';
-import { isFalsishOrEmpty } from 'utils';
 
 export default function useRecipeFormData({
 	postEditedRecpie,
@@ -47,29 +46,28 @@ export default function useRecipeFormData({
 		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 	};
 
+	const handleErrorResponse = errors => {
+		if (!errors) {
+			setFormStatus(FormStatuses.Saved);
+			setErrorMessages(null);
+		} else {
+			setFormStatus(FormStatuses.Error);
+			setErrorMessages(errors);
+		}
+
+		return !errors;
+	};
+
 	const submitAdditionalHandler = async event => {
 		event.preventDefault();
 
-		let response;
-
 		// update the recipe after adding for the first time
 		if (recipe.id) {
-			response = await postEditedRecpie(recipe);
-
-			if (response.ok) {
-				setFormStatus(FormStatuses.Saved);
-			} else {
-				setFormStatus(FormStatuses.Error);
-			}
+			const errors = await postEditedRecpie(recipe);
+			handleErrorResponse(errors);
 		} else {
-			response = await postRecipe(recipe);
-
-			if (!isFalsishOrEmpty(response)) {
-				setRecipe({ ...recipe, id: response });
-				setFormStatus(FormStatuses.Saved);
-			} else {
-				setFormStatus(FormStatuses.Error);
-			}
+			const errors = await postRecipe(recipe);
+			handleErrorResponse(errors);
 		}
 	};
 
@@ -78,13 +76,8 @@ export default function useRecipeFormData({
 
 		const errors = await postEditedRecpie(recipe);
 
-		if (!errors) {
-			setFormStatus(FormStatuses.Saved);
-			setErrorMessages(null);
+		if (handleErrorResponse(errors)) {
 			navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
-		} else {
-			setFormStatus(FormStatuses.Error);
-			setErrorMessages(errors);
 		}
 	};
 
