@@ -14,5 +14,10 @@ public class RecipeCategoryConfig
         builder.ToTable(nameof(RecipeCategory));
 
         builder.Property(e => e.Id).HasValueGenerator<NewIdGenerator>();
+
+        builder
+            .HasMany(e => e.Recipes)
+            .WithOne(e => e.Category)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }
