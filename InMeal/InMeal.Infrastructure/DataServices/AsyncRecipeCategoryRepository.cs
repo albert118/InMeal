@@ -25,6 +25,7 @@ public class AsyncRecipeCategoryRepository : IAsyncRecipeCategoryRepository
             .OrderBy(i => i.Category)
             .Skip(skip)
             .Take(take)
+            .Include(rc => rc.Recipe)
             .ToListAsync(ct);
     }
 
