@@ -6,7 +6,7 @@ public class RecipeCategory
 {
     public RecipeCategory()
     {
-        Category = Cuisine.Generic;
+        Category = Cuisine.Unknown;
         Recipes = new();
     }
 
