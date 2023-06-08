@@ -5,7 +5,7 @@ namespace InMeal.Core.Mappers;
 
 public static class RecipeCategoryMapper
 {
-    public static RecipeCategoryDto ToDto(RecipeCategory recipeCategory)
+    public static RecipeCategoryDto MapToDto(RecipeCategory recipeCategory)
     {
         return new(
             RecipeTitle: recipeCategory.Recipe.Title,
