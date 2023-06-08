@@ -15,7 +15,7 @@ public static class ModelBuilderExtensions
 
         new RecipeConfig().Configure(builder.Entity<Recipe>());
 
-        new RecipeCategoryConfig().Configure(builder.Entity<RecipeCategory>());
+        // new RecipeCategoryConfig().Configure(builder.Entity<RecipeCategory>());
 
         return builder;
     }
