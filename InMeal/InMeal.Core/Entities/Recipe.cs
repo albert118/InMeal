@@ -38,7 +38,7 @@ public class Recipe : IArchivable
 
     public MealType MealType { get; set; }
 
-    // public RecipeCategory Category { get; set; }
+    public RecipeCategory Category { get; set; }
 
     public RecipePhoto? RecipePhoto { get; set; }
 

@@ -13,11 +13,18 @@ public class RecipeCategoryConfig
     {
         builder.ToTable(nameof(RecipeCategory));
 
+        builder.HasKey(e => e.Id);
+
         builder.Property(e => e.Id).HasValueGenerator<NewIdGenerator>();
 
+        builder.Property(e => e.Category).IsRequired();
+
         builder
-            .HasMany(e => e.Recipes)
+            .HasOne(e => e.Recipe)
             .WithOne(e => e.Category)
             .OnDelete(DeleteBehavior.Restrict);
+
+        // ie. a recipe may have one category
+        builder.HasIndex(e => new { e.RecipeId, e.Category }).IsUnique();
     }
 }

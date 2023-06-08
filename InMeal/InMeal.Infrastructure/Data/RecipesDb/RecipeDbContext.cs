@@ -12,7 +12,7 @@ public class RecipeDbContext : AsyncDbContext, IRecipeDbContext
 
     public RecipeDbContext(DbContextOptions opts) : base(opts) { }
 
-    // public DbSet<RecipeCategory> RecipeCategories => Set<RecipeCategory>();
+    public DbSet<RecipeCategory> RecipeCategories => Set<RecipeCategory>();
 
     public DbSet<Ingredient> Ingredients => Set<Ingredient>();
 

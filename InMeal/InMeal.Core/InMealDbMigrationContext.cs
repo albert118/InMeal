@@ -17,7 +17,7 @@ public class InMealDbMigrationContext : DbContext
 
     public DbSet<Recipe> Recipes => Set<Recipe>();
 
-    // public DbSet<RecipeCategory> RecipeCategories => Set<RecipeCategory>();
+    public DbSet<RecipeCategory> RecipeCategories => Set<RecipeCategory>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
