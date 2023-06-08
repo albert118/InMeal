@@ -1,4 +1,5 @@
 ﻿using InMeal.Core.Entities;
+using InMeal.Core.Enumerations;
 using InMeal.Core.Globalisation.Generators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -14,6 +15,9 @@ public class RecipeConfig
         builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id).HasValueGenerator<NewIdGenerator>();
+
+        builder.Property(e => e.MealType).HasDefaultValue(MealType.Unknown);
+        builder.Property(e => e.CourseType).HasDefaultValue(MealCourse.Unknown);
 
         builder
             .HasOne(e => e.RecipePhoto)
