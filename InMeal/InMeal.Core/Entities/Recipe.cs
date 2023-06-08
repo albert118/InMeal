@@ -18,7 +18,8 @@ public class Recipe : IArchivable
 
         RecipeIngredients = new();
 
-        Course = MealCourse.Unknown;
+        CourseType = MealCourse.Unknown;
+        MealType = MealType.Unknown;
     }
 
     public Guid Id { get; set; }
@@ -33,7 +34,9 @@ public class Recipe : IArchivable
 
     public string? Blurb { get; set; }
 
-    public MealCourse Course { get; set; }
+    public MealCourse CourseType { get; set; }
+
+    public MealType MealType { get; set; }
 
     public RecipeCategory Category { get; set; }
 
