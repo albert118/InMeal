@@ -1,9 +1,10 @@
-﻿using InMeal.Core.Globalisation.Generators;
+﻿using InMeal.Core.Entities;
+using InMeal.Core.Globalisation.Generators;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
 
-namespace InMeal.Core.Entities;
+namespace InMeal.Core.ModelConfiguration;
 
 public class RecipeIngredientConfig
 {

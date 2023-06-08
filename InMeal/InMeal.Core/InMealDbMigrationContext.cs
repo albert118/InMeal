@@ -1,4 +1,5 @@
 ﻿using InMeal.Core.Entities;
+using InMeal.Core.ModelConfiguration;
 using Microsoft.EntityFrameworkCore;
 
 namespace InMeal.Core;
