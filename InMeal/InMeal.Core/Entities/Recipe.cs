@@ -17,6 +17,8 @@ public class Recipe : IArchivable
         PreparationSteps = preparationSteps ?? string.Empty;
 
         RecipeIngredients = new();
+
+        Course = MealCourse.Unknown;
     }
 
     public Guid Id { get; set; }

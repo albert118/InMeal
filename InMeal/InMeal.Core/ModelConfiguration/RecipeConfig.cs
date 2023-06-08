@@ -27,5 +27,10 @@ public class RecipeConfig
             .HasMany(e => e.RecipeIngredients)
             .WithOne(e => e.Recipe)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasOne(e => e.Category)
+            .WithMany(e => e.Recipes)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
