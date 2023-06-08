@@ -4,7 +4,16 @@ namespace InMeal.Core.Entities;
 
 public class RecipeCategory
 {
-    public Guid RecipeId { get; set; }
+    public RecipeCategory()
+    {
+        Category = Cuisine.Unknown;
+    }
 
-    public Cuisine Category { get; set; } = Cuisine.Generic;
+    public Guid Id { get; set; }
+
+    public Cuisine Category { get; set; }
+
+    public Recipe Recipe { get; set; }
+
+    public Guid RecipeId { get; set; }
 }

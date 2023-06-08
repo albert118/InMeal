@@ -1,4 +1,6 @@
-﻿namespace InMeal.Core.Entities;
+﻿using InMeal.Core.Enumerations;
+
+namespace InMeal.Core.Entities;
 
 public class Recipe : IArchivable
 {
@@ -15,6 +17,9 @@ public class Recipe : IArchivable
         PreparationSteps = preparationSteps ?? string.Empty;
 
         RecipeIngredients = new();
+
+        CourseType = MealCourse.Unknown;
+        MealType = MealType.Unknown;
     }
 
     public Guid Id { get; set; }
@@ -29,6 +34,12 @@ public class Recipe : IArchivable
 
     public string? Blurb { get; set; }
 
+    public MealCourse CourseType { get; set; }
+
+    public MealType MealType { get; set; }
+
+    public RecipeCategory Category { get; set; }
+
     public RecipePhoto? RecipePhoto { get; set; }
 
     public List<RecipeIngredient> RecipeIngredients { get; set; }
@@ -38,5 +49,9 @@ public class Recipe : IArchivable
     /// </summary>
     public string PreparationSteps { get; set; }
 
+    #region IArchivable
+
     public bool isArchived { get; set; }
+
+    #endregion
 }

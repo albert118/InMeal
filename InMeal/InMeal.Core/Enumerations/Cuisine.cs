@@ -4,7 +4,7 @@
 // https://en.wikipedia.org/wiki/List_of_cuisines
 public enum Cuisine
 {
-    Generic = 0, // rather than "null"
+    Unknown = 0, // rather than "null"
     Global,
     African,
     American,

@@ -1,4 +1,6 @@
 ﻿using InMeal.Core.Entities;
+using InMeal.Core.Globalisation.Converters;
+using InMeal.Core.ModelConfiguration;
 using Microsoft.EntityFrameworkCore;
 
 namespace InMeal.Core;
@@ -15,14 +17,15 @@ public class InMealDbMigrationContext : DbContext
 
     public DbSet<Recipe> Recipes => Set<Recipe>();
 
+    public DbSet<RecipeCategory> RecipeCategories => Set<RecipeCategory>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        new IngredientConfig().Configure(builder.Entity<Ingredient>());
+        builder.ConfigureRecipeDbModels();
+    }
 
-        new RecipeIngredientConfig().Configure(builder.Entity<RecipeIngredient>());
-
-        new RecipePhotoConfig().Configure(builder.Entity<RecipePhoto>());
-
-        new RecipeConfig().Configure(builder.Entity<Recipe>());
+    protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+    {
+        builder.AddEnumConversions();
     }
 }

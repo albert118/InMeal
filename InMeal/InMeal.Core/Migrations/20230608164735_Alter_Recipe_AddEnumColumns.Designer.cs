@@ -3,6 +3,7 @@ using System;
 using InMeal.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InMeal.Core.Migrations
 {
     [DbContext(typeof(InMealDbMigrationContext))]
-    partial class InMealDbMigrationContextModelSnapshot : ModelSnapshot
+    [Migration("20230608164735_Alter_Recipe_AddEnumColumns")]
+    partial class Alter_Recipe_AddEnumColumns
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,30 +82,6 @@ namespace InMeal.Core.Migrations
                     b.ToTable("Recipe", (string)null);
                 });
 
-            modelBuilder.Entity("InMeal.Core.Entities.RecipeCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<Guid>("RecipeId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecipeId")
-                        .IsUnique();
-
-                    b.HasIndex("RecipeId", "Category")
-                        .IsUnique();
-
-                    b.ToTable("RecipeCategory", (string)null);
-                });
-
             modelBuilder.Entity("InMeal.Core.Entities.RecipeIngredient", b =>
                 {
                     b.Property<Guid>("Id")
@@ -154,17 +132,6 @@ namespace InMeal.Core.Migrations
                     b.ToTable("RecipePhoto", (string)null);
                 });
 
-            modelBuilder.Entity("InMeal.Core.Entities.RecipeCategory", b =>
-                {
-                    b.HasOne("InMeal.Core.Entities.Recipe", "Recipe")
-                        .WithOne("Category")
-                        .HasForeignKey("InMeal.Core.Entities.RecipeCategory", "RecipeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
-                });
-
             modelBuilder.Entity("InMeal.Core.Entities.RecipeIngredient", b =>
                 {
                     b.HasOne("InMeal.Core.Entities.Ingredient", "Ingredient")
@@ -196,9 +163,6 @@ namespace InMeal.Core.Migrations
 
             modelBuilder.Entity("InMeal.Core.Entities.Recipe", b =>
                 {
-                    b.Navigation("Category")
-                        .IsRequired();
-
                     b.Navigation("RecipeIngredients");
 
                     b.Navigation("RecipePhoto");
