@@ -1,6 +1,6 @@
 ﻿using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
-using InMeal.Infrastructure.Data.RecipesDb;
+using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -11,9 +11,9 @@ namespace InMeal.Infrastructure.DataServices;
 public class AsyncRecipeCategoryRepository : IAsyncRecipeCategoryRepository
 {
     private readonly ILogger<AsyncRecipeCategoryRepository> _logger;
-    private readonly RecipeDbContext _recipeDbContext;
+    private readonly IRecipeDbContext _recipeDbContext;
 
-    public AsyncRecipeCategoryRepository(RecipeDbContext recipeDbContext, ILogger<AsyncRecipeCategoryRepository> logger)
+    public AsyncRecipeCategoryRepository(IRecipeDbContext recipeDbContext, ILogger<AsyncRecipeCategoryRepository> logger)
     {
         _recipeDbContext = recipeDbContext;
         _logger = logger;
