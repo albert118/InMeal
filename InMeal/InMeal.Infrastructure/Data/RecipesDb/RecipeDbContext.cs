@@ -1,4 +1,5 @@
 ﻿using InMeal.Core.Entities;
+using InMeal.Core.Globalisation.Converters;
 using InMeal.Infrastructure.Interfaces.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,5 +28,10 @@ public class RecipeDbContext : AsyncDbContext, IRecipeDbContext
         new RecipePhotoConfig().Configure(builder.Entity<RecipePhoto>());
 
         new RecipeConfig().Configure(builder.Entity<Recipe>());
+    }
+
+    protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+    {
+        builder.AddEnumConversions();
     }
 }
