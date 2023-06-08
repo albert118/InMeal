@@ -39,10 +39,32 @@ public class AsyncRecipeCategoryRepository : IAsyncRecipeCategoryRepository
             await _recipeDbContext.RecipeCategories.AddAsync(newRecipeCategory, ct);
             await _recipeDbContext.SaveChangesAsync(ct);
         } catch (Exception ex) {
-            _logger.LogError(ex, "an error occured while saving a recipe");
+            _logger.LogError(ex, "an error occured while saving a {RecipeCategory}", nameof(RecipeCategory));
             return null;
         }
 
         return newRecipeCategory.Id;
+    }
+
+    public async Task<bool> DeleteRecipeCategoriesByRecipeIdAsync(List<Guid> recipeIds, CancellationToken ct)
+    {
+        EmptyGuidGuard.Apply(recipeIds);
+
+        var recipeCategoryIds = await _recipeDbContext.RecipeCategories
+            .Where(rc => recipeIds.Contains(rc.RecipeId))
+            .Select(rc => rc.Id)
+            .ToListAsync(ct);
+
+        try {
+            _recipeDbContext.RecipeCategories.RemoveRange(
+                recipeCategoryIds.Select(id => new RecipeCategory() {Id = id})
+            );
+            await _recipeDbContext.SaveChangesAsync(ct);
+        } catch (Exception ex) {
+            _logger.LogError(ex, "an error occured removing {RecipeCategory}", nameof(RecipeCategory));
+            return false;
+        }
+
+        return true;
     }
 }

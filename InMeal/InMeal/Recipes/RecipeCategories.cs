@@ -8,7 +8,7 @@ namespace InMeal.Recipes;
 
 [ApiController]
 [Route("api/[controller]")]
-public class RecipeCategories
+public class RecipeCategories : ControllerBase
 {
     private readonly IAsyncRecipeCategoryRepository _recipeCategoryRepository;
     private readonly ICancellationTokenAccessor _tokenAccessor;
@@ -21,20 +21,20 @@ public class RecipeCategories
 
     [HttpGet("[action]", Name = "View all recipe categories")]
     [ActionName("all")]
-    public List<RecipeCategoryDto> Get(int? skip, int? take)
+    public ActionResult<List<RecipeCategoryDto>> Get(int? skip, int? take)
     {
         var ct = _tokenAccessor.Token;
         var task = _recipeCategoryRepository.GetRecipeCategoriesAsync(skip ?? 0, take ?? 25, ct);
         task.Wait(ct);
 
         return task.Result.Count == 0
-            ? new()
-            : task.Result.Select(RecipeCategoryMapper.MapToDto).ToList();
+            ? Ok(new())
+            : Ok(task.Result.Select(RecipeCategoryMapper.MapToDto).ToList());
     }
 
     [HttpPost("[action]", Name = "Add a new recipe category for a given recipe")]
     [ActionName("add")]
-    public Guid Get(AddRecipeCategoryDto dto)
+    public ActionResult<Guid> Get(AddRecipeCategoryDto dto)
     {
         var ct = _tokenAccessor.Token;
         var task = _recipeCategoryRepository.AddRecipeCategoryAsync(dto, ct);
@@ -45,6 +45,22 @@ public class RecipeCategories
             throw new BadHttpRequestException($"Couldn't add the {nameof(RecipeCategory)}");
         }
 
-        return task.Result.Value;
+        return Ok(task.Result.Value);
+    }
+
+    [HttpPost("[action]", Name = "Remove recipe categories for the given recipes")]
+    [ActionName("remove")]
+    public ActionResult Get(List<Guid> recipeIds)
+    {
+        var ct = _tokenAccessor.Token;
+        var task = _recipeCategoryRepository.DeleteRecipeCategoriesByRecipeIdAsync(recipeIds, ct);
+
+        task.Wait(ct);
+
+        if (!task.Result) {
+            throw new BadHttpRequestException($"Couldn't add the {nameof(RecipeCategory)}");
+        }
+
+        return Ok();
     }
 }
