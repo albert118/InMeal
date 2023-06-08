@@ -34,7 +34,7 @@ public class RecipeCategories : ControllerBase
 
     [HttpPost("[action]", Name = "Add a new recipe category for a given recipe")]
     [ActionName("add")]
-    public ActionResult<Guid> Get(AddRecipeCategoryDto dto)
+    public IActionResult Get(AddRecipeCategoryDto dto)
     {
         var ct = _tokenAccessor.Token;
         var task = _recipeCategoryRepository.AddRecipeCategoryAsync(dto, ct);
@@ -45,12 +45,12 @@ public class RecipeCategories : ControllerBase
             throw new BadHttpRequestException($"Couldn't add the {nameof(RecipeCategory)}");
         }
 
-        return Ok(task.Result.Value);
+        return Ok();
     }
 
-    [HttpPost("[action]", Name = "Remove recipe categories for the given recipes")]
+    [HttpDelete("[action]", Name = "Remove recipe categories for the given recipes")]
     [ActionName("remove")]
-    public ActionResult Get(List<Guid> recipeIds)
+    public IActionResult Delete(List<Guid> recipeIds)
     {
         var ct = _tokenAccessor.Token;
         var task = _recipeCategoryRepository.DeleteRecipeCategoriesByRecipeIdAsync(recipeIds, ct);
