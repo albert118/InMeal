@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import Layout from 'pages/Layout';
 
 import AppRoutes from 'navigation/AppRoutes';
-import { Home, AddRecipe, EditRecipe, Recipes, ViewRecipe } from 'pages';
+import { Home, AddRecipe, EditRecipe, Recipes, ViewRecipe, Settings } from 'pages';
 
 /// Route naming convention is
 ////    specific entity actions `/entitiy/action/id`
@@ -52,6 +52,15 @@ const RouterConfig = () => {
 				element={
 					<Layout>
 						<AddRecipe />
+					</Layout>
+				}
+			/>
+
+			<Route
+				path={`${AppRoutes.settings}`}
+				element={
+					<Layout>
+						<Settings />
 					</Layout>
 				}
 			/>
