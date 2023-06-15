@@ -1,14 +1,11 @@
-import { IngredientBadge } from './components';
+import { IngredientsIndexRow } from './components';
+import { objectMap } from 'utils';
 
-export default function View({ ingredients }) {
+export default function View({ indexedIngredients }) {
     return (
         <div className="simple-container">
-            {ingredients.map(sample => {
-                return <IngredientBadge
-                    ingredientName={sample.name}
-                    recipeUsagesCount={sample.count}
-                    onClick={() => console.log('click!')}
-                />
+            {objectMap(indexedIngredients, (idx, ingredients) => {
+                return <IngredientsIndexRow key={idx} label={idx} ingredients={ingredients}/>
             })}
         </div>
     );
