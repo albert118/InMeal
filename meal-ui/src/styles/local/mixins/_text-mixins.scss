@@ -49,7 +49,7 @@
 	font-size: 0.8rem;
 }
 
-@mixin error-text {
+@mixin warning-text {
 	@include text();
 	color: var(--warning);
 }

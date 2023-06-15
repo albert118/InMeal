@@ -1,3 +1,4 @@
+import { IngredientBadge } from './components';
 
 export default function View() {
     const sampleIngredients = [
@@ -17,18 +18,6 @@ export default function View() {
                     onClick={() => console.log('click!')}
                 />
             })}
-        </div>       
-    );
-}
-
-function IngredientBadge({ ingredientName, recipeUsagesCount, onClick }) {
-    const isUsed = recipeUsagesCount && recipeUsagesCount > 0;
-    const labelText = isUsed ? `${recipeUsagesCount} recipes` : 'unused ingredient';
-
-    return (
-        <div className="badge" onClick={onClick}>
-            <a>{ingredientName}</a>
-            <label className={ isUsed ? '': 'unused'}>{labelText}</label>
         </div>
     );
 }
