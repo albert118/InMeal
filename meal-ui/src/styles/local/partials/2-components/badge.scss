@@ -1,15 +1,6 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../mixins/text-mixins' as *;
 
-.simple-container {
-    display: flex;
-    flex-direction: column;
-    row-gap: $spacing-04;
-    align-items: center;
-    padding-top: $spacing-06;
-    padding-left: $spacing-06;
-}
-
 .badge {
     display: flex;
     flex-direction: column;
