@@ -16,6 +16,16 @@
 	opacity: 0.6;
 }
 
+@mixin subscript-label {
+	@include text();
+	opacity: 0.8;
+}
+
+@mixin thick-text {
+	@include text();
+	font-weight: 800;
+}
+
 @mixin action-text {
 	@include text();
 	margin-top: $spacing-04;
@@ -37,4 +47,9 @@
 @mixin form-validation-error {
 	@include form-input();
 	font-size: 0.8rem;
+}
+
+@mixin error-text {
+	@include text();
+	color: var(--warning);
 }
