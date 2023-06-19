@@ -5,16 +5,16 @@ import View from './View';
 export default function IngredientsIndexContainer() {
     const { setIsLoading } = useContext(LayoutContext);
 
-    const sampleIngredients = {
-        '#': [{ id: 1, name: '12 things', count: 0 }, { id: 2, name: '@#$ typo', count: 0 }],
-        'A': [{ id: 3, name: 'anchovies', count: 1 }, { id: 4, name: 'avocado', count: 2 }, { id: 5, name: 'asparagus', count: 4 }],
-        'B': [{ id: 6, name: 'butter', count: 7 }, { id: 7, name: 'berries', count: 17 }, { id: 8, name: 'baking soda', count: 2 }],
-        'C': [{ id: 9, name: 'coconut', count: 1 }, { id: 10, name: 'chocolate', count: 3 }, { id: 11, name: 'celery', count: 1 }]
+    const indexedIngredients = {
+        '#': [{ Id: 1, Name: '12 things', RecipeUsageCount: 0 }, { Id: 2, Name: '@#$ typo', RecipeUsageCount: 0 }],
+        'A': [{ Id: 3, Name: 'anchovies', RecipeUsageCount: 1 }, { Id: 4, Name: 'avocado', RecipeUsageCount: 2 }, { Id: 5, Name: 'asparagus', RecipeUsageCount: 4 }],
+        'B': [{ Id: 6, Name: 'butter', RecipeUsageCount: 7 }, { Id: 7, Name: 'berries', RecipeUsageCount: 17 }, { Id: 8, Name: 'baking soda', RecipeUsageCount: 2 }],
+        'C': [{ Id: 9, Name: 'coconut', RecipeUsageCount: 1 }, { Id: 10, Name: 'chocolate', RecipeUsageCount: 3 }, { Id: 11, Name: 'celery', RecipeUsageCount: 1 }]
     };
 
     useEffect(() => {
 		setIsLoading(false);
 	}, []);
 
-    return <View indexedIngredients={sampleIngredients} />
+    return <View indexedIngredients={indexedIngredients} />
 }

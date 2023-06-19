@@ -1,4 +1,6 @@
-﻿using InMeal.Core.Entities;
+﻿using System.Text.RegularExpressions;
+using InMeal.Core.Entities;
+using InMeal.Core.Extensions;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +40,21 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         returnValue.AddRange(newIngredientIds);
 
         return returnValue;
+    }
+
+    public async Task<Dictionary<string, List<Ingredient>>> GetAlphabeticallyIndexedIngredientsAsync(CancellationToken ct)
+    {
+        var orderedIngredients = await _recipeDbContext.Ingredients
+            .OrderBy(i => i.Name)
+            .ToListAsync(ct);
+
+        if (!orderedIngredients.Any()) {
+            return new Dictionary<string, List<Ingredient>>();
+        }
+
+        return orderedIngredients
+            .GroupAlphabetically()
+            .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
     }
 
     private async Task<List<Ingredient>> GetIngredientsByNameAsync(List<string> names, CancellationToken ct)

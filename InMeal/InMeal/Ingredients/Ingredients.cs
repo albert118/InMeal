@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace InMeal.Ingredients;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/[controller]/[action]")]
 public class IngredientsController : ControllerBase
 {
     private readonly IAsyncIngredientRepository _ingredientRepository;
@@ -18,7 +18,7 @@ public class IngredientsController : ControllerBase
         _tokenAccessor = tokenAccessor;
     }
 
-    [HttpGet("[action]", Name = "View all ingredients (paginated)")]
+    [HttpGet(Name = "View all ingredients (paginated)")]
     [ActionName("all")]
     public List<IngredientDto> Get(int? skip, int? take)
     {
@@ -30,6 +30,20 @@ public class IngredientsController : ControllerBase
         return task.Result.Count == 0
             ? new()
             : task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
+    }
+    
+    [HttpGet(Name = "View all alphabetically indexed ingredients")]
+    [ActionName("indexed")]
+    public Dictionary<string, List<AlphabeticallyIndexedIngredientDto>> Get()
+    {
+        var ct = _tokenAccessor.Token;
+
+        var task = _ingredientRepository.GetAlphabeticallyIndexedIngredientsAsync(ct);
+        task.Wait(ct);
+
+        return task.Result.Count == 0
+            ? new()
+            : task.Result.MapToAlphabeticallyIndexedIngredientsDto();
     }
 
     [HttpPost(Name = "Post new ingredients (potentially existing)")]
