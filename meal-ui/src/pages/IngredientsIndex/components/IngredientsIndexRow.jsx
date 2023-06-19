@@ -8,10 +8,10 @@ export default function IngredientsIndexRow({ label, ingredients, onClick }) {
                 ingredients.map(ingredient => {
                     return ( 
                         <IngredientBadge
-                            key={ingredient.Id}
-                            ingredientName={ingredient.Name}
-                            recipeUsagesCount={ingredient.RecipeUsageCount}
-                            onClick={() => onClick(ingredient.Id)}
+                            key={ingredient.id}
+                            ingredientName={ingredient.name}
+                            recipeUsagesCount={ingredient.recipeUsageCount}
+                            onClick={() => onClick(ingredient.id)}
                         />
                     )
                 })
