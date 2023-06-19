@@ -13,7 +13,7 @@
     background-color: var(--background);
 
     a {
-        @include text();
+        @include thick-text();
         font-size: 12px;
     }
 
@@ -35,9 +35,5 @@
     &:hover {
         background-color: var(--primary-action);
         transition: 0.2s ease-in background-color;
-
-        label, a { 
-            @include thick-text();
-        }
     }
 }

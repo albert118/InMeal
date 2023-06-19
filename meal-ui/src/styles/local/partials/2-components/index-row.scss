@@ -2,23 +2,31 @@
 @use '../../mixins/text-mixins' as *;
 
 .index-row {
-    display: flex;
-    margin-top: $spacing-08;
-    margin-bottom: $spacing-08;
+    margin-top: $spacing-09;
+    margin-bottom: calc($spacing-09 + $spacing-08);
+    width: 80%;
 
-    & > label {
-        @include text-header();
+    .index-row--divider {
+        border-top: 1px solid var(--background-neutral);
     }
-}
 
-.index-row--items {
-    display: flex;
-    flex: 1;
-    gap: $spacing-06;
-}
+    .index-row--index-block {
+        display: flex;
+        row-gap: $spacing-04;
 
-.index-row--items,
-.index-row--items > * {
-    margin-right: $spacing-03;
-    margin-left: $spacing-03;
+        & > label {
+            padding-left: $spacing-04;
+            flex: 0.33;
+            @include text-header();
+        }
+
+        .index-row--items {
+            display: flex;
+            flex: 0.66;
+        }
+        
+        .index-row--items > * {
+            margin: $spacing-04;
+        }
+    }
 }

@@ -7,7 +7,12 @@ import { objectMap } from 'utils';
 // TODO: load real data (extend API to return the keyed dictionary)
 export default function View({ indexedIngredients }) {
     return (
-        <div className="simple-container">
+        <div className="p-ingredients">
+            <h2>
+                Ingredients
+                <label>Manage your pantry's ingredients</label>
+            </h2>
+            
             {objectMap(indexedIngredients, (idx, ingredients) => {
                 return <IngredientsIndexRow key={idx} label={idx} ingredients={ingredients}/>
             })}

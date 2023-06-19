@@ -1,0 +1,17 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../../mixins/text-mixins' as *;
+
+.p-ingredients {
+    margin-top: $spacing-08;
+    margin-left: $spacing-08;
+
+    h2 {
+        @include page-heading();
+        display: flex;
+        flex-direction: column;
+
+        label {
+            @include label();
+        }
+    }
+}
