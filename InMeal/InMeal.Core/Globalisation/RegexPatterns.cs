@@ -6,7 +6,7 @@ public static class RegexPatterns
 {
     public static bool IsAlphaChar(string value)
     {
-        const string isAlphaChar = @"[a-z][A-Z]";
+        const string isAlphaChar = @"[a-zA-Z]";
         return Regex.IsMatch(value, isAlphaChar);
     }
 }
