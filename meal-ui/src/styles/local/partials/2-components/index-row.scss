@@ -15,9 +15,10 @@
         row-gap: $spacing-04;
 
         & > label {
+            @include text-header();
+            text-transform: uppercase;
             padding-left: $spacing-04;
             flex: 0.33;
-            @include text-header();
         }
 
         .index-row--items {

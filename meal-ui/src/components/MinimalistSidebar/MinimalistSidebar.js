@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import { faCalendar, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faSeedling, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { AnimatedHamburger } from './AnimatedHamburger';
 import { NavLinkItem } from './NavLinkItem';
@@ -37,10 +37,10 @@ export default function MinimalistSidebar({
 			<div className='nav-links'>
 				<NavLinkItem
 					isActive={isActive}
-					icon={faCalendar}
-					onClick={() => navigate(AppRoutes.planning)}
+					icon={faSeedling}
+					onClick={() => navigate(AppRoutes.ingredients)}
 				>
-					Meal Planning
+					View Ingredients
 				</NavLinkItem>
 				<NavLinkItem
 					isActive={isActive}
