@@ -10,9 +10,30 @@
 	@include text();
 }
 
-.cds--modal-header h3 {
-	@include text-header();
-	margin-top: 0;
+.cds--modal-header {
+	& .cds--modal-close {
+		border-radius: 4px;
+
+		svg {
+			fill: var(--text);
+		}
+	}
+
+	& .cds--modal-close:hover,
+	& .cds--modal-close:active {
+		background-color: var(--foreground);
+		transition: 0.3s ease-in background-color;
+
+		svg {
+			fill: var(--backgroud);
+			transition: 0.3s 0.1s ease-in fill;
+		}
+	}
+
+	& h3 {
+		@include text-header();
+		margin-top: 0;
+	}
 }
 
 .cds--modal-footer.cds--btn-set {
