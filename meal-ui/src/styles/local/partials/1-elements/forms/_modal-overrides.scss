@@ -34,6 +34,10 @@
 		@include text-header();
 		margin-top: 0;
 	}
+
+	& h2 {
+		@include label();
+	}
 }
 
 .cds--modal-footer.cds--btn-set {
