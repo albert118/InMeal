@@ -1,1 +1,1 @@
-export { default } from './EditModal';
+export { default } from './EditModalWrapper';
