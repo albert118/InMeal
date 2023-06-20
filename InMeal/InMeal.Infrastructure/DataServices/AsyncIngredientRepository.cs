@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using InMeal.Core.Entities;
+﻿using InMeal.Core.Entities;
 using InMeal.Core.Extensions;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
@@ -15,6 +14,13 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
     public AsyncIngredientRepository(IRecipeDbContext recipeDbContext)
     {
         _recipeDbContext = recipeDbContext;
+    }
+
+    public async Task UpdateIngredientName(Guid id, string newName, CancellationToken ct)
+    {
+        var existingIngredient = await _recipeDbContext.Ingredients.SingleAsync(i => i.Id == id, ct);
+        existingIngredient.Name = newName;
+        await _recipeDbContext.SaveChangesAsync(ct);
     }
 
     public Task<List<Ingredient>> GetIngredientsAsync(int skip, int take, CancellationToken ct)

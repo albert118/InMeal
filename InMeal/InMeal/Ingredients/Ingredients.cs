@@ -31,6 +31,20 @@ public class IngredientsController : ControllerBase
             ? new()
             : task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
+
+    public record EditIngredientNameDto(Guid IngredientId, string NewName);
+    
+    [HttpPatch(Name = "Edit an ingredient name")]
+    [ActionName("update")]
+    public IActionResult Get(EditIngredientNameDto dto)
+    {
+        var ct = _tokenAccessor.Token;
+    
+        var task = _ingredientRepository.UpdateIngredientName(dto.IngredientId, dto.NewName, ct);
+        task.Wait(ct);
+    
+        return Ok();
+    }
     
     [HttpGet(Name = "View all alphabetically indexed ingredients")]
     [ActionName("indexed")]
