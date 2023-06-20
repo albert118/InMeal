@@ -2,16 +2,16 @@
 @use '../../../mixins/text-mixins' as *;
 
 .p-ingredients {
-    margin-top: $spacing-08;
-    margin-left: $spacing-08;
+	margin-top: $spacing-08;
+	margin-left: $spacing-08;
 
-    h2 {
-        @include page-heading();
-        display: flex;
-        flex-direction: column;
+	& > h2 {
+		@include page-heading();
+		display: flex;
+		flex-direction: column;
 
-        label {
-            @include label();
-        }
-    }
+		label {
+			@include label();
+		}
+	}
 }
