@@ -1,6 +1,6 @@
 import { ModalWrapper } from 'carbon-components-react';
 
-export default function EditModal({ callToActionText, headingText, labelText }) {
+export default function EditModal({ callToActionText, headingText, labelText, children }) {
 	return (
 		<ModalWrapper
 			buttonTriggerText={callToActionText}
