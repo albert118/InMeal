@@ -8,11 +8,11 @@ export default function useAlphabeticallyIndexedIngredients() {
 	const [isLoading, setLoading] = useState(true);
 	const [errors, setErrors] = useState(null);
 
+	const [shouldRefresh, toggleRefresh] = useState(false);
+
 	useEffect(() => {
 		const getIndexedIngredients = async () => {
 			const url = `${ApiConfig.API_URL}/ingredients/indexed`;
-
-			setLoading(true);
 
 			const response = await fetch(url, {
 				...defaultRequestOptions,
@@ -34,7 +34,11 @@ export default function useAlphabeticallyIndexedIngredients() {
 		};
 
 		getIndexedIngredients();
-	}, []);
+	}, [shouldRefresh]);
 
-	return { isLoading, errors, indexedIngredients };
+	const refreshData = () => {
+		toggleRefresh(!shouldRefresh);
+	};
+
+	return { isLoading, errors, indexedIngredients, refreshData };
 }
