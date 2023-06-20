@@ -1,21 +1,36 @@
 import IngredientBadge from './IngredientsBadge';
-import { IndexRow } from 'components';
+import EditIngredientNameForm from './EditIngredientNameForm';
+import { IndexRow, EditModalWrapper } from 'components';
 
-export default function IngredientsIndexRow({ label, ingredients, onClick }) {
-    return (
-        <IndexRow label={label}>
-            {
-                ingredients.map(ingredient => {
-                    return ( 
-                        <IngredientBadge
-                            key={ingredient.id}
-                            ingredientName={ingredient.name}
-                            recipeUsagesCount={ingredient.recipeUsageCount}
-                            onClick={() => onClick(ingredient.id)}
-                        />
-                    )
-                })
-            }
-        </IndexRow>
-    );
+export default function IngredientsIndexRow({ label, ingredients }) {
+	return (
+		<IndexRow label={label}>
+			{ingredients.map(ingredient => {
+				return (
+					<IngredientsModalBadge
+						key={ingredient.id}
+						ingredient={ingredient}
+					/>
+				);
+			})}
+		</IndexRow>
+	);
+}
+
+function IngredientsModalBadge({ ingredient }) {
+	return (
+		<EditModalWrapper
+			editCallback={() => console.log('hi')}
+			headingText='Update ingredient name'
+			labelText='edit ingredient'
+			buttonComponent={
+				<IngredientBadge
+					ingredientName={ingredient.name}
+					recipeUsagesCount={ingredient.recipeUsageCount}
+				/>
+			}
+		>
+			<EditIngredientNameForm existingIngredient={ingredient} />
+		</EditModalWrapper>
+	);
 }
