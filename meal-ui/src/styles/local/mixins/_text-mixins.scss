@@ -7,7 +7,6 @@
 // labels 			 #3
 // subscript		 #2
 
-
 @mixin text {
 	letter-spacing: 3px;
 	color: var(--text);
@@ -17,14 +16,14 @@
 	@include text();
 	margin-top: $spacing-06;
 	margin-bottom: $spacing-06;
-	font-size: 2.4em;
+	font-size: 2.4rem;
 }
 
 @mixin text-header {
 	@include text();
 	margin-top: $spacing-05;
 	margin-bottom: $spacing-05;
-	font-size: 2.2em;
+	font-size: 2.2rem;
 }
 
 @mixin thick-text {
@@ -64,7 +63,7 @@
 	@include text();
 	text-transform: lowercase;
 	opacity: 0.6;
-	font-size: 0.3em;
+	font-size: 0.8rem;
 }
 
 @mixin subscript-label {
@@ -73,4 +72,5 @@
 	margin-top: $spacing-02;
 	margin-bottom: $spacing-02;
 	opacity: 0.8;
+	font-size: 0.6rem;
 }
