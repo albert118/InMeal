@@ -4,13 +4,24 @@ import { useAlphabeticallyIndexedIngredients } from 'hooks/data';
 import View from './View';
 
 export default function IngredientsIndexContainer() {
-    const { indexedIngredients, isLoading: isLoadingIngredients } = useAlphabeticallyIndexedIngredients();
+	const {
+		indexedIngredients,
+		isLoading: isLoadingIngredients,
+		refreshData
+	} = useAlphabeticallyIndexedIngredients();
 
-    const { setIsLoading } = useContext(LayoutContext);
+	const { setIsLoading } = useContext(LayoutContext);
 
-    useEffect(() => {
+	useEffect(() => {
 		setIsLoading(isLoadingIngredients);
 	}, [isLoadingIngredients]);
 
-    return !isLoadingIngredients && <View indexedIngredients={indexedIngredients} />
+	return (
+		!isLoadingIngredients && (
+			<View
+				indexedIngredients={indexedIngredients}
+				refreshData={refreshData}
+			/>
+		)
+	);
 }
