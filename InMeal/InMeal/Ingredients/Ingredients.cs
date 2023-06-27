@@ -10,11 +10,13 @@ namespace InMeal.Ingredients;
 public class IngredientsController : ControllerBase
 {
     private readonly IAsyncIngredientRepository _ingredientRepository;
+    private readonly IAsyncRecipeIngredientRepository _recipeIngredientRepository;
     private readonly ICancellationTokenAccessor _tokenAccessor;
 
-    public IngredientsController(IAsyncIngredientRepository ingredientRepository, ICancellationTokenAccessor tokenAccessor)
+    public IngredientsController(IAsyncIngredientRepository ingredientRepository, IAsyncRecipeIngredientRepository recipeIngredientRepository, ICancellationTokenAccessor tokenAccessor)
     {
         _ingredientRepository = ingredientRepository;
+        _recipeIngredientRepository = recipeIngredientRepository;
         _tokenAccessor = tokenAccessor;
     }
 
@@ -51,13 +53,22 @@ public class IngredientsController : ControllerBase
     public Dictionary<string, List<AlphabeticallyIndexedIngredientDto>> Get()
     {
         var ct = _tokenAccessor.Token;
+        
+        // this query chaining and mapping should be in a biz service
+        var indexedResults = _ingredientRepository
+            .GetAlphabeticallyIndexedIngredientsAsync(ct)
+            .GetAwaiter()
+            .GetResult();
 
-        var task = _ingredientRepository.GetAlphabeticallyIndexedIngredientsAsync(ct);
-        task.Wait(ct);
+        var usageCountResults = _recipeIngredientRepository
+            .GetIngredientUsageCount(ct)
+            .GetAwaiter()
+            .GetResult();
 
-        return task.Result.Count == 0
+        // merge results with the mapper
+        return indexedResults.Count == 0
             ? new()
-            : task.Result.MapToAlphabeticallyIndexedIngredientsDto();
+            : indexedResults.MapToAlphabeticallyIndexedIngredientsDto(usageCountResults);
     }
 
     [HttpPost(Name = "Post new ingredients (potentially existing)")]
@@ -68,6 +79,7 @@ public class IngredientsController : ControllerBase
         // enforce lower case names for ingredients
         // this should be some biz service enforcing this
         var task = _ingredientRepository.AddOrGetExistingIngredientsAsync(dto.IngredientNames.Select(i => i.ToLowerInvariant()).ToList(), ct);
+        
         task.Wait(ct);
 
         return task.Result.Select(IngredientMapper.MapToIngredientDto).ToList();

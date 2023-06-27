@@ -13,22 +13,24 @@ public static class IngredientMapper
         );
     }
 
-    public static AlphabeticallyIndexedIngredientDto MapToAlphabeticallyIndexedIngredientDto(this Ingredient ingredient)
+    public static AlphabeticallyIndexedIngredientDto MapToAlphabeticallyIndexedIngredientDto(this Ingredient ingredient, Dictionary<Guid, int> recipeIngredientUsageCounts)
     {
+        recipeIngredientUsageCounts.TryGetValue(ingredient.Id, out var recipeUsageCount);
+
         return new(
             Id: ingredient.Id,
             Name: ingredient.Name,
-            // TODO
-            RecipeUsageCount: 0
+            RecipeUsageCount: recipeUsageCount
         );
     }
 
     public static Dictionary<string, List<AlphabeticallyIndexedIngredientDto>> MapToAlphabeticallyIndexedIngredientsDto(
-        this Dictionary<string, List<Ingredient>> values)
+        this Dictionary<string, List<Ingredient>> values, Dictionary<Guid, int> recipeIngredientUsageCounts)
     {
         return values.ToDictionary(
             kvp => kvp.Key,
-            kvp => kvp.Value.Select(MapToAlphabeticallyIndexedIngredientDto).ToList()
+            // key lookup could fail, I'm not asserting it here. But I want to refactor this all anyway so 'wing it' for now
+            kvp => kvp.Value.Select(v => MapToAlphabeticallyIndexedIngredientDto(v, recipeIngredientUsageCounts)).ToList()
         );
     }
 }
