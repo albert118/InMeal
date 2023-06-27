@@ -29,7 +29,6 @@ public static class IngredientMapper
     {
         return values.ToDictionary(
             kvp => kvp.Key,
-            // key lookup could fail, I'm not asserting it here. But I want to refactor this all anyway so 'wing it' for now
             kvp => kvp.Value.Select(v => MapToAlphabeticallyIndexedIngredientDto(v, recipeIngredientUsageCounts)).ToList()
         );
     }
