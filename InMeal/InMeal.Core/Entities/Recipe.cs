@@ -1,4 +1,5 @@
 ﻿using InMeal.Core.Enumerations;
+using InMeal.Core.Globalisation;
 
 namespace InMeal.Core.Entities;
 
@@ -54,4 +55,9 @@ public class Recipe : IArchivable
     public bool isArchived { get; set; }
 
     #endregion
+}
+
+public class RecipeId : Identity<Guid>
+{
+    public RecipeId(Guid id) : base(id) { }
 }

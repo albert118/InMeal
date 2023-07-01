@@ -1,10 +1,12 @@
-﻿namespace InMeal.Core.Entities;
+﻿using InMeal.Core.Globalisation;
+
+namespace InMeal.Core.Entities;
 
 public class RecipePhoto
 {
-    public Guid Id { get; set; }
+    public RecipePhotoId Id { get; set; }
 
-    public Guid RecipeId { get; set; }
+    public RecipeId RecipeId { get; set; }
 
     public Recipe Recipe { get; set; }
 
@@ -12,4 +14,9 @@ public class RecipePhoto
     public string FileName { get; set; }
 
     public byte[] Bytes { get; set; }
+}
+
+public class RecipePhotoId : Identity<Guid>
+{
+    public RecipePhotoId(Guid id) : base(id) { }
 }
