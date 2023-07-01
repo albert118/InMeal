@@ -14,4 +14,10 @@
 			@include label();
 		}
 	}
+
+	.edit-ingredient-name-form {
+		display: flex;
+		flex-direction: column;
+		row-gap: $spacing-04;
+	}
 }
