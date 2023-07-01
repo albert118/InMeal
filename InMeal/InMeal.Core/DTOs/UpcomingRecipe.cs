@@ -1,7 +1,9 @@
-﻿namespace InMeal.Core.DTOs;
+﻿using InMeal.Core.Entities;
+
+namespace InMeal.Core.DTOs;
 
 public record UpcomingRecipe(
-    Guid Id,
+    RecipeId Id,
     RecipeDto Item,
     string Label,
     string Status,

@@ -30,7 +30,6 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
             await _recipeDbContext.Recipes.AddAsync(recipe, ct);
 
             UpdateRecipeIngredients(recipe, recipeIngredients);
-            // _recipePhotoRepository.AddRecipePhoto(recipe, recipePhoto);
 
             await _recipeDbContext.SaveChangesAsync(ct);
         } catch (Exception ex) {

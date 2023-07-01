@@ -1,11 +1,13 @@
+using InMeal.Core.Entities;
+
 namespace InMeal.Core.DTOs;
 
 public sealed record RecipeDto(
-    Guid? Id,
+    RecipeId? Id,
     string Title,
     string? Blurb,
     string PreparationSteps,
     int? CookTime,
     int? PrepTime,
-    Dictionary<Guid, RecipeIngredientDto> RecipeIngredients
+    Dictionary<RecipeIngredientId, RecipeIngredientDto> RecipeIngredients
 );

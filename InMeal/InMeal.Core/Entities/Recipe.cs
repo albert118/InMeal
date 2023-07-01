@@ -5,25 +5,7 @@ namespace InMeal.Core.Entities;
 
 public class Recipe : IArchivable
 {
-    public Recipe(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
-    {
-        Id = Guid.NewGuid();
-
-        Title = title;
-        Blurb = blurb;
-
-        CookTime = cookTime;
-        PrepTime = prepTime;
-
-        PreparationSteps = preparationSteps ?? string.Empty;
-
-        RecipeIngredients = new();
-
-        CourseType = MealCourse.Unknown;
-        MealType = MealType.Unknown;
-    }
-
-    public Guid Id { get; set; }
+    public RecipeId Id { get; set; }
 
     public int? CookTime { get; set; }
 
@@ -55,6 +37,24 @@ public class Recipe : IArchivable
     public bool isArchived { get; set; }
 
     #endregion
+    
+    public Recipe(RecipeId recipeId, string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
+    {
+        Id = recipeId;
+
+        Title = title;
+        Blurb = blurb;
+
+        CookTime = cookTime;
+        PrepTime = prepTime;
+
+        PreparationSteps = preparationSteps ?? string.Empty;
+
+        RecipeIngredients = new();
+
+        CourseType = MealCourse.Unknown;
+        MealType = MealType.Unknown;
+    }
 }
 
 public class RecipeId : Identity<Guid>
