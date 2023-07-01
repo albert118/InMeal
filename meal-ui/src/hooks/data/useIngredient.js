@@ -30,5 +30,25 @@ export default function useIngredient() {
 		return errors;
 	};
 
-	return { updateIngredientName, errors };
+	const deleteIngredient = async id => {
+		const url = `${ApiConfig.API_URL}/ingredients/delete/${id}`;
+
+		const response = await fetch(url, {
+			...defaultRequestOptions,
+			method: 'DELETE'
+		});
+
+		const responseBody = await response.json();
+
+		if (response.ok) {
+			setErrors(null);
+		} else {
+			const mappedErrors = errorHandler(responseBody);
+			setErrors(mappedErrors);
+		}
+
+		return errors;
+	};
+
+	return { updateIngredientName, deleteIngredient, errors };
 }

@@ -1,20 +1,38 @@
 import { useState } from 'react';
 import IngredientBadge from '../components/IngredientsBadge';
-import EditIngredientNameForm from './EditIngredientNameForm';
+import EditIngredientForm from './EditIngredientNameForm';
 import { EditModalWrapper } from 'components';
 import { useIngredient } from 'hooks/data';
 import { isFalsishOrEmpty } from 'utils';
 
+const defaultFormState = name => {
+	return {
+		name: name,
+		isDeleted: false
+	};
+};
+
 export function IngredientsModalBadge({ ingredient, refreshData }) {
-	const { updateIngredientName } = useIngredient();
-	const [name, setName] = useState(ingredient.name);
+	const { updateIngredientName, deleteIngredient } = useIngredient();
+	const [formData, setFormData] = useState(defaultFormState(ingredient.name));
+
+	const onFormChange = event => {
+		setFormData({
+			...formData,
+			[event.target.name]:
+				event.target.name === 'isDeleted' ? event.target.checked : event.target.value
+		});
+	};
 
 	const onEditSave = async () => {
-		if (IsIngredientNameValid(ingredient.name, name)) {
-			updateIngredientName(ingredient.id, name);
+		if (formData.isDeleted && ingredient.recipeUsageCount === 0) {
+			deleteIngredient(ingredient.id);
+			await refreshData();
+		} else if (IsIngredientNameValid(ingredient.name, formData.name)) {
+			updateIngredientName(ingredient.id, formData.name);
 			await refreshData();
 		} else {
-			setName(ingredient.name);
+			setFormData(defaultFormState(ingredient.name));
 		}
 	};
 
@@ -30,9 +48,10 @@ export function IngredientsModalBadge({ ingredient, refreshData }) {
 				/>
 			}
 		>
-			<EditIngredientNameForm
-				currentName={name}
-				onChange={e => setName(e.target.value)}
+			<EditIngredientForm
+				currentName={formData.name}
+				onChange={onFormChange}
+				disableDeletion={ingredient.recipeUsageCount !== 0}
 			/>
 		</EditModalWrapper>
 	);
