@@ -8,7 +8,10 @@ export default function EditIngredientForm({
 	onChange
 }) {
 	const getUnableToDeleteReasonLabel = count => {
-		return `ingredient is currently used in ${count} ${count > 1 ? 'recipes' : 'recipe'}`;
+		const recipePlural = count > 1 ? 'recipes' : 'recipe';
+		const usagePlural = count > 1 ? 'usages' : 'usage';
+
+		return `ingredient is currently used in ${count} ${recipePlural} \nremove the ${usagePlural} to delete this ingredient`;
 	};
 
 	return (
