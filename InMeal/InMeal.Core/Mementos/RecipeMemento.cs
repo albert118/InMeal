@@ -1,9 +1,10 @@
 using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
+using InMeal.Core.Kernel;
 
 namespace InMeal.Core.Mementos;
 
-public sealed class RecipeMemento : IArchivable
+public sealed class RecipeMemento : EntityMemento
 {
     public RecipeMemento(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
     {
@@ -51,10 +52,4 @@ public sealed class RecipeMemento : IArchivable
     /// A JSON encoded field containing the relevant method to prepare and cook the recipe
     /// </summary>
     public string PreparationSteps { get; private set; }
-
-    #region IArchivable
-
-    public bool isArchived { get; set; }
-
-    #endregion
 }
