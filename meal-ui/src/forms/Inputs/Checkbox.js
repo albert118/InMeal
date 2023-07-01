@@ -1,8 +1,4 @@
-import React from 'react';
-
-export default function Checkbox(props) {
-	const { name, label, value, handler, className } = props;
-
+export default function Checkbox({ label, handler, className, ...additionalProps }) {
 	const classes = className
 		? `form-input u-form-flexed-input ${className}`
 		: `form-input u-form-flexed-input`;
@@ -12,9 +8,8 @@ export default function Checkbox(props) {
 			<input
 				type='checkbox'
 				id={label}
-				value={value}
-				name={name}
 				onClick={handler}
+				{...additionalProps}
 			/>
 			<label htmlFor={label}>{label}</label>
 		</div>

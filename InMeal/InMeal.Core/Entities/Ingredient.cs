@@ -1,6 +1,8 @@
-﻿namespace InMeal.Core.Entities;
+﻿using InMeal.Core.Globalisation;
 
-public class Ingredient
+namespace InMeal.Core.Entities;
+
+public class Ingredient : IHaveName
 {
     public Guid Id { get; set; }
 

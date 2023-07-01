@@ -1,0 +1,39 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../mixins/text-mixins' as *;
+
+.badge {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    min-width: 100px;
+    height: calc($spacing-04 * 2 + 12px + 10px + $spacing-01);
+    row-gap: $spacing-01;
+    padding: $spacing-04 $spacing-06;
+    border-radius: 4px;
+    background-color: var(--background);
+
+    a {
+        @include thick-text();
+        font-size: 12px;
+    }
+
+    label {
+		@include subscript-label();
+        font-size: 10px;
+        align-self: flex-end;
+        padding-left: $spacing-05;
+	}
+
+    label.e-warning-label {
+        @include warning-text();
+    }
+
+    &:hover, &:hover > * {
+        cursor: pointer;
+    }
+
+    &:hover {
+        background-color: var(--primary-action);
+        transition: 0.2s ease-in background-color;
+    }
+}

@@ -8,7 +8,8 @@ const AppRoutes = {
     recipes: '/recipes',
     recipe: '/recipe',
     settings: '/settings',
-    planning: '/planning'
+    planning: '/planning',
+    ingredients: '/ingredients'
 };
 
 

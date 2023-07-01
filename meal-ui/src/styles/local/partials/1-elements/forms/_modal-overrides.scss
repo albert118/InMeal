@@ -1,0 +1,71 @@
+@use '../../../mixins/glass-background' as *;
+@use '../../../mixins/text-mixins' as *;
+
+.cds--modal-container {
+	@include glass-background();
+	border-radius: 4px;
+}
+
+.cds--modal-content {
+	@include text();
+}
+
+.cds--modal-header {
+	& .cds--modal-close {
+		border-radius: 4px;
+
+		svg {
+			fill: var(--text);
+		}
+	}
+
+	& .cds--modal-close:hover,
+	& .cds--modal-close:active {
+		background-color: var(--foreground);
+		transition: 0.3s ease-in background-color;
+
+		svg {
+			fill: var(--backgroud);
+			transition: 0.3s 0.1s ease-in fill;
+		}
+	}
+
+	& h3 {
+		@include text-header();
+		margin-top: 0;
+	}
+
+	& h2 {
+		@include label();
+	}
+}
+
+.cds--modal-footer.cds--btn-set {
+	.cds--btn--secondary {
+		border: 1px solid var(--warning);
+
+		background-color: transparent;
+		border-radius: 4px;
+		text-transform: lowercase;
+	}
+
+	.cds--btn--secondary:hover,
+	.cds--btn--secondary.cds--btn--secondary:hover {
+		background-color: var(--warning);
+		color: var(--background);
+	}
+
+	.cds--btn--primary {
+		border: 1px solid var(--success);
+
+		background-color: transparent;
+		border-radius: 4px;
+		text-transform: lowercase;
+	}
+
+	.cds--btn--primary:hover,
+	.cds--btn--primary:active {
+		background-color: var(--success);
+		color: var(--background);
+	}
+}
