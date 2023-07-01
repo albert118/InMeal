@@ -1,4 +1,5 @@
 ﻿using InMeal.Core.Entities;
+using InMeal.Core.Mementos;
 using Microsoft.EntityFrameworkCore;
 
 namespace InMeal.Core.ModelConfiguration;
@@ -13,7 +14,7 @@ public static class ModelBuilderExtensions
 
         new RecipePhotoConfig().Configure(builder.Entity<RecipePhoto>());
 
-        new RecipeConfig().Configure(builder.Entity<Recipe>());
+        new RecipeConfig().Configure(builder.Entity<RecipeMemento>());
 
         new RecipeCategoryConfig().Configure(builder.Entity<RecipeCategory>());
 

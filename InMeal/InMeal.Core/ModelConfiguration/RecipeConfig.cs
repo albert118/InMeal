@@ -1,6 +1,7 @@
 ﻿using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 using InMeal.Core.Globalisation.Generators;
+using InMeal.Core.Mementos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -8,7 +9,7 @@ namespace InMeal.Core.ModelConfiguration;
 
 public class RecipeConfig
 {
-    public void Configure(EntityTypeBuilder<Recipe> builder)
+    public void Configure(EntityTypeBuilder<RecipeMemento> builder)
     {
         builder.ToTable(nameof(Recipe));
 
