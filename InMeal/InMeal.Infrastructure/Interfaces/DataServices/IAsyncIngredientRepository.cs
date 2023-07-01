@@ -11,4 +11,6 @@ public interface IAsyncIngredientRepository
     Task<List<Ingredient>> AddOrGetExistingIngredientsAsync(List<string> names, CancellationToken ct);
     
     Task<Dictionary<string, List<Ingredient>>> GetAlphabeticallyIndexedIngredientsAsync(CancellationToken ct);
+    
+    Task<bool> DeleteIngredientsAsync(List<Guid> ingredientIds, CancellationToken ct);
 }

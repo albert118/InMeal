@@ -86,4 +86,19 @@ public class IngredientsController : ControllerBase
     }
 
     public record PostIngredientsDto(List<string> IngredientNames);
+    
+    [HttpDelete("{ingredientId:guid}", Name = "Remove a given ingredient")]
+    public IActionResult Delete(Guid ingredientId)
+    {
+        var ct = _tokenAccessor.Token;
+        var task = _ingredientRepository.DeleteIngredientsAsync(new() { ingredientId }, ct);
+
+        task.Wait(ct);
+
+        if (!task.Result) {
+            throw new BadHttpRequestException($"Couldn't remove the ingredient '{ingredientId}'");
+        }
+
+        return Ok();
+    }
 }
