@@ -52,6 +52,7 @@ export function IngredientsModalBadge({ ingredient, refreshData }) {
 				currentName={formData.name}
 				onChange={onFormChange}
 				disableDeletion={ingredient.recipeUsageCount !== 0}
+				recipeUsageCount={ingredient.recipeUsageCount}
 			/>
 		</EditModalWrapper>
 	);
