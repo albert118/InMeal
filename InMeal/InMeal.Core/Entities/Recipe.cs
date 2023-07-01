@@ -1,9 +1,11 @@
 ﻿using InMeal.Core.Enumerations;
 using InMeal.Core.Globalisation;
+using InMeal.Core.Kernel;
+using InMeal.Core.Mementos;
 
 namespace InMeal.Core.Entities;
 
-public class Recipe : IArchivable
+public class Recipe : IHaveState<RecipeMemento>
 {
     public RecipeId Id { get; set; }
 
@@ -32,11 +34,19 @@ public class Recipe : IArchivable
     /// </summary>
     public string PreparationSteps { get; set; }
 
-    #region IArchivable
+    public RecipeMemento State => new(Title, Blurb, PreparationSteps, CookTime, PrepTime);
 
-    public bool isArchived { get; set; }
-
-    #endregion
+    public static Recipe FromMemento(RecipeMemento memento)
+    {
+        return new(
+            new RecipeId(memento.Id),
+            memento.Title,
+            memento.Blurb,
+            memento.PreparationSteps,
+            memento.CookTime,
+            memento.PrepTime
+        );
+    }
     
     public Recipe(RecipeId recipeId, string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
     {
