@@ -1,4 +1,5 @@
 ﻿using InMeal.Core.DTOs;
+using InMeal.Core.Entities;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -91,11 +92,22 @@ public class IngredientsController : ControllerBase
     public IActionResult Delete(Guid ingredientId)
     {
         var ct = _tokenAccessor.Token;
-        var task = _ingredientRepository.DeleteIngredientsAsync(new() { ingredientId }, ct);
+        
+        var usageCountResults = _recipeIngredientRepository
+            .GetIngredientUsageCount(ct)
+            .GetAwaiter()
+            .GetResult();
 
-        task.Wait(ct);
+        if (usageCountResults.Select(e => e.Value > 0).Any()) {
+            throw new BadHttpRequestException($"Cannot delete ingredients used by recipes. In use {nameof(Ingredient)} Ids: ({string.Join(", ", usageCountResults.Keys.ToList())})");
+        }
+        
+        var result = _ingredientRepository
+            .DeleteIngredientsAsync(new() { ingredientId }, ct)
+            .GetAwaiter()
+            .GetResult();
 
-        if (!task.Result) {
+        if (!result) {
             throw new BadHttpRequestException($"Couldn't remove the ingredient '{ingredientId}'");
         }
 
