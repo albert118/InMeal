@@ -70,14 +70,13 @@ public class Recipe : IHaveState<RecipeMemento>
         MealType = MealType.Unknown;
     }
 
-    // TODO: simply and remove this DTO usage here
-    public void EditDetails(RecipeDto updatedRecipe)
+    public void EditDetails(string title, string? blurb, string preparationSteps, int? prepTime, int? cookTime)
     {
-        Title = updatedRecipe.Title;
-        Blurb = updatedRecipe.Blurb;
-        PreparationSteps = updatedRecipe.PreparationSteps;
-        PrepTime = updatedRecipe.PrepTime;
-        CookTime = updatedRecipe.CookTime;
+        Title = title;
+        Blurb = blurb;
+        PreparationSteps = preparationSteps;
+        PrepTime = prepTime;
+        CookTime = cookTime;
     }
 
     public void UpdateIngredients(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredientDto> recipeIngredients)

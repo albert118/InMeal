@@ -2,7 +2,7 @@
 using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 
-namespace InMeal.Core.Mappers;
+namespace InMeal.DTOs;
 
 public static class RecipeMapper
 {

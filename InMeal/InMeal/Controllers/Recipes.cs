@@ -1,6 +1,5 @@
-using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
-using InMeal.Core.Mappers;
+using InMeal.DTOs;
 using InMeal.Features;
 using Microsoft.AspNetCore.Mvc;
 

@@ -20,8 +20,4 @@
         <ProjectReference Include="..\InMeal.Infrastructure\InMeal.Infrastructure.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="DTOs\" />
-    </ItemGroup>
-
 </Project>
