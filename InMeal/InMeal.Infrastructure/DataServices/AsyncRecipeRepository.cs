@@ -19,8 +19,6 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         _logger = logger;
     }
 
-    // public async Task<RecipeId?> AddRecipeAsync(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime, Dictionary<Guid, RecipeIngredientDto> recipeIngredients, CancellationToken ct)
-    // Recipe.UpdateIngredients(updatedRecipe.recipeIngredients)
     public async Task<RecipeId?> AddRecipeAsync(Recipe recipe, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Id));
@@ -90,20 +88,18 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         return memento != null ? Recipe.FromMemento(memento) : null;
     }
 
-    // Recipe.EditDetails(updatedRecipe)
-    // Recipe.UpdateIngredients(updatedRecipe.recipeIngredients)
     public Task<Recipe> EditRecipeAsync(Recipe recipe, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Id));
 
         try {
-            _recipeDbContext.Recipes.Update(existingRecipe.State);
+            _recipeDbContext.Recipes.Update(recipe.State);
         }
         catch (Exception ex) {
             _logger.LogError(ex, "an error occured while editing an existing recipe");
         }
 
-        return recipe;
+        return Task.FromResult(recipe);
     }
 
     public async Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)

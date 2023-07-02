@@ -24,7 +24,7 @@ public class RecipesController : ControllerBase
     public List<RecipeDto> Post(ICollection<Guid> ids)
     {
         var keys = ids.Select(id => new RecipeId(id));
-        var result = _recipeManager.GetRecipesAsync(keys, _tokenAccessor.Token)
+        var result = _recipeManager.GetManyAsync(keys, _tokenAccessor.Token)
                                    .GetAwaiter()
                                    .GetResult();
 
@@ -34,7 +34,7 @@ public class RecipesController : ControllerBase
     [HttpGet("{id:guid}", Name = "View Recipe")]
     public ActionResult<RecipeDto?> Get(Guid id)
     {
-        var result = _recipeManager.GetRecipesAsync(new List<RecipeId> { new(id) }, _tokenAccessor.Token)
+        var result = _recipeManager.GetManyAsync(new List<RecipeId> { new(id) }, _tokenAccessor.Token)
                                    .GetAwaiter()
                                    .GetResult()
                                    .SingleOrDefault();
@@ -50,8 +50,7 @@ public class RecipesController : ControllerBase
             return BadRequest("An ID is required to edit an existing recipe");
         }
 
-        var newRecipe = RecipeMapper.FromDto(dto);
-        var result = _recipeManager.AddRecipeAsync(newRecipe, _tokenAccessor.Token)
+        var result = _recipeManager.AddAsync(dto, _tokenAccessor.Token)
                       .GetAwaiter()
                       .GetResult();
 
@@ -66,7 +65,7 @@ public class RecipesController : ControllerBase
             return BadRequest("An ID is required to edit an existing recipe");
         }
 
-        _recipeManager.EditRecipeAsync(dto, _tokenAccessor.Token)
+        _recipeManager.EditAsync(dto, _tokenAccessor.Token)
                       .GetAwaiter()
                       .GetResult();
 
@@ -78,7 +77,7 @@ public class RecipesController : ControllerBase
     [ActionName("everything")]
     public ActionResult<List<RecipeDto>> Get()
     {
-        var result = _recipeManager.GetRecipesAsync(_tokenAccessor.Token)
+        var result = _recipeManager.GetManyAsync(_tokenAccessor.Token)
                       .GetAwaiter()
                       .GetResult();
 
