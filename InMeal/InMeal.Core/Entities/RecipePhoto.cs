@@ -1,4 +1,5 @@
 ﻿using InMeal.Core.Globalisation;
+using InMeal.Core.Kernel;
 
 namespace InMeal.Core.Entities;
 
