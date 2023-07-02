@@ -1,5 +1,5 @@
-﻿using InMeal.Core.Enumerations;
-using InMeal.Core.Globalisation;
+﻿using InMeal.Core.DTOs;
+using InMeal.Core.Enumerations;
 using InMeal.Core.Kernel;
 using InMeal.Core.Mementos;
 
@@ -36,10 +36,16 @@ public class Recipe : IHaveState<RecipeMemento>
 
     public RecipeMemento State => new(Title, Blurb, PreparationSteps, CookTime, PrepTime);
 
+// https://github.com/rbanks54/ef-and-memento/blob/master/Domain/Bus.cs
+// https://github.com/rbanks54/ef-and-memento/blob/master/Application/Program.cs
+// https://refactoring.guru/design-patterns/memento
+// https://matthiasnoback.nl/2018/03/ormless-a-memento-like-pattern-for-object-persistence/
+// https://www.richard-banks.org/2018/08/ddd-entity-framework-and-memento-pattern.html
+// https://kalele.io/modeling-aggregates-with-ddd-and-entity-framework/
+// https://enlabsoftware.com/development/domain-driven-design-in-asp-net-core-applications.html
     public static Recipe FromMemento(RecipeMemento memento)
     {
         return new(
-            new RecipeId(memento.Id),
             memento.Title,
             memento.Blurb,
             memento.PreparationSteps,
@@ -48,10 +54,8 @@ public class Recipe : IHaveState<RecipeMemento>
         );
     }
     
-    public Recipe(RecipeId recipeId, string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
+    public Recipe(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
     {
-        Id = recipeId;
-
         Title = title;
         Blurb = blurb;
 
@@ -64,6 +68,68 @@ public class Recipe : IHaveState<RecipeMemento>
 
         CourseType = MealCourse.Unknown;
         MealType = MealType.Unknown;
+    }
+
+    // TODO: simply and remove this DTO usage here
+    public void EditDetails(RecipeDto updatedRecipe)
+    {
+        Title = updatedRecipe.Title;
+        Blurb = updatedRecipe.Blurb;
+        PreparationSteps = updatedRecipe.PreparationSteps;
+        PrepTime = updatedRecipe.PrepTime;
+        CookTime = updatedRecipe.CookTime;
+    }
+
+    public void UpdateIngredients(IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients)
+    {
+        if (!recipeIngredients.Keys.Any()) {
+            ClearRecipeIngredients();
+            return;
+        }
+
+        var existingRecipeIngredientIds = RecipeIngredients.Select(e => e.Id).ToList();
+
+        // case #1: add all the new ingredients
+        AddChildren(recipeIngredients, existingRecipeIngredientIds);
+
+        // case #2: update all the existing ingredients with the remaining incoming
+        UpdateExistingChildren(recipeIngredients, existingRecipeIngredientIds);
+
+        // case #3: remove ingredients that were neither added or updated
+        RemoveDeletedChildren(recipeIngredients, existingRecipeIngredientIds);
+    }
+
+    private void ClearRecipeIngredients()
+    {
+        RecipeIngredients = new();
+    }
+    
+    private void AddChildren(IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<RecipeIngredientId> existingRecipeIngredientIds)
+    {
+        var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Select(identity => identity.Id).Contains(ri.Key)).ToList();
+
+        RecipeIngredients.AddRange(
+            toAdd.Select(ri => new RecipeIngredient(new(Guid.NewGuid()), ri.Key, ri.Value.Quantity))
+        );
+    }
+
+    private void UpdateExistingChildren(IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<RecipeIngredientId> existingRecipeIngredientIds)
+    {
+        var toUpdate = recipeIngredients.Where(ri => existingRecipeIngredientIds.Select(identity => identity.Id).Contains(ri.Key)).ToList();
+
+        foreach (var incoming in toUpdate) {
+            // all the entities retrieved here must exist with the expected IDs - hence no FirstOrDefault
+            // if this throws an NRE, there's a bigger issue
+            var entity = RecipeIngredients.First(e => e.Id.Id == incoming.Key);
+            entity.Quantity = incoming.Value.Quantity;
+        }
+    }
+
+    private void RemoveDeletedChildren(IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<RecipeIngredientId> existingRecipeIngredientIds)
+    {
+        var incomingRecipeIngredientIds = recipeIngredients.Select(ri => ri.Key).ToList();
+        var toRemove = existingRecipeIngredientIds.Where(id => !incomingRecipeIngredientIds.Contains(id.Id)).ToList();
+        RecipeIngredients.RemoveAll(e => toRemove.Contains(e.Id));
     }
 }
 

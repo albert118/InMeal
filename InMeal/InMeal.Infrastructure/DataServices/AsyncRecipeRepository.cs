@@ -1,6 +1,4 @@
-﻿using InMeal.Core.DTOs;
-using InMeal.Core.Entities;
-using InMeal.Core.Globalisation;
+﻿using InMeal.Core.Entities;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Infrastructure.IQueryableExtensions;
@@ -22,16 +20,14 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         _logger = logger;
     }
 
-    public async Task<Guid?> AddRecipeAsync(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime, Dictionary<Guid, RecipeIngredientDto> recipeIngredients, CancellationToken ct)
+    // public async Task<RecipeId?> AddRecipeAsync(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime, Dictionary<Guid, RecipeIngredientDto> recipeIngredients, CancellationToken ct)
+    // Recipe.UpdateIngredients(updatedRecipe.recipeIngredients)
+    public async Task<RecipeId?> AddRecipeAsync(Recipe recipe, CancellationToken ct)
     {
-        var recipe = new Recipe(title, blurb, preparationSteps, cookTime, prepTime);
+        EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Id));
 
         try {
-            await _recipeDbContext.Recipes.AddAsync(recipe, ct);
-
-            UpdateRecipeIngredients(recipe, recipeIngredients);
-
-            await _recipeDbContext.SaveChangesAsync(ct);
+            await _recipeDbContext.Recipes.AddAsync(recipe.State, ct);
         } catch (Exception ex) {
             _logger.LogError(ex, "an error occured while saving a recipe");
             return null;
@@ -40,166 +36,92 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         return recipe.Id;
     }
 
-    public Task<List<Recipe>> GetRecipesAsync(CancellationToken ct)
+    public async Task<List<Recipe>> GetRecipesAsync(CancellationToken ct)
     {
-        return _recipeDbContext.Recipes
+        var mementos = await _recipeDbContext.Recipes
             .ExcludeArchived()
             .Take(50)
             .ToListAsync(ct);
+            
+        return mementos.Select(Recipe.FromMemento).ToList();
     }
 
-    public Task<List<Recipe>> GetAllArchivedRecipesAsync(CancellationToken ct)
+    public async Task<List<Recipe>> GetAllArchivedRecipesAsync(CancellationToken ct)
     {
-        return _recipeDbContext.Recipes
+        var mementos = await _recipeDbContext.Recipes
             .IncludeArchived()
             .Take(50)
             .ToListAsync(ct);
+
+        return mementos.Select(Recipe.FromMemento).ToList();
     }
 
-    public Task<List<Recipe>> GetRecommendedRecipes(int limit, CancellationToken ct)
+    public async Task<List<Recipe>> GetRecommendedRecipes(int limit, CancellationToken ct)
     {
-        return _recipeDbContext.Recipes
+        var mementos = await _recipeDbContext.Recipes
             .ExcludeArchived()
             .OrderRandomly()
             .Take(limit)
             .ToListAsync(ct);
+
+        return mementos.Select(Recipe.FromMemento).ToList(); 
     }
 
-    public Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct)
+    public async Task<List<Recipe>> GetRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
     {
-        EmptyGuidGuard.Apply(ids);
+        var keys = ids.Select(identity => identity.Id).Distinct().ToList();
+        EmptyGuidGuard.Apply(keys);
 
-        return _recipeDbContext.Recipes
-            .Where(r => ids.Distinct().Contains(r.Id))
+        var mementos = await _recipeDbContext.Recipes
+            .Where(r => keys.Contains(r.Id))
             .ExcludeArchived()
             .ToListAsync(ct);
+
+        return mementos.Select(Recipe.FromMemento).ToList();
     }
 
-    public Task<Recipe?> GetRecipeAsync(Guid id, CancellationToken ct)
+    public async Task<Recipe?> GetRecipeAsync(RecipeId id, CancellationToken ct)
     {
-        return id.IsEmpty()
-            ? Task.FromResult<Recipe?>(null)
-            : _recipeDbContext.Recipes
+        var memento = await _recipeDbContext.Recipes
                 .Include(r => r.RecipeIngredients)
                 .ThenInclude(i => i.Ingredient)
                 .ExcludeArchived()
-                .FirstOrDefaultAsync(r => r.Id == id, ct);
+                .SingleOrDefaultAsync(r => r.Id == id.Id, ct);
+
+        return memento != null ? Recipe.FromMemento(memento) : null;
     }
 
-    public async Task<bool> EditRecipeAsync(RecipeDto updatedRecipe, CancellationToken ct)
+    // Recipe.EditDetails(updatedRecipe)
+    // Recipe.UpdateIngredients(updatedRecipe.recipeIngredients)
+    public async Task<Recipe> EditRecipeAsync(Recipe recipe, CancellationToken ct)
     {
-        if (!updatedRecipe.Id.HasValue) {
-            throw new DataException($"can not get {nameof(Recipe)} without an ID ");
-        }
+        EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Id));
 
         try {
-            var existingRecipe = await GetRecipeAsync(updatedRecipe.Id.Value, ct)
-                ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{updatedRecipe.Id.Value}'");
+            var existingRecipe = await GetRecipeAsync(recipe.Id, ct)
+                                 ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{recipe.Id}'");
 
-            UpdateRecipeIngredients(existingRecipe, updatedRecipe.RecipeIngredients);
-
-            existingRecipe.Title = updatedRecipe.Title;
-            existingRecipe.Blurb = updatedRecipe.Blurb;
-            existingRecipe.PreparationSteps = updatedRecipe.PreparationSteps;
-            existingRecipe.PrepTime = updatedRecipe.PrepTime;
-            existingRecipe.CookTime = updatedRecipe.CookTime;
-
-            _recipeDbContext.Recipes.Update(existingRecipe);
-            await _recipeDbContext.SaveChangesAsync(ct);
-        } catch (Exception ex) {
+            _recipeDbContext.Recipes.Update(existingRecipe.State);
+        }
+        catch (Exception ex) {
             _logger.LogError(ex, "an error occured while editing an existing recipe");
-            return false;
         }
 
-        return true;
+        return recipe;
     }
 
-    public async Task ArchiveRecipesAsync(List<Guid> ids, CancellationToken ct)
+    public async Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
     {
-        EmptyGuidGuard.Apply(ids);
+        var keys = ids.Select(identity => identity.Id).Distinct().ToList();
+        EmptyGuidGuard.Apply(keys);
 
         var recipesToArchive = await _recipeDbContext.Recipes
-            .Where(r => ids.Distinct().Contains(r.Id))
+            .Where(r => keys.Contains(r.Id))
             .ExcludeArchived()
             .ToListAsync(ct);
 
         foreach (var recipe in recipesToArchive) {
             recipe.isArchived = true;
         }
-
-        await _recipeDbContext.SaveChangesAsync(ct);
-    }
-
-    private void UpdateRecipeIngredients(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients)
-    {
-        if (!recipeIngredients.Keys.Any()) {
-            existingRecipe.RecipeIngredients = new();
-            return;
-        }
-
-        EmptyGuidGuard.Apply(recipeIngredients.Keys);
-
-        var existingRecipeIngredientIds = existingRecipe.RecipeIngredients.Select(e => e.Id).ToList();
-
-        // case #1: add all the new ingredients
-        AddChildren(existingRecipe, recipeIngredients, existingRecipeIngredientIds);
-
-        // case #2: update all the existing ingredients with the remaining incoming
-        UpdateExistingChildren(existingRecipe, recipeIngredients, existingRecipeIngredientIds);
-
-        // case #3: remove ingredients that were neither added or updated
-        RemoveDeletedChildren(existingRecipe, recipeIngredients, existingRecipeIngredientIds);
-    }
-
-    private void AddChildren(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<Guid> existingRecipeIngredientIds)
-    {
-        var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Contains(ri.Key)).ToList();
-
-        existingRecipe.RecipeIngredients.AddRange(
-            toAdd.Select(ri => new RecipeIngredient { IngredientId = ri.Key, Quantity = ri.Value.Quantity })
-        );
-
-        _logger.LogInformation(
-            "added {NumberOfNewIngredients} {RecipeIngredients} to existing {Recipe} '{RecipeId}'",
-            toAdd.Count,
-            nameof(RecipeIngredient),
-            nameof(Recipe),
-            existingRecipe.Id
-        );
-    }
-
-    private void UpdateExistingChildren(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<Guid> existingRecipeIngredientIds)
-    {
-        var toUpdate = recipeIngredients.Where(ri => existingRecipeIngredientIds.Contains(ri.Key)).ToList();
-
-        foreach (var incoming in toUpdate) {
-            // all the entities retrieved here must exist with the expected IDs - hence no FirstOrDefault
-            // if this throws an NRE, there's a bigger issue
-            var entity = existingRecipe.RecipeIngredients.First(e => e.Id == incoming.Key);
-            entity.Quantity = incoming.Value.Quantity;
-        }
-
-        _logger.LogInformation(
-            "updated {NumberOfNewIngredients} {RecipeIngredients} for existing {Recipe} '{RecipeId}'",
-            toUpdate.Count,
-            nameof(RecipeIngredient),
-            nameof(Recipe),
-            existingRecipe.Id
-        );
-    }
-
-    private void RemoveDeletedChildren(Recipe existingRecipe, IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<Guid> existingRecipeIngredientIds)
-    {
-        var incomingRecipeIngredientIds = recipeIngredients.Select(ri => ri.Key).ToList();
-        var toRemove = existingRecipeIngredientIds.Where(id => !incomingRecipeIngredientIds.Contains(id)).ToList();
-        existingRecipe.RecipeIngredients.RemoveAll(e => toRemove.Contains(e.Id));
-
-        _logger.LogInformation(
-            "removed {NumberOfNewIngredients} {RecipeIngredients} from existing {Recipe} '{RecipeId}'",
-            toRemove.Count,
-            nameof(RecipeIngredient),
-            nameof(Recipe),
-            existingRecipe.Id
-        );
     }
 }
