@@ -1,11 +1,10 @@
-﻿using InMeal.Core.DTOs;
-using InMeal.Core.Entities;
+﻿using InMeal.Core.Entities;
 
 namespace InMeal.Infrastructure.Interfaces.DataServices;
 
 public interface IAsyncRecipeRepository
 {
-    Task<Guid?> AddRecipeAsync(string title, string? blurb, string? prepSteps, int? cookTime, int? prepTime, Dictionary<Guid, RecipeIngredientDto> recipeIngredients, CancellationToken ct);
+    Task<RecipeId?> AddRecipeAsync(Recipe recipe, CancellationToken ct);
 
     Task<List<Recipe>> GetRecipesAsync(CancellationToken ct);
 
@@ -13,11 +12,11 @@ public interface IAsyncRecipeRepository
 
     Task<List<Recipe>> GetRecommendedRecipes(int limit, CancellationToken ct);
 
-    Task<List<Recipe>> GetRecipesAsync(ICollection<Guid> ids, CancellationToken ct);
+    Task<List<Recipe>> GetRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
 
-    Task<Recipe?> GetRecipeAsync(Guid id, CancellationToken ct);
+    Task<Recipe?> GetRecipeAsync(RecipeId id, CancellationToken ct);
 
-    Task<bool> EditRecipeAsync(RecipeDto updatedRecipe, CancellationToken ct);
+    Task<Recipe> EditRecipeAsync(Recipe updatedRecipe, CancellationToken ct);
 
-    Task ArchiveRecipesAsync(List<Guid> ids, CancellationToken ct);
+    Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
 }
