@@ -36,13 +36,6 @@ public class Recipe : IHaveState<RecipeMemento>
 
     public RecipeMemento State => new(Title, Blurb, PreparationSteps, CookTime, PrepTime);
 
-// https://github.com/rbanks54/ef-and-memento/blob/master/Domain/Bus.cs
-// https://github.com/rbanks54/ef-and-memento/blob/master/Application/Program.cs
-// https://refactoring.guru/design-patterns/memento
-// https://matthiasnoback.nl/2018/03/ormless-a-memento-like-pattern-for-object-persistence/
-// https://www.richard-banks.org/2018/08/ddd-entity-framework-and-memento-pattern.html
-// https://kalele.io/modeling-aggregates-with-ddd-and-entity-framework/
-// https://enlabsoftware.com/development/domain-driven-design-in-asp-net-core-applications.html
     public static Recipe FromMemento(RecipeMemento memento)
     {
         return new(
