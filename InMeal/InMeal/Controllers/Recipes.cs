@@ -4,7 +4,7 @@ using InMeal.Core.Mappers;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using Microsoft.AspNetCore.Mvc;
 
-namespace InMeal.Recipes;
+namespace InMeal.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -24,8 +24,8 @@ public class RecipesController : ControllerBase
     public List<RecipeDto> Post(ICollection<Guid> ids)
     {
         var result = _repository.GetRecipesAsync(ids.Select(id => new RecipeId(id)), _tokenAccessor.Token)
-                              .GetAwaiter()
-                              .GetResult();
+                                .GetAwaiter()
+                                .GetResult();
 
         return result.Count == 0 ? new() : result.Select(RecipeMapper.ToDto).ToList();
     }
@@ -34,8 +34,8 @@ public class RecipesController : ControllerBase
     public ActionResult<RecipeDto?> Get(Guid id)
     {
         var result = _repository.GetRecipeAsync(new RecipeId(id), _tokenAccessor.Token)
-                              .GetAwaiter()
-                              .GetResult();
+                                .GetAwaiter()
+                                .GetResult();
 
         return result == null ? null : RecipeMapper.ToDto(result);
     }
