@@ -1,8 +1,9 @@
 ﻿using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
+using InMeal.DTOs;
 
-namespace InMeal.DTOs;
+namespace InMeal.Mappers;
 
 public static class RecipeMapper
 {
