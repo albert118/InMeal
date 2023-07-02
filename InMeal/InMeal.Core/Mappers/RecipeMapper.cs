@@ -21,6 +21,18 @@ public static class RecipeMapper
         );
     }
 
+    public static Recipe FromDto(RecipeDto dto)
+    {
+        // TODO: map RecipeIngredients
+        return new(
+            dto.Title,
+            dto.Blurb,
+            dto.PreparationSteps,
+            dto.CookTime,
+            dto.PrepTime
+        );
+    }
+
     public static UpcomingRecipe ToUpcoming(Recipe recipe)
     {
         return new(
