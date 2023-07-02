@@ -1,4 +1,4 @@
-namespace InMeal.Core.Globalisation;
+namespace InMeal.Core.Kernel;
 
 public interface IIdentity<out T>
 {
