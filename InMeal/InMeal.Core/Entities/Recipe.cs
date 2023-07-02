@@ -80,7 +80,7 @@ public class Recipe : IHaveState<RecipeMemento>
         CookTime = updatedRecipe.CookTime;
     }
 
-    public void UpdateIngredients(IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients)
+    public void UpdateIngredients(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredientDto> recipeIngredients)
     {
         if (!recipeIngredients.Keys.Any()) {
             ClearRecipeIngredients();
@@ -103,7 +103,7 @@ public class Recipe : IHaveState<RecipeMemento>
     {
         RecipeIngredients = new();
     }
-    
+
     private void AddChildren(IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<RecipeIngredientId> existingRecipeIngredientIds)
     {
         var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Select(identity => identity.Id).Contains(ri.Key)).ToList();

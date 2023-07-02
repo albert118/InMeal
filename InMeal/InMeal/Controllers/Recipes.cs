@@ -1,7 +1,7 @@
 using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
 using InMeal.Core.Mappers;
-using InMeal.Infrastructure.Interfaces.DataServices;
+using InMeal.Features;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InMeal.Controllers;
@@ -10,12 +10,12 @@ namespace InMeal.Controllers;
 [Route("api/[controller]")]
 public class RecipesController : ControllerBase
 {
-    private readonly IAsyncRecipeRepository _repository;
+    private readonly IRecipeManager _recipeManager;
     private readonly ICancellationTokenAccessor _tokenAccessor;
 
-    public RecipesController(IAsyncRecipeRepository repository, ICancellationTokenAccessor tokenAccessor)
+    public RecipesController(IRecipeManager recipeManager, ICancellationTokenAccessor tokenAccessor)
     {
-        _repository = repository;
+        _recipeManager = recipeManager;
         _tokenAccessor = tokenAccessor;
     }
 
@@ -23,9 +23,10 @@ public class RecipesController : ControllerBase
     [ActionName("all")]
     public List<RecipeDto> Post(ICollection<Guid> ids)
     {
-        var result = _repository.GetRecipesAsync(ids.Select(id => new RecipeId(id)), _tokenAccessor.Token)
-                                .GetAwaiter()
-                                .GetResult();
+        var keys = ids.Select(id => new RecipeId(id));
+        var result = _recipeManager.GetRecipesAsync(keys, _tokenAccessor.Token)
+                                   .GetAwaiter()
+                                   .GetResult();
 
         return result.Count == 0 ? new() : result.Select(RecipeMapper.ToDto).ToList();
     }
@@ -33,9 +34,10 @@ public class RecipesController : ControllerBase
     [HttpGet("{id:guid}", Name = "View Recipe")]
     public ActionResult<RecipeDto?> Get(Guid id)
     {
-        var result = _repository.GetRecipeAsync(new RecipeId(id), _tokenAccessor.Token)
-                                .GetAwaiter()
-                                .GetResult();
+        var result = _recipeManager.GetRecipesAsync(new List<RecipeId> { new(id) }, _tokenAccessor.Token)
+                                   .GetAwaiter()
+                                   .GetResult()
+                                   .SingleOrDefault();
 
         return result == null ? null : RecipeMapper.ToDto(result);
     }
@@ -48,15 +50,12 @@ public class RecipesController : ControllerBase
             return BadRequest("An ID is required to edit an existing recipe");
         }
 
-        var result = _repository.AddRecipeAsync(RecipeMapper.FromDto(dto), _tokenAccessor.Token)
-                                .GetAwaiter()
-                                .GetResult();
+        var newRecipe = RecipeMapper.FromDto(dto);
+        var result = _recipeManager.AddRecipeAsync(newRecipe, _tokenAccessor.Token)
+                      .GetAwaiter()
+                      .GetResult();
 
-        if (result != null) {
-            return StatusCode(500, "failed to add");
-        }
-
-        return result!.Id;
+        return result.Id.Id;
     }
 
     [HttpPost("[action]", Name = "Edit an existing recipe")]
@@ -67,9 +66,9 @@ public class RecipesController : ControllerBase
             return BadRequest("An ID is required to edit an existing recipe");
         }
 
-        _repository.EditRecipeAsync(RecipeMapper.FromDto(dto), _tokenAccessor.Token)
-                   .GetAwaiter()
-                   .GetResult();
+        _recipeManager.EditRecipeAsync(dto, _tokenAccessor.Token)
+                      .GetAwaiter()
+                      .GetResult();
 
         return Ok();
     }
@@ -79,9 +78,9 @@ public class RecipesController : ControllerBase
     [ActionName("everything")]
     public ActionResult<List<RecipeDto>> Get()
     {
-        var result = _repository.GetRecipesAsync(_tokenAccessor.Token)
-                                .GetAwaiter()
-                                .GetResult();
+        var result = _recipeManager.GetRecipesAsync(_tokenAccessor.Token)
+                      .GetAwaiter()
+                      .GetResult();
 
         return result.Count == 0 
             ? new() 

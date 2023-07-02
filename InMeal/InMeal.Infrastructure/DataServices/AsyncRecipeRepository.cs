@@ -4,7 +4,6 @@ using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Infrastructure.IQueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Data;
 
 namespace InMeal.Infrastructure.DataServices;
 
@@ -93,14 +92,11 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
     // Recipe.EditDetails(updatedRecipe)
     // Recipe.UpdateIngredients(updatedRecipe.recipeIngredients)
-    public async Task<Recipe> EditRecipeAsync(Recipe recipe, CancellationToken ct)
+    public Task<Recipe> EditRecipeAsync(Recipe recipe, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Id));
 
         try {
-            var existingRecipe = await GetRecipeAsync(recipe.Id, ct)
-                                 ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{recipe.Id}'");
-
             _recipeDbContext.Recipes.Update(existingRecipe.State);
         }
         catch (Exception ex) {
