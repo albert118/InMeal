@@ -29,12 +29,12 @@ public abstract class Identity<T> : IEquatable<Identity<T>>, IIdentity<T>
         return Equals((Identity<T>)obj);
     }
     
-    public static bool operator ==(Identity<T> obj1, Identity<T> obj2)
+    public static bool operator ==(Identity<T>? obj1, Identity<T>? obj2)
     {
         return Equals(obj1, obj2);
     }
     
-    public static bool operator !=(Identity<T> obj1, Identity<T> obj2)
+    public static bool operator !=(Identity<T>? obj1, Identity<T>? obj2)
     {
         return !Equals(obj1, obj2);
     }
