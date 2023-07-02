@@ -96,31 +96,30 @@ public class Recipe : IHaveState<RecipeMemento>
         RecipeIngredients = new();
     }
 
-    private void AddChildren(IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<RecipeIngredientId> existingRecipeIngredientIds)
+    private void AddChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredientDto> recipeIngredients, IReadOnlyCollection<RecipeIngredientId> existingRecipeIngredientIds)
     {
-        var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Select(identity => identity.Id).Contains(ri.Key)).ToList();
+        var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Contains(ri.Key)).ToList();
 
         RecipeIngredients.AddRange(
-            toAdd.Select(ri => new RecipeIngredient(new(Guid.NewGuid()), ri.Key, ri.Value.Quantity))
+            toAdd.Select(ri => new RecipeIngredient(new(Guid.NewGuid()), ri.Key.Id, ri.Value.Quantity))
         );
     }
 
-    private void UpdateExistingChildren(IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<RecipeIngredientId> existingRecipeIngredientIds)
+    private void UpdateExistingChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredientDto> recipeIngredients, IReadOnlyCollection<RecipeIngredientId> existingRecipeIngredientIds)
     {
-        var toUpdate = recipeIngredients.Where(ri => existingRecipeIngredientIds.Select(identity => identity.Id).Contains(ri.Key)).ToList();
+        var toUpdate = recipeIngredients.Where(ri => existingRecipeIngredientIds.Contains(ri.Key)).ToList();
 
         foreach (var incoming in toUpdate) {
             // all the entities retrieved here must exist with the expected IDs - hence no FirstOrDefault
             // if this throws an NRE, there's a bigger issue
-            var entity = RecipeIngredients.First(e => e.Id.Id == incoming.Key);
+            var entity = RecipeIngredients.First(e => e.Id == incoming.Key);
             entity.Quantity = incoming.Value.Quantity;
         }
     }
 
-    private void RemoveDeletedChildren(IReadOnlyDictionary<Guid, RecipeIngredientDto> recipeIngredients, List<RecipeIngredientId> existingRecipeIngredientIds)
+    private void RemoveDeletedChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredientDto> recipeIngredients, List<RecipeIngredientId> existingRecipeIngredientIds)
     {
-        var incomingRecipeIngredientIds = recipeIngredients.Select(ri => ri.Key).ToList();
-        var toRemove = existingRecipeIngredientIds.Where(id => !incomingRecipeIngredientIds.Contains(id.Id)).ToList();
+        var toRemove = existingRecipeIngredientIds.Where(id => !recipeIngredients.Keys.Contains(id)).ToList();
         RecipeIngredients.RemoveAll(e => toRemove.Contains(e.Id));
     }
 }
