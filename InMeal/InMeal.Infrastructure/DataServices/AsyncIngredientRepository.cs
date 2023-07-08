@@ -1,5 +1,4 @@
-﻿using System.Data;
-using InMeal.Core.Entities;
+﻿using InMeal.Core.Entities;
 using InMeal.Core.Extensions;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
@@ -58,22 +57,27 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
             .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
     }
     
-    public async Task<bool> DeleteManyAsync(List<Guid> ingredientIds, CancellationToken ct)
+    public async Task<bool> DeleteManyAsync(IEnumerable<IngredientId> ingredientIds, CancellationToken ct)
     {
-        EmptyGuidGuard.Apply(ingredientIds);
+        var keys = ingredientIds.Select(identity => identity.Id).ToList();
+        EmptyGuidGuard.Apply(keys);
 
         var existingIngredients = await _recipeDbContext.Ingredients
-            .Where(e => ingredientIds.Contains(e.Id))
+            .Where(e => keys.Contains(e.Id))
             .ToListAsync(ct);
 
         if (!existingIngredients.Any()) {
-            throw new DataException($"cannot delete any given {nameof(Ingredient)} (no existing ingredients where found with the given Ids)");
+            _logger.LogWarning(
+                "no {Ingredient}s were deleted with the given Ids", 
+                nameof(Ingredient)
+            );
         }
 
-        var notFoundIds = ingredientIds.Except(existingIngredients.Select(i => i.Id)).ToList();
+        var notFoundIds = keys.Except(existingIngredients.Select(i => i.Id)).ToList();
         if (notFoundIds.Any()) {
             _logger.LogWarning(
-                "some ingredients weren't found and will not be deleted. Missing Ids: ({NotFoundIds})",
+                "some {Ingredient}s weren't found and will not be deleted (missing Ids '{NotFoundIds}')",
+                nameof(Ingredient),
                 string.Join(", ", notFoundIds)
             );
         }

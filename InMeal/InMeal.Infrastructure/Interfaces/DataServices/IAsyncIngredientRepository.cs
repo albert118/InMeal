@@ -14,5 +14,5 @@ public interface IAsyncIngredientRepository
     
     Task<Dictionary<string, List<Ingredient>>> GetManyOrderedAlphabeticallyAsync(CancellationToken ct);
     
-    Task<bool> DeleteManyAsync(List<Guid> ingredientIds, CancellationToken ct);
+    Task<bool> DeleteManyAsync(IEnumerable<IngredientId> ingredientIds, CancellationToken ct);
 }
