@@ -3,7 +3,7 @@ using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using Microsoft.EntityFrameworkCore;
 
-namespace InMeal.Infrastructure.DataServices;
+namespace InMeal.Infrastructure.QueryServices;
 
 [InstanceScopedService]
 public class AsyncRecipeCategoryQueryService : IAsyncRecipeCategoryQueryService
