@@ -1,12 +1,11 @@
-﻿using InMeal.Core.Entities;
-using InMeal.Core.Mementos;
+﻿using InMeal.Core.Mementos;
 using Microsoft.EntityFrameworkCore;
 
 namespace InMeal.Infrastructure.Interfaces.Data;
 
 public interface IRecipeDbContext
 {
-    DbSet<Ingredient> Ingredients { get; }
+    DbSet<IngredientMemento> Ingredients { get; }
 
     DbSet<RecipePhotoMemento> RecipePhotos { get; }
 
