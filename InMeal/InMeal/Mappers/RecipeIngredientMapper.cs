@@ -16,7 +16,7 @@ public static class RecipeIngredientMapper
     {
         return new(
             recipeIngredient.Ingredient.Name,
-            recipeIngredient.Ingredient.Id,
+            recipeIngredient.Ingredient.Id.Key,
             recipeIngredient.Quantity
         );
     }
@@ -39,7 +39,7 @@ public static class RecipeIngredientMapper
             recipeIngredientId,
             quantity: dto.Quantity,
             recipeId: recipeId,
-            ingredient: new Ingredient(dto.IngredientId, dto.Label)
+            ingredient: new Ingredient(new(dto.IngredientId), dto.Label)
         );
     }
 }

@@ -54,6 +54,7 @@ public class IngredientsController : ControllerBase
     }
 
     [HttpPost(Name = "Post new ingredients (potentially existing)")]
+    [ActionName("add")]
     public List<IngredientDto> Post(PostIngredientsDto dto)
     {
         var results = _ingredientsManager.AddAndGetExistingAsync(dto.IngredientNames, _tokenAccessor.Token)
@@ -70,8 +71,7 @@ public class IngredientsController : ControllerBase
             _ingredientsManager.DeleteManyAsync(new List<IngredientId> { new(ingredientId) }, _tokenAccessor.Token)
                                .GetAwaiter()
                                .GetResult();
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new BadHttpRequestException(
                 $"couldn't remove the {nameof(Ingredient)} '{ingredientId}', {ex.Message}");
         }

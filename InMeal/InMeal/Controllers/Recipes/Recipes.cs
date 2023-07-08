@@ -21,14 +21,14 @@ public class RecipesController : ControllerBase
 
     [HttpPost("[action]", Name = "View all recipes with given IDs")]
     [ActionName("all")]
-    public List<RecipeDto> Post(ICollection<Guid> ids)
+    public ActionResult<List<RecipeDto>> Post(ICollection<Guid> ids)
     {
         var keys = ids.Select(id => new RecipeId(id));
         var result = _recipeManager.GetManyAsync(keys, _tokenAccessor.Token)
                                    .GetAwaiter()
                                    .GetResult();
 
-        return result.Count == 0 ? new() : result.Select(RecipeMapper.ToDto).ToList();
+        return !result.Any() ? NoContent() : Ok(result.Select(RecipeMapper.ToDto).ToList());
     }
 
     [HttpGet("{id:guid}", Name = "View Recipe")]
@@ -39,7 +39,7 @@ public class RecipesController : ControllerBase
                                    .GetResult()
                                    .SingleOrDefault();
 
-        return result == null ? null : RecipeMapper.ToDto(result);
+        return result == null ? NoContent() : Ok(RecipeMapper.ToDto(result));
     }
 
     [HttpPost("[action]", Name = "Add a new recipe")]
@@ -52,7 +52,7 @@ public class RecipesController : ControllerBase
                                    .GetAwaiter()
                                    .GetResult();
 
-        return result.Id.Key;
+        return Ok(result.Id.Key);
     }
 
     [HttpPost("[action]", Name = "Edit an existing recipe")]
@@ -77,21 +77,19 @@ public class RecipesController : ControllerBase
                                    .GetAwaiter()
                                    .GetResult();
 
-        return result.Count == 0
-            ? new()
-            : result.Select(RecipeMapper.ToDto).ToList();
+        return !result.Any() ? NoContent() : Ok(result.Select(RecipeMapper.ToDto).ToList());
     }
 
     [HttpGet("[action]", Name = "Get all archived recipes")]
     [ActionName("archived")]
-    public List<RecipeDto> GetArchived()
+    public ActionResult<List<RecipeDto>> GetArchived()
     {
         // use the default for now, as pagination isn't a thing on this API yet
         var results = _recipeManager.GetArchivedAsync(null, null, _tokenAccessor.Token)
                                     .GetAwaiter()
                                     .GetResult();
 
-        return results.Count == 0 ? new() : results.Select(RecipeMapper.ToDto).ToList();
+        return !results.Any() ? NoContent() : Ok(results.Select(RecipeMapper.ToDto).ToList());
     }
 
     [HttpPost("[action]", Name = "Archive given Recipes")]

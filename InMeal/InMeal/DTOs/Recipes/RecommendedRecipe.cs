@@ -1,12 +1,5 @@
-﻿using InMeal.Core.Entities;
-using InMeal.DTOs.Upcoming;
+﻿using InMeal.DTOs.Upcoming;
 
 namespace InMeal.DTOs.Recipes;
 
-public record RecommendedRecipe(
-    RecipeId Id,
-    RecipeDto Item,
-    string Label,
-    string Status,
-    Image Image
-);
+public record RecommendedRecipe(Guid Id, RecipeDto Item, string Label, string Status, Image Image);

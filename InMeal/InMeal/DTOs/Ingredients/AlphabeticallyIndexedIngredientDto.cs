@@ -1,5 +1,3 @@
-﻿using InMeal.Core.Entities;
+﻿namespace InMeal.DTOs.Ingredients;
 
-namespace InMeal.DTOs.Ingredients;
-
-public record AlphabeticallyIndexedIngredientDto(IngredientId Id, string Name, int RecipeUsageCount);
+public record AlphabeticallyIndexedIngredientDto(Guid IngredientId, string Name, int RecipeUsageCount);

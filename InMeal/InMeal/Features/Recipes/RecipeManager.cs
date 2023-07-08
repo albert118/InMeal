@@ -65,8 +65,9 @@ public class RecipeManager : IRecipeManager
 
     public async Task<Recipe> EditAsync(RecipeDto dto, CancellationToken ct)
     {
-        var recipe = await _recipeRepository.GetRecipeAsync(dto.Id!, ct)
-                     ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{dto.Id}'");
+        var key = new RecipeId(dto.Id!.Value);
+        var recipe = await _recipeRepository.GetRecipeAsync(key, ct)
+                     ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{key}'");
 
         recipe.EditDetails(dto.Title, dto.Blurb, dto.PreparationSteps, dto.PrepTime, dto.CookTime);
         recipe.UpdateIngredients(RecipeIngredientMapper.FromDto(dto.RecipeIngredients, recipe.Id));

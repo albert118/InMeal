@@ -26,6 +26,6 @@ public class UpcomingController : ControllerBase
                                                 .GetAwaiter()
                                                 .GetResult();
 
-        return results.Any() ? NoContent() : Ok(results);
+        return !results.Any() ? NoContent() : Ok(results);
     }
 }

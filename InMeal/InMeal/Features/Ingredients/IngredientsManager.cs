@@ -58,7 +58,7 @@ public class IngredientsManager : IIngredientsManager
         // merge results with the mapper
         return indexedIngredients.Count == 0
             ? new()
-            : indexedIngredients.MapToAlphabeticallyIndexedIngredientsDto(usageCountResults);
+            : IngredientMapper.MapToAlphabeticallyIndexedIngredientsDto(indexedIngredients, usageCountResults);
     }
 
     public async Task<List<Ingredient>> AddAndGetExistingAsync(IEnumerable<string> names, CancellationToken ct)

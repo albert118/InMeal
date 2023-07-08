@@ -9,7 +9,7 @@ public static class RecipeMapper
     public static RecipeDto ToDto(Recipe recipe)
     {
         return new(
-            recipe.Id,
+            recipe.Id.Key,
             recipe.Title,
             recipe.Blurb,
             recipe.PreparationSteps,
@@ -22,7 +22,7 @@ public static class RecipeMapper
     public static RecommendedRecipe ToRecommended(Recipe recipe)
     {
         return new(
-            recipe.Id,
+            recipe.Id.Key,
             ToDto(recipe),
             recipe.Title,
             PreparationStatus.Unknown.ToString().ToLowerInvariant(),

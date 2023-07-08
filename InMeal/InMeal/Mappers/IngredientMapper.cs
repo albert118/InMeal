@@ -8,7 +8,7 @@ public static class IngredientMapper
     public static IngredientDto MapToIngredientDto(this Ingredient ingredient)
     {
         return new(
-            ingredient.Id,
+            ingredient.Id.Key,
             ingredient.Name
         );
     }
@@ -19,18 +19,19 @@ public static class IngredientMapper
         recipeIngredientUsageCounts.TryGetValue(ingredient.Id, out var recipeUsageCount);
 
         return new(
-            ingredient.Id,
+            ingredient.Id.Key,
             ingredient.Name,
             recipeUsageCount
         );
     }
 
     public static Dictionary<string, List<AlphabeticallyIndexedIngredientDto>> MapToAlphabeticallyIndexedIngredientsDto(
-        this Dictionary<string, List<Ingredient>> values, Dictionary<IngredientId, int> recipeIngredientUsageCounts)
+        Dictionary<string, List<Ingredient>> values, Dictionary<IngredientId, int> usageCounts)
     {
         return values.ToDictionary(
             kvp => kvp.Key,
-            kvp => kvp.Value.Select(v => MapToAlphabeticallyIndexedIngredientDto(v, recipeIngredientUsageCounts))
+            kvp => kvp.Value
+                      .Select(v => MapToAlphabeticallyIndexedIngredientDto(v, usageCounts))
                       .ToList()
         );
     }
