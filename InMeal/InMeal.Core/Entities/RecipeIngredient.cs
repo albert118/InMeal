@@ -16,8 +16,11 @@ public class RecipeIngredient : IHaveState<RecipeIngredientMemento>
     private RecipeIngredient(RecipeIngredientMemento memento)
     {
         Id = new(memento.Id);
+
         Quantity = memento.Quantity;
         Ingredient = memento.Ingredient;
+
+        RecipeId = new(memento.RecipeId);
     }
 
     public static RecipeIngredient FromMemento(RecipeIngredientMemento memento) => new(memento);
