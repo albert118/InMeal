@@ -12,8 +12,6 @@ public static class ModelBuilderExtensions
 
         new RecipeIngredientConfig().Configure(builder.Entity<RecipeIngredientMemento>());
 
-        new RecipePhotoConfig().Configure(builder.Entity<RecipePhoto>());
-
         new RecipeConfig().Configure(builder.Entity<RecipeMemento>());
 
         new RecipeCategoryConfig().Configure(builder.Entity<RecipeCategoryMemento>());

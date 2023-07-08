@@ -21,7 +21,6 @@ public class Recipe : IHaveState<RecipeMemento>
         Servings = 1;
 
         Category = new(new(Guid.NewGuid()), Id, Cuisine.Unknown);
-        RecipePhoto = null;
         RecipeIngredients = new();
     }
 
@@ -40,7 +39,6 @@ public class Recipe : IHaveState<RecipeMemento>
         Servings = memento.Servings;
 
         Category = RecipeCategory.FromMemento(memento.Category);
-        RecipePhoto = null;
         RecipeIngredients = memento.RecipeIngredients.Select(RecipeIngredient.FromMemento).ToList();
     }
 
@@ -63,8 +61,6 @@ public class Recipe : IHaveState<RecipeMemento>
     public MealType MealType { get; set; }
 
     public RecipeCategory Category { get; set; }
-
-    public RecipePhoto? RecipePhoto { get; set; }
 
     public List<RecipeIngredient> RecipeIngredients { get; set; }
 

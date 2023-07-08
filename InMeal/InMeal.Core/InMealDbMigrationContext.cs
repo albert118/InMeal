@@ -11,8 +11,6 @@ public class InMealDbMigrationContext : DbContext
 
     public DbSet<Ingredient> Ingredients => Set<Ingredient>();
 
-    public DbSet<RecipePhoto> RecipePhotos => Set<RecipePhoto>();
-
     public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
 
     public DbSet<Recipe> Recipes => Set<Recipe>();

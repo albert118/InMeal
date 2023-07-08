@@ -16,8 +16,6 @@ public class RecipeDbContext : AsyncDbContext, IRecipeDbContext
 
     public DbSet<IngredientMemento> Ingredients => Set<IngredientMemento>();
 
-    public DbSet<RecipePhotoMemento> RecipePhotos => Set<RecipePhotoMemento>();
-
     public DbSet<RecipeIngredientMemento> RecipeIngredients => Set<RecipeIngredientMemento>();
 
     public DbSet<RecipeMemento> Recipes => Set<RecipeMemento>();

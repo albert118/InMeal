@@ -21,7 +21,6 @@ public sealed class RecipeMemento : EntityMemento
         Servings = 1;
 
         Category = recipe.Category.State;
-        RecipePhoto = null;
         RecipeIngredients = recipe.RecipeIngredients.Select(ri => ri.State).ToList();
         
     }
@@ -43,8 +42,6 @@ public sealed class RecipeMemento : EntityMemento
     public MealType MealType { get; private set; }
 
     public RecipeCategoryMemento Category { get; private set; }
-
-    public RecipePhotoMemento? RecipePhoto { get; private set; }
 
     public List<RecipeIngredientMemento> RecipeIngredients { get; private set; }
 

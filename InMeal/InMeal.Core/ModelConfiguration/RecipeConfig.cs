@@ -22,14 +22,6 @@ public class RecipeConfig
         builder.Property(e => e.CourseType).HasDefaultValue(MealCourse.Unknown);
 
         builder
-            .HasOne(e => e.RecipePhoto)
-            .WithOne(e => e.Recipe)
-            .HasForeignKey<RecipePhoto>(e => e.RecipeId)
-            .OnDelete(DeleteBehavior.Cascade)
-            // optionally upload a photo
-            .IsRequired(false);
-
-        builder
             .HasMany(e => e.RecipeIngredients)
             .WithOne(e => e.Recipe)
             .HasForeignKey(e => e.RecipeId)
