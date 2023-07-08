@@ -3,7 +3,6 @@ using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 using InMeal.DTOs;
 using InMeal.Infrastructure.Interfaces.DataServices;
-using InMeal.Mappers;
 
 namespace InMeal.Features;
 
@@ -19,7 +18,7 @@ public interface IRecipeManager
 
     Task<List<Recipe>> GetArchivedAsync(int? take, int? skip, CancellationToken ct);
     
-    Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
+    Task ArchiveAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
     
     Task<RecipeCategoryId> AddCategoryAsync(RecipeId recipeId, Cuisine cuisineType, CancellationToken ct);
 
@@ -82,7 +81,7 @@ public class RecipeManager : IRecipeManager
         return _recipeRepository.GetAllArchivedRecipesAsync(take ?? DefaultTake, skip ?? 0, ct);
     }
 
-    public Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
+    public Task ArchiveAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
     {
         return _recipeRepository.ArchiveRecipesAsync(ids, ct);
     }

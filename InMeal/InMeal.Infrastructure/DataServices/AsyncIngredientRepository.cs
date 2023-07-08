@@ -20,14 +20,14 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         _logger = logger;
     }
 
-    public async Task UpdateIngredientName(Guid id, string newName, CancellationToken ct)
+    public async Task UpdateNameAsync(IngredientId id, string newName, CancellationToken ct)
     {
-        var existingIngredient = await _recipeDbContext.Ingredients.SingleAsync(i => i.Id == id, ct);
+        var existingIngredient = await _recipeDbContext.Ingredients.SingleAsync(i => i.Id == id.Id, ct);
         existingIngredient.Name = newName;
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 
-    public Task<List<Ingredient>> GetIngredientsAsync(int skip, int take, CancellationToken ct)
+    public Task<List<Ingredient>> GetManyAsync(int skip, int take, CancellationToken ct)
     {
         return _recipeDbContext.Ingredients
             .OrderBy(i => i.Name)
@@ -35,24 +35,15 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
             .Take(take)
             .ToListAsync(ct);
     }
-
-    public async Task<List<Ingredient>> AddOrGetExistingIngredientsAsync(List<string> names, CancellationToken ct)
+    
+    public async Task<List<Ingredient>> GetManyAsync(List<string> names, CancellationToken ct)
     {
-        var existingIngredients = await GetIngredientsByNameAsync(names, ct);
-        var returnValue = existingIngredients.ToList();
-        var ingredientNamesToAdd = names.Except(existingIngredients.Select(i => i.Name)).ToList();
-
-        // skip adding any new ingredients, as we have persisted them all already
-        if (!ingredientNamesToAdd.Any())
-            return returnValue;
-
-        var newIngredientIds = await AddNewIngredientsAsync(ingredientNamesToAdd, ct);
-        returnValue.AddRange(newIngredientIds);
-
-        return returnValue;
+        return await _recipeDbContext.Ingredients
+                                     .Where(i => names.Contains(i.Name))
+                                     .ToListAsync(ct);
     }
 
-    public async Task<Dictionary<string, List<Ingredient>>> GetAlphabeticallyIndexedIngredientsAsync(CancellationToken ct)
+    public async Task<Dictionary<string, List<Ingredient>>> GetManyOrderedAlphabeticallyAsync(CancellationToken ct)
     {
         var orderedIngredients = await _recipeDbContext.Ingredients
             .OrderBy(i => i.Name)
@@ -67,7 +58,7 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
             .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
     }
     
-    public async Task<bool> DeleteIngredientsAsync(List<Guid> ingredientIds, CancellationToken ct)
+    public async Task<bool> DeleteManyAsync(List<Guid> ingredientIds, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(ingredientIds);
 
@@ -93,22 +84,9 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         return true;
     }
 
-    private async Task<List<Ingredient>> GetIngredientsByNameAsync(List<string> names, CancellationToken ct)
+    public async Task AddManyAsync(List<Ingredient> ingredients, CancellationToken ct)
     {
-        return await _recipeDbContext.Ingredients
-            .Where(i => names.Contains(i.Name))
-            .ToListAsync(ct);
-    }
-
-    private async Task<IEnumerable<Ingredient>> AddNewIngredientsAsync(List<string> names, CancellationToken ct)
-    {
-        var newIngredients = names
-            .Select(newIngredientName => new Ingredient() {Name = newIngredientName.ToLowerInvariant()})
-            .ToList();
-
-        await _recipeDbContext.Ingredients.AddRangeAsync(newIngredients, ct);
+        await _recipeDbContext.Ingredients.AddRangeAsync(ingredients.Select(i => i.State).ToList(), ct);
         await _recipeDbContext.SaveChangesAsync(ct);
-
-        return newIngredients;
     }
 }

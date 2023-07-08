@@ -5,12 +5,13 @@ namespace InMeal.Mappers;
 
 public static class RecipeCategoryMapper
 {
-    public static RecipeCategoryDto ToDto(RecipeCategory dto)
+    public static RecipeCategoryDto ToDto(RecipeCategory recipeCategory)
     {
+        // TODO: map the title here
         return new(
-            RecipeTitle: dto.Recipe.Title,
-            RecipeCategory: dto.Category,
-            RecipeId: dto.Recipe.Id
+            RecipeTitle: "need to map the title",
+            RecipeCategory: recipeCategory.Category,
+            RecipeId: recipeCategory.RecipeId
         );
     }
 }

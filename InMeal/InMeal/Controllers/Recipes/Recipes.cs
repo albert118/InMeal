@@ -1,4 +1,3 @@
-using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
 using InMeal.DTOs;
 using InMeal.Features;
@@ -104,7 +103,7 @@ public class RecipesController : ControllerBase
     public IActionResult ArchiveRecipes(ICollection<Guid> ids)
     {
         var keys = ids.Select(id => new RecipeId(id));
-        _recipeManager.ArchiveRecipesAsync(keys, _tokenAccessor.Token)
+        _recipeManager.ArchiveAsync(keys, _tokenAccessor.Token)
                       .GetAwaiter()
                       .GetResult();
         return Ok();
