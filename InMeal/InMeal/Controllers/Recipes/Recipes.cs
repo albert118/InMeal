@@ -1,10 +1,11 @@
+using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
 using InMeal.DTOs;
 using InMeal.Features;
 using InMeal.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace InMeal.Controllers;
+namespace InMeal.Controllers.Recipes;
 
 [ApiController]
 [Route("api/[controller]")]
@@ -91,7 +92,7 @@ public class RecipesController : ControllerBase
     public List<RecipeDto> GetArchived()
     {
         // use the default for now, as pagination isn't a thing on this API yet
-        var results = _recipeManager.GetAllArchivedRecipesAsync(take: null, skip: null, _tokenAccessor.Token)
+        var results = _recipeManager.GetArchivedAsync(take: null, skip: null, _tokenAccessor.Token)
                                     .GetAwaiter()
                                     .GetResult();
 
@@ -106,6 +107,30 @@ public class RecipesController : ControllerBase
         _recipeManager.ArchiveRecipesAsync(keys, _tokenAccessor.Token)
                       .GetAwaiter()
                       .GetResult();
+
+        return Ok();
+    }
+    
+    [HttpPost("[action]", Name = "Add a new recipe category for a given recipe")]
+    [ActionName("category")]
+    public ActionResult<Guid> AddCategory(AddRecipeCategoryDto dto)
+    {
+        var key = new RecipeId(dto.RecipeId);
+        var result = _recipeManager.AddCategoryAsync(key, dto.RecipeCategory, _tokenAccessor.Token)
+                                   .GetAwaiter()
+                                   .GetResult();
+
+        return Ok(result.Id);
+    }
+
+    [HttpDelete("[action]", Name = "Remove recipe categories for the given recipes")]
+    [ActionName("category")]
+    public IActionResult RemoveCategories(List<Guid> recipeIds)
+    {
+        var keys = recipeIds.Select(id => new RecipeId(id));
+        _recipeManager.RemoveCategoriesAsync(keys, _tokenAccessor.Token)
+                                 .GetAwaiter()
+                                 .GetResult();
 
         return Ok();
     }

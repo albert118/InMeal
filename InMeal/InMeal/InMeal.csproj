@@ -20,4 +20,8 @@
         <ProjectReference Include="..\InMeal.Infrastructure\InMeal.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Recipes\" />
+    </ItemGroup>
+
 </Project>

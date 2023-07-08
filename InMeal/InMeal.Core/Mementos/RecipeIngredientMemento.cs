@@ -1,8 +1,9 @@
 using InMeal.Core.Entities;
+using InMeal.Core.Kernel;
 
 namespace InMeal.Core.Mementos;
 
-public sealed class RecipeIngredientMemento
+public sealed class RecipeIngredientMemento : EntityMemento
 {
     public RecipeIngredientMemento(Guid ingredientId, Quantity quantity)
     {

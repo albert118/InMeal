@@ -23,7 +23,7 @@ public class Recipe : IHaveState<RecipeMemento>
 
     public MealType MealType { get; set; }
 
-    public RecipeCategory Category { get; set; }
+    public RecipeCategory? Category { get; set; }
 
     public RecipePhoto? RecipePhoto { get; set; }
 
@@ -34,7 +34,7 @@ public class Recipe : IHaveState<RecipeMemento>
     /// </summary>
     public string PreparationSteps { get; set; }
 
-    public RecipeMemento State => new(Title, Blurb, PreparationSteps, CookTime, PrepTime);
+    public RecipeMemento State => new(this);
 
     public static Recipe FromMemento(RecipeMemento memento)
     {
@@ -63,6 +63,16 @@ public class Recipe : IHaveState<RecipeMemento>
         MealType = MealType.Unknown;
     }
 
+    public void AddCategory(RecipeCategory category)
+    {
+        Category = category;
+    }
+
+    public void RemoveCategory()
+    {
+        Category = null;
+    }
+    
     public void EditDetails(string title, string? blurb, string preparationSteps, int? prepTime, int? cookTime)
     {
         Title = title;

@@ -3,7 +3,7 @@ using InMeal.Core.Mementos;
 
 namespace InMeal.Core.Entities;
 
-public class RecipeIngredient
+public class RecipeIngredient : IHaveState<RecipeIngredientMemento>
 {
     public RecipeIngredient(RecipeIngredientId id, Guid ingredientId, Quantity quantity)
     {
@@ -21,6 +21,8 @@ public class RecipeIngredient
     public Guid IngredientId { get; set; }
 
     public Quantity Quantity { get; set; }
+
+    public RecipeIngredientMemento State => new(Id.Id, Quantity);
 }
 
 public class RecipeIngredientId : Identity<Guid>

@@ -6,24 +6,25 @@ namespace InMeal.Core.Mementos;
 
 public sealed class RecipeMemento : EntityMemento
 {
-    public RecipeMemento(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
+    public RecipeMemento(Recipe recipe)
     {
-        Id = Guid.NewGuid();
+        Id = recipe.Id.Id;
 
-        Title = title;
-        Blurb = blurb;
+        Title = recipe.Title;
+        Blurb = recipe.Blurb;
+        PreparationSteps = recipe.PreparationSteps;
 
-        CookTime = cookTime;
-        PrepTime = prepTime;
-
-        PreparationSteps = preparationSteps ?? string.Empty;
-
-        RecipeIngredients = new();
-
+        CookTime = recipe.CookTime;
+        PrepTime = recipe.PrepTime;
         CourseType = MealCourse.Unknown;
         MealType = MealType.Unknown;
-
         Servings = 1;
+
+        // TODO: change to memento
+        Category = recipe.Category;
+        RecipePhoto = null;
+        RecipeIngredients = recipe.RecipeIngredients.Select(ri => ri.State).ToList();
+        
     }
 
     public Guid Id { get; private set; }

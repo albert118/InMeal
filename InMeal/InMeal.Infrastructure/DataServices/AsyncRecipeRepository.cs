@@ -19,12 +19,21 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         _logger = logger;
     }
 
+    public async Task UpdateRecipesAsync(List<Recipe> recipes, CancellationToken ct)
+    {
+        EmptyGuidGuard.Apply(recipes.Select(r => r.Id.Id));
+
+        _recipeDbContext.Recipes.UpdateRange(recipes.Select(r => r.State));
+        await _recipeDbContext.SaveChangesAsync(ct);
+    }
+
     public async Task<RecipeId?> AddRecipeAsync(Recipe recipe, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Id));
 
         try {
             await _recipeDbContext.Recipes.AddAsync(recipe.State, ct);
+            await _recipeDbContext.SaveChangesAsync(ct);
         } catch (Exception ex) {
             _logger.LogError(ex, "an error occured while saving a recipe");
             return null;
@@ -89,17 +98,18 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         return memento != null ? Recipe.FromMemento(memento) : null;
     }
 
-    public Task<Recipe> EditRecipeAsync(Recipe recipe, CancellationToken ct)
+    public async Task<Recipe> EditRecipeAsync(Recipe recipe, CancellationToken ct)
     {
         EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Id));
 
         try {
             _recipeDbContext.Recipes.Update(recipe.State);
+            await _recipeDbContext.SaveChangesAsync(ct);
         } catch (Exception ex) {
             _logger.LogError(ex, "an error occured while editing an existing recipe");
         }
 
-        return Task.FromResult(recipe);
+        return recipe;
     }
 
     public async Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
@@ -115,7 +125,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         foreach (var recipe in recipesToArchive) {
             recipe.isArchived = true;
         }
+        
+        await _recipeDbContext.SaveChangesAsync(ct);
     }
-
-    public Task SaveChangesAsync(CancellationToken ct) => _recipeDbContext.SaveChangesAsync(ct);
 }

@@ -34,19 +34,6 @@ public static class RecipeMapper
         );
     }
 
-    public static UpcomingRecipe ToUpcoming(Recipe recipe)
-    {
-        return new(
-            recipe.Id,
-            ToDto(recipe),
-            recipe.Title,
-            PreparationStatus.Unknown.ToString().ToLowerInvariant(),
-            new(
-                "https://media.tenor.com/1TjGpMd7GEYAAAAC/stitch-dessert.gif"
-            )
-        );
-    }
-
     public static RecommendedRecipe ToRecommended(Recipe recipe)
     {
         return new(

@@ -10,7 +10,7 @@ public interface IRecipeDbContext
 
     DbSet<RecipePhotoMemento> RecipePhotos { get; }
 
-    DbSet<RecipeCategory> RecipeCategories { get; }
+    DbSet<RecipeCategoryMemento> RecipeCategories { get; }
 
     DbSet<RecipeIngredientMemento> RecipeIngredients { get; }
 
