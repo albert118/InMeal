@@ -6,11 +6,11 @@ const string appSettingsFilePath = "appsettings.json";
 
 // retrieve and inject the application configuration
 var appConfig = new ConfigurationBuilder()
-    .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile(appSettingsFilePath)
-    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", optional: true)
-    .AddEnvironmentVariables()
-    .Build();
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(appSettingsFilePath)
+                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
+                .AddEnvironmentVariables()
+                .Build();
 
 var builder = WebApplication.CreateBuilder(args);
 

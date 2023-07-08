@@ -11,7 +11,8 @@ public class UpcomingController : ControllerBase
     private readonly IRecommendedRecipesService _recommendedRecipesService;
     private readonly ICancellationTokenAccessor _tokenAccessor;
 
-    public UpcomingController(IRecommendedRecipesService recommendedRecipesService, ICancellationTokenAccessor tokenAccessor)
+    public UpcomingController(IRecommendedRecipesService recommendedRecipesService,
+        ICancellationTokenAccessor tokenAccessor)
     {
         _recommendedRecipesService = recommendedRecipesService;
         _tokenAccessor = tokenAccessor;
@@ -22,9 +23,9 @@ public class UpcomingController : ControllerBase
     public ActionResult<List<RecommendedRecipe>> Post()
     {
         var results = _recommendedRecipesService.GetRecommended(_tokenAccessor.Token)
-                                             .GetAwaiter()
-                                             .GetResult();
-        
+                                                .GetAwaiter()
+                                                .GetResult();
+
         return results.Any() ? NoContent() : Ok(results);
     }
 }

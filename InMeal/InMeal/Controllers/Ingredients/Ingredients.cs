@@ -41,14 +41,14 @@ public class IngredientsController : ControllerBase
 
         return Ok();
     }
-    
+
     [HttpGet(Name = "View all alphabetically indexed ingredients")]
     [ActionName("indexed")]
     public ActionResult<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> Get()
     {
         var results = _ingredientsManager.GetUsagesSortedAlphabeticallyAsync(_tokenAccessor.Token)
-                           .GetAwaiter()
-                           .GetResult();
+                                         .GetAwaiter()
+                                         .GetResult();
 
         return Ok(results);
     }
@@ -63,8 +63,6 @@ public class IngredientsController : ControllerBase
         return results.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
 
-    public record PostIngredientsDto(List<string> IngredientNames);
-    
     [HttpDelete("{ingredientId:guid}", Name = "Remove a given ingredient")]
     public IActionResult Delete(Guid ingredientId)
     {
@@ -72,10 +70,14 @@ public class IngredientsController : ControllerBase
             _ingredientsManager.DeleteManyAsync(new List<IngredientId> { new(ingredientId) }, _tokenAccessor.Token)
                                .GetAwaiter()
                                .GetResult();
-        } catch (Exception ex) {
-            throw new BadHttpRequestException($"couldn't remove the {nameof(Ingredient)} '{ingredientId}', {ex.Message}");
+        }
+        catch (Exception ex) {
+            throw new BadHttpRequestException(
+                $"couldn't remove the {nameof(Ingredient)} '{ingredientId}', {ex.Message}");
         }
 
         return Ok();
     }
+
+    public record PostIngredientsDto(List<string> IngredientNames);
 }

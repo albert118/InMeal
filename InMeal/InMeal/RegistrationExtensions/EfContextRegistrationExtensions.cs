@@ -2,14 +2,15 @@
 using InMeal.Core;
 using InMeal.Infrastructure.Data.RecipesDb;
 using InMeal.Infrastructure.Interfaces.Data;
+using InMeal.Settings;
 using Microsoft.EntityFrameworkCore;
 
-namespace InMeal;
+namespace InMeal.RegistrationExtensions;
 
 public static class EfContextRegistrationExtensions
 {
     /// <summary>
-    /// Add the relevant EF Core db contexts
+    ///     Add the relevant EF Core db contexts
     /// </summary>
     public static ContainerBuilder AddEfCoreDbContexts(this ContainerBuilder builder, IWebHostEnvironment env)
     {
@@ -22,7 +23,7 @@ public static class EfContextRegistrationExtensions
     }
 
     /// <summary>
-    /// Configure the ef core database (sets the db connection string)
+    ///     Configure the ef core database (sets the db connection string)
     /// </summary>
     public static ContainerBuilder AddDatabaseSettings(this ContainerBuilder containerBuilder, IConfiguration config)
     {
@@ -40,25 +41,25 @@ public static class EfContextRegistrationExtensions
         return containerBuilder;
     }
 
-    private static ContainerBuilder AddDbContextOptions<TContext>(this ContainerBuilder containerBuilder, IWebHostEnvironment env)
+    private static ContainerBuilder AddDbContextOptions<TContext>(this ContainerBuilder containerBuilder,
+        IWebHostEnvironment env)
         where TContext : DbContext
     {
-        containerBuilder.Register(sp => {
-                var loggerFactory = sp.Resolve<ILoggerFactory>();
-                var dbSettings = sp.Resolve<DatabaseSettings>();
-                var builder = new DbContextOptionsBuilder<TContext>()
-                    .UseLoggerFactory(loggerFactory)
-                    .UseMySql(dbSettings.ConnectionString, dbSettings.ServerVersion);
+        containerBuilder.Register(sp =>
+                        {
+                            var loggerFactory = sp.Resolve<ILoggerFactory>();
+                            var dbSettings = sp.Resolve<DatabaseSettings>();
+                            var builder = new DbContextOptionsBuilder<TContext>()
+                                          .UseLoggerFactory(loggerFactory)
+                                          .UseMySql(dbSettings.ConnectionString, dbSettings.ServerVersion);
 
-                if (env.IsDevelopment()) {
-                    builder.EnableDetailedErrors().EnableSensitiveDataLogging();
-                }
+                            if (env.IsDevelopment()) builder.EnableDetailedErrors().EnableSensitiveDataLogging();
 
-                // make sure to return options here! Otherwise we'll register the builder
-                return builder.Options;
-            })
-            .AsSelf()
-            .SingleInstance();
+                            // make sure to return options here! Otherwise we'll register the builder
+                            return builder.Options;
+                        })
+                        .AsSelf()
+                        .SingleInstance();
 
         return containerBuilder;
     }

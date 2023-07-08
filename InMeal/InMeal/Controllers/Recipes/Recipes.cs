@@ -46,13 +46,11 @@ public class RecipesController : ControllerBase
     [ActionName("add")]
     public ActionResult<Guid> Post(RecipeDto dto)
     {
-        if (dto.Id != null) {
-            return BadRequest("An ID is required to edit an existing recipe");
-        }
+        if (dto.Id != null) return BadRequest("An ID is required to edit an existing recipe");
 
         var result = _recipeManager.AddAsync(dto, _tokenAccessor.Token)
-                      .GetAwaiter()
-                      .GetResult();
+                                   .GetAwaiter()
+                                   .GetResult();
 
         return result.Id.Key;
     }
@@ -61,9 +59,7 @@ public class RecipesController : ControllerBase
     [ActionName("edit")]
     public IActionResult Patch(RecipeDto dto)
     {
-        if (dto.Id != null) {
-            return BadRequest("An ID is required to edit an existing recipe");
-        }
+        if (dto.Id != null) return BadRequest("An ID is required to edit an existing recipe");
 
         _recipeManager.EditAsync(dto, _tokenAccessor.Token)
                       .GetAwaiter()
@@ -78,26 +74,26 @@ public class RecipesController : ControllerBase
     public ActionResult<List<RecipeDto>> GetAll()
     {
         var result = _recipeManager.GetManyAsync(_tokenAccessor.Token)
-                      .GetAwaiter()
-                      .GetResult();
+                                   .GetAwaiter()
+                                   .GetResult();
 
-        return result.Count == 0 
-            ? new() 
+        return result.Count == 0
+            ? new()
             : result.Select(RecipeMapper.ToDto).ToList();
     }
-    
+
     [HttpGet("[action]", Name = "Get all archived recipes")]
     [ActionName("archived")]
     public List<RecipeDto> GetArchived()
     {
         // use the default for now, as pagination isn't a thing on this API yet
-        var results = _recipeManager.GetArchivedAsync(take: null, skip: null, _tokenAccessor.Token)
+        var results = _recipeManager.GetArchivedAsync(null, null, _tokenAccessor.Token)
                                     .GetAwaiter()
                                     .GetResult();
 
         return results.Count == 0 ? new() : results.Select(RecipeMapper.ToDto).ToList();
     }
-    
+
     [HttpPost("[action]", Name = "Archive given Recipes")]
     [ActionName("archive")]
     public IActionResult ArchiveRecipes(ICollection<Guid> ids)
@@ -108,7 +104,7 @@ public class RecipesController : ControllerBase
                       .GetResult();
         return Ok();
     }
-    
+
     [HttpPost("[action]", Name = "Add a new recipe category for a given recipe")]
     [ActionName("category")]
     public ActionResult<Guid> AddCategory(AddRecipeCategoryDto dto)
@@ -127,8 +123,8 @@ public class RecipesController : ControllerBase
     {
         var keys = recipeIds.Select(id => new RecipeId(id));
         _recipeManager.RemoveCategoriesAsync(keys, _tokenAccessor.Token)
-                                 .GetAwaiter()
-                                 .GetResult();
+                      .GetAwaiter()
+                      .GetResult();
 
         return Ok();
     }

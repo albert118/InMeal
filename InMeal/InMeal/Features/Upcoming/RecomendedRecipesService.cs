@@ -6,7 +6,7 @@ namespace InMeal.Features.Upcoming;
 
 public interface IRecommendedRecipesService
 {
-    Task< List<RecommendedRecipe>> GetRecommended(CancellationToken ct);
+    Task<List<RecommendedRecipe>> GetRecommended(CancellationToken ct);
 }
 
 [InstanceScopedBusinessService]

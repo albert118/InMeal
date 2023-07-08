@@ -12,7 +12,8 @@ public interface IIngredientsManager
 
     Task UpdateNameAsync(IngredientId id, string newName, CancellationToken ct);
 
-    Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(CancellationToken ct);
+    Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(
+        CancellationToken ct);
 
     Task<List<Ingredient>> AddAndGetExistingAsync(IEnumerable<string> names, CancellationToken ct);
 
@@ -22,13 +23,13 @@ public interface IIngredientsManager
 [InstanceScopedBusinessService]
 public class IngredientsManager : IIngredientsManager
 {
-    private readonly IAsyncIngredientRepository _ingredientRepository;
-    private readonly IAsyncRecipeIngredientQueryService _recipeIngredientQueryService;
-    private readonly ILogger<IngredientsManager> _logger;
-
     private const int DefaultTake = 25;
-    
-    public IngredientsManager(IAsyncIngredientRepository ingredientRepository, IAsyncRecipeIngredientQueryService recipeIngredientQueryService, ILogger<IngredientsManager> logger)
+    private readonly IAsyncIngredientRepository _ingredientRepository;
+    private readonly ILogger<IngredientsManager> _logger;
+    private readonly IAsyncRecipeIngredientQueryService _recipeIngredientQueryService;
+
+    public IngredientsManager(IAsyncIngredientRepository ingredientRepository,
+        IAsyncRecipeIngredientQueryService recipeIngredientQueryService, ILogger<IngredientsManager> logger)
     {
         _ingredientRepository = ingredientRepository;
         _recipeIngredientQueryService = recipeIngredientQueryService;
@@ -47,7 +48,8 @@ public class IngredientsManager : IIngredientsManager
         return _ingredientRepository.UpdateNameAsync(id, newName, ct);
     }
 
-    public async Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(CancellationToken ct)
+    public async Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(
+        CancellationToken ct)
     {
         var indexedIngredients = await _ingredientRepository.GetManyOrderedAlphabeticallyAsync(ct);
 
@@ -67,13 +69,11 @@ public class IngredientsManager : IIngredientsManager
         var ingredientNamesToBeAdded = standardisedNames.Except(existingIngredients.Select(i => i.Name)).ToList();
 
         // skip adding any new ingredients, as we have persisted them all already
-        if (!ingredientNamesToBeAdded.Any()) {
-            return existingIngredients;
-        }
+        if (!ingredientNamesToBeAdded.Any()) return existingIngredients;
 
         var newIngredients = ingredientNamesToBeAdded.Select(n => new Ingredient(n)).ToList();
         await _ingredientRepository.AddManyAsync(newIngredients, ct);
-        
+
         // return all of the existing ingredients
         existingIngredients.AddRange(newIngredients);
 
@@ -83,7 +83,7 @@ public class IngredientsManager : IIngredientsManager
     public async Task DeleteManyAsync(IEnumerable<IngredientId> ids, CancellationToken ct)
     {
         var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCount(ct);
-        
+
         if (usageCountResults.Any(e => e.Value > 0)) {
             var ingredientsInUse = string.Join(", ", usageCountResults.Keys.ToList());
             _logger.LogWarning("cannot remove {Ingredient}(s) used by recipes with Ids '{IngredientIds}'",
@@ -92,7 +92,7 @@ public class IngredientsManager : IIngredientsManager
             );
             throw new IngredientDeletionException($"cannot remove {nameof(Ingredient)}s used by existing recipes");
         }
-        
+
         await _ingredientRepository.DeleteManyAsync(ids, ct);
     }
 }

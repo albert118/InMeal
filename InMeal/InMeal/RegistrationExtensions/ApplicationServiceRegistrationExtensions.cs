@@ -6,7 +6,7 @@ namespace InMeal;
 public static class ApplicationServiceRegistrationExtensions
 {
     /// <summary>
-    /// Add the application layer services
+    ///     Add the application layer services
     /// </summary>
     /// <param name="containerBuilder"></param>
     /// <returns></returns>
@@ -24,16 +24,16 @@ public static class ApplicationServiceRegistrationExtensions
     }
 
     /// <summary>
-    /// Register any services tagged with the instance registration attribute
+    ///     Register any services tagged with the instance registration attribute
     /// </summary>
-    /// <seealso cref="InstanceScopedServiceAttribute"/>
+    /// <seealso cref="InstanceScopedServiceAttribute" />
     private static ContainerBuilder RegisterAttributeTaggedServices<T>(this ContainerBuilder containerBuilder)
         where T : Attribute
     {
         containerBuilder.RegisterAssemblyTypes(typeof(T).Assembly)
-            .Where(type => type.GetCustomAttributes(typeof(T), inherit: false).Any())
-            .AsImplementedInterfaces()
-            .InstancePerLifetimeScope();
+                        .Where(type => type.GetCustomAttributes(typeof(T), false).Any())
+                        .AsImplementedInterfaces()
+                        .InstancePerLifetimeScope();
 
         return containerBuilder;
     }

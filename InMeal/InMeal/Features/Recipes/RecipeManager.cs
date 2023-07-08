@@ -18,9 +18,9 @@ public interface IRecipeManager
     Task<Recipe> EditAsync(RecipeDto dto, CancellationToken ct);
 
     Task<List<Recipe>> GetArchivedAsync(int? take, int? skip, CancellationToken ct);
-    
+
     Task ArchiveAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
-    
+
     Task<RecipeCategoryId> AddCategoryAsync(RecipeId recipeId, Cuisine cuisineType, CancellationToken ct);
 
     Task RemoveCategoriesAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
@@ -29,9 +29,8 @@ public interface IRecipeManager
 [InstanceScopedBusinessService]
 public class RecipeManager : IRecipeManager
 {
-    private readonly IAsyncRecipeRepository _recipeRepository;
-
     private const int DefaultTake = 25;
+    private readonly IAsyncRecipeRepository _recipeRepository;
 
     public RecipeManager(IAsyncRecipeRepository recipeRepository)
     {
@@ -66,8 +65,8 @@ public class RecipeManager : IRecipeManager
 
     public async Task<Recipe> EditAsync(RecipeDto dto, CancellationToken ct)
     {
-        var recipe = await _recipeRepository.GetRecipeAsync(dto.Id!, ct) 
-            ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{dto.Id}'");
+        var recipe = await _recipeRepository.GetRecipeAsync(dto.Id!, ct)
+                     ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{dto.Id}'");
 
         recipe.EditDetails(dto.Title, dto.Blurb, dto.PreparationSteps, dto.PrepTime, dto.CookTime);
         recipe.UpdateIngredients(RecipeIngredientMapper.FromDto(dto.RecipeIngredients, recipe.Id));
@@ -89,8 +88,8 @@ public class RecipeManager : IRecipeManager
 
     public async Task<RecipeCategoryId> AddCategoryAsync(RecipeId recipeId, Cuisine cuisineType, CancellationToken ct)
     {
-        var recipe = await _recipeRepository.GetRecipeAsync(recipeId, ct) 
-            ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{recipeId}'");
+        var recipe = await _recipeRepository.GetRecipeAsync(recipeId, ct)
+                     ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{recipeId}'");
 
         recipe.AddCategory(cuisineType);
         await _recipeRepository.UpdateRecipesAsync(new List<Recipe> { recipe }, ct);
@@ -102,9 +101,7 @@ public class RecipeManager : IRecipeManager
     {
         var recipes = await _recipeRepository.GetRecipesAsync(ids, ct);
 
-        foreach (var recipe in recipes) {
-            recipe.RemoveCategory();
-        }
+        foreach (var recipe in recipes) recipe.RemoveCategory();
 
         await _recipeRepository.UpdateRecipesAsync(recipes, ct);
     }

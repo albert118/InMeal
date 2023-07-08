@@ -1,5 +1,4 @@
 using InMeal.Core.Entities;
-using InMeal.DTOs;
 using InMeal.DTOs.Recipes;
 
 namespace InMeal.Mappers;
@@ -10,9 +9,9 @@ public static class RecipeCategoryMapper
     {
         // TODO: map the title here
         return new(
-            RecipeTitle: "need to map the title",
-            RecipeCategory: recipeCategory.Category,
-            RecipeId: recipeCategory.RecipeId
+            "WHAT IF I DIDN'T NEED THIS THOUGH???",
+            recipeCategory.Category,
+            recipeCategory.RecipeId
         );
     }
 }

@@ -1,6 +1,4 @@
-﻿using InMeal.DTOs;
-using InMeal.DTOs.Recipes;
-using InMeal.Infrastructure.Interfaces.DataServices;
+﻿using InMeal.DTOs.Recipes;
 using InMeal.Infrastructure.Interfaces.QueryServices;
 using InMeal.Mappers;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +9,11 @@ namespace InMeal.Controllers.Recipes;
 [Route("api/[controller]")]
 public class RecipeCategories : ControllerBase
 {
-    private readonly ICancellationTokenAccessor _tokenAccessor;
     private readonly IAsyncRecipeCategoryQueryService _queryService;
+    private readonly ICancellationTokenAccessor _tokenAccessor;
 
-    public RecipeCategories(ICancellationTokenAccessor cancellationTokenAccessor, IAsyncRecipeCategoryQueryService queryService)
+    public RecipeCategories(ICancellationTokenAccessor cancellationTokenAccessor,
+        IAsyncRecipeCategoryQueryService queryService)
     {
         _tokenAccessor = cancellationTokenAccessor;
         _queryService = queryService;
