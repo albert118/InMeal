@@ -123,7 +123,7 @@ public class Recipe : IHaveState<RecipeMemento>
         var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Contains(ri.Key)).ToList();
 
         RecipeIngredients.AddRange(
-            toAdd.Select(ri => new RecipeIngredient(new(Guid.NewGuid()), ri.Key.Id, ri.Value.Quantity))
+            toAdd.Select(ri => new RecipeIngredient(new(Guid.NewGuid()), ri.Key.Key, ri.Value.Quantity))
         );
     }
 

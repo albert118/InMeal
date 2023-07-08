@@ -54,7 +54,7 @@ public class RecipesController : ControllerBase
                       .GetAwaiter()
                       .GetResult();
 
-        return result.Id.Id;
+        return result.Id.Key;
     }
 
     [HttpPost("[action]", Name = "Edit an existing recipe")]
@@ -118,7 +118,7 @@ public class RecipesController : ControllerBase
                                    .GetAwaiter()
                                    .GetResult();
 
-        return Ok(result.Id);
+        return Ok(result.Key);
     }
 
     [HttpDelete("[action]", Name = "Remove recipe categories for the given recipes")]

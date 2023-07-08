@@ -8,7 +8,7 @@ public sealed class IngredientMemento : EntityMemento, IHaveName
 {
     public IngredientMemento(Ingredient ingredient)
     {
-        Id = ingredient.Id.Id;
+        Id = ingredient.Id.Key;
         Name = ingredient.Name;
     }
     

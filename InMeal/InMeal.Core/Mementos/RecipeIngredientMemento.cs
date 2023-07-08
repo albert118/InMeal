@@ -12,9 +12,9 @@ public sealed class RecipeIngredientMemento : EntityMemento
         Quantity = recipeIngredient.Quantity;
 
         Recipe = null;
-        RecipeId = recipeIngredient.RecipeId.Id;
+        RecipeId = recipeIngredient.RecipeId.Key;
         
-        IngredientId = recipeIngredient.Ingredient.Id.Id;
+        IngredientId = recipeIngredient.Ingredient.Id.Key;
         Ingredient = recipeIngredient.Ingredient;
         
     }

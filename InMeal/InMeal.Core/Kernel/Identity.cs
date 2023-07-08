@@ -2,24 +2,24 @@ namespace InMeal.Core.Kernel;
 
 public interface IIdentity<out T>
 {
-    T Id { get; }
+    T Key { get; }
 }
 
 public abstract class Identity<T> : IEquatable<Identity<T>>, IIdentity<T>
 {
     protected Identity(T id)
     {
-        Id = id;
+        Key = id;
     }
 
     public bool Equals(Identity<T>? other)
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
-        return EqualityComparer<T>.Default.Equals(Id, other.Id);
+        return EqualityComparer<T>.Default.Equals(Key, other.Key);
     }
 
-    public T Id { get; }
+    public T Key { get; }
 
     public override bool Equals(object? obj)
     {
@@ -41,11 +41,11 @@ public abstract class Identity<T> : IEquatable<Identity<T>>, IIdentity<T>
     
     public override int GetHashCode()
     {
-        return EqualityComparer<T>.Default.GetHashCode(Id);
+        return EqualityComparer<T>.Default.GetHashCode(Key);
     }
     
     public override string ToString()
     {
-        return GetType().Name + " [Id=" + Id + "]";
+        return GetType().Name + " [Id=" + Key + "]";
     }
 }

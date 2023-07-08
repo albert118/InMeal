@@ -8,7 +8,7 @@ public sealed class RecipeMemento : EntityMemento
 {
     public RecipeMemento(Recipe recipe)
     {
-        Id = recipe.Id.Id;
+        Id = recipe.Id.Key;
 
         Title = recipe.Title;
         Blurb = recipe.Blurb;

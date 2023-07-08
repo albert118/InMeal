@@ -8,8 +8,8 @@ public sealed class RecipeCategoryMemento : EntityMemento
 {
     public RecipeCategoryMemento(RecipeCategory recipeCategory)
     {
-        Id = recipeCategory.Id.Id;
-        RecipeId = recipeCategory.Id.Id;
+        Id = recipeCategory.Id.Key;
+        RecipeId = recipeCategory.Id.Key;
         Category = recipeCategory.Category;
     }
 

@@ -21,7 +21,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
     public async Task UpdateRecipesAsync(List<Recipe> recipes, CancellationToken ct)
     {
-        EmptyGuidGuard.Apply(recipes.Select(r => r.Id.Id));
+        EmptyGuidGuard.Apply(recipes.Select(r => r.Id.Key));
 
         _recipeDbContext.Recipes.UpdateRange(recipes.Select(r => r.State));
         await _recipeDbContext.SaveChangesAsync(ct);
@@ -29,7 +29,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
     public async Task<RecipeId?> AddRecipeAsync(Recipe recipe, CancellationToken ct)
     {
-        EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Id));
+        EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Key));
 
         try {
             await _recipeDbContext.Recipes.AddAsync(recipe.State, ct);
@@ -65,7 +65,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
     public async Task<List<Recipe>> GetRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
     {
-        var keys = ids.Select(identity => identity.Id).Distinct().ToList();
+        var keys = ids.Select(identity => identity.Key).Distinct().ToList();
         EmptyGuidGuard.Apply(keys);
 
         var mementos = await _recipeDbContext.Recipes
@@ -82,14 +82,14 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
                 .Include(r => r.RecipeIngredients)
                 .ThenInclude(i => i.Ingredient)
                 .ExcludeArchived()
-                .SingleOrDefaultAsync(r => r.Id == id.Id, ct);
+                .SingleOrDefaultAsync(r => r.Id == id.Key, ct);
 
         return memento != null ? Recipe.FromMemento(memento) : null;
     }
 
     public async Task<Recipe> EditRecipeAsync(Recipe recipe, CancellationToken ct)
     {
-        EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Id));
+        EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Key));
 
         try {
             _recipeDbContext.Recipes.Update(recipe.State);
@@ -103,7 +103,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
     public async Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
     {
-        var keys = ids.Select(identity => identity.Id).Distinct().ToList();
+        var keys = ids.Select(identity => identity.Key).Distinct().ToList();
         EmptyGuidGuard.Apply(keys);
 
         var recipesToArchive = await _recipeDbContext.Recipes

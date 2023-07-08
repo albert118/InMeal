@@ -21,7 +21,7 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
 
     public async Task UpdateNameAsync(IngredientId id, string newName, CancellationToken ct)
     {
-        var existingIngredient = await _recipeDbContext.Ingredients.SingleAsync(i => i.Id == id.Id, ct);
+        var existingIngredient = await _recipeDbContext.Ingredients.SingleAsync(i => i.Id == id.Key, ct);
         existingIngredient.Name = newName;
         await _recipeDbContext.SaveChangesAsync(ct);
     }
@@ -61,7 +61,7 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
     
     public async Task<bool> DeleteManyAsync(IEnumerable<IngredientId> ingredientIds, CancellationToken ct)
     {
-        var keys = ingredientIds.Select(identity => identity.Id).ToList();
+        var keys = ingredientIds.Select(identity => identity.Key).ToList();
         EmptyGuidGuard.Apply(keys);
 
         var existingIngredients = await _recipeDbContext.Ingredients
