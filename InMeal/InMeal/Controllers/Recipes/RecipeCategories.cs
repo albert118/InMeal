@@ -1,6 +1,7 @@
 ﻿using InMeal.DTOs;
 using InMeal.DTOs.Recipes;
 using InMeal.Infrastructure.Interfaces.DataServices;
+using InMeal.Infrastructure.Interfaces.QueryServices;
 using InMeal.Mappers;
 using Microsoft.AspNetCore.Mvc;
 

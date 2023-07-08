@@ -1,6 +1,7 @@
 using InMeal.Core.Entities;
 using InMeal.DTOs.Ingredients;
 using InMeal.Infrastructure.Interfaces.DataServices;
+using InMeal.Infrastructure.Interfaces.QueryServices;
 using InMeal.Mappers;
 
 namespace InMeal.Features.Ingredients;

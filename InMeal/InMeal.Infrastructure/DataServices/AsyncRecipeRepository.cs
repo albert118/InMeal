@@ -63,17 +63,6 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         return mementos.Select(Recipe.FromMemento).ToList();
     }
 
-    public async Task<List<Recipe>> GetRecommendedRecipes(int limit, CancellationToken ct)
-    {
-        var mementos = await _recipeDbContext.Recipes
-            .ExcludeArchived()
-            .OrderRandomly()
-            .Take(limit)
-            .ToListAsync(ct);
-
-        return mementos.Select(Recipe.FromMemento).ToList(); 
-    }
-
     public async Task<List<Recipe>> GetRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
     {
         var keys = ids.Select(identity => identity.Id).Distinct().ToList();

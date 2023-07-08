@@ -1,6 +1,6 @@
 ﻿using InMeal.Core.Entities;
 
-namespace InMeal.Infrastructure.Interfaces.DataServices;
+namespace InMeal.Infrastructure.Interfaces.QueryServices;
 
 public interface IAsyncRecipeCategoryQueryService
 {

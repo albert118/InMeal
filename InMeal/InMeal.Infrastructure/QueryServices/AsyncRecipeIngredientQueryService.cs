@@ -1,6 +1,7 @@
 ﻿using InMeal.Core.Entities;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
+using InMeal.Infrastructure.Interfaces.QueryServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace InMeal.Infrastructure.QueryServices;
