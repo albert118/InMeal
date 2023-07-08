@@ -1,9 +1,9 @@
-﻿using InMeal.Core.Globalisation;
-using InMeal.Core.Kernel;
+﻿using InMeal.Core.Kernel;
+using InMeal.Core.Mementos;
 
 namespace InMeal.Core.Entities;
 
-public class Ingredient : IHaveState<IngredientMemento>, IHaveName
+public class Ingredient : IHaveState<IngredientMemento>
 {
     public Ingredient(string name)
     {
@@ -16,13 +16,15 @@ public class Ingredient : IHaveState<IngredientMemento>, IHaveName
 
     private Ingredient(IngredientMemento memento)
     {
-        Id = memento.Id;
+        Id = new(memento.Id);
         Name = memento.Name;
     }
 
     public IngredientId Id { get; set; }
 
     public string Name { get; set; }
+
+    public IngredientMemento State => new(this);
 }
 
 public class IngredientId : Identity<Guid>

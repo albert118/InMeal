@@ -1,5 +1,5 @@
-using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
+using InMeal.DTOs.Ingredients;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Mappers;
 
@@ -22,15 +22,15 @@ public interface IIngredientsManager
 public class IngredientsManager : IIngredientsManager
 {
     private readonly IAsyncIngredientRepository _ingredientRepository;
-    private readonly IAsyncRecipeIngredientRepository _recipeIngredientRepository;
+    private readonly IAsyncRecipeIngredientQueryService _recipeIngredientQueryService;
     private readonly ILogger<IngredientsManager> _logger;
 
     private const int DefaultTake = 25;
     
-    public IngredientsManager(IAsyncIngredientRepository ingredientRepository, IAsyncRecipeIngredientRepository recipeIngredientRepository, ILogger<IngredientsManager> logger)
+    public IngredientsManager(IAsyncIngredientRepository ingredientRepository, IAsyncRecipeIngredientQueryService recipeIngredientQueryService, ILogger<IngredientsManager> logger)
     {
         _ingredientRepository = ingredientRepository;
-        _recipeIngredientRepository = recipeIngredientRepository;
+        _recipeIngredientQueryService = recipeIngredientQueryService;
         _logger = logger;
     }
 
@@ -50,7 +50,7 @@ public class IngredientsManager : IIngredientsManager
     {
         var indexedIngredients = await _ingredientRepository.GetManyOrderedAlphabeticallyAsync(ct);
 
-        var usageCountResults = await _recipeIngredientRepository.GetIngredientUsageCount(ct);
+        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCount(ct);
 
         // merge results with the mapper
         return indexedIngredients.Count == 0
@@ -81,7 +81,7 @@ public class IngredientsManager : IIngredientsManager
 
     public async Task DeleteManyAsync(IEnumerable<IngredientId> ids, CancellationToken ct)
     {
-        var usageCountResults = await _recipeIngredientRepository.GetIngredientUsageCount(ct);
+        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCount(ct);
         
         if (usageCountResults.Any(e => e.Value > 0)) {
             var ingredientsInUse = string.Join(", ", usageCountResults.Keys.ToList());

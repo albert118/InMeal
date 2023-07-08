@@ -2,6 +2,7 @@ using System.Data;
 using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 using InMeal.DTOs;
+using InMeal.DTOs.Recipes;
 using InMeal.Infrastructure.Interfaces.DataServices;
 
 namespace InMeal.Features.Recipes;

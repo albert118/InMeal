@@ -1,6 +1,7 @@
 ﻿using InMeal.Core.DTOs;
 using InMeal.Core.Mappers;
 using InMeal.DTOs;
+using InMeal.DTOs.Recipes;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Mappers;
 

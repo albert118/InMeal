@@ -1,7 +1,7 @@
 ﻿using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 
-namespace InMeal.DTOs;
+namespace InMeal.DTOs.Recipes;
 
 public sealed record RecipeCategoryDto(
     string RecipeTitle,

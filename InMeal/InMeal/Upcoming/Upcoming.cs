@@ -1,5 +1,6 @@
 ﻿using InMeal.Core.DTOs;
 using InMeal.DTOs;
+using InMeal.DTOs.Recipes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InMeal.Upcoming;

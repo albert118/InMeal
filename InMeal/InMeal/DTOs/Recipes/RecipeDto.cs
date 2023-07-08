@@ -1,7 +1,7 @@
 using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
 
-namespace InMeal.DTOs;
+namespace InMeal.DTOs.Recipes;
 
 public sealed record RecipeDto(
     RecipeId? Id,
