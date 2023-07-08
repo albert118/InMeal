@@ -20,6 +20,8 @@ public class Ingredient : IHaveState<IngredientMemento>
         Name = memento.Name;
     }
 
+    public static Ingredient FromMemento(IngredientMemento memento) => new(memento);
+
     public IngredientId Id { get; set; }
 
     public string Name { get; set; }

@@ -26,20 +26,22 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 
-    public Task<List<Ingredient>> GetManyAsync(int skip, int take, CancellationToken ct)
+    public async Task<List<Ingredient>> GetManyAsync(int skip, int take, CancellationToken ct)
     {
-        return _recipeDbContext.Ingredients
+        var mementos = await _recipeDbContext.Ingredients
             .OrderBy(i => i.Name)
             .Skip(skip)
             .Take(take)
             .ToListAsync(ct);
+
+        return mementos.Select(Ingredient.FromMemento).ToList();
     }
     
     public async Task<List<Ingredient>> GetManyAsync(List<string> names, CancellationToken ct)
     {
-        return await _recipeDbContext.Ingredients
-                                     .Where(i => names.Contains(i.Name))
-                                     .ToListAsync(ct);
+        var mementos = await _recipeDbContext.Ingredients.Where(i => names.Contains(i.Name)).ToListAsync(ct);
+
+        return mementos.Select(Ingredient.FromMemento).ToList();
     }
 
     public async Task<Dictionary<string, List<Ingredient>>> GetManyOrderedAlphabeticallyAsync(CancellationToken ct)
@@ -54,7 +56,7 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
 
         return orderedIngredients
             .GroupAlphabetically()
-            .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
+            .ToDictionary(grouping => grouping.Key, grouping => grouping.Select(Ingredient.FromMemento).ToList());
     }
     
     public async Task<bool> DeleteManyAsync(IEnumerable<IngredientId> ingredientIds, CancellationToken ct)
