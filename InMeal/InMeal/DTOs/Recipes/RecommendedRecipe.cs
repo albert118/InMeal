@@ -1,5 +1,5 @@
-﻿using InMeal.Core.DTOs;
-using InMeal.Core.Entities;
+﻿using InMeal.Core.Entities;
+using InMeal.DTOs.Upcoming;
 
 namespace InMeal.DTOs.Recipes;
 

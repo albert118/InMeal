@@ -1,5 +1,4 @@
-﻿using InMeal.Core.DTOs;
-using InMeal.Core.Entities;
+﻿using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 using InMeal.DTOs;
 using InMeal.DTOs.Recipes;

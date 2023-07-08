@@ -1,4 +1,3 @@
-using InMeal.Core.DTOs;
 using InMeal.Core.Entities;
 
 namespace InMeal.DTOs.Recipes;
