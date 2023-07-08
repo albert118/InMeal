@@ -43,11 +43,12 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         return mementos.Select(Recipe.FromMemento).ToList();
     }
 
-    public async Task<List<Recipe>> GetAllArchivedRecipesAsync(CancellationToken ct)
+    public async Task<List<Recipe>> GetAllArchivedRecipesAsync(int take, int skip, CancellationToken ct)
     {
         var mementos = await _recipeDbContext.Recipes
             .IncludeArchived()
-            .Take(50)
+            .Skip(skip)
+            .Take(take)
             .ToListAsync(ct);
 
         return mementos.Select(Recipe.FromMemento).ToList();
@@ -94,8 +95,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
         try {
             _recipeDbContext.Recipes.Update(recipe.State);
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             _logger.LogError(ex, "an error occured while editing an existing recipe");
         }
 
@@ -116,4 +116,6 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
             recipe.isArchived = true;
         }
     }
+
+    public Task SaveChangesAsync(CancellationToken ct) => _recipeDbContext.SaveChangesAsync(ct);
 }

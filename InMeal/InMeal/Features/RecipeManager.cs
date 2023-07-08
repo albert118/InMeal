@@ -15,6 +15,10 @@ public interface IRecipeManager
     Task<Recipe> AddAsync(RecipeDto dto, CancellationToken ct);
 
     Task<Recipe> EditAsync(RecipeDto dto, CancellationToken ct);
+
+    Task<List<Recipe>> GetAllArchivedRecipesAsync(int? take, int? skip, CancellationToken ct);
+    
+    Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
 }
 
 [InstanceScopedBusinessService]
@@ -42,6 +46,8 @@ public class RecipeManager : IRecipeManager
         var newRecipe = RecipeMapper.FromDto(dto);
         newRecipe.UpdateIngredients(dto.RecipeIngredients);
         await _recipeRepository.AddRecipeAsync(newRecipe, ct);
+        await _recipeRepository.SaveChangesAsync(ct);
+
         return newRecipe;
     }
 
@@ -54,6 +60,20 @@ public class RecipeManager : IRecipeManager
         recipe.UpdateIngredients(dto.RecipeIngredients);
 
         await _recipeRepository.EditRecipeAsync(recipe, ct);
+        await _recipeRepository.SaveChangesAsync(ct);
+
         return recipe;
+    }
+
+    public Task<List<Recipe>> GetAllArchivedRecipesAsync(int? take, int? skip, CancellationToken ct)
+    {
+        return _recipeRepository.GetAllArchivedRecipesAsync(take ?? 50, skip ?? 0, ct);
+    }
+
+    public async Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
+    {
+        await _recipeRepository.ArchiveRecipesAsync(ids, ct);
+        await _recipeRepository.SaveChangesAsync(ct);
+        
     }
 }

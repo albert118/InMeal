@@ -8,7 +8,7 @@ public interface IAsyncRecipeRepository
 
     Task<List<Recipe>> GetRecipesAsync(CancellationToken ct);
 
-    Task<List<Recipe>> GetAllArchivedRecipesAsync(CancellationToken ct);
+    Task<List<Recipe>> GetAllArchivedRecipesAsync(int take, int skip, CancellationToken ct);
 
     Task<List<Recipe>> GetRecommendedRecipes(int limit, CancellationToken ct);
 
@@ -19,4 +19,6 @@ public interface IAsyncRecipeRepository
     Task<Recipe> EditRecipeAsync(Recipe updatedRecipe, CancellationToken ct);
 
     Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
+
+    Task SaveChangesAsync(CancellationToken ct);
 }

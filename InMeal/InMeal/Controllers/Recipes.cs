@@ -75,7 +75,7 @@ public class RecipesController : ControllerBase
     // personally im not a fan of this endpoint, but it's a nice stop gap for smaller datasets where nothing complex is required
     [HttpPost("[action]", Name = "View all stopgap")]
     [ActionName("everything")]
-    public ActionResult<List<RecipeDto>> Get()
+    public ActionResult<List<RecipeDto>> GetAll()
     {
         var result = _recipeManager.GetManyAsync(_tokenAccessor.Token)
                       .GetAwaiter()
@@ -84,5 +84,29 @@ public class RecipesController : ControllerBase
         return result.Count == 0 
             ? new() 
             : result.Select(RecipeMapper.ToDto).ToList();
+    }
+    
+    [HttpGet("[action]", Name = "Get all archived recipes")]
+    [ActionName("archived")]
+    public List<RecipeDto> GetArchived()
+    {
+        // use the default for now, as pagination isn't a thing on this API yet
+        var results = _recipeManager.GetAllArchivedRecipesAsync(take: null, skip: null, _tokenAccessor.Token)
+                                    .GetAwaiter()
+                                    .GetResult();
+
+        return results.Count == 0 ? new() : results.Select(RecipeMapper.ToDto).ToList();
+    }
+    
+    [HttpPost("[action]", Name = "Archive given Recipes")]
+    [ActionName("archive")]
+    public IActionResult ArchiveRecipes(ICollection<Guid> ids)
+    {
+        var keys = ids.Select(id => new RecipeId(id));
+        _recipeManager.ArchiveRecipesAsync(keys, _tokenAccessor.Token)
+                      .GetAwaiter()
+                      .GetResult();
+
+        return Ok();
     }
 }
