@@ -1,5 +1,4 @@
-﻿using InMeal.Core.DTOs;
-using InMeal.Core.Enumerations;
+﻿using InMeal.Core.Enumerations;
 using InMeal.Core.Kernel;
 using InMeal.Core.Mementos;
 

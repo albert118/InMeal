@@ -1,5 +1,6 @@
 ﻿using InMeal.Core.Entities;
 using InMeal.Core.Globalisation.Generators;
+using InMeal.Core.Mementos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json;
@@ -8,9 +9,7 @@ namespace InMeal.Core.ModelConfiguration;
 
 public class RecipeIngredientConfig
 {
-    // This is a dependent entity on the Recipe class
-    // The 1-m relationship is defined on the parent/principal
-    public void Configure(EntityTypeBuilder<RecipeIngredient> builder)
+    public void Configure(EntityTypeBuilder<RecipeIngredientMemento> builder)
     {
         builder.ToTable(nameof(RecipeIngredient));
 

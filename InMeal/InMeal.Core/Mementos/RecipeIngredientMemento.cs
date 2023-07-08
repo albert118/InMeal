@@ -5,21 +5,29 @@ namespace InMeal.Core.Mementos;
 
 public sealed class RecipeIngredientMemento : EntityMemento
 {
-    public RecipeIngredientMemento(Guid ingredientId, Quantity quantity)
+    public RecipeIngredientMemento(RecipeIngredient recipeIngredient)
     {
         Id = Guid.NewGuid();
-        IngredientId = ingredientId;
-        Quantity = quantity;
+        
+        Quantity = recipeIngredient.Quantity;
+
+        Recipe = null;
+        RecipeId = recipeIngredient.RecipeId.Id;
+        
+        IngredientId = recipeIngredient.Ingredient.Id.Id;
+        Ingredient = recipeIngredient.Ingredient;
+        
     }
 
-    public Guid Id { get; set; }
+    public Guid Id { get; private set; }
 
-    // The parent/principal
-    public RecipeMemento Recipe { get; set; }
+    public RecipeMemento? Recipe { get; private set; }
 
-    public Ingredient Ingredient { get; set; }
+    public Guid RecipeId { get; private set; }
 
-    public Guid IngredientId { get; set; }
+    public Ingredient Ingredient { get; private set; }
 
-    public Quantity Quantity { get; set; }
+    public Guid IngredientId { get; private set; }
+
+    public Quantity Quantity { get; private set; }
 }
