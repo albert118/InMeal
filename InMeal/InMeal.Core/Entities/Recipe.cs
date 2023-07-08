@@ -7,13 +7,53 @@ namespace InMeal.Core.Entities;
 
 public class Recipe : IHaveState<RecipeMemento>
 {
+    public Recipe(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
+    {
+        Id = new RecipeId(Guid.NewGuid());
+
+        Title = title;
+        Blurb = blurb;
+        PreparationSteps = preparationSteps ?? string.Empty;
+
+        CookTime = cookTime;
+        PrepTime = prepTime;
+        CourseType = MealCourse.Unknown;
+        MealType = MealType.Unknown;
+        Servings = 1;
+
+        Category = new(new(Guid.NewGuid()), Id, Cuisine.Unknown);
+        RecipePhoto = null;
+        RecipeIngredients = new();
+    }
+
+    private Recipe(RecipeMemento memento)
+    {
+        Id = new(memento.Id);
+
+        Title = memento.Title;
+        Blurb = memento.Blurb;
+        PreparationSteps = memento.PreparationSteps;
+        
+        CookTime = memento.CookTime;
+        PrepTime = memento.PrepTime;
+        CourseType = memento.CourseType;
+        MealType = memento.MealType;
+        Servings = memento.Servings;
+
+        Category = RecipeCategory.FromMemento(memento.Category);
+        RecipePhoto = null;
+        RecipeIngredients = memento.RecipeIngredients.Select(RecipeIngredient.FromMemento).ToList();
+    }
+
+    public static Recipe FromMemento(RecipeMemento memento) => new(memento);
+
     public RecipeId Id { get; set; }
 
     public int? CookTime { get; set; }
 
     public int? PrepTime { get; set; }
 
-    public int Servings { get; set; } = 1;
+    public int Servings { get; set; }
 
     public string Title { get; set; }
 
@@ -23,7 +63,7 @@ public class Recipe : IHaveState<RecipeMemento>
 
     public MealType MealType { get; set; }
 
-    public RecipeCategory? Category { get; set; }
+    public RecipeCategory Category { get; set; }
 
     public RecipePhoto? RecipePhoto { get; set; }
 
@@ -36,41 +76,14 @@ public class Recipe : IHaveState<RecipeMemento>
 
     public RecipeMemento State => new(this);
 
-    public static Recipe FromMemento(RecipeMemento memento)
+    public void AddCategory(Cuisine category)
     {
-        return new(
-            memento.Title,
-            memento.Blurb,
-            memento.PreparationSteps,
-            memento.CookTime,
-            memento.PrepTime
-        );
-    }
-    
-    public Recipe(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
-    {
-        Title = title;
-        Blurb = blurb;
-
-        CookTime = cookTime;
-        PrepTime = prepTime;
-
-        PreparationSteps = preparationSteps ?? string.Empty;
-
-        RecipeIngredients = new();
-
-        CourseType = MealCourse.Unknown;
-        MealType = MealType.Unknown;
-    }
-
-    public void AddCategory(RecipeCategory category)
-    {
-        Category = category;
+        Category.Category = category;
     }
 
     public void RemoveCategory()
     {
-        Category = null;
+        Category.Category = Cuisine.Unknown;
     }
     
     public void EditDetails(string title, string? blurb, string preparationSteps, int? prepTime, int? cookTime)

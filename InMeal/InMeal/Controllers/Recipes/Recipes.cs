@@ -107,7 +107,6 @@ public class RecipesController : ControllerBase
         _recipeManager.ArchiveRecipesAsync(keys, _tokenAccessor.Token)
                       .GetAwaiter()
                       .GetResult();
-
         return Ok();
     }
     

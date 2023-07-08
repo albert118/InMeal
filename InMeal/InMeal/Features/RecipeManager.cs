@@ -50,7 +50,14 @@ public class RecipeManager : IRecipeManager
 
     public async Task<Recipe> AddAsync(RecipeDto dto, CancellationToken ct)
     {
-        var newRecipe = RecipeMapper.FromDto(dto);
+        var newRecipe = new Recipe(
+            dto.Title,
+            dto.Blurb,
+            dto.PreparationSteps,
+            dto.CookTime,
+            dto.PrepTime
+        );
+
         newRecipe.UpdateIngredients(dto.RecipeIngredients);
         await _recipeRepository.AddRecipeAsync(newRecipe, ct);
 
@@ -85,11 +92,10 @@ public class RecipeManager : IRecipeManager
         var recipe = await _recipeRepository.GetRecipeAsync(recipeId, ct) 
             ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{recipeId}'");
 
-        var recipeCategoryId = new RecipeCategoryId(Guid.NewGuid());
-        recipe.AddCategory(new (recipeCategoryId, recipeId, cuisineType));
+        recipe.AddCategory(cuisineType);
         await _recipeRepository.UpdateRecipesAsync(new List<Recipe> { recipe }, ct);
 
-        return recipeCategoryId;
+        return recipe.Category.Id;
     }
 
     public async Task RemoveCategoriesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
