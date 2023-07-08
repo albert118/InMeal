@@ -1,5 +1,4 @@
-using InMeal.Core.DTOs;
-using InMeal.Core.Mappers;
+using InMeal.Core.Entities;
 using InMeal.DTOs;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Mappers;
@@ -23,9 +22,10 @@ public class ArchiveRecipesController : ControllerBase
     [HttpPost(Name = "Archive given Recipes")]
     public IActionResult Post(ICollection<Guid> ids)
     {
-        var ct = _tokenAccessor.Token;
-        var task = _repository.ArchiveRecipesAsync(ids.ToList(), ct);
-        task.Wait(ct);
+        var keys = ids.Select(id => new RecipeId(id));
+        _repository.ArchiveRecipesAsync(keys, _tokenAccessor.Token)
+                   .GetAwaiter()
+                   .GetResult();
 
         return Ok();
     }
@@ -33,13 +33,13 @@ public class ArchiveRecipesController : ControllerBase
     [HttpGet(Name = "Get all archived recipes")]
     public List<RecipeDto> Get()
     {
-        var ct = _tokenAccessor.Token;
-        var task = _repository.GetAllArchivedRecipesAsync(ct);
-        task.Wait(ct);
+        var results = _repository.GetAllArchivedRecipesAsync(_tokenAccessor.Token)
+                              .GetAwaiter()
+                              .GetResult();
 
-        if (task.Result.Count == 0)
+        if (results.Count == 0)
             return new();
 
-        return task.Result.Select(RecipeMapper.ToDto).ToList();
+        return results.Select(RecipeMapper.ToDto).ToList();
     }
 }
