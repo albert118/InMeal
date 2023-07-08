@@ -4,7 +4,7 @@ using InMeal.Core.Enumerations;
 using InMeal.DTOs;
 using InMeal.Infrastructure.Interfaces.DataServices;
 
-namespace InMeal.Features;
+namespace InMeal.Features.Recipes;
 
 public interface IRecipeManager
 {
