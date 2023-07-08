@@ -12,7 +12,7 @@ public sealed class IngredientMemento : EntityMemento, IHaveName
         Name = ingredient.Name;
     }
     
-    public Guid Id { get; set; }
+    public Guid Id { get; private set; }
 
     public string Name { get; set; }
 }

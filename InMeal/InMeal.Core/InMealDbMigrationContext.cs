@@ -1,5 +1,4 @@
-﻿using InMeal.Core.Entities;
-using InMeal.Core.Globalisation.Converters;
+﻿using InMeal.Core.Globalisation.Converters;
 using InMeal.Core.Mementos;
 using InMeal.Core.ModelConfiguration;
 using Microsoft.EntityFrameworkCore;
