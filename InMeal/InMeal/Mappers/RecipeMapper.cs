@@ -16,9 +16,7 @@ public static class RecipeMapper
             recipe.PreparationSteps,
             recipe.CookTime,
             recipe.PrepTime,
-            recipe.RecipeIngredients
-                .Select(ri => new RecipeIngredientDto(ri.Ingredient.Name, ri.Id, ri.Quantity))
-                .ToDictionary(ri => ri.IngredientId)
+            RecipeIngredientMapper.ToDto(recipe.RecipeIngredients)
         );
     }
 

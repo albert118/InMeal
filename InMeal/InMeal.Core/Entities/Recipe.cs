@@ -94,7 +94,7 @@ public class Recipe : IHaveState<RecipeMemento>
         CookTime = cookTime;
     }
 
-    public void UpdateIngredients(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredientDto> recipeIngredients)
+    public void UpdateIngredients(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredient> recipeIngredients)
     {
         if (!recipeIngredients.Keys.Any()) {
             ClearRecipeIngredients();
@@ -118,16 +118,21 @@ public class Recipe : IHaveState<RecipeMemento>
         RecipeIngredients = new();
     }
 
-    private void AddChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredientDto> recipeIngredients, IReadOnlyCollection<RecipeIngredientId> existingRecipeIngredientIds)
+    private void AddChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredient> recipeIngredients, IReadOnlyCollection<RecipeIngredientId> existingRecipeIngredientIds)
     {
         var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Contains(ri.Key)).ToList();
 
         RecipeIngredients.AddRange(
-            toAdd.Select(ri => new RecipeIngredient(new(Guid.NewGuid()), ri.Key.Key, ri.Value.Quantity))
+            toAdd.Select(ri => new RecipeIngredient(
+                id: ri.Key, 
+                recipeId: ri.Value.RecipeId, 
+                ingredient: ri.Value.Ingredient,
+                quantity: ri.Value.Quantity)
+            )
         );
     }
 
-    private void UpdateExistingChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredientDto> recipeIngredients, IReadOnlyCollection<RecipeIngredientId> existingRecipeIngredientIds)
+    private void UpdateExistingChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredient> recipeIngredients, IReadOnlyCollection<RecipeIngredientId> existingRecipeIngredientIds)
     {
         var toUpdate = recipeIngredients.Where(ri => existingRecipeIngredientIds.Contains(ri.Key)).ToList();
 
@@ -139,7 +144,7 @@ public class Recipe : IHaveState<RecipeMemento>
         }
     }
 
-    private void RemoveDeletedChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredientDto> recipeIngredients, List<RecipeIngredientId> existingRecipeIngredientIds)
+    private void RemoveDeletedChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredient> recipeIngredients, IReadOnlyCollection<RecipeIngredientId> existingRecipeIngredientIds)
     {
         var toRemove = existingRecipeIngredientIds.Where(id => !recipeIngredients.Keys.Contains(id)).ToList();
         RecipeIngredients.RemoveAll(e => toRemove.Contains(e.Id));

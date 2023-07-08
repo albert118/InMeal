@@ -13,6 +13,15 @@ public class Ingredient : IHaveState<IngredientMemento>
         Id = new IngredientId(Guid.NewGuid());
         Name = name.ToLowerInvariant().Trim();
     }
+    
+    public Ingredient(IngredientId id, string name)
+    {
+        if (string.IsNullOrEmpty(name))
+            throw new ArgumentException($"{nameof(Ingredient)} cannot be created without a name");
+
+        Id = id;
+        Name = name.ToLowerInvariant().Trim();
+    }
 
     private Ingredient(IngredientMemento memento)
     {

@@ -3,6 +3,7 @@ using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 using InMeal.DTOs.Recipes;
 using InMeal.Infrastructure.Interfaces.DataServices;
+using InMeal.Mappers;
 
 namespace InMeal.Features.Recipes;
 
@@ -57,7 +58,7 @@ public class RecipeManager : IRecipeManager
             dto.PrepTime
         );
 
-        newRecipe.UpdateIngredients(dto.RecipeIngredients);
+        newRecipe.UpdateIngredients(RecipeIngredientMapper.FromDto(dto.RecipeIngredients, newRecipe.Id));
         await _recipeRepository.AddRecipeAsync(newRecipe, ct);
 
         return newRecipe;
@@ -69,7 +70,7 @@ public class RecipeManager : IRecipeManager
             ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{dto.Id}'");
 
         recipe.EditDetails(dto.Title, dto.Blurb, dto.PreparationSteps, dto.PrepTime, dto.CookTime);
-        recipe.UpdateIngredients(dto.RecipeIngredients);
+        recipe.UpdateIngredients(RecipeIngredientMapper.FromDto(dto.RecipeIngredients, recipe.Id));
 
         await _recipeRepository.EditRecipeAsync(recipe, ct);
 
