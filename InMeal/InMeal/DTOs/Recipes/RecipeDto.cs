@@ -1,5 +1,3 @@
-using InMeal.Core.Entities;
-
 namespace InMeal.DTOs.Recipes;
 
 public sealed record RecipeDto(
@@ -9,5 +7,5 @@ public sealed record RecipeDto(
     string PreparationSteps,
     int? CookTime,
     int? PrepTime,
-    Dictionary<RecipeIngredientId, RecipeIngredientDto> RecipeIngredients
+    Dictionary<Guid, RecipeIngredientDto> RecipeIngredients
 );

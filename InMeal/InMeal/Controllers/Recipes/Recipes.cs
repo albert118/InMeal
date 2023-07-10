@@ -34,10 +34,9 @@ public class RecipesController : ControllerBase
     [HttpGet("{id:guid}", Name = "View Recipe")]
     public ActionResult<RecipeDto?> Get(Guid id)
     {
-        var result = _recipeManager.GetManyAsync(new List<RecipeId> { new(id) }, _tokenAccessor.Token)
+        var result = _recipeManager.GetAsync(new(id), _tokenAccessor.Token)
                                    .GetAwaiter()
-                                   .GetResult()
-                                   .SingleOrDefault();
+                                   .GetResult();
 
         return result == null ? NoContent() : Ok(RecipeMapper.ToDto(result));
     }

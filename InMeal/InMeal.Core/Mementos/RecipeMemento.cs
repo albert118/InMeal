@@ -46,7 +46,7 @@ public sealed class RecipeMemento : EntityMemento, IArchivable
 
     public MealType MealType { get; private set; }
 
-    public RecipeCategoryMemento Category { get; private set; }
+    public RecipeCategoryMemento? Category { get; private set; }
     
     public Guid? CategoryId { get; private set; }
 

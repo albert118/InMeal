@@ -38,7 +38,7 @@ public class Recipe : IHaveState<RecipeMemento>
         MealType = memento.MealType;
         Servings = memento.Servings;
 
-        Category = RecipeCategory.FromMemento(memento.Category);
+        Category = memento.Category != null ? RecipeCategory.FromMemento(memento.Category) : null;
         RecipeIngredients = memento.RecipeIngredients.Select(RecipeIngredient.FromMemento).ToList();
     }
 
@@ -60,7 +60,7 @@ public class Recipe : IHaveState<RecipeMemento>
 
     public MealType MealType { get; set; }
 
-    public RecipeCategory Category { get; set; }
+    public RecipeCategory? Category { get; set; }
 
     public List<RecipeIngredient> RecipeIngredients { get; set; }
 

@@ -20,7 +20,7 @@ public class RecipeIngredient : IHaveState<RecipeIngredientMemento>
         RecipeId = new(memento.RecipeId);
         Quantity = memento.Quantity;
         IngredientId = new(memento.IngredientId);
-        Ingredient = null;
+        Ingredient = memento.Ingredient != null ? Ingredient.FromMemento(memento.Ingredient) : null;
     }
 
     public static RecipeIngredient FromMemento(RecipeIngredientMemento memento) => new(memento);

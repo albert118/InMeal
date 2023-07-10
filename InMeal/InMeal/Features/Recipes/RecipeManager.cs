@@ -13,6 +13,8 @@ public interface IRecipeManager
 
     Task<List<Recipe>> GetManyAsync(IEnumerable<RecipeId> recipeIds, CancellationToken ct);
 
+    Task<Recipe?> GetAsync(RecipeId recipeId, CancellationToken ct);
+
     Task<Recipe> AddAsync(RecipeDto dto, CancellationToken ct);
 
     Task<Recipe> EditAsync(RecipeDto dto, CancellationToken ct);
@@ -45,6 +47,11 @@ public class RecipeManager : IRecipeManager
     public Task<List<Recipe>> GetManyAsync(IEnumerable<RecipeId> recipeIds, CancellationToken ct)
     {
         return _recipeRepository.GetRecipesAsync(recipeIds, ct);
+    }
+
+    public Task<Recipe?> GetAsync(RecipeId recipeId, CancellationToken ct)
+    {
+        return _recipeRepository.GetRecipeAsync(recipeId, ct);
     }
 
     public async Task<Recipe> AddAsync(RecipeDto dto, CancellationToken ct)
