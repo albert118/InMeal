@@ -2,5 +2,5 @@
 
 public interface IArchivable
 {
-    bool isArchived { get; set; }
+    bool IsArchived { get; set; }
 }

@@ -4,7 +4,7 @@ using InMeal.Core.Kernel;
 
 namespace InMeal.Core.Mementos;
 
-public sealed class RecipeMemento : EntityMemento
+public sealed class RecipeMemento : EntityMemento, IArchivable
 {
     private RecipeMemento() { }
 
@@ -25,6 +25,8 @@ public sealed class RecipeMemento : EntityMemento
         Category = recipe.Category.State;
        
         _recipeIngredients = recipe.RecipeIngredients.Select(ri => ri.State).ToHashSet();
+
+        IsArchived = false;
     }
 
     public Guid Id { get; private set; }
@@ -53,4 +55,6 @@ public sealed class RecipeMemento : EntityMemento
     /// A JSON encoded field containing the relevant method to prepare and cook the recipe
     /// </summary>
     public string PreparationSteps { get; private set; }
+
+    public bool IsArchived { get; set; }
 }

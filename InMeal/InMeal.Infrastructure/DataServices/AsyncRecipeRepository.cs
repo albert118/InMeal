@@ -117,7 +117,7 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
             .ToListAsync(ct);
 
         foreach (var recipe in recipesToArchive) {
-            recipe.isArchived = true;
+            recipe.IsArchived = true;
         }
         
         await _recipeDbContext.SaveChangesAsync(ct);
