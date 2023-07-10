@@ -3,6 +3,7 @@ using System;
 using InMeal.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InMeal.Core.Migrations
 {
     [DbContext(typeof(InMealDbMigrationContext))]
-    partial class InMealDbMigrationContextModelSnapshot : ModelSnapshot
+    [Migration("20230710101516_fixup recipe to category relationship")]
+    partial class fixuprecipetocategoryrelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,6 +95,7 @@ namespace InMeal.Core.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<Guid?>("CategoryId")
+                        .IsRequired()
                         .HasColumnType("char(36)");
 
                     b.Property<int?>("CookTime")
@@ -157,7 +160,9 @@ namespace InMeal.Core.Migrations
                 {
                     b.HasOne("InMeal.Core.Mementos.RecipeCategoryMemento", "Category")
                         .WithMany("Recipes")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });

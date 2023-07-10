@@ -26,5 +26,11 @@ public class RecipeConfig
             .WithOne(e => e.Recipe)
             .HasForeignKey(e => e.RecipeId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder
+            .HasOne(e => e.Category)
+            .WithMany(e => e.Recipes)
+            .HasForeignKey(e => e.CategoryId)
+            .IsRequired(false);
     }
 }

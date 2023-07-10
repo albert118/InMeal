@@ -13,6 +13,8 @@ public sealed class RecipeCategoryMemento : EntityMemento
         Id = recipeCategory.Id.Key;
         RecipeId = recipeCategory.Id.Key;
         Category = recipeCategory.Category;
+
+        _recipes = null;
     }
 
     public Guid Id { get; private set; }
@@ -20,4 +22,8 @@ public sealed class RecipeCategoryMemento : EntityMemento
     public Cuisine Category { get; private set; }
 
     public Guid RecipeId { get; private set; }
+
+    private readonly HashSet<RecipeMemento>? _recipes;
+    
+    public IEnumerable<RecipeMemento> Recipes => _recipes?.ToList() ?? new();
 }
