@@ -79,8 +79,8 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     public async Task<Recipe?> GetRecipeAsync(RecipeId id, CancellationToken ct)
     {
         var memento = await _recipeDbContext.Recipes
-                                            .Include(r => r.RecipeIngredients)
-                                            .ThenInclude(i => i.Ingredient)
+                                            .Include(e => e.RecipeIngredients)
+                                            .ThenInclude(e => e.Ingredient)
                                             .ExcludeArchived()
                                             .SingleOrDefaultAsync(r => r.Id == id.Key, ct);
 
@@ -88,7 +88,6 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
             return null;
         }
 
-        await _recipeDbContext.Entry(memento).Collection(c => c.RecipeIngredients).LoadAsync(ct);
         return Recipe.FromMemento(memento);
     }
 
