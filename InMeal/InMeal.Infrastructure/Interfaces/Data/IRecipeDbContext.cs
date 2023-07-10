@@ -1,5 +1,6 @@
 ﻿using InMeal.Core.Mementos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace InMeal.Infrastructure.Interfaces.Data;
 
@@ -14,4 +15,6 @@ public interface IRecipeDbContext
     DbSet<RecipeMemento> Recipes { get; }
 
     Task<int> SaveChangesAsync(CancellationToken ct);
+
+    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 }
