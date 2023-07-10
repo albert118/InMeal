@@ -6,9 +6,11 @@ public interface IAsyncIngredientRepository
 {
     Task AddManyAsync(List<Ingredient> ingredients, CancellationToken ct);
 
-    Task UpdateNameAsync(IngredientId id, string newName, CancellationToken ct);
+    Task UpdateAsync(List<Ingredient> ingredients, CancellationToken ct);
     
     Task<List<Ingredient>> GetManyAsync(int skip, int take, CancellationToken ct);
+    
+    Task<Ingredient?> GetAsync(IngredientId id, CancellationToken ct);
 
     Task<List<Ingredient>> GetManyAsync(List<string> names, CancellationToken ct);
     

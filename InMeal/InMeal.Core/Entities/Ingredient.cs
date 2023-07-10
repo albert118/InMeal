@@ -23,19 +23,21 @@ public class Ingredient : IHaveState<IngredientMemento>
         Name = name.ToLowerInvariant().Trim();
     }
 
-    private Ingredient(IngredientMemento memento)
+    public static Ingredient FromMemento(IngredientMemento memento) => new(new IngredientId(memento.Id), memento.Name);
+
+    public void UpdateName(string newName)
     {
-        Id = new(memento.Id);
-        Name = memento.Name;
+        if (string.IsNullOrEmpty(newName))
+            throw new ArgumentException($"cannot update an {nameof(Ingredient)} with an empty name");
+
+        Name = newName;
     }
 
-    public static Ingredient FromMemento(IngredientMemento memento) => new(memento);
-
-    public IngredientId Id { get; set; }
-
-    public string Name { get; set; }
-
     public IngredientMemento State => new(this);
+
+    public IngredientId Id { get; private set; }
+
+    public string Name { get; private set; }
 }
 
 public class IngredientId : Identity<Guid>

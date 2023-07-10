@@ -11,8 +11,8 @@ public sealed class IngredientMemento : EntityMemento, IHaveName
         Id = ingredient.Id.Key;
         Name = ingredient.Name;
     }
-    
+
     public Guid Id { get; private set; }
 
-    public string Name { get; set; }
+    public string Name { get; private set; }
 }

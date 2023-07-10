@@ -1,3 +1,4 @@
+using System.Data;
 using InMeal.Core.Entities;
 using InMeal.DTOs.Ingredients;
 using InMeal.Infrastructure.Interfaces.DataServices;
@@ -43,9 +44,13 @@ public class IngredientsManager : IIngredientsManager
         return ingredients;
     }
 
-    public Task UpdateNameAsync(IngredientId id, string newName, CancellationToken ct)
+    public async Task UpdateNameAsync(IngredientId id, string newName, CancellationToken ct)
     {
-        return _ingredientRepository.UpdateNameAsync(id, newName, ct);
+        var ingredient = await _ingredientRepository.GetAsync(id, ct) 
+            ?? throw new DataException($"no {nameof(Ingredient)} was found with the given ID '{id.Key}'");
+
+        ingredient.UpdateName(newName);
+        await _ingredientRepository.UpdateAsync(new List<Ingredient> { ingredient }, ct);
     }
 
     public async Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(

@@ -19,10 +19,11 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         _logger = logger;
     }
 
-    public async Task UpdateNameAsync(IngredientId id, string newName, CancellationToken ct)
+    public async Task UpdateAsync(List<Ingredient> ingredients, CancellationToken ct)
     {
-        var existingIngredient = await _recipeDbContext.Ingredients.SingleAsync(i => i.Id == id.Key, ct);
-        existingIngredient.Name = newName;
+        EmptyGuidGuard.Apply(ingredients.Select(r => r.Id.Key));
+
+        _recipeDbContext.Ingredients.UpdateRange(ingredients.Select(i => i.State));
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 
@@ -36,7 +37,13 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
 
         return mementos.Select(Ingredient.FromMemento).ToList();
     }
-    
+
+    public async Task<Ingredient?> GetAsync(IngredientId id, CancellationToken ct)
+    {
+        var memento = await _recipeDbContext.Ingredients.SingleOrDefaultAsync(e => e.Id == id.Key, ct);
+        return memento == null ? null : Ingredient.FromMemento(memento);
+    }
+
     public async Task<List<Ingredient>> GetManyAsync(List<string> names, CancellationToken ct)
     {
         var mementos = await _recipeDbContext.Ingredients.Where(i => names.Contains(i.Name)).ToListAsync(ct);
