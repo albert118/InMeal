@@ -6,6 +6,8 @@ namespace InMeal.Core.Mementos;
 
 public sealed class RecipeCategoryMemento : EntityMemento
 {
+    private RecipeCategoryMemento() { }
+
     public RecipeCategoryMemento(RecipeCategory recipeCategory)
     {
         Id = recipeCategory.Id.Key;

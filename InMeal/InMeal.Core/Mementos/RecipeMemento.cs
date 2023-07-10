@@ -6,6 +6,8 @@ namespace InMeal.Core.Mementos;
 
 public sealed class RecipeMemento : EntityMemento
 {
+    private RecipeMemento() { }
+
     public RecipeMemento(Recipe recipe)
     {
         Id = recipe.Id.Key;
@@ -21,8 +23,8 @@ public sealed class RecipeMemento : EntityMemento
         Servings = 1;
 
         Category = recipe.Category.State;
-        RecipeIngredients = recipe.RecipeIngredients.Select(ri => ri.State).ToList();
-        
+       
+        _recipeIngredients = recipe.RecipeIngredients.Select(ri => ri.State).ToHashSet();
     }
 
     public Guid Id { get; private set; }
@@ -43,7 +45,9 @@ public sealed class RecipeMemento : EntityMemento
 
     public RecipeCategoryMemento Category { get; private set; }
 
-    public List<RecipeIngredientMemento> RecipeIngredients { get; private set; }
+    public IEnumerable<RecipeIngredientMemento> RecipeIngredients => _recipeIngredients?.ToList() ?? new();
+
+    private HashSet<RecipeIngredientMemento>? _recipeIngredients;
 
     /// <summary>
     /// A JSON encoded field containing the relevant method to prepare and cook the recipe

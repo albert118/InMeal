@@ -24,7 +24,7 @@ public sealed class RecipeIngredientMemento : EntityMemento
 
     public Guid RecipeId { get; private set; }
 
-    public Ingredient? Ingredient { get; private set; }
+    public IngredientMemento? Ingredient { get; private set; }
 
     public Guid IngredientId { get; private set; }
 
