@@ -1,4 +1,3 @@
-using InMeal.Core.Entities;
 using InMeal.Core.Globalisation;
 using InMeal.Core.Kernel;
 
@@ -6,10 +5,12 @@ namespace InMeal.Core.Mementos;
 
 public sealed class IngredientMemento : EntityMemento, IHaveName
 {
-    public IngredientMemento(Ingredient ingredient)
+    private IngredientMemento() { }
+
+    internal IngredientMemento(Guid id, string name)
     {
-        Id = ingredient.Id.Key;
-        Name = ingredient.Name;
+        Id = id;
+        Name = name;
     }
 
     public Guid Id { get; private set; }

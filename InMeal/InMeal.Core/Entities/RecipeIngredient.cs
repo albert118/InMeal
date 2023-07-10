@@ -11,16 +11,16 @@ public class RecipeIngredient : IHaveState<RecipeIngredientMemento>
         Quantity = quantity;
         Ingredient = ingredient;
         RecipeId = recipeId;
+        IngredientId = ingredient.Id;
     }
 
     private RecipeIngredient(RecipeIngredientMemento memento)
     {
         Id = new(memento.Id);
-
+        RecipeId = new(memento.RecipeId);
         Quantity = memento.Quantity;
         Ingredient = memento.Ingredient;
-
-        RecipeId = new(memento.RecipeId);
+        IngredientId = new(memento.IngredientId);
     }
 
     public static RecipeIngredient FromMemento(RecipeIngredientMemento memento) => new(memento);
@@ -29,11 +29,13 @@ public class RecipeIngredient : IHaveState<RecipeIngredientMemento>
 
     public RecipeId RecipeId { get; set; }
 
-    public Ingredient Ingredient { get; set; }
+    public Ingredient? Ingredient { get; set; }
+    
+    public IngredientId IngredientId { get; set; }
 
     public Quantity Quantity { get; set; }
 
-    public RecipeIngredientMemento State => new(this);
+    public RecipeIngredientMemento State => new(Id.Key, RecipeId.Key, IngredientId.Key, Quantity);
 }
 
 public class RecipeIngredientId : Identity<Guid>

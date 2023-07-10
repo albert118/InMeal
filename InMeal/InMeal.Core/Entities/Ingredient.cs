@@ -13,7 +13,7 @@ public class Ingredient : IHaveState<IngredientMemento>
         Id = new IngredientId(Guid.NewGuid());
         Name = name.ToLowerInvariant().Trim();
     }
-    
+
     public Ingredient(IngredientId id, string name)
     {
         if (string.IsNullOrEmpty(name))
@@ -33,7 +33,7 @@ public class Ingredient : IHaveState<IngredientMemento>
         Name = newName;
     }
 
-    public IngredientMemento State => new(this);
+    public IngredientMemento State => new(Id.Key, Name);
 
     public IngredientId Id { get; private set; }
 
