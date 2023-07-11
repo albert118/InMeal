@@ -71,14 +71,21 @@ public class Recipe : IHaveState<RecipeMemento>
 
     public RecipeMemento State => new(this);
 
-    public void AddCategory(Cuisine category)
+    public RecipeCategoryId AddCategory(Cuisine category)
     {
-        Category.Category = category;
+        if (Category != null) {
+            Category.Category = category;
+        } else {
+            Category = new RecipeCategory(this, category);
+        }
+
+        return Category.Id;
     }
 
     public void RemoveCategory()
     {
-        Category.Category = Cuisine.Unknown;
+        if (Category != null)
+            Category.Category = Cuisine.Unknown;
     }
     
     public void EditDetails(string title, string? blurb, string preparationSteps, int? prepTime, int? cookTime)
@@ -90,60 +97,19 @@ public class Recipe : IHaveState<RecipeMemento>
         CookTime = cookTime;
     }
 
-    public void UpdateIngredients(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredient> recipeIngredients)
+    public void UpdateIngredients(IReadOnlyCollection<RecipeIngredient> recipeIngredients)
     {
-        if (!recipeIngredients.Keys.Any()) {
+        if (!recipeIngredients.Any()) {
             ClearRecipeIngredients();
             return;
         }
 
-        var existingRecipeIngredientIds = RecipeIngredients.Select(e => e.Id).ToList();
-
-        // case #1: add all the new ingredients
-        AddChildren(recipeIngredients, existingRecipeIngredientIds);
-
-        // case #2: update all the existing ingredients with the remaining incoming
-        UpdateExistingChildren(recipeIngredients, existingRecipeIngredientIds);
-
-        // case #3: remove ingredients that were neither added or updated
-        RemoveDeletedChildren(recipeIngredients, existingRecipeIngredientIds);
+        RecipeIngredients = recipeIngredients.ToList();
     }
 
     private void ClearRecipeIngredients()
     {
         RecipeIngredients = new();
-    }
-
-    private void AddChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredient> recipeIngredients, IReadOnlyCollection<RecipeIngredientId> existingRecipeIngredientIds)
-    {
-        var toAdd = recipeIngredients.Where(ri => !existingRecipeIngredientIds.Contains(ri.Key)).ToList();
-
-        RecipeIngredients.AddRange(
-            toAdd.Select(ri => new RecipeIngredient(
-                id: ri.Key, 
-                recipeId: ri.Value.RecipeId, 
-                ingredient: ri.Value.Ingredient,
-                quantity: ri.Value.Quantity)
-            )
-        );
-    }
-
-    private void UpdateExistingChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredient> recipeIngredients, IReadOnlyCollection<RecipeIngredientId> existingRecipeIngredientIds)
-    {
-        var toUpdate = recipeIngredients.Where(ri => existingRecipeIngredientIds.Contains(ri.Key)).ToList();
-
-        foreach (var incoming in toUpdate) {
-            // all the entities retrieved here must exist with the expected IDs - hence no FirstOrDefault
-            // if this throws an NRE, there's a bigger issue
-            var entity = RecipeIngredients.First(e => e.Id == incoming.Key);
-            entity.Quantity = incoming.Value.Quantity;
-        }
-    }
-
-    private void RemoveDeletedChildren(IReadOnlyDictionary<RecipeIngredientId, RecipeIngredient> recipeIngredients, IReadOnlyCollection<RecipeIngredientId> existingRecipeIngredientIds)
-    {
-        var toRemove = existingRecipeIngredientIds.Where(id => !recipeIngredients.Keys.Contains(id)).ToList();
-        RecipeIngredients.RemoveAll(e => toRemove.Contains(e.Id));
     }
 }
 

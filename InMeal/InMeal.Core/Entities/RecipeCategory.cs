@@ -6,6 +6,13 @@ namespace InMeal.Core.Entities;
 
 public class RecipeCategory : IHaveState<RecipeCategoryMemento>
 {
+    public RecipeCategory(Recipe recipe, Cuisine category)
+    {
+        Id = new(Guid.NewGuid());
+        RecipeId = recipe.Id;
+        Category = category;
+    }
+
     public RecipeCategory(RecipeCategoryId recipeCategoryId, RecipeId recipeId, Cuisine category)
     {
         Id = recipeCategoryId;
