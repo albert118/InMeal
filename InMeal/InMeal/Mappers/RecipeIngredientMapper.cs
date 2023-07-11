@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using InMeal.Core.Entities;
 using InMeal.DTOs.Recipes;
 
@@ -6,40 +5,30 @@ namespace InMeal.Mappers;
 
 public static class RecipeIngredientMapper
 {
-    public static Dictionary<Guid, RecipeIngredientDto> ToDto(
-        IEnumerable<RecipeIngredient> recipeIngredients)
-    {
-        // RecipeIngredientId as the key
-        return recipeIngredients.ToDictionary(ri => ri.Id.Key, ToDto);
-    }
-
     public static RecipeIngredientDto ToDto(RecipeIngredient recipeIngredient)
     {
         return new(
+            recipeIngredient.Id.Key,
             recipeIngredient.Ingredient?.Name ?? string.Empty,
             recipeIngredient.Ingredient?.Id.Key ?? Guid.Empty,
             recipeIngredient.Quantity
         );
     }
 
-    public static IReadOnlyDictionary<RecipeIngredientId, RecipeIngredient> FromDto(
-        Dictionary<Guid, RecipeIngredientDto> recipeIngredients, RecipeId recipeId)
+    public static List<RecipeIngredient> FromDto(IEnumerable<RecipeIngredientDto> recipeIngredients, RecipeId recipeId)
     {
-        var returnValue = recipeIngredients.ToDictionary(
-            kvp => new RecipeIngredientId(kvp.Key),
-            kvp => FromDto(kvp.Value, recipeId, new RecipeIngredientId(kvp.Key))
-        );
-
-        return new ReadOnlyDictionary<RecipeIngredientId, RecipeIngredient>(returnValue);
+        return recipeIngredients.Select(dto => FromDto(dto, recipeId)).ToList();
     }
 
-    public static RecipeIngredient FromDto(RecipeIngredientDto dto, RecipeId recipeId,
-        RecipeIngredientId recipeIngredientId)
+    public static RecipeIngredient FromDto(RecipeIngredientDto dto, RecipeId recipeId)
     {
         return new(
-            recipeIngredientId,
+            dto.Id.HasValue ? new RecipeIngredientId(dto.Id.Value) : new RecipeIngredientId(Guid.NewGuid()),
             quantity: dto.Quantity,
             recipeId: recipeId,
+            // TODO: why pass back the label here (data won't be updated, we only care about the association)
+            //  -> the UI should consider editing the ingredient label a mutation of the ingredient and PATCH it
+            //  -> this code path should only handle the collection 
             ingredient: new Ingredient(new(dto.IngredientId), dto.Label)
         );
     }

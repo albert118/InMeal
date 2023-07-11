@@ -22,8 +22,8 @@ public sealed class RecipeMemento : EntityMemento, IArchivable
         MealType = MealType.Unknown;
         Servings = 1;
 
-        Category = recipe.Category.State;
-        CategoryId = recipe.Category.Id.Key;
+        Category = recipe.Category?.State;
+        CategoryId = recipe.Category?.Id.Key;
        
         _recipeIngredients = recipe.RecipeIngredients.Select(ri => ri.State).ToHashSet();
 
@@ -50,9 +50,9 @@ public sealed class RecipeMemento : EntityMemento, IArchivable
     
     public Guid? CategoryId { get; private set; }
 
-    public IEnumerable<RecipeIngredientMemento> RecipeIngredients => _recipeIngredients?.ToList() ?? new();
+    public IEnumerable<RecipeIngredientMemento> RecipeIngredients => _recipeIngredients.AsEnumerable();
 
-    private readonly HashSet<RecipeIngredientMemento>? _recipeIngredients;
+    private readonly HashSet<RecipeIngredientMemento> _recipeIngredients = new();
 
     /// <summary>
     /// A JSON encoded field containing the relevant method to prepare and cook the recipe
