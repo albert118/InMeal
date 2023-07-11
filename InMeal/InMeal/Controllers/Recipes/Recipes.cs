@@ -45,7 +45,7 @@ public class RecipesController : ControllerBase
     [ActionName("add")]
     public ActionResult<Guid> Post(RecipeDto dto)
     {
-        if (dto.Id != null) return BadRequest("An ID is required to edit an existing recipe");
+        if (dto.Id == null) return BadRequest("An ID is required to edit an existing recipe");
 
         var result = _recipeManager.AddAsync(dto, _tokenAccessor.Token)
                                    .GetAwaiter()
@@ -58,7 +58,7 @@ public class RecipesController : ControllerBase
     [ActionName("edit")]
     public IActionResult Patch(RecipeDto dto)
     {
-        if (dto.Id != null) return BadRequest("An ID is required to edit an existing recipe");
+        if (dto.Id == null) return BadRequest("An ID is required to edit an existing recipe");
 
         _recipeManager.EditAsync(dto, _tokenAccessor.Token)
                       .GetAwaiter()
