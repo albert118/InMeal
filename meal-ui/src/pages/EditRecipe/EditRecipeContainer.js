@@ -6,13 +6,8 @@ import { LayoutContext } from 'pages/Layout';
 
 export default function EditRecipeContainer() {
 	const { recipeId } = useParams();
-	const {
-		postEditedRecipe,
-		recipe,
-		isLoading: isLoadingRecipe
-	} = useRecipe(recipeId);
-	const { ingredients, isLoading: isLoadingIngredientOptions } =
-		useIngredients();
+	const { postEditedRecipe, recipe, isLoading: isLoadingRecipe } = useRecipe(recipeId);
+	const { ingredients, isLoading: isLoadingIngredientOptions } = useIngredients();
 
 	const { setIsLoading } = useContext(LayoutContext);
 
