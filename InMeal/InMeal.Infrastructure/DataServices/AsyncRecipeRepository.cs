@@ -1,4 +1,5 @@
-﻿using InMeal.Core.Entities;
+﻿using System.Data;
+using InMeal.Core.Entities;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Infrastructure.IQueryableExtensions;
@@ -95,8 +96,30 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
     {
         EmptyGuidGuard.Apply(recipe.RecipeIngredients.Select(identity => identity.Id.Key));
 
+        var existingRecipe = await _recipeDbContext.Recipes
+                                                   .Include(e => e.RecipeIngredients)
+                                                   .ThenInclude(e => e.Ingredient)
+                                                   .ExcludeArchived()
+                                                   .SingleOrDefaultAsync(r => r.Id == recipe.Id.Key, ct)
+            ?? throw new DataException($"cannot find the given {nameof(Recipe)} with Id '{recipe.Id}'");
+
         try {
-            _recipeDbContext.Recipes.Update(recipe.State);
+            _recipeDbContext.Entry(existingRecipe).CurrentValues.SetValues(recipe.State);
+
+            // remove any existing that aren't incoming
+            var removedKeys = existingRecipe.RecipeIngredients.Select(e => e.Id).Except(recipe.RecipeIngredients.Select(e => e.Id.Key));
+            foreach (var removedKey in removedKeys) {
+                var toRemove = existingRecipe.RecipeIngredients.Single(e => e.Id == removedKey);
+                _recipeDbContext.RecipeIngredients.Remove(toRemove);
+            }
+
+            // add everything else
+            var additionalKeys = recipe.RecipeIngredients.Select(e => e.Id.Key).Except(existingRecipe.RecipeIngredients.Select(e => e.Id));
+            foreach (var addedKey in additionalKeys) {
+                var toAdd = recipe.RecipeIngredients.Single(d => d.Id.Key == addedKey);
+                _recipeDbContext.RecipeIngredients.Add(toAdd.State);
+            }
+
             await _recipeDbContext.SaveChangesAsync(ct);
         } catch (Exception ex) {
             _logger.LogError(ex, "an error occured while editing an existing recipe");
