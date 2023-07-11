@@ -1,5 +1,4 @@
-﻿using System.Data;
-using InMeal.Core.Entities;
+﻿using InMeal.Core.Entities;
 using InMeal.Core.Extensions;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
@@ -20,39 +19,39 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         _logger = logger;
     }
 
-    public async Task UpdateIngredientName(Guid id, string newName, CancellationToken ct)
+    public async Task UpdateAsync(List<Ingredient> ingredients, CancellationToken ct)
     {
-        var existingIngredient = await _recipeDbContext.Ingredients.SingleAsync(i => i.Id == id, ct);
-        existingIngredient.Name = newName;
+        EmptyGuidGuard.Apply(ingredients.Select(r => r.Id.Key));
+
+        _recipeDbContext.Ingredients.UpdateRange(ingredients.Select(i => i.State));
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 
-    public Task<List<Ingredient>> GetIngredientsAsync(int skip, int take, CancellationToken ct)
+    public async Task<List<Ingredient>> GetManyAsync(int skip, int take, CancellationToken ct)
     {
-        return _recipeDbContext.Ingredients
+        var mementos = await _recipeDbContext.Ingredients
             .OrderBy(i => i.Name)
             .Skip(skip)
             .Take(take)
             .ToListAsync(ct);
+
+        return mementos.Select(Ingredient.FromMemento).ToList();
     }
 
-    public async Task<List<Ingredient>> AddOrGetExistingIngredientsAsync(List<string> names, CancellationToken ct)
+    public async Task<Ingredient?> GetAsync(IngredientId id, CancellationToken ct)
     {
-        var existingIngredients = await GetIngredientsByNameAsync(names, ct);
-        var returnValue = existingIngredients.ToList();
-        var ingredientNamesToAdd = names.Except(existingIngredients.Select(i => i.Name)).ToList();
-
-        // skip adding any new ingredients, as we have persisted them all already
-        if (!ingredientNamesToAdd.Any())
-            return returnValue;
-
-        var newIngredientIds = await AddNewIngredientsAsync(ingredientNamesToAdd, ct);
-        returnValue.AddRange(newIngredientIds);
-
-        return returnValue;
+        var memento = await _recipeDbContext.Ingredients.SingleOrDefaultAsync(e => e.Id == id.Key, ct);
+        return memento == null ? null : Ingredient.FromMemento(memento);
     }
 
-    public async Task<Dictionary<string, List<Ingredient>>> GetAlphabeticallyIndexedIngredientsAsync(CancellationToken ct)
+    public async Task<List<Ingredient>> GetManyAsync(List<string> names, CancellationToken ct)
+    {
+        var mementos = await _recipeDbContext.Ingredients.Where(i => names.Contains(i.Name)).ToListAsync(ct);
+
+        return mementos.Select(Ingredient.FromMemento).ToList();
+    }
+
+    public async Task<Dictionary<string, List<Ingredient>>> GetManyOrderedAlphabeticallyAsync(CancellationToken ct)
     {
         var orderedIngredients = await _recipeDbContext.Ingredients
             .OrderBy(i => i.Name)
@@ -64,25 +63,30 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
 
         return orderedIngredients
             .GroupAlphabetically()
-            .ToDictionary(grouping => grouping.Key, grouping => grouping.ToList());
+            .ToDictionary(grouping => grouping.Key, grouping => grouping.Select(Ingredient.FromMemento).ToList());
     }
     
-    public async Task<bool> DeleteIngredientsAsync(List<Guid> ingredientIds, CancellationToken ct)
+    public async Task<bool> DeleteManyAsync(IEnumerable<IngredientId> ingredientIds, CancellationToken ct)
     {
-        EmptyGuidGuard.Apply(ingredientIds);
+        var keys = ingredientIds.Select(identity => identity.Key).ToList();
+        EmptyGuidGuard.Apply(keys);
 
         var existingIngredients = await _recipeDbContext.Ingredients
-            .Where(e => ingredientIds.Contains(e.Id))
+            .Where(e => keys.Contains(e.Id))
             .ToListAsync(ct);
 
         if (!existingIngredients.Any()) {
-            throw new DataException($"cannot delete any given {nameof(Ingredient)} (no existing ingredients where found with the given Ids)");
+            _logger.LogWarning(
+                "no {Ingredient}s were deleted with the given Ids", 
+                nameof(Ingredient)
+            );
         }
 
-        var notFoundIds = ingredientIds.Except(existingIngredients.Select(i => i.Id)).ToList();
+        var notFoundIds = keys.Except(existingIngredients.Select(i => i.Id)).ToList();
         if (notFoundIds.Any()) {
             _logger.LogWarning(
-                "some ingredients weren't found and will not be deleted. Missing Ids: ({NotFoundIds})",
+                "some {Ingredient}s weren't found and will not be deleted (missing Ids '{NotFoundIds}')",
+                nameof(Ingredient),
                 string.Join(", ", notFoundIds)
             );
         }
@@ -93,22 +97,9 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         return true;
     }
 
-    private async Task<List<Ingredient>> GetIngredientsByNameAsync(List<string> names, CancellationToken ct)
+    public async Task AddManyAsync(List<Ingredient> ingredients, CancellationToken ct)
     {
-        return await _recipeDbContext.Ingredients
-            .Where(i => names.Contains(i.Name))
-            .ToListAsync(ct);
-    }
-
-    private async Task<IEnumerable<Ingredient>> AddNewIngredientsAsync(List<string> names, CancellationToken ct)
-    {
-        var newIngredients = names
-            .Select(newIngredientName => new Ingredient() {Name = newIngredientName.ToLowerInvariant()})
-            .ToList();
-
-        await _recipeDbContext.Ingredients.AddRangeAsync(newIngredients, ct);
+        await _recipeDbContext.Ingredients.AddRangeAsync(ingredients.Select(i => i.State).ToList(), ct);
         await _recipeDbContext.SaveChangesAsync(ct);
-
-        return newIngredients;
     }
 }

@@ -1,19 +1,20 @@
-﻿using InMeal.Core.Entities;
+﻿using InMeal.Core.Mementos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace InMeal.Infrastructure.Interfaces.Data;
 
 public interface IRecipeDbContext
 {
-    DbSet<Ingredient> Ingredients { get; }
+    DbSet<IngredientMemento> Ingredients { get; }
 
-    DbSet<RecipePhoto> RecipePhotos { get; }
+    DbSet<RecipeCategoryMemento> RecipeCategories { get; }
 
-    DbSet<RecipeCategory> RecipeCategories { get; }
+    DbSet<RecipeIngredientMemento> RecipeIngredients { get; }
 
-    DbSet<RecipeIngredient> RecipeIngredients { get; }
-
-    DbSet<Recipe> Recipes { get; }
+    DbSet<RecipeMemento> Recipes { get; }
 
     Task<int> SaveChangesAsync(CancellationToken ct);
+
+    EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity : class;
 }

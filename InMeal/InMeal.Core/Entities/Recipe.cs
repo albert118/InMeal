@@ -1,34 +1,56 @@
 ﻿using InMeal.Core.Enumerations;
+using InMeal.Core.Kernel;
+using InMeal.Core.Mementos;
 
 namespace InMeal.Core.Entities;
 
-public class Recipe : IArchivable
+public class Recipe : IHaveState<RecipeMemento>
 {
     public Recipe(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
     {
-        Id = Guid.NewGuid();
+        Id = new RecipeId(Guid.NewGuid());
 
         Title = title;
         Blurb = blurb;
+        PreparationSteps = preparationSteps ?? string.Empty;
 
         CookTime = cookTime;
         PrepTime = prepTime;
-
-        PreparationSteps = preparationSteps ?? string.Empty;
-
-        RecipeIngredients = new();
-
         CourseType = MealCourse.Unknown;
         MealType = MealType.Unknown;
+        Servings = 1;
+
+        Category = new(new(Guid.NewGuid()), Id, Cuisine.Unknown);
+        RecipeIngredients = new();
     }
 
-    public Guid Id { get; set; }
+    private Recipe(RecipeMemento memento)
+    {
+        Id = new(memento.Id);
+
+        Title = memento.Title;
+        Blurb = memento.Blurb;
+        PreparationSteps = memento.PreparationSteps;
+        
+        CookTime = memento.CookTime;
+        PrepTime = memento.PrepTime;
+        CourseType = memento.CourseType;
+        MealType = memento.MealType;
+        Servings = memento.Servings;
+
+        Category = memento.Category != null ? RecipeCategory.FromMemento(memento.Category) : null;
+        RecipeIngredients = memento.RecipeIngredients.Select(RecipeIngredient.FromMemento).ToList();
+    }
+
+    public static Recipe FromMemento(RecipeMemento memento) => new(memento);
+
+    public RecipeId Id { get; set; }
 
     public int? CookTime { get; set; }
 
     public int? PrepTime { get; set; }
 
-    public int Servings { get; set; } = 1;
+    public int Servings { get; set; }
 
     public string Title { get; set; }
 
@@ -38,9 +60,7 @@ public class Recipe : IArchivable
 
     public MealType MealType { get; set; }
 
-    public RecipeCategory Category { get; set; }
-
-    public RecipePhoto? RecipePhoto { get; set; }
+    public RecipeCategory? Category { get; set; }
 
     public List<RecipeIngredient> RecipeIngredients { get; set; }
 
@@ -49,9 +69,51 @@ public class Recipe : IArchivable
     /// </summary>
     public string PreparationSteps { get; set; }
 
-    #region IArchivable
+    public RecipeMemento State => new(this);
 
-    public bool isArchived { get; set; }
+    public RecipeCategoryId AddCategory(Cuisine category)
+    {
+        if (Category != null) {
+            Category.Category = category;
+        } else {
+            Category = new RecipeCategory(this, category);
+        }
 
-    #endregion
+        return Category.Id;
+    }
+
+    public void RemoveCategory()
+    {
+        if (Category != null)
+            Category.Category = Cuisine.Unknown;
+    }
+    
+    public void EditDetails(string title, string? blurb, string preparationSteps, int? prepTime, int? cookTime)
+    {
+        Title = title;
+        Blurb = blurb;
+        PreparationSteps = preparationSteps;
+        PrepTime = prepTime;
+        CookTime = cookTime;
+    }
+
+    public void UpdateIngredients(IReadOnlyCollection<RecipeIngredient> recipeIngredients)
+    {
+        if (!recipeIngredients.Any()) {
+            ClearRecipeIngredients();
+            return;
+        }
+
+        RecipeIngredients = recipeIngredients.ToList();
+    }
+
+    private void ClearRecipeIngredients()
+    {
+        RecipeIngredients = new();
+    }
+}
+
+public class RecipeId : Identity<Guid>
+{
+    public RecipeId(Guid id) : base(id) { }
 }

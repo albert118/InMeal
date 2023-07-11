@@ -16,13 +16,13 @@ export default function useRecipe(recipeId) {
 			setLoading(true);
 
 			const response = await fetch(url, { ...defaultRequestOptions });
-			const responseBody = await response.json();
 
 			if (response.ok) {
+				const responseBody = await response.json();
 				setRecipe(responseBody);
 				setErrors(null);
 			} else {
-				const mappedErrors = errorHandler(responseBody);
+				const mappedErrors = errorHandler(response);
 				setErrors(mappedErrors);
 			}
 
@@ -47,15 +47,14 @@ export default function useRecipe(recipeId) {
 			body: JSON.stringify(recipe)
 		});
 
-		const responseBody = await response.json();
-
 		if (response.ok) {
+			const responseBody = await response.json();
 			const persistedRecipeId = responseBody;
 			recipe.id = persistedRecipeId;
 			setRecipe(recipe);
 			setErrors(null);
 		} else {
-			const mappedErrors = errorHandler(responseBody);
+			const mappedErrors = errorHandler(response);
 			setErrors(mappedErrors);
 		}
 
@@ -75,18 +74,17 @@ export default function useRecipe(recipeId) {
 			body: JSON.stringify(recipe)
 		});
 
-		const responseBody = await response.json();
-
 		if (response.ok) {
 			setRecipe(recipe);
 			setErrors(null);
 		} else {
-			const mappedErrors = errorHandler(responseBody);
+			var errorMessage = await response.text();
+			const mappedErrors = errorHandler(errorMessage);
 			setErrors(mappedErrors);
 		}
 
+		// TODO: bug here as we return state early
 		setLoading(false);
-
 		return errors;
 	};
 

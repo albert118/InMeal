@@ -10,7 +10,7 @@ export default function useUpcomingRecipes(mapper) {
 
 	useEffect(() => {
 		const fetchUpcomingRecipes = async () => {
-			const url = `${ApiConfig.API_URL}/upcoming`;
+			const url = `${ApiConfig.API_URL}/upcoming/recommended`;
 
 			const response = await fetch(url, {
 				...defaultRequestOptions,

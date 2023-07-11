@@ -19,11 +19,14 @@ namespace InMeal.Core.Migrations
                 .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("InMeal.Core.Entities.Ingredient", b =>
+            modelBuilder.Entity("InMeal.Core.Mementos.IngredientMemento", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -34,53 +37,7 @@ namespace InMeal.Core.Migrations
                     b.ToTable("Ingredient", (string)null);
                 });
 
-            modelBuilder.Entity("InMeal.Core.Entities.Recipe", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Blurb")
-                        .HasColumnType("longtext");
-
-                    b.Property<int?>("CookTime")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CourseType")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("longtext")
-                        .HasDefaultValue("Unknown");
-
-                    b.Property<string>("MealType")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("longtext")
-                        .HasDefaultValue("Unknown");
-
-                    b.Property<int?>("PrepTime")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PreparationSteps")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("Servings")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("isArchived")
-                        .HasColumnType("tinyint(1)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Recipe", (string)null);
-                });
-
-            modelBuilder.Entity("InMeal.Core.Entities.RecipeCategory", b =>
+            modelBuilder.Entity("InMeal.Core.Mementos.RecipeCategoryMemento", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,16 +52,13 @@ namespace InMeal.Core.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RecipeId")
-                        .IsUnique();
-
                     b.HasIndex("RecipeId", "Category")
                         .IsUnique();
 
                     b.ToTable("RecipeCategory", (string)null);
                 });
 
-            modelBuilder.Entity("InMeal.Core.Entities.RecipeIngredient", b =>
+            modelBuilder.Entity("InMeal.Core.Mementos.RecipeIngredientMemento", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -129,51 +83,66 @@ namespace InMeal.Core.Migrations
                     b.ToTable("RecipeIngredient", (string)null);
                 });
 
-            modelBuilder.Entity("InMeal.Core.Entities.RecipePhoto", b =>
+            modelBuilder.Entity("InMeal.Core.Mementos.RecipeMemento", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<byte[]>("Bytes")
-                        .IsRequired()
-                        .HasColumnType("longblob");
+                    b.Property<string>("Blurb")
+                        .HasColumnType("longtext");
 
-                    b.Property<string>("FileName")
+                    b.Property<Guid?>("CategoryId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int?>("CookTime")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CourseType")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("longtext")
+                        .HasDefaultValue("Unknown");
+
+                    b.Property<bool>("IsArchived")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("MealType")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("longtext")
+                        .HasDefaultValue("Unknown");
+
+                    b.Property<int?>("PrepTime")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PreparationSteps")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<Guid>("RecipeId")
-                        .HasColumnType("char(36)");
+                    b.Property<int>("Servings")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RecipeId")
-                        .IsUnique();
+                    b.HasIndex("CategoryId");
 
-                    b.ToTable("RecipePhoto", (string)null);
+                    b.ToTable("Recipe", (string)null);
                 });
 
-            modelBuilder.Entity("InMeal.Core.Entities.RecipeCategory", b =>
+            modelBuilder.Entity("InMeal.Core.Mementos.RecipeIngredientMemento", b =>
                 {
-                    b.HasOne("InMeal.Core.Entities.Recipe", "Recipe")
-                        .WithOne("Category")
-                        .HasForeignKey("InMeal.Core.Entities.RecipeCategory", "RecipeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Recipe");
-                });
-
-            modelBuilder.Entity("InMeal.Core.Entities.RecipeIngredient", b =>
-                {
-                    b.HasOne("InMeal.Core.Entities.Ingredient", "Ingredient")
+                    b.HasOne("InMeal.Core.Mementos.IngredientMemento", "Ingredient")
                         .WithMany()
                         .HasForeignKey("IngredientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("InMeal.Core.Entities.Recipe", "Recipe")
+                    b.HasOne("InMeal.Core.Mementos.RecipeMemento", "Recipe")
                         .WithMany("RecipeIngredients")
                         .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -184,24 +153,23 @@ namespace InMeal.Core.Migrations
                     b.Navigation("Recipe");
                 });
 
-            modelBuilder.Entity("InMeal.Core.Entities.RecipePhoto", b =>
+            modelBuilder.Entity("InMeal.Core.Mementos.RecipeMemento", b =>
                 {
-                    b.HasOne("InMeal.Core.Entities.Recipe", "Recipe")
-                        .WithOne("RecipePhoto")
-                        .HasForeignKey("InMeal.Core.Entities.RecipePhoto", "RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("InMeal.Core.Mementos.RecipeCategoryMemento", "Category")
+                        .WithMany("Recipes")
+                        .HasForeignKey("CategoryId");
 
-                    b.Navigation("Recipe");
+                    b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("InMeal.Core.Entities.Recipe", b =>
+            modelBuilder.Entity("InMeal.Core.Mementos.RecipeCategoryMemento", b =>
                 {
-                    b.Navigation("Category")
-                        .IsRequired();
+                    b.Navigation("Recipes");
+                });
 
+            modelBuilder.Entity("InMeal.Core.Mementos.RecipeMemento", b =>
+                {
                     b.Navigation("RecipeIngredients");
-
-                    b.Navigation("RecipePhoto");
                 });
 #pragma warning restore 612, 618
         }

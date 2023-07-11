@@ -1,5 +1,5 @@
-﻿using InMeal.Core.Entities;
-using InMeal.Core.Globalisation.Converters;
+﻿using InMeal.Core.Globalisation.Converters;
+using InMeal.Core.Mementos;
 using InMeal.Core.ModelConfiguration;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,15 +9,13 @@ public class InMealDbMigrationContext : DbContext
 {
     public InMealDbMigrationContext(DbContextOptions opts) : base(opts) { }
 
-    public DbSet<Ingredient> Ingredients => Set<Ingredient>();
+    public DbSet<IngredientMemento> Ingredients => Set<IngredientMemento>();
 
-    public DbSet<RecipePhoto> RecipePhotos => Set<RecipePhoto>();
+    public DbSet<RecipeIngredientMemento> RecipeIngredients => Set<RecipeIngredientMemento>();
 
-    public DbSet<RecipeIngredient> RecipeIngredients => Set<RecipeIngredient>();
+    public DbSet<RecipeMemento> Recipes => Set<RecipeMemento>();
 
-    public DbSet<Recipe> Recipes => Set<Recipe>();
-
-    public DbSet<RecipeCategory> RecipeCategories => Set<RecipeCategory>();
+    public DbSet<RecipeCategoryMemento> RecipeCategories => Set<RecipeCategoryMemento>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

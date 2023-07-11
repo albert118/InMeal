@@ -13,15 +13,14 @@ const formatError = errorString => {
 export default function errorHandler(errorResponseBody) {
 	let retVal;
 
-	if (
-		Object.hasOwn(errorResponseBody, 'errors') &&
-		typeof errorResponseBody.errors === 'object'
-	) {
-		retVal = Object.values(errorResponseBody.errors).map(e =>
-			formatError(e[0])
-		);
+	if (Object.hasOwn(errorResponseBody, 'errors') && typeof errorResponseBody.errors === 'object') {
 		// parse any CamelCase type names to readable strings and force lower case errors
+		retVal = Object.values(errorResponseBody.errors).map(e => formatError(e[0]));
+	} else {
+		// or it's just a simple string
+		retVal = errorResponseBody;
 	}
 
+	console.error(retVal);
 	return retVal;
 }

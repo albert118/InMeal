@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { default as TextInput } from './TextInput';
 import { default as MultiSelectCustom } from './MultiSelectCustom';
 import Button from 'components/Button';
-import { objectMap } from 'utils';
 
 function createNewItem(textValue) {
 	return {
@@ -72,11 +71,7 @@ export default function MultiSelectWithMultiLine({
 	};
 
 	return (
-		<div
-			className={
-				className ? `multi-line-input ${className}` : `multi-line-input`
-			}
-		>
+		<div className={className ? `multi-line-input ${className}` : `multi-line-input`}>
 			<span className='add-new-item'>
 				<TextInput
 					className='e-full-width-new-item'
@@ -88,11 +83,7 @@ export default function MultiSelectWithMultiLine({
 			</span>
 			<span className='add-new-item'>
 				<MultiSelectCustom
-					label={
-						selectedItems.length === 0
-							? 'choose ingredients'
-							: `ingredients selected`
-					}
+					label={selectedItems.length === 0 ? 'choose ingredients' : `ingredients selected`}
 					id='add-new-item-multi-select'
 					items={mapToDropdownItems(selectableOptions)}
 					setSelectedItems={items => {
@@ -111,14 +102,12 @@ export default function MultiSelectWithMultiLine({
 			</span>
 
 			{items &&
-				objectMap(items, (key, value) => (
+				items.map(item => (
 					<TextInput
-						key={key}
-						id={key}
+						key={item.hasOwnProperty('label') ? item.label : item}
+						id={item.id}
 						name={attrName}
-						value={
-							value.hasOwnProperty('label') ? value.label : value
-						}
+						value={item.hasOwnProperty('label') ? item.label : item}
 						handler={onChange}
 					/>
 				))}
