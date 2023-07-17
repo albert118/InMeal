@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import defaultRequestOptions from './defaultRequestOptions';
+import defaultRequestOptions from '../fetch/defaultRequestOptions';
 import { ApiConfig } from 'config';
 
 export default function useAllRecipes(mapper) {

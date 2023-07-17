@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-import defaultRequestOptions from './defaultRequestOptions';
+import defaultRequestOptions from '../fetch/defaultRequestOptions';
 import { ApiConfig } from 'config';
-import errorHandler from './errorHandler';
 
 export default function useUpcomingRecipes(mapper) {
 	const [isLoading, setLoading] = useState(true);
 	const [upcomingRecipes, setUpcomingRecipes] = useState([]);
-	const [errors, setErrors] = useState(null);
 
 	useEffect(() => {
 		const fetchUpcomingRecipes = async () => {
@@ -19,13 +17,7 @@ export default function useUpcomingRecipes(mapper) {
 
 			const responseBody = await response.json();
 
-			if (response.ok) {
-				setUpcomingRecipes(responseBody.map(mapper));
-				setErrors(null);
-			} else {
-				const mappedErrors = errorHandler(responseBody);
-				setErrors(mappedErrors);
-			}
+			setUpcomingRecipes(responseBody.map(mapper));
 		};
 
 		setLoading(true);
@@ -35,7 +27,6 @@ export default function useUpcomingRecipes(mapper) {
 
 	return {
 		upcomingRecipes,
-		isLoading,
-		errors
+		isLoading
 	};
 }

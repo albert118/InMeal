@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
-import defaultRequestOptions from './defaultRequestOptions';
-import errorHandler from './errorHandler';
+import defaultRequestOptions from '../fetch/defaultRequestOptions';
 import { ApiConfig } from 'config';
 import { defaultRecipe } from 'types/DefaultRecipe';
 
 export default function useRecipe(recipeId) {
 	const [recipe, setRecipe] = useState(defaultRecipe);
 	const [isLoading, setLoading] = useState(false);
-	const [errors, setErrors] = useState(null);
 
 	useEffect(() => {
 		const getRecipe = async id => {
@@ -17,14 +15,8 @@ export default function useRecipe(recipeId) {
 
 			const response = await fetch(url, { ...defaultRequestOptions });
 
-			if (response.ok) {
-				const responseBody = await response.json();
-				setRecipe(responseBody);
-				setErrors(null);
-			} else {
-				const mappedErrors = errorHandler(response);
-				setErrors(mappedErrors);
-			}
+			const responseBody = await response.json();
+			setRecipe(responseBody);
 
 			setLoading(false);
 		};
@@ -47,20 +39,12 @@ export default function useRecipe(recipeId) {
 			body: JSON.stringify(recipe)
 		});
 
-		if (response.ok) {
-			const responseBody = await response.json();
-			const persistedRecipeId = responseBody;
-			recipe.id = persistedRecipeId;
-			setRecipe(recipe);
-			setErrors(null);
-		} else {
-			const mappedErrors = errorHandler(response);
-			setErrors(mappedErrors);
-		}
+		const responseBody = await response.json();
+		const persistedRecipeId = responseBody;
+		recipe.id = persistedRecipeId;
+		setRecipe(recipe);
 
 		setLoading(false);
-
-		return errors;
 	};
 
 	const postEditedRecipe = async recipe => {
@@ -74,19 +58,11 @@ export default function useRecipe(recipeId) {
 			body: JSON.stringify(recipe)
 		});
 
-		if (response.ok) {
-			setRecipe(recipe);
-			setErrors(null);
-		} else {
-			var errorMessage = await response.text();
-			const mappedErrors = errorHandler(errorMessage);
-			setErrors(mappedErrors);
-		}
+		setRecipe(recipe);
 
 		// TODO: bug here as we return state early
 		setLoading(false);
-		return errors;
 	};
 
-	return { postEditedRecipe, postRecipe, recipe, isLoading, errors };
+	return { postEditedRecipe, postRecipe, recipe, isLoading };
 }

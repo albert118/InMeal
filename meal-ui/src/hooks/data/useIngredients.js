@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import defaultRequestOptions from './defaultRequestOptions';
+import defaultRequestOptions from '../fetch/defaultRequestOptions';
 import { ApiConfig } from 'config';
-import errorHandler from './errorHandler';
 
 export default function useIngredients() {
 	const [ingredients, setIngredients] = useState([]);
 	const [isLoading, setLoading] = useState(true);
-	const [errors, setErrors] = useState(null);
 
 	useEffect(() => {
 		const getIngredients = async () => {
@@ -21,14 +19,7 @@ export default function useIngredients() {
 
 			const responseBody = await response.json();
 
-			if (response.ok) {
-				setIngredients(responseBody);
-				setErrors(null);
-			} else {
-				setIngredients([]);
-				const mappedErrors = errorHandler(responseBody);
-				setErrors(mappedErrors);
-			}
+			setIngredients(responseBody);
 
 			setLoading(false);
 		};
@@ -49,20 +40,13 @@ export default function useIngredients() {
 			})
 		});
 
-		const responseBody = await response.json();
 		let retVal = [];
 
-		if (response.ok) {
-			retVal = await response.json();
-			setErrors(null);
-		} else {
-			const mappedErrors = errorHandler(responseBody);
-			setErrors(mappedErrors);
-		}
+		retVal = await response.json();
 
 		setLoading(false);
 		return retVal;
 	};
 
-	return { isLoading, errors, putIngredients, ingredients };
+	return { isLoading, putIngredients, ingredients };
 }
