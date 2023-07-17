@@ -1,29 +1,21 @@
-import { useState } from 'react';
-import defaultRequestOptions from '../fetch/defaultRequestOptions';
 import { ApiConfig } from 'config';
+import { useFetch } from 'hooks/fetch';
 
 export default function useIngredient() {
-	const updateIngredientName = async (id, newName) => {
+	const { patchApi, deleteApi } = useFetch();
+
+	function updateIngredientName(id, newName) {
 		const url = `${ApiConfig.API_URL}/ingredients/update`;
-
-		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'PATCH',
-			body: JSON.stringify({
-				ingredientId: id,
-				newName: newName
-			})
+		patchApi(url, {
+			ingredientId: id,
+			newName: newName
 		});
-	};
+	}
 
-	const deleteIngredient = async id => {
+	function deleteIngredient(id) {
 		const url = `${ApiConfig.API_URL}/ingredients/delete/${id}`;
-
-		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'DELETE'
-		});
-	};
+		deleteApi(url);
+	}
 
 	return { updateIngredientName, deleteIngredient };
 }

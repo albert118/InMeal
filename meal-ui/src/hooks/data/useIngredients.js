@@ -1,52 +1,25 @@
 import { useState, useEffect } from 'react';
-import defaultRequestOptions from '../fetch/defaultRequestOptions';
 import { ApiConfig } from 'config';
+import { useFetch } from 'hooks/fetch';
 
 export default function useIngredients() {
 	const [ingredients, setIngredients] = useState([]);
-	const [isLoading, setLoading] = useState(true);
+	const { getApi, postApi } = useFetch();
+
+	function getIngredients() {
+		const url = `${ApiConfig.API_URL}/ingredients/all`;
+		getApi(url).then(data => setIngredients(data));
+	}
+
+	function putIngredients(ingredientNames) {
+		const url = `${ApiConfig.API_URL}/ingredients/add`;
+		const body = { ingredientNames: ingredientNames };
+		postApi(url, body).then(data => setIngredients(ingredients.concat(data)));
+	}
 
 	useEffect(() => {
-		const getIngredients = async () => {
-			const url = `${ApiConfig.API_URL}/ingredients/all`;
-
-			setLoading(true);
-
-			const response = await fetch(url, {
-				...defaultRequestOptions,
-				method: 'GET'
-			});
-
-			const responseBody = await response.json();
-
-			setIngredients(responseBody);
-
-			setLoading(false);
-		};
-
 		getIngredients();
 	}, []);
 
-	const putIngredients = async ingredientNames => {
-		const url = `${ApiConfig.API_URL}/ingredients`;
-
-		setLoading(true);
-
-		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'POST',
-			body: JSON.stringify({
-				ingredientNames: ingredientNames
-			})
-		});
-
-		let retVal = [];
-
-		retVal = await response.json();
-
-		setLoading(false);
-		return retVal;
-	};
-
-	return { isLoading, putIngredients, ingredients };
+	return { putIngredients, ingredients };
 }
