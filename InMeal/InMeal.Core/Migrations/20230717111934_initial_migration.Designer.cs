@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InMeal.Core.Migrations
 {
     [DbContext(typeof(InMealDbMigrationContext))]
-    [Migration("20230710101949_CategoryId_nullable")]
-    partial class CategoryId_nullable
+    [Migration("20230717111934_initial_migration")]
+    partial class initial_migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
