@@ -1,68 +1,25 @@
 import { useState, useEffect } from 'react';
-import defaultRequestOptions from './defaultRequestOptions';
 import { ApiConfig } from 'config';
-import errorHandler from './errorHandler';
+import { useFetch } from 'hooks/fetch';
 
 export default function useIngredients() {
 	const [ingredients, setIngredients] = useState([]);
-	const [isLoading, setLoading] = useState(true);
-	const [errors, setErrors] = useState(null);
+	const { getApi, postApi } = useFetch();
+
+	function getIngredients() {
+		const url = `${ApiConfig.API_URL}/ingredients/all`;
+		getApi(url).then(data => setIngredients(data));
+	}
+
+	function putIngredients(ingredientNames) {
+		const url = `${ApiConfig.API_URL}/ingredients/add`;
+		const body = { ingredientNames: ingredientNames };
+		postApi(url, body).then(data => setIngredients(ingredients.concat(data)));
+	}
 
 	useEffect(() => {
-		const getIngredients = async () => {
-			const url = `${ApiConfig.API_URL}/ingredients/all`;
-
-			setLoading(true);
-
-			const response = await fetch(url, {
-				...defaultRequestOptions,
-				method: 'GET'
-			});
-
-			const responseBody = await response.json();
-
-			if (response.ok) {
-				setIngredients(responseBody);
-				setErrors(null);
-			} else {
-				setIngredients([]);
-				const mappedErrors = errorHandler(responseBody);
-				setErrors(mappedErrors);
-			}
-
-			setLoading(false);
-		};
-
 		getIngredients();
 	}, []);
 
-	const putIngredients = async ingredientNames => {
-		const url = `${ApiConfig.API_URL}/ingredients`;
-
-		setLoading(true);
-
-		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'POST',
-			body: JSON.stringify({
-				ingredientNames: ingredientNames
-			})
-		});
-
-		const responseBody = await response.json();
-		let retVal = [];
-
-		if (response.ok) {
-			retVal = await response.json();
-			setErrors(null);
-		} else {
-			const mappedErrors = errorHandler(responseBody);
-			setErrors(mappedErrors);
-		}
-
-		setLoading(false);
-		return retVal;
-	};
-
-	return { isLoading, errors, putIngredients, ingredients };
+	return { putIngredients, ingredients };
 }

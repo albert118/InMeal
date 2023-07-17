@@ -1,20 +1,12 @@
 import { TitleBar, StatusBadge } from 'components';
 import FormContainer from 'forms';
-import {
-	LongTextInput,
-	MultiSelectWithMultiLine,
-	TextInput
-} from 'forms/Inputs';
+import { LongTextInput, MultiSelectWithMultiLine, TextInput } from 'forms/Inputs';
 import { HeroImage, FormActions, ValidationErrors } from './components';
 import { demoImage } from 'DemoImage';
 
 import useRecipeFormData from './useRecipeFormData';
 
-export default function EditRecipeForm({
-	existingRecipe,
-	ingredientOptions,
-	postEditedRecipe
-}) {
+export default function EditRecipeForm({ ingredientOptions }) {
 	const {
 		recipe,
 		formStatus,
@@ -22,10 +14,7 @@ export default function EditRecipeForm({
 		submitEditHandler: submitHandler,
 		handleCancel,
 		updateRecipeDataHandler
-	} = useRecipeFormData({
-		postEditedRecipe,
-		existingRecipe
-	});
+	} = useRecipeFormData();
 
 	return (
 		<FormContainer

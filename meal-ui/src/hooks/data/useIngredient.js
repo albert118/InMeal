@@ -1,54 +1,21 @@
-import { useState } from 'react';
-import defaultRequestOptions from './defaultRequestOptions';
-import errorHandler from './errorHandler';
 import { ApiConfig } from 'config';
+import { useFetch } from 'hooks/fetch';
 
 export default function useIngredient() {
-	const [errors, setErrors] = useState(null);
+	const { patchApi, deleteApi } = useFetch();
 
-	const updateIngredientName = async (id, newName) => {
+	function updateIngredientName(id, newName) {
 		const url = `${ApiConfig.API_URL}/ingredients/update`;
-
-		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'PATCH',
-			body: JSON.stringify({
-				ingredientId: id,
-				newName: newName
-			})
+		patchApi(url, {
+			ingredientId: id,
+			newName: newName
 		});
+	}
 
-		const responseBody = await response.json();
-
-		if (response.ok) {
-			setErrors(null);
-		} else {
-			const mappedErrors = errorHandler(responseBody);
-			setErrors(mappedErrors);
-		}
-
-		return errors;
-	};
-
-	const deleteIngredient = async id => {
+	function deleteIngredient(id) {
 		const url = `${ApiConfig.API_URL}/ingredients/delete/${id}`;
+		deleteApi(url);
+	}
 
-		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'DELETE'
-		});
-
-		const responseBody = await response.json();
-
-		if (response.ok) {
-			setErrors(null);
-		} else {
-			const mappedErrors = errorHandler(responseBody);
-			setErrors(mappedErrors);
-		}
-
-		return errors;
-	};
-
-	return { updateIngredientName, deleteIngredient, errors };
+	return { updateIngredientName, deleteIngredient };
 }

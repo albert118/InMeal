@@ -1,24 +1,28 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import AppRoutes from 'navigation/AppRoutes';
 import { defaultRecipe } from 'types/DefaultRecipe';
 import { FormStatuses } from 'forms';
 
 import { useRecipeIngredients } from 'hooks/services';
+import { useRecipe } from 'hooks/data';
 
-export default function useRecipeFormData({
-	postEditedRecipe,
-	postRecipe,
-	existingRecipe
-}) {
+export default function useRecipeFormData() {
+	const { recipeId } = useParams();
+	const { postEditedRecipe, postRecipe, recipe: existingRecipe } = useRecipe(recipeId);
 	const [recipe, setRecipe] = useState(existingRecipe ?? defaultRecipe);
+
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 	const [errorMessages, setErrorMessages] = useState(null);
 
 	const navigate = useNavigate();
 
 	const { handleRecipeIngredients } = useRecipeIngredients();
+
+	useEffect(() => {
+		setRecipe(existingRecipe);
+	}, [existingRecipe]);
 
 	const updateRecipeDataHandler = async event => {
 		const recipeIngredientFormAttributeName = 'recipeIngredients';
@@ -58,28 +62,28 @@ export default function useRecipeFormData({
 		return !errors;
 	};
 
-	const submitAdditionalHandler = async event => {
+	function submitAdditionalHandler(event) {
 		event.preventDefault();
 
 		// update the recipe after adding for the first time
 		if (recipe.id) {
-			const errors = await postEditedRecipe(recipe);
+			const errors = postEditedRecipe(recipe);
 			handleErrorResponse(errors);
 		} else {
-			const errors = await postRecipe(recipe);
+			const errors = postRecipe(recipe);
 			handleErrorResponse(errors);
 		}
-	};
+	}
 
-	const submitEditHandler = async event => {
+	function submitEditHandler(event) {
 		event.preventDefault();
 
-		const errors = await postEditedRecipe(recipe);
+		const errors = postEditedRecipe(recipe);
 
 		if (handleErrorResponse(errors)) {
 			navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 		}
-	};
+	}
 
 	return {
 		recipe,

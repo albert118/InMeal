@@ -1,26 +1,13 @@
 import { useNavigate } from 'react-router-dom';
 import { TitleBar, StatusBadge } from 'components';
 import FormContainer from 'forms';
-import {
-	LongTextInput,
-	MultiSelectWithMultiLine,
-	TextInput
-} from 'forms/Inputs';
+import { LongTextInput, MultiSelectWithMultiLine, TextInput } from 'forms/Inputs';
 import AppRoutes from 'navigation/AppRoutes';
 import { demoImage } from 'DemoImage';
-import {
-	ViewRecipeButton,
-	HeroImage,
-	FormActions,
-	ValidationErrors
-} from './components';
+import { ViewRecipeButton, HeroImage, FormActions, ValidationErrors } from './components';
 import useRecipeFormData from './useRecipeFormData';
 
-export default function AddRecipeForm({
-	ingredientOptions,
-	postEditedRecipe,
-	postRecipe
-}) {
+export default function AddRecipeForm({ ingredientOptions }) {
 	const {
 		recipe,
 		formStatus,
@@ -28,7 +15,7 @@ export default function AddRecipeForm({
 		submitAdditionalHandler: submitHandler,
 		clearChanges,
 		updateRecipeDataHandler
-	} = useRecipeFormData({ postEditedRecipe, postRecipe });
+	} = useRecipeFormData();
 
 	const navigate = useNavigate();
 
@@ -86,9 +73,7 @@ export default function AddRecipeForm({
 			</div>
 
 			{recipe.id && (
-				<ViewRecipeButton
-					handler={() => navigate(`${AppRoutes.recipe}/${recipe.id}`)}
-				/>
+				<ViewRecipeButton handler={() => navigate(`${AppRoutes.recipe}/${recipe.id}`)} />
 			)}
 
 			<FormActions
