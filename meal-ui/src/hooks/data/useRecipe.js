@@ -1,68 +1,33 @@
 import { useEffect, useState } from 'react';
-import defaultRequestOptions from '../fetch/defaultRequestOptions';
 import { ApiConfig } from 'config';
 import { defaultRecipe } from 'types/DefaultRecipe';
+import { useFetch } from 'hooks/fetch';
 
 export default function useRecipe(recipeId) {
 	const [recipe, setRecipe] = useState(defaultRecipe);
-	const [isLoading, setLoading] = useState(false);
+	const { getApi, postApi } = useFetch();
+
+	function getRecipe(id) {
+		const url = `${ApiConfig.API_URL}/recipes/${id}`;
+		getApi(url).then(data => setRecipe(data));
+	}
 
 	useEffect(() => {
-		const getRecipe = async id => {
-			const url = `${ApiConfig.API_URL}/recipes/${id}`;
-
-			setLoading(true);
-
-			const response = await fetch(url, { ...defaultRequestOptions });
-
-			const responseBody = await response.json();
-			setRecipe(responseBody);
-
-			setLoading(false);
-		};
-
-		if (!recipeId) {
-			return;
-		}
-
+		if (!recipeId) return;
 		getRecipe(recipeId);
 	}, []);
 
-	const postRecipe = async recipe => {
+	function postRecipe(newRecipe) {
 		const url = `${ApiConfig.API_URL}/recipes/add`;
-
-		setLoading(true);
-
-		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'POST',
-			body: JSON.stringify(recipe)
+		postApi(url, newRecipe).then(data => {
+			setRecipe({ ...newRecipe, id: data });
 		});
+	}
 
-		const responseBody = await response.json();
-		const persistedRecipeId = responseBody;
-		recipe.id = persistedRecipeId;
-		setRecipe(recipe);
-
-		setLoading(false);
-	};
-
-	const postEditedRecipe = async recipe => {
+	function postEditedRecipe(editedRecipe) {
 		const url = `${ApiConfig.API_URL}/recipes/edit`;
+		postApi(url, editedRecipe).then(_ => setRecipe(editedRecipe));
+	}
 
-		setLoading(true);
-
-		const response = await fetch(url, {
-			...defaultRequestOptions,
-			method: 'POST',
-			body: JSON.stringify(recipe)
-		});
-
-		setRecipe(recipe);
-
-		// TODO: bug here as we return state early
-		setLoading(false);
-	};
-
-	return { postEditedRecipe, postRecipe, recipe, isLoading };
+	return { postEditedRecipe, postRecipe, recipe };
 }
