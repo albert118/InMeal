@@ -1,10 +1,7 @@
-import { useContext } from 'react';
 import HomeView from './View';
 import AppRoutes from 'navigation/AppRoutes';
 import { useNavigate } from 'react-router-dom';
 import { useUpcomingRecipes } from 'hooks/data';
-import { LayoutContext } from 'pages/Layout';
-import { useEffect } from 'react';
 
 const randomSortArray = arr => {
 	return arr.sort((a, b) => 0.5 - Math.random());
@@ -12,7 +9,6 @@ const randomSortArray = arr => {
 
 export default function HomeContainer() {
 	const navigate = useNavigate();
-	const { setIsLoading } = useContext(LayoutContext);
 
 	const mapper = dto => {
 		return {
@@ -25,11 +21,7 @@ export default function HomeContainer() {
 		};
 	};
 
-	const { upcomingRecipes, isLoading } = useUpcomingRecipes(mapper);
-
-	useEffect(() => {
-		setIsLoading(isLoading);
-	}, [isLoading]);
+	const { upcomingRecipes } = useUpcomingRecipes(mapper);
 
 	return (
 		<HomeView
