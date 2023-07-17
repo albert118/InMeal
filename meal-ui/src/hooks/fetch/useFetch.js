@@ -1,5 +1,5 @@
 import defaultRequestOptions from './defaultRequestOptions';
-import useDecorate from './useLoadingDecorator';
+import useLoadingStateDecoration from './useLoadingDecorator';
 
 export function useFetch() {
 	function get(url) {
@@ -9,11 +9,22 @@ export function useFetch() {
 		}).then(handleResponse);
 	}
 
-	// decorate methods
-	const { decoratedMethod: getApi } = useDecorate(get);
+	function post(url, body) {
+		return fetch(url, {
+			...defaultRequestOptions,
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(body)
+		}).then(handleResponse);
+	}
+
+	// decorate methods with loading state
+	const { decoratedMethod: getApi } = useLoadingStateDecoration(get);
+	const { decoratedMethod: postApi } = useLoadingStateDecoration(post);
 
 	return {
-		getApi
+		getApi,
+		postApi
 	};
 }
 

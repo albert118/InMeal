@@ -1,11 +1,11 @@
 import { useState } from 'react';
 
-export default function useDecorate(fn) {
+export default function useLoadingStateDecoration(fn) {
 	const [isLoading, setLoading] = useState(false);
 
-	const decoratedMethod = args => {
+	const decoratedMethod = (...args) => {
 		setLoading(true);
-		const result = fn(args);
+		const result = fn(...args);
 		setLoading(false);
 
 		return result;
