@@ -1,2 +1,5 @@
 /* an icon button including an inline, clickable, text label */
 @import 'e-labelled-icon-btn.scss';
+
+/* extends the existing badge with an 'x' to remove from lists */
+@import 'e-multi-select-badge.scss';
