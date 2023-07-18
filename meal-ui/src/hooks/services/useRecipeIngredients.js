@@ -1,14 +1,9 @@
-import { useIngredients } from 'hooks/data';
 import { multiSelectEvents } from 'forms/Inputs';
 
 export default function useRecipeIngredients() {
-	const { putIngredients } = useIngredients();
-
 	const strategies = Object.freeze({
-		[multiSelectEvents.New]: executeNew,
-		[multiSelectEvents.Existing]: executeExisting,
-		[multiSelectEvents.Remove]: executeRemoval,
-		[multiSelectEvents.Update]: executeUpdate
+		[multiSelectEvents.Add]: executeExisting,
+		[multiSelectEvents.Remove]: executeRemoval
 	});
 
 	function handleRecipeIngredients(event, recipe) {
@@ -35,48 +30,25 @@ export default function useRecipeIngredients() {
 		return recipeIngredientsCopy;
 	}
 
-	function executeNew(event, recipe) {
-		const { data } = event.target.value;
-		const newIngredients = Array.isArray(data) ? data : [data];
-
-		if (newIngredients?.length === 0)
-			console.warn('attempting to add ingredients without data is probably unintended');
-
-		// TODO
-		return putIngredients(newIngredients.map(i => i.label)).then(apiData => {
-			return {
-				...recipe,
-				recipeIngredients: updateLocalIngredientsWithIds(newIngredients, recipe, apiData)
-			};
-		});
-	}
-	r;
 	function executeExisting(event, recipe) {
 		const { data } = event.target.value;
 		const newIngredients = Array.isArray(data) ? data : [data];
 
 		return {
 			...recipe,
-			recipeIngredients: updateLocalIngedientsWithIds(newIngredients, recipe)
+			recipeIngredients: updateLocalIngredientsWithIds(newIngredients, recipe)
 		};
 	}
 
 	function executeRemoval(event, recipe) {
-		return {
-			...recipe,
-			recipeIngredients: recipe.recipeIngredients.filter(ri => ri['id'] !== event.target.id)
-		};
-	}
-
-	function executeUpdate(event, recipe) {
-		const recipeIngredientsCopy = [...recipe.recipeIngredients];
-
-		let elemToUpdate = recipeIngredientsCopy.find(e => e['id'] === event.target.id);
-		elemToUpdate['label'] = event.target.value;
+		// compare either, as the recipe ingredient may not yet have an ID (because it's new)
+		const { id, data: label } = event.target.value;
 
 		return {
 			...recipe,
-			recipeIngredients: recipeIngredientsCopy
+			recipeIngredients: recipe.recipeIngredients.filter(ri =>
+				id ? ri['id'] !== id : ri['label'] !== label
+			)
 		};
 	}
 
