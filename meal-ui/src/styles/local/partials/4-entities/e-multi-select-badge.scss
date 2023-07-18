@@ -1,0 +1,38 @@
+@use '@carbon/react/scss/spacing' as *;
+
+.e-multi-select-badge {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-right: $spacing-06;
+	background-color: var(--background);
+	border-radius: 4px;
+
+	.badge,
+	.badge:hover,
+	.badge:hover > * {
+		background-color: var(--background);
+		transition: unset;
+		cursor: unset;
+	}
+
+	.badge--remove {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 100%;
+		background-color: var(--background-details);
+		width: 30px;
+		height: 30px;
+
+		&:hover,
+		&:hover > * {
+			cursor: pointer;
+		}
+
+		&:hover {
+			background-color: var(--primary-action);
+			transition: 0.2s ease-in background-color;
+		}
+	}
+}
