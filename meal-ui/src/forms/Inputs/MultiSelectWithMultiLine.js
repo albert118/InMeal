@@ -2,24 +2,15 @@ import { useState } from 'react';
 import { default as TextInput } from './TextInput';
 import { default as MultiSelectCustom } from './MultiSelectCustom';
 import Button from 'components/Button';
+import { isFalsishOrEmpty } from 'utils';
 
-function createNewItem(textValue) {
-	return {
-		id: 0,
-		label: textValue
-	};
-}
+export const multiSelectEvents = Object.freeze({
+	New: 'new',
+	Existing: 'existing',
+	Remove: 'remove',
+	Update: 'update'
+});
 
-function mapToDropdownItems(items) {
-	return items.map(item => {
-		return {
-			id: item.id,
-			label: item.name
-		};
-	});
-}
-
-// will set newly added item IDs to 'new-item'
 export default function MultiSelectWithMultiLine({
 	className,
 	items,
@@ -33,41 +24,60 @@ export default function MultiSelectWithMultiLine({
 	const [selectedItems, setSelectedItems] = useState([]);
 	const [updatedKey, setUpdatedKey] = useState(0);
 
-	const appendNewItems = () => {
-		// by using a fake event, consumers can re-use existing form handlers that would expect event.target data
-		if (selectedItems && selectedItems.length > 0) {
+	function appendNewItems() {
+		if (selectedItems?.length > 0) {
 			onChange({
 				target: {
-					id: 'existing-items',
+					id: multiSelectEvents.Existing,
 					name: attrName,
-					value: selectedItems
+					value: { id: null, data: selectedItems }
 				}
 			});
 		} else {
 			onChange({
 				target: {
-					id: 'new-item',
+					id: multiSelectEvents.New,
 					name: attrName,
-					value: newItem
+					value: { id: null, data: newItem }
 				}
 			});
 		}
 
 		setNewItem(createNewItem(''));
 		setSelectedItems([]);
+		// this key hack forces the multiselect to reset after using it's selection
 		setUpdatedKey(Math.random());
 		setCanAddItems(false);
-	};
+	}
 
-	const addSingleItem = textValue => {
-		setNewItem(createNewItem(textValue));
-		setCanAddItems(textValue !== '');
-	};
+	function editExistingItem(event) {
+		if (isFalsishOrEmpty(event.target.value)) {
+			onChange({
+				target: {
+					id: multiSelectEvents.Update,
+					name: attrName,
+					value: MultiSelectEventValue(event)
+				}
+			});
+		} else {
+			onChange({
+				target: {
+					id: multiSelectEvents.Remove,
+					name: attrName,
+					value: MultiSelectEventValue(event)
+				}
+			});
+		}
+	}
+
+	function addSingleItem(event) {
+		setNewItem(createNewItem(event.target.value));
+		setCanAddItems(event.target.value !== '');
+	}
 
 	const handleKeyDown = event => {
-		if (event.key !== 'Enter') return;
 		event.preventDefault();
-		appendNewItems();
+		event.key === 'Enter' && appendNewItems();
 	};
 
 	return (
@@ -76,7 +86,7 @@ export default function MultiSelectWithMultiLine({
 				<TextInput
 					className='e-full-width-new-item'
 					value={newItem.label}
-					handler={event => addSingleItem(event.target.value)}
+					handler={addSingleItem}
 					handleKeyDown={handleKeyDown}
 					placeholder={placeholder}
 				/>
@@ -90,7 +100,6 @@ export default function MultiSelectWithMultiLine({
 						setSelectedItems(items);
 						setCanAddItems(items.length > 0);
 					}}
-					// this key hack forces the multiselect to reset after using it's selection
 					key={updatedKey}
 				/>
 				<Button
@@ -108,9 +117,32 @@ export default function MultiSelectWithMultiLine({
 						id={item.id}
 						name={attrName}
 						value={item.hasOwnProperty('label') ? item.label : item}
-						handler={onChange}
+						handler={editExistingItem}
 					/>
 				))}
 		</div>
 	);
+}
+
+class MultiSelectEventValue {
+	constructor(event) {
+		this.id = event.target.id;
+		this.data = event.target.value;
+	}
+}
+
+function createNewItem(textValue) {
+	return {
+		id: 0,
+		label: textValue
+	};
+}
+
+function mapToDropdownItems(items) {
+	return items.map(item => {
+		return {
+			id: item.id,
+			label: item.name
+		};
+	});
 }

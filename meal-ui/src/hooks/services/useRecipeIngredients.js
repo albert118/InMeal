@@ -1,100 +1,74 @@
 import { useIngredients } from 'hooks/data';
-import { isFalsishOrEmpty } from 'utils';
+import { multiSelectEvents } from 'forms/Inputs';
 
 export default function useRecipeIngredients() {
 	const { putIngredients } = useIngredients();
 
-	const handleRecipeIngredients = async (event, recipe) => {
-		const strategies = {
-			'new-item': handleAddingAsync,
-			'existing-items': handleAddingExisting,
-			'remove-item': handleRemoving,
-			'update-item': handleUpdating
-		};
+	const strategies = Object.freeze({
+		[multiSelectEvents.New]: executeNew,
+		[multiSelectEvents.Existing]: executeExisting,
+		[multiSelectEvents.Remove]: executeRemoval,
+		[multiSelectEvents.Update]: executeUpdate
+	});
 
-		const strategyName = isFalsishOrEmpty(event.target.value) ? 'remove-item' : event.target.id;
-
+	function handleRecipeIngredients(event, recipe) {
+		const strategyName = event.target.id;
 		console.info(`editing recipe ingredient data with '${strategyName}' strategy`);
+		return strategies[strategyName](event, recipe);
+	}
 
-		const strategy = strategies[strategyName] ?? strategies['update-item'];
-
-		return await strategy(event, recipe);
-	};
-
-	const handleAddingAsync = async (event, recipe) => {
-		const additionalIngredientOrIngedients = event.target.value;
-
-		if (!additionalIngredientOrIngedients || additionalIngredientOrIngedients.length === 0)
-			console.warn(
-				'attempting to handle adding recipe ingredients that are undefined or empty is probably unintented'
-			);
-
-		return Array.isArray(additionalIngredientOrIngedients)
-			? await handleAddingManyAsync(additionalIngredientOrIngedients, recipe)
-			: await handleAddingManyAsync([additionalIngredientOrIngedients], recipe);
-	};
-
-	const handleAddingManyAsync = async (additionalIngredients, recipe) => {
-		// persist to the data layer
-		const persistedIngredients = await putIngredients(
-			additionalIngredients.map(additionalIngredient => additionalIngredient.label)
-		);
-
+	function updateLocalIngredientsWithIds(newIngredients, recipe, apiData) {
 		// TODO: quantity logic
 		const fakeQuantity = 1;
-		const recipeIngredients = additionalIngredients.map((additionalIngredient, idx) =>
-			createRecipeIngredient(additionalIngredient.label, persistedIngredients[idx].id, fakeQuantity)
+		const recipeIngredients = newIngredients.map((newItem, idx) =>
+			createRecipeIngredient(newItem.label, apiData ? apiData[idx].id : newItem.id, fakeQuantity)
 		);
 
 		// add the new recipe ingredients to the existing recipe ingredients
 		let recipeIngredientsCopy = [...recipe.recipeIngredients];
-
 		const existingIngredientLabels = recipeIngredientsCopy.map(e => e['label']);
+
 		recipeIngredients
 			.filter(ri => !existingIngredientLabels.includes(ri['label']))
-			.forEach(ri => {
-				recipeIngredientsCopy.push(ri);
-			});
+			.forEach(ri => recipeIngredientsCopy.push(ri));
+
+		return recipeIngredientsCopy;
+	}
+
+	function executeNew(event, recipe) {
+		const { data } = event.target.value;
+		const newIngredients = Array.isArray(data) ? data : [data];
+
+		if (newIngredients?.length === 0)
+			console.warn('attempting to add ingredients without data is probably unintended');
+
+		// TODO
+		return putIngredients(newIngredients.map(i => i.label)).then(apiData => {
+			return {
+				...recipe,
+				recipeIngredients: updateLocalIngredientsWithIds(newIngredients, recipe, apiData)
+			};
+		});
+	}
+	r;
+	function executeExisting(event, recipe) {
+		const { data } = event.target.value;
+		const newIngredients = Array.isArray(data) ? data : [data];
 
 		return {
 			...recipe,
-			recipeIngredients: recipeIngredientsCopy
+			recipeIngredients: updateLocalIngedientsWithIds(newIngredients, recipe)
 		};
-	};
+	}
 
-	const handleAddingExisting = (event, recipe) => {
-		const additionalIngredients = event.target.value;
-
-		// TODO: quantity logic
-		const fakeQuantity = 1;
-		const recipeIngredients = additionalIngredients.map(additionalIngredient =>
-			createRecipeIngredient(additionalIngredient.label, additionalIngredient.id, fakeQuantity)
-		);
-
-		// add the new recipe ingredients to the existing recipe ingredients
-		let recipeIngredientsCopy = [...recipe.recipeIngredients];
-
-		const existingIngredientLabels = recipeIngredientsCopy.map(e => e['label']);
-		recipeIngredients
-			.filter(ri => !existingIngredientLabels.includes(ri['label']))
-			.forEach(ri => {
-				recipeIngredientsCopy.push(ri);
-			});
-
-		return {
-			...recipe,
-			recipeIngredients: recipeIngredientsCopy
-		};
-	};
-
-	const handleRemoving = (event, recipe) => {
+	function executeRemoval(event, recipe) {
 		return {
 			...recipe,
 			recipeIngredients: recipe.recipeIngredients.filter(ri => ri['id'] !== event.target.id)
 		};
-	};
+	}
 
-	const handleUpdating = (event, recipe) => {
+	function executeUpdate(event, recipe) {
 		const recipeIngredientsCopy = [...recipe.recipeIngredients];
 
 		let elemToUpdate = recipeIngredientsCopy.find(e => e['id'] === event.target.id);
@@ -104,7 +78,7 @@ export default function useRecipeIngredients() {
 			...recipe,
 			recipeIngredients: recipeIngredientsCopy
 		};
-	};
+	}
 
 	return { handleRecipeIngredients };
 }
