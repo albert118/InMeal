@@ -15,7 +15,7 @@ export default function useRecipeFormData() {
 	const [recipe, setRecipe] = useState(existingRecipe ?? defaultRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
-	const { error } = useContext(ErrorDetailContext);
+	const { error, setError } = useContext(ErrorDetailContext);
 
 	const navigate = useNavigate();
 
@@ -23,6 +23,7 @@ export default function useRecipeFormData() {
 
 	useEffect(() => {
 		setRecipe(existingRecipe);
+		setFormStatus(error ? FormStatuses.Error : FormStatuses.Saved);
 	}, [existingRecipe]);
 
 	const updateRecipeDataHandler = async event => {
@@ -40,41 +41,19 @@ export default function useRecipeFormData() {
 		setFormStatus(FormStatuses.Unsaved);
 	};
 
-	const clearChanges = event => {
-		event.preventDefault();
-		recipe.id ? setRecipe(recipe) : setRecipe(defaultRecipe);
-		setFormStatus(FormStatuses.Saved);
-	};
-
 	const handleCancel = event => {
 		event.preventDefault();
+		setError(null);
 		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 	};
 
-	function handlePotentialErrors() {
-		console.log(error);
-		setFormStatus(!error ? FormStatuses.Saved : FormStatuses.Error);
-		return !error;
-	}
-
-	function submitAdditionalHandler(event) {
+	function submitHandler(event) {
 		event.preventDefault();
 
 		// update the recipe after adding for the first time
-		if (recipe.id) {
-			postEditedRecipe(recipe);
-		} else {
-			postRecipe(recipe);
-		}
+		recipe.id ? postEditedRecipe(recipe) : postRecipe(recipe);
 
-		handlePotentialErrors();
-	}
-
-	function submitEditHandler(event) {
-		event.preventDefault();
-
-		postEditedRecipe(recipe);
-		if (handlePotentialErrors()) {
+		if (!error) {
 			navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 		}
 	}
@@ -83,10 +62,8 @@ export default function useRecipeFormData() {
 		recipe,
 		formStatus,
 		errorMessages: error,
-		clearChanges,
 		handleCancel,
-		submitAdditionalHandler,
-		submitEditHandler,
-		updateRecipeDataHandler
+		updateRecipeDataHandler,
+		submitHandler
 	};
 }
