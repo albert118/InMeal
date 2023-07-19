@@ -11,7 +11,7 @@ export default function EditRecipeForm({ ingredientOptions }) {
 		recipe,
 		formStatus,
 		errorMessages,
-		submitEditHandler: submitHandler,
+		submitHandler,
 		handleCancel,
 		updateRecipeDataHandler
 	} = useRecipeFormData();

@@ -8,14 +8,8 @@ import { ViewRecipeButton, HeroImage, FormActions, ValidationErrors } from './co
 import useRecipeFormData from './useRecipeFormData';
 
 export default function AddRecipeForm({ ingredientOptions }) {
-	const {
-		recipe,
-		formStatus,
-		errorMessages,
-		submitAdditionalHandler: submitHandler,
-		clearChanges,
-		updateRecipeDataHandler
-	} = useRecipeFormData();
+	const { recipe, formStatus, errorMessages, submitHandler, updateRecipeDataHandler } =
+		useRecipeFormData();
 
 	const navigate = useNavigate();
 
@@ -77,7 +71,6 @@ export default function AddRecipeForm({ ingredientOptions }) {
 			)}
 
 			<FormActions
-				clearChanges={clearChanges}
 				handleCancel={() => navigate(`${AppRoutes.root}`)}
 				saveActionText='save'
 			/>
