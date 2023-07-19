@@ -10,14 +10,14 @@ export default function Layout({ children }) {
 	const [isInActive, setInActive] = useState(null);
 
 	const { error, setError } = useErrorDetail();
-	// const memoisedContextValue = useMemo(() => ({ error, setError }), [error]);
+	const memoisedContextValue = useMemo(() => ({ error, setError }), [error]);
 
 	const getClassNames = () => {
 		return `${isActive ? 'header-active' : ''} ${isInActive ? 'header-inactive' : ''}`;
 	};
 
 	return (
-		<ErrorDetailContext.Provider value={{ error, setError }}>
+		<ErrorDetailContext.Provider value={memoisedContextValue}>
 			<MinimalistSidebar
 				isActive={isActive}
 				setActive={setActive}
