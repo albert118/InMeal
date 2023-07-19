@@ -1,8 +1,7 @@
-import { SimpleCard } from 'components/Card';
+import { Button, SimpleCard } from 'components';
+import { Stack } from '@carbon/react';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from 'navigation/AppRoutes';
-import { Stack } from '@carbon/react';
-import Button from 'components/Button';
 
 export function CommonActions() {
 	const navigate = useNavigate();
@@ -19,30 +18,6 @@ export function CommonActions() {
 							onClick={() => navigate(`${AppRoutes.recipe}/add`)}
 						>
 							Add
-						</Button>
-					</div>
-				</div>
-				<div>
-					<div className='action-option'>
-						<label>Pantry</label>
-						<span>Update the pantry</span>
-						<Button
-							kind='ghost'
-							onClick={() => navigate(`${AppRoutes.root}`)}
-						>
-							add ingredients
-						</Button>
-					</div>
-				</div>
-				<div>
-					<div className='action-option'>
-						<label>Planning</label>
-						<span>Create a meal plan</span>
-						<Button
-							kind='ghost'
-							onClick={() => navigate(`${AppRoutes.root}`)}
-						>
-							plan
 						</Button>
 					</div>
 				</div>

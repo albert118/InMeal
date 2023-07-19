@@ -9,10 +9,13 @@ export { default as MinimalistSidebar } from './MinimalistSidebar';
 export { default as StatusBadge } from './StatusBadge';
 export { default as Selectable } from './Selectable';
 
+// cards
+export { default as Card } from './Card';
+export { SimpleCard, ImageCard } from './Card';
+
 // simple components and wrappers
 export { default as TitleBar } from './TitleBar';
 export { default as Carousel } from './Carousel';
-export { default as Card } from './Card';
 export { default as Button } from './Button';
 export { default as Badge } from './Badge';
 export { default as IndexRow } from './IndexRow';

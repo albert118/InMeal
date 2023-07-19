@@ -1,21 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-
-import { faSeedling, faBoxes, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faSeedling, faBoxes } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { AnimatedHamburger } from './AnimatedHamburger';
 import { NavLinkItem } from './NavLinkItem';
-
+import { HeroBrandingLogo } from './HeroBrandingLogo';
 import AppRoutes from 'navigation/AppRoutes';
 import config from 'config';
 import VersionInfo from 'VersionInfo';
-import { HeroBrandingLogo } from './HeroBrandingLogo';
 
-export default function MinimalistSidebar({
-	isActive,
-	setActive,
-	isInActive,
-	setInActive
-}) {
+export default function MinimalistSidebar({ isActive, setActive, isInActive, setInActive }) {
 	const navigate = useNavigate();
 
 	const toggleActive = () => {
@@ -48,14 +41,6 @@ export default function MinimalistSidebar({
 					onClick={() => navigate(AppRoutes.recipes)}
 				>
 					Manage Recipes
-				</NavLinkItem>
-
-				<NavLinkItem
-					isActive={isActive}
-					icon={faGear}
-					onClick={() => navigate(AppRoutes.settings)}
-				>
-					Settings
 				</NavLinkItem>
 			</div>
 			<div className='social-links'>

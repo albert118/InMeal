@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-export const AnimatedHamburger = props => {
-    const { callback } = props;
+export function AnimatedHamburger({ callback }) {
+	const [isActive, setActive] = useState(false);
 
-    const [isActive, setActive] = useState(false);
+	function onClick(event) {
+		event.preventDefault();
+		setActive(!isActive);
+		callback();
+	}
 
-    const handleClick = event => {
-        event.preventDefault();
-        setActive(!isActive);
-        callback();
-    };
-
-    return (
-        <div className={`hamburger ${isActive ? "hamburger-toggle": ""}`} onClick={handleClick}>
-            <div className='line1'></div>
-            <div className='line2'></div>
-            <div className='line3'></div>
-        </div>
-    );
-};
+	return (
+		<div
+			className={`hamburger ${isActive ? 'hamburger-toggle' : ''}`}
+			onClick={onClick}
+		>
+			<div className='line1'></div>
+			<div className='line2'></div>
+			<div className='line3'></div>
+		</div>
+	);
+}

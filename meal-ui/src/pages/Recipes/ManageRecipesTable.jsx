@@ -1,21 +1,9 @@
 import { useState } from 'react';
 import { Grid, Column } from '@carbon/react';
-import { ManagementHeader } from './GridHeader';
 import { RecipeGrid } from './RecipeGrid';
+import { Actions } from './Actions';
 
-export default function View({ recipes, refreshGrid, archiveRecipes }) {
-	return (
-		<div className='p-manage-recipes'>
-			<ManageRecipesTable
-				archiveRecipes={archiveRecipes}
-				recipes={recipes}
-				refreshGrid={refreshGrid}
-			/>
-		</div>
-	);
-}
-
-function ManageRecipesTable({ recipes, refreshGrid, archiveRecipes }) {
+export function ManageRecipesTable({ recipes, refreshGrid, archiveRecipes }) {
 	const [selectedItems, setSelectedItems] = useState([]);
 
 	const addSelectedItem = newItem => {
@@ -35,36 +23,35 @@ function ManageRecipesTable({ recipes, refreshGrid, archiveRecipes }) {
 	};
 
 	const addOrRemoveSelectedItem = (item, toggle) => {
-		if (toggle) {
-			addSelectedItem(item);
-		} else {
-			removeSelectedItem(item);
-		}
+		toggle ? addSelectedItem(item) : removeSelectedItem(item);
 	};
 
-	const handleDeleteSelected = async () => {
+	const onArchive = async () => {
 		await archiveRecipes(selectedItems);
 		refreshGrid();
 	};
 
-	const handleViewArchived = event => {
+	const onViewArchived = event => {
 		refreshGrid({ includeArchived: event.target.checked });
 	};
 
 	return (
-		<Grid className='p-manage-recipes'>
+		<Grid>
 			<Column
 				lg={16}
 				md={8}
 				sm={4}
 			>
-				<ManagementHeader
-					handleDeleteSelected={handleDeleteSelected}
-					handleViewArchived={handleViewArchived}
-				/>
+				<div className='recipes-grid-header'>
+					<h2>Manage Recipes</h2>
+				</div>
 				<RecipeGrid
 					addOrRemoveSelectedItem={addOrRemoveSelectedItem}
 					recipes={recipes}
+				/>
+				<Actions
+					onArchive={onArchive}
+					onViewArchived={onViewArchived}
 				/>
 			</Column>
 		</Grid>
