@@ -2,7 +2,6 @@ import { TitleBar, StatusBadge, Image } from 'components';
 import FormContainer from 'forms';
 import { LongTextInput, MultiSelectWithMultiLine, TextInput } from 'forms/Inputs';
 import { FormActions, ValidationErrors } from './components';
-
 import useRecipeFormData from './useRecipeFormData';
 
 export default function EditRecipeForm({ ingredientOptions }) {

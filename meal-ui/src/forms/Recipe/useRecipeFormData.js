@@ -9,6 +9,9 @@ import { ErrorDetailContext } from 'hooks/data';
 
 export default function useRecipeFormData() {
 	const { recipeId } = useParams();
+	// determines if we are adding or updating a recipe
+	const isAdd = !!!recipeId;
+
 	const { postEditedRecipe, postRecipe, recipe: existingRecipe } = useRecipe(recipeId);
 	const [recipe, setRecipe] = useState(existingRecipe ?? defaultRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
@@ -27,7 +30,7 @@ export default function useRecipeFormData() {
 		setFormStatus(error ? FormStatuses.Error : FormStatuses.Saved);
 	}, [error]);
 
-	const updateRecipeDataHandler = async event => {
+	const onUpdate = async event => {
 		const recipeIngredientFormAttributeName = 'recipeIngredients';
 
 		if (event.target.name === recipeIngredientFormAttributeName) {
@@ -44,7 +47,7 @@ export default function useRecipeFormData() {
 
 	const handleCancel = event => {
 		event.preventDefault();
-		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
+		isAdd ? navigate(`${AppRoutes.root}`) : navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 	};
 
 	function submitHandler(event) {
@@ -57,9 +60,10 @@ export default function useRecipeFormData() {
 	return {
 		recipe,
 		formStatus,
-		errorMessages: error,
+		errors: error,
 		handleCancel,
-		updateRecipeDataHandler,
-		submitHandler
+		onUpdate,
+		submitHandler,
+		isAdd
 	};
 }
