@@ -4,7 +4,7 @@ import { demoImage } from 'DemoImage';
 import { HomeButton } from 'components/Button';
 
 export default function View(props) {
-	const { recipe, isLoading } = props;
+	const { recipe } = props;
 
 	return (
 		<div className='p-recipe'>
@@ -14,7 +14,6 @@ export default function View(props) {
 			<RecipeCard
 				recipe={recipe}
 				status={FormStatuses.Unknown}
-				isLoading={isLoading}
 			>
 				<img
 					src={demoImage.url}
