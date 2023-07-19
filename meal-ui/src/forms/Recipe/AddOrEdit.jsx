@@ -1,7 +1,7 @@
 import { TitleBar, StatusBadge, Image } from 'components';
 import FormContainer from 'forms';
 import { LongTextInput, MultiSelectWithMultiLine, TextInput } from 'forms/Inputs';
-import { ViewRecipeButton, FormActions, ValidationErrors } from './components';
+import { FormActions, ValidationErrors } from './components';
 import useRecipeFormData from './useRecipeFormData';
 import { useIngredients } from 'hooks/data';
 
@@ -11,7 +11,7 @@ export default function AddOrEdit() {
 
 	return (
 		<FormContainer
-			className='card recipe-card e-recipe-form'
+			className='two-pane-recipe-card'
 			onSubmit={submitHandler}
 		>
 			<LeftPane
@@ -23,11 +23,9 @@ export default function AddOrEdit() {
 			<RightPane
 				recipe={recipe}
 				onUpdate={onUpdate}
+				isAdd={isAdd}
+				handleCancel={handleCancel}
 			/>
-
-			{isAdd && recipe.id && <ViewRecipeButton recipeId={recipe.id} />}
-
-			<FormActions handleCancel={handleCancel} />
 		</FormContainer>
 	);
 }
@@ -36,7 +34,7 @@ function LeftPane({ recipe, formStatus, errors, onUpdate }) {
 	const { ingredients } = useIngredients();
 
 	return (
-		<div className='e-recipe-form--left'>
+		<div className='card recipe-card two-pane-recipe-card--left'>
 			<Image
 				alt={recipe.title}
 				className='image-slot'
@@ -53,8 +51,9 @@ function LeftPane({ recipe, formStatus, errors, onUpdate }) {
 					className='e-image-status-badge'
 					status={formStatus}
 				/>
-				<ValidationErrors errors={errors} />
+				{errors && <ValidationErrors errors={errors} />}
 			</TitleBar>
+
 			<div className='recipe--data scrollbar-vertical'>
 				<LongTextInput
 					className='recipe--blurb'
@@ -77,17 +76,25 @@ function LeftPane({ recipe, formStatus, errors, onUpdate }) {
 	);
 }
 
-function RightPane({ recipe, onUpdate }) {
-	<div className='e-recipe-form--right'>
-		<div className='recipe--data scrollbar-vertical'>
-			<LongTextInput
-				className='recipe--steps'
-				name='preparationSteps'
-				value={recipe.preparationSteps}
-				placeholder='include lots of details and steps'
-				handler={onUpdate}
-				rows='20'
+function RightPane({ recipe, onUpdate, isAdd, handleCancel }) {
+	return (
+		<div className='card recipe-card two-pane-recipe-card--right'>
+			<div className='recipe--data scrollbar-vertical'>
+				<LongTextInput
+					className='recipe--steps'
+					name='preparationSteps'
+					value={recipe.preparationSteps}
+					placeholder='include lots of details and steps'
+					handler={onUpdate}
+					rows='20'
+				/>
+			</div>
+
+			<FormActions
+				showViewButton={isAdd && recipe.id}
+				recipeId={recipe.id}
+				handleCancel={handleCancel}
 			/>
 		</div>
-	</div>;
+	);
 }

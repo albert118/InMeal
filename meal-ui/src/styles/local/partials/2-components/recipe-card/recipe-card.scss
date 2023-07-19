@@ -33,14 +33,15 @@
 		height: 100%;
 		background-color: var(--background-neutral);
 
-		.recipe--blurb {
+		.recipe--blurb,
+		.recipe--steps,
+		.recipe--ingredients {
 			flex-basis: 100%;
+			width: 100%;
 		}
 
-		.recipe--ingredients {
-			display: flex;
-			flex-wrap: wrap;
-			flex-direction: column;
+		.recipe--steps {
+			height: 100%;
 		}
 	}
 }
