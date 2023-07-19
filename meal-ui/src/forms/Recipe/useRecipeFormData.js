@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import AppRoutes from 'navigation/AppRoutes';
@@ -7,14 +7,15 @@ import { FormStatuses } from 'forms';
 
 import { useRecipeIngredients } from 'hooks/services';
 import { useRecipe } from 'hooks/data';
+import { ErrorDetailContext } from 'hooks/data';
 
 export default function useRecipeFormData() {
 	const { recipeId } = useParams();
 	const { postEditedRecipe, postRecipe, recipe: existingRecipe } = useRecipe(recipeId);
 	const [recipe, setRecipe] = useState(existingRecipe ?? defaultRecipe);
-
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
-	const [errorMessages, setErrorMessages] = useState(null);
+
+	const { error } = useContext(ErrorDetailContext);
 
 	const navigate = useNavigate();
 
@@ -50,37 +51,30 @@ export default function useRecipeFormData() {
 		navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 	};
 
-	const handleErrorResponse = errors => {
-		if (!errors) {
-			setFormStatus(FormStatuses.Saved);
-			setErrorMessages(null);
-		} else {
-			setFormStatus(FormStatuses.Error);
-			setErrorMessages(errors);
-		}
-
-		return !errors;
-	};
+	function handlePotentialErrors() {
+		console.log(error);
+		setFormStatus(!error ? FormStatuses.Saved : FormStatuses.Error);
+		return !error;
+	}
 
 	function submitAdditionalHandler(event) {
 		event.preventDefault();
 
 		// update the recipe after adding for the first time
 		if (recipe.id) {
-			const errors = postEditedRecipe(recipe);
-			handleErrorResponse(errors);
+			postEditedRecipe(recipe);
 		} else {
-			const errors = postRecipe(recipe);
-			handleErrorResponse(errors);
+			postRecipe(recipe);
 		}
+
+		handlePotentialErrors();
 	}
 
 	function submitEditHandler(event) {
 		event.preventDefault();
 
-		const errors = postEditedRecipe(recipe);
-
-		if (handleErrorResponse(errors)) {
+		postEditedRecipe(recipe);
+		if (handlePotentialErrors()) {
 			navigate(`${AppRoutes.recipe}/${existingRecipe.id}`);
 		}
 	}
@@ -88,7 +82,7 @@ export default function useRecipeFormData() {
 	return {
 		recipe,
 		formStatus,
-		errorMessages,
+		errorMessages: error,
 		clearChanges,
 		handleCancel,
 		submitAdditionalHandler,
