@@ -52,9 +52,19 @@ export function useFetch() {
 
 function handleResponse(response) {
 	return response.text().then(text => {
-		const data = text && JSON.parse(text);
+		let data;
 
-		if (!response.ok) return Promise.reject(handleError(response.statusText, data));
+		try {
+			data = text && JSON.parse(text);
+		} catch (ex) {
+			// wasn't JSON, a simple string was returned
+			data = text;
+		}
+
+		if (!response.ok) {
+			const errorDetail = handleError(response.statusText, data);
+			return Promise.reject(errorDetail);
+		}
 
 		return data;
 	});

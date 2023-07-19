@@ -2,7 +2,8 @@ import { objectMap } from 'utils';
 
 export default function handleError(status, errorResponse) {
 	const unpackedErrors =
-		typeof errorResponse === 'object' ? unpackKestralErrorResponse(errorResponse) : errorResponse;
+		typeof errorResponse === 'object' ? unpackKestralErrorResponse(errorResponse) : [errorResponse];
+
 	console.error(`${status}: ${stringifyErrorArray(unpackedErrors)}`);
 	return unpackedErrors;
 }
