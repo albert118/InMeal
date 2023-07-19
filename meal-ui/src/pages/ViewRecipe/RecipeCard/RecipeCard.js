@@ -1,18 +1,25 @@
 import { useNavigate } from 'react-router-dom';
-import Button from 'components/Button';
 import AppRoutes from 'navigation/AppRoutes';
-import TitleBar from 'components/TitleBar/TitleBar';
+import { TitleBar, Button } from 'components';
 import { Checkbox } from 'forms/Inputs';
 import { objectMap } from 'utils';
+import { demoImage } from 'DemoImage';
 
-export default function RecipeCard({ className, recipe, ...additionalProps }) {
+export default function RecipeCard({ recipe }) {
 	return (
-		<div
-			className={
-				className ? `card recipe-card ${className}` : `card recipe-card`
-			}
-		>
-			<div className='image-slot'>{additionalProps.children}</div>
+		<div className='card recipe-card'>
+			<div
+				role='img'
+				title={recipe.title}
+				className='image-slot'
+				style={{ backgroundImage: `url(${demoImage.url})` }}
+			>
+				<img
+					className='alt-image'
+					src=''
+					alt={recipe.title}
+				/>
+			</div>
 
 			<TitleBar>{recipe.title}</TitleBar>
 
@@ -40,11 +47,7 @@ function ActionContainer({ recipeId }) {
 
 	return (
 		<div className='action-container'>
-			<Button
-				onClick={() => navigate(`${AppRoutes.recipe}/edit/${recipeId}`)}
-			>
-				edit
-			</Button>
+			<Button onClick={() => navigate(`${AppRoutes.recipe}/edit/${recipeId}`)}>edit</Button>
 		</div>
 	);
 }
