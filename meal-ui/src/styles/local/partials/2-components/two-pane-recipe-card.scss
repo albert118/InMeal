@@ -1,0 +1,10 @@
+.two-pane-recipe-card {
+	display: flex;
+	justify-content: flex-start;
+
+	.two-pane-recipe-card--left {
+		.recipe--data {
+			border-radius: 0 0 12px 12px;
+		}
+	}
+}

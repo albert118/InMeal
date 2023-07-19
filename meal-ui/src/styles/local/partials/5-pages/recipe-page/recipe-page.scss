@@ -2,9 +2,6 @@
 @import './action-buttons.scss';
 
 .p-recipe {
-	display: flex;
-	width: 100%;
-	justify-content: flex-start;
 	// freeze scrolling
 	position: fixed;
 
@@ -12,11 +9,5 @@
 		display: flex;
 		align-items: flex-start;
 		margin: $spacing-08;
-	}
-
-	.left-pane {
-		.recipe--data {
-			border-radius: 0 0 12px 12px;
-		}
 	}
 }
