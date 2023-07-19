@@ -40,7 +40,7 @@
 			width: 100%;
 		}
 
-		.recipe--steps {
+		.recipe--steps > :first-child {
 			height: 100%;
 		}
 	}
