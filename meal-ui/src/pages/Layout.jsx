@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import MinimalistSidebar from 'components/MinimalistSidebar';
 import ThemingGradient from 'assets/theming-gradient.svg';
+import { ErrorDetailContext, useErrorDetail } from 'hooks/data';
 
 export default function Layout({ children }) {
 	// control the toggle'able sidebar-heading
@@ -8,12 +9,15 @@ export default function Layout({ children }) {
 	const [isActive, setActive] = useState(false);
 	const [isInActive, setInActive] = useState(null);
 
+	const { error, setError } = useErrorDetail();
+	// const memoisedContextValue = useMemo(() => ({ error, setError }), [error]);
+
 	const getClassNames = () => {
 		return `${isActive ? 'header-active' : ''} ${isInActive ? 'header-inactive' : ''}`;
 	};
 
 	return (
-		<div>
+		<ErrorDetailContext.Provider value={{ error, setError }}>
 			<MinimalistSidebar
 				isActive={isActive}
 				setActive={setActive}
@@ -31,6 +35,6 @@ export default function Layout({ children }) {
 				src={ThemingGradient}
 			/>
 			<main className={getClassNames()}>{children}</main>
-		</div>
+		</ErrorDetailContext.Provider>
 	);
 }
