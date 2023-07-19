@@ -1,6 +1,6 @@
 import defaultRequestOptions from './defaultRequestOptions';
 import useLoadingStateDecoration from './useLoadingDecorator';
-
+import handleError from './errorHandler';
 export function useFetch() {
 	function get(url) {
 		return fetch(url, {
@@ -52,19 +52,20 @@ export function useFetch() {
 
 function handleResponse(response) {
 	return response.text().then(text => {
-		const data = text && JSON.parse(text);
+		let data;
+
+		try {
+			data = text && JSON.parse(text);
+		} catch (ex) {
+			// wasn't JSON, a simple string was returned
+			data = text;
+		}
 
 		if (!response.ok) {
-			const error = (data && data.message) || response.statusText;
-			handleError(error);
-			return Promise.reject(error);
+			const errorDetail = handleError(response.statusText, data);
+			return Promise.reject(errorDetail);
 		}
 
 		return data;
 	});
-}
-
-function handleError(errorResponseBody) {
-	console.error(errorResponseBody);
-	return errorResponseBody;
 }

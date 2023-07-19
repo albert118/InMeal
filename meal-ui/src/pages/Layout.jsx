@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import MinimalistSidebar from 'components/MinimalistSidebar';
 import ThemingGradient from 'assets/theming-gradient.svg';
+
+import { ErrorDetailContext, useErrorDetail } from 'hooks/data';
+import { LoadingContext, useLoadingState } from 'hooks/fetch/loadingContext';
 
 export default function Layout({ children }) {
 	// control the toggle'able sidebar-heading
@@ -8,29 +11,37 @@ export default function Layout({ children }) {
 	const [isActive, setActive] = useState(false);
 	const [isInActive, setInActive] = useState(null);
 
+	const { error, setError } = useErrorDetail();
+	const { isLoading, setLoading } = useLoadingState();
+
+	const memoisedErrorContextValue = useMemo(() => ({ error, setError }), [error]);
+	const memoisedLoadingContextValue = useMemo(() => ({ isLoading, setLoading }), [isLoading]);
+
 	const getClassNames = () => {
 		return `${isActive ? 'header-active' : ''} ${isInActive ? 'header-inactive' : ''}`;
 	};
 
 	return (
-		<div>
-			<MinimalistSidebar
-				isActive={isActive}
-				setActive={setActive}
-				isInActive={isInActive}
-				setInActive={setInActive}
-			/>
-			<img
-				className='theming-gradient-1'
-				alt='theming-gradient-1'
-				src={ThemingGradient}
-			/>
-			<img
-				className='theming-gradient-2'
-				alt='theming-gradient-2'
-				src={ThemingGradient}
-			/>
-			<main className={getClassNames()}>{children}</main>
-		</div>
+		<LoadingContext.Provider value={memoisedLoadingContextValue}>
+			<ErrorDetailContext.Provider value={memoisedErrorContextValue}>
+				<MinimalistSidebar
+					isActive={isActive}
+					setActive={setActive}
+					isInActive={isInActive}
+					setInActive={setInActive}
+				/>
+				<img
+					className='theming-gradient-1'
+					alt='theming-gradient-1'
+					src={ThemingGradient}
+				/>
+				<img
+					className='theming-gradient-2'
+					alt='theming-gradient-2'
+					src={ThemingGradient}
+				/>
+				<main className={getClassNames()}>{children}</main>
+			</ErrorDetailContext.Provider>
+		</LoadingContext.Provider>
 	);
 }

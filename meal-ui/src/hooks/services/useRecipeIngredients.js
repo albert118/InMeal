@@ -12,24 +12,6 @@ export default function useRecipeIngredients() {
 		return strategies[strategyName](event, recipe);
 	}
 
-	function updateLocalIngredientsWithIds(newIngredients, recipe, apiData) {
-		// TODO: quantity logic
-		const fakeQuantity = 1;
-		const recipeIngredients = newIngredients.map((newItem, idx) =>
-			createRecipeIngredient(newItem.label, apiData ? apiData[idx].id : newItem.id, fakeQuantity)
-		);
-
-		// add the new recipe ingredients to the existing recipe ingredients
-		let recipeIngredientsCopy = [...recipe.recipeIngredients];
-		const existingIngredientLabels = recipeIngredientsCopy.map(e => e['label']);
-
-		recipeIngredients
-			.filter(ri => !existingIngredientLabels.includes(ri['label']))
-			.forEach(ri => recipeIngredientsCopy.push(ri));
-
-		return recipeIngredientsCopy;
-	}
-
 	function executeExisting(event, recipe) {
 		const { data } = event.target.value;
 		const newIngredients = Array.isArray(data) ? data : [data];
@@ -64,4 +46,22 @@ function createRecipeIngredient(name, id, numberOf) {
 			units: 0
 		}
 	};
+}
+
+function updateLocalIngredientsWithIds(newIngredients, recipe, apiData) {
+	// TODO: quantity logic
+	const fakeQuantity = 1;
+	const recipeIngredients = newIngredients.map((newItem, idx) =>
+		createRecipeIngredient(newItem.label, apiData ? apiData[idx].id : newItem.id, fakeQuantity)
+	);
+
+	// add the new recipe ingredients to the existing recipe ingredients
+	let recipeIngredientsCopy = recipe.recipeIngredients ? [...recipe.recipeIngredients] : [];
+	const existingIngredientLabels = recipeIngredientsCopy.map(e => e['label']);
+
+	recipeIngredients
+		.filter(ri => !existingIngredientLabels.includes(ri['label']))
+		.forEach(ri => recipeIngredientsCopy.push(ri));
+
+	return recipeIngredientsCopy;
 }
