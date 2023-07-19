@@ -34,12 +34,14 @@
 	}
 
 	.recipes-grid {
+		height: 750px;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-around;
 		row-gap: $spacing-08;
 		padding: $spacing-06;
 		background-color: var(--background-neutral);
+		overflow-y: scroll;
 		@include card-shadow;
 
 		.recipe-grid--tile {
