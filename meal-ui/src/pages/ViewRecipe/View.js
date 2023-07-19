@@ -1,4 +1,4 @@
-import RecipeCard from 'pages/ViewRecipe/RecipeCard';
+import { LeftPane, RightPane } from 'pages/ViewRecipe/RecipeCard';
 import { FormStatuses } from 'forms';
 import { HomeButton } from 'components/Button';
 
@@ -7,10 +7,14 @@ export default function View(props) {
 
 	return (
 		<div className='p-recipe'>
-			<div className='left-panel'>
+			{/* <div className='nav-actions'>
 				<HomeButton />
-			</div>
-			<RecipeCard
+			</div> */}
+			<LeftPane
+				recipe={recipe}
+				status={FormStatuses.Unknown}
+			/>
+			<RightPane
 				recipe={recipe}
 				status={FormStatuses.Unknown}
 			/>

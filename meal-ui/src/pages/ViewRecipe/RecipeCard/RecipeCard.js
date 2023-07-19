@@ -4,7 +4,7 @@ import { TitleBar, Button, Image } from 'components';
 import { Checkbox } from 'forms/Inputs';
 import { objectMap } from 'utils';
 
-export default function RecipeCard({ recipe }) {
+export function LeftPane({ recipe }) {
 	return (
 		<div className='card recipe-card'>
 			<Image
@@ -16,24 +16,39 @@ export default function RecipeCard({ recipe }) {
 
 			<div className='recipe--data scrollbar-vertical'>
 				<p className='recipe--blurb'>{recipe.blurb}</p>
-				<div className='recipe--ingredients'>
-					{recipe.recipeIngredients &&
-						objectMap(recipe.recipeIngredients, (key, value) => (
-							<Checkbox
-								key={key}
-								label={value.label}
-								value={false}
-							/>
-						))}
-				</div>
-				<p className='recipe--steps'>{recipe.preparationSteps}</p>
+				<RecipeIngredients recipeIngredients={recipe.recipeIngredients} />
 			</div>
-			<ActionContainer recipeId={recipe.id} />
 		</div>
 	);
 }
 
-function ActionContainer({ recipeId }) {
+export function RightPane({ recipe }) {
+	return (
+		<div className='card recipe-card'>
+			<div className='recipe--data scrollbar-vertical'>
+				<p className='recipe--steps'>{recipe.preparationSteps}</p>
+			</div>
+			<Actions recipeId={recipe.id} />
+		</div>
+	);
+}
+
+function RecipeIngredients({ recipeIngredients }) {
+	return (
+		<div className='recipe--ingredients'>
+			{recipeIngredients &&
+				objectMap(recipeIngredients, (key, value) => (
+					<Checkbox
+						key={key}
+						label={value.label}
+						value={false}
+					/>
+				))}
+		</div>
+	);
+}
+
+function Actions({ recipeId }) {
 	const navigate = useNavigate();
 
 	return (

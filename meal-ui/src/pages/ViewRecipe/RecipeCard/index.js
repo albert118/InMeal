@@ -1,1 +1,1 @@
-export { default } from './RecipeCard';
+export { LeftPane, RightPane } from './RecipeCard';
