@@ -22,30 +22,6 @@ export function CommonActions() {
 						</Button>
 					</div>
 				</div>
-				<div>
-					<div className='action-option'>
-						<label>Pantry</label>
-						<span>Update the pantry</span>
-						<Button
-							kind='ghost'
-							onClick={() => navigate(`${AppRoutes.root}`)}
-						>
-							add ingredients
-						</Button>
-					</div>
-				</div>
-				<div>
-					<div className='action-option'>
-						<label>Planning</label>
-						<span>Create a meal plan</span>
-						<Button
-							kind='ghost'
-							onClick={() => navigate(`${AppRoutes.root}`)}
-						>
-							plan
-						</Button>
-					</div>
-				</div>
 			</Stack>
 		</SimpleCard>
 	);
