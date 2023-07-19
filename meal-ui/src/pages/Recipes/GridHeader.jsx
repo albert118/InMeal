@@ -1,16 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-
-import AppRoutes from 'navigation/AppRoutes';
 import { Checkbox } from 'forms/Inputs';
-import Button from 'components/Button';
+import { Button } from 'components';
+import AppRoutes from 'navigation/AppRoutes';
 
 export function ManagementHeader({ handleViewArchived, handleDeleteSelected }) {
 	const navigate = useNavigate();
 
 	return (
-		<div className='grid-header'>
-			<div className='font-white-header'>Manage Recipes</div>
-			<div className='grid-actions'>
+		<div className='recipes-grid-header'>
+			<h2>Manage Recipes</h2>
+			<div className='recipes-grid-header--actions'>
 				<Checkbox
 					className='font-white'
 					label='view archived'

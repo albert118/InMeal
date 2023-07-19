@@ -3,19 +3,7 @@ import { Grid, Column } from '@carbon/react';
 import { ManagementHeader } from './GridHeader';
 import { RecipeGrid } from './RecipeGrid';
 
-export default function View({ recipes, refreshGrid, archiveRecipes }) {
-	return (
-		<div className='p-manage-recipes'>
-			<ManageRecipesTable
-				archiveRecipes={archiveRecipes}
-				recipes={recipes}
-				refreshGrid={refreshGrid}
-			/>
-		</div>
-	);
-}
-
-function ManageRecipesTable({ recipes, refreshGrid, archiveRecipes }) {
+export function ManageRecipesTable({ recipes, refreshGrid, archiveRecipes }) {
 	const [selectedItems, setSelectedItems] = useState([]);
 
 	const addSelectedItem = newItem => {
@@ -35,11 +23,7 @@ function ManageRecipesTable({ recipes, refreshGrid, archiveRecipes }) {
 	};
 
 	const addOrRemoveSelectedItem = (item, toggle) => {
-		if (toggle) {
-			addSelectedItem(item);
-		} else {
-			removeSelectedItem(item);
-		}
+		toggle ? addSelectedItem(item) : removeSelectedItem(item);
 	};
 
 	const handleDeleteSelected = async () => {
@@ -52,7 +36,7 @@ function ManageRecipesTable({ recipes, refreshGrid, archiveRecipes }) {
 	};
 
 	return (
-		<Grid className='p-manage-recipes'>
+		<Grid>
 			<Column
 				lg={16}
 				md={8}

@@ -1,39 +1,49 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/card-shadow' as *;
+@use '../../../mixins/text-mixins' as *;
 
-.recipes-grid {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	row-gap: $spacing-08;
-	padding: $spacing-06;
-	background-color: var(--background-neutral);
-	border-radius: 0 0 12px 12px;
-	@include card-shadow;
-}
+.p-manage-recipes {
+	// freeze scrolling
+	position: fixed;
 
-.recipe-grid-tile {
-	flex: 1;
-}
+	.recipes-grid-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-top: $spacing-04;
+		padding-bottom: $spacing-05;
+		padding-right: $spacing-08;
+		padding-left: $spacing-08;
+		margin-top: $spacing-08;
+		height: 6rem;
+		background-color: var(--background);
 
-.grid-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding-top: $spacing-04;
-	padding-bottom: $spacing-05;
-	padding-right: $spacing-08;
-	padding-left: $spacing-08;
-	margin-top: $spacing-08;
-	height: 6rem;
-	background-color: var(--background);
-}
+		h2 {
+			@include text-header();
+		}
 
-.grid-actions {
-	display: flex;
-	justify-content: flex-end;
-	align-items: baseline;
-	column-gap: $spacing-04;
-	margin-top: auto;
-	margin-bottom: auto;
+		.recipes-grid-header--actions {
+			display: flex;
+			justify-content: flex-end;
+			align-items: baseline;
+			column-gap: $spacing-04;
+			margin-top: auto;
+			margin-bottom: auto;
+		}
+	}
+
+	.recipes-grid {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		row-gap: $spacing-08;
+		padding: $spacing-06;
+		background-color: var(--background-neutral);
+		border-radius: 0 0 12px 12px;
+		@include card-shadow;
+
+		.recipe-grid--tile {
+			flex: 1;
+		}
+	}
 }
