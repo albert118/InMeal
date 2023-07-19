@@ -6,7 +6,7 @@ export default function Image({ alt, url, className }) {
 		<div
 			role='img'
 			title={alt}
-			className={`image-content ${className}`}
+			className={`image-content ${className ?? ''}`}
 			style={{ backgroundImage: `url(${url ?? demoImage.url})` }}
 		>
 			<img

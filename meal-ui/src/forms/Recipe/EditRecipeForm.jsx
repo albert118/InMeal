@@ -1,8 +1,7 @@
-import { TitleBar, StatusBadge } from 'components';
+import { TitleBar, StatusBadge, Image } from 'components';
 import FormContainer from 'forms';
 import { LongTextInput, MultiSelectWithMultiLine, TextInput } from 'forms/Inputs';
-import { HeroImage, FormActions, ValidationErrors } from './components';
-import { demoImage } from 'DemoImage';
+import { FormActions, ValidationErrors } from './components';
 
 import useRecipeFormData from './useRecipeFormData';
 
@@ -21,9 +20,9 @@ export default function EditRecipeForm({ ingredientOptions }) {
 			className='card recipe-card'
 			onSubmit={submitHandler}
 		>
-			<HeroImage
-				image={demoImage}
-				label={recipe.title}
+			<Image
+				alt={recipe.title}
+				className='image-slot'
 			/>
 
 			<TitleBar>
@@ -37,7 +36,7 @@ export default function EditRecipeForm({ ingredientOptions }) {
 					className='e-image-status-badge'
 					status={formStatus}
 				/>
-				<ValidationErrors errors={errorMessages} />
+				{errorMessages && <ValidationErrors errors={errorMessages} />}
 			</TitleBar>
 
 			<div className='recipe--data scrollbar-vertical'>

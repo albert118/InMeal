@@ -1,10 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { TitleBar, StatusBadge } from 'components';
+import { TitleBar, StatusBadge, Image } from 'components';
 import FormContainer from 'forms';
 import { LongTextInput, MultiSelectWithMultiLine, TextInput } from 'forms/Inputs';
 import AppRoutes from 'navigation/AppRoutes';
-import { demoImage } from 'DemoImage';
-import { ViewRecipeButton, HeroImage, FormActions, ValidationErrors } from './components';
+import { ViewRecipeButton, FormActions, ValidationErrors } from './components';
 import useRecipeFormData from './useRecipeFormData';
 
 export default function AddRecipeForm({ ingredientOptions }) {
@@ -18,10 +17,9 @@ export default function AddRecipeForm({ ingredientOptions }) {
 			className='card recipe-card e-recipe-form'
 			onSubmit={submitHandler}
 		>
-			<HeroImage
-				image={demoImage}
-				label={recipe.title}
-				status={formStatus}
+			<Image
+				alt={recipe.title}
+				className='image-slot'
 			/>
 
 			<TitleBar>
