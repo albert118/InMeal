@@ -11,11 +11,7 @@ export default function HomeContainer() {
 	const mapper = dto => {
 		return {
 			...dto,
-			handler: id => navigate(`${AppRoutes.recipe}/${id}`),
-			status: {
-				text: dto.status,
-				color: '#ff3350'
-			}
+			handler: id => navigate(`${AppRoutes.recipe}/${id}`)
 		};
 	};
 

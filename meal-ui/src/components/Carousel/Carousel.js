@@ -14,7 +14,6 @@ const splideOptions = Object.freeze({
 //      id: "unique string ID",
 //      content: object,
 //      label: "string",
-//      status: DisplayStatus.enum,
 //      handler: handlerFunc,
 //      image: { url: "url", label: "string" }
 // }

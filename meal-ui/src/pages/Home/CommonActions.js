@@ -1,8 +1,7 @@
-import { SimpleCard } from 'components/Card';
+import { Button, SimpleCard } from 'components';
+import { Stack } from '@carbon/react';
 import { useNavigate } from 'react-router-dom';
 import AppRoutes from 'navigation/AppRoutes';
-import { Stack } from '@carbon/react';
-import Button from 'components/Button';
 
 export function CommonActions() {
 	const navigate = useNavigate();

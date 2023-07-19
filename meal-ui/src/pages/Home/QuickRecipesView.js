@@ -1,5 +1,4 @@
-import Card from 'components/Card';
-import Carousel from 'components/Carousel';
+import { Carousel, Card } from 'components';
 
 export function QuickRecipesView({ plannedRecipes, suggestedRecipes }) {
 	return (
