@@ -1,6 +1,7 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/glass-background' as *;
 
 .p-manage-recipes {
 	// freeze scrolling
@@ -39,11 +40,15 @@
 		row-gap: $spacing-08;
 		padding: $spacing-06;
 		background-color: var(--background-neutral);
-		border-radius: 0 0 12px 12px;
 		@include card-shadow;
 
 		.recipe-grid--tile {
 			flex: 1;
 		}
+	}
+
+	.action-container {
+		border-radius: 0 0 12px 12px;
+		@include glass-background();
 	}
 }
