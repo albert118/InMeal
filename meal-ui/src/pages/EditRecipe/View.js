@@ -1,21 +1,13 @@
 import { HomeButton } from 'components/Button';
-import { EditRecipeForm } from 'forms/Recipe';
+import { AddOrEdit } from 'forms/Recipe';
 
-export default function View({
-	existingRecipe,
-	ingredientOptions,
-	postEditedRecipe
-}) {
+export default function View({ ingredientOptions }) {
 	return (
 		<div className='p-recipe'>
 			<div className='left-panel'>
 				<HomeButton />
 			</div>
-			<EditRecipeForm
-				existingRecipe={existingRecipe}
-				ingredientOptions={ingredientOptions}
-				postEditedRecipe={postEditedRecipe}
-			/>
+			<AddOrEdit ingredientOptions={ingredientOptions} />
 		</div>
 	);
 }
