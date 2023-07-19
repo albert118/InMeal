@@ -1,6 +1,9 @@
+@use '@carbon/react/scss/spacing' as *;
+
 .two-pane-recipe-card {
 	display: flex;
 	justify-content: flex-start;
+	margin-left: $spacing-08;
 
 	.two-pane-recipe-card--left {
 		.recipe--data {
