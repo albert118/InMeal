@@ -1,8 +1,9 @@
-import View from './View';
-import { useIngredients } from 'hooks/data';
+import { AddOrEdit } from 'forms/Recipe';
 
 export default function EditRecipeContainer() {
-	const { ingredients } = useIngredients();
-
-	return <View ingredientOptions={ingredients} />;
+	return (
+		<div className='p-recipe'>
+			<AddOrEdit />
+		</div>
+	);
 }

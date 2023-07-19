@@ -1,4 +1,4 @@
-import RecipeCard from 'components/RecipeCard';
+import { RecipeCard } from 'components';
 
 import '@splidejs/react-splide/css';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
@@ -19,9 +19,7 @@ const splideOptions = Object.freeze({
 //      image: { url: "url", label: "string" }
 // }
 export default function Carousel({ className, items }) {
-	const classes = className
-		? `simple-carousel ${className}`
-		: 'simple-carousel';
+	const classes = className ? `simple-carousel ${className}` : 'simple-carousel';
 
 	if (!items) {
 		return <Splide className={classes}></Splide>;

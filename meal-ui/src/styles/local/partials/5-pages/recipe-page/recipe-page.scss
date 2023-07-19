@@ -2,11 +2,10 @@
 @import './action-buttons.scss';
 
 .p-recipe {
-	display: flex;
-	width: 100%;
-	justify-content: center;
+	// freeze scrolling
+	position: fixed;
 
-	.left-panel {
+	.nav-actions {
 		display: flex;
 		align-items: flex-start;
 		margin: $spacing-08;

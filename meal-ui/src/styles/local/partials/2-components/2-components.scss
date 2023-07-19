@@ -17,6 +17,7 @@
 
 /* recipe card designs */
 @import 'recipe-card/recipe-card.scss';
+@import 'two-pane-recipe-card.scss';
 
 /* neat little scrollbar */
 @import 'scrollbar-vertical.scss';
@@ -35,3 +36,6 @@
 
 /* a labeled row by an index name (eg. 'A.', 'B.', 'C.') */
 @import 'index-row.scss';
+
+/* a custom image 'slot' for clean and scaled images in components */
+@import 'image-content.scss';

@@ -4,63 +4,52 @@
 @use '../../../mixins/glass-background' as *;
 
 .recipe-card {
-	--card-height: 1200px;
-	width: 900px;
-	margin: $spacing-08;
+	--card-height: 950px;
+	width: 750px;
+	margin-right: $spacing-02;
+	margin-left: $spacing-02;
+	margin-top: $spacing-04;
 	background-color: transparent;
 	@include text();
 
-	img {
-		height: 100%;
-		width: 100%;
-	}
-
-	.recipe--data p {
-		@include wrappable-text();
+	.image-slot {
+		height: calc(var(--card-height) / 1.5);
 	}
 
 	.action-container {
 		border-radius: 0 0 12px 12px;
 		@include glass-background();
 	}
+
+	.recipe--data p {
+		@include wrappable-text();
+	}
+
+	.recipe--data {
+		display: flex;
+		flex-wrap: wrap;
+		gap: $spacing-06;
+		overflow-y: scroll;
+		height: 100%;
+		background-color: var(--background-neutral);
+
+		.recipe--blurb,
+		.recipe--steps,
+		.recipe--ingredients {
+			flex-basis: 100%;
+			width: 100%;
+		}
+
+		.recipe--steps > :first-child {
+			height: 100%;
+		}
+	}
 }
 
-.image-slot .recipe-card .title-bar,
+.image-slot .recipe-card,
 .recipe-card .recipe--data {
 	padding-top: $spacing-06;
 	padding-bottom: $spacing-06;
 	padding-right: $spacing-08;
 	padding-left: $spacing-08;
-}
-
-.recipe-card .recipe--data {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-items: flex-start;
-	gap: $spacing-06;
-	overflow-y: scroll;
-	overflow-x: hidden;
-	height: 100%;
-	background-color: var(--background-neutral);
-	@include card-shadow-3();
-
-	.recipe--blurb {
-		flex-basis: 100%;
-	}
-
-	.recipe--ingredients {
-		display: flex;
-		flex-wrap: wrap;
-		flex-direction: column;
-	}
-
-	// .recipe--steps {
-
-	// }
-}
-
-.recipe--data > * {
-	flex: 1;
 }
