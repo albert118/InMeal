@@ -1,16 +1,19 @@
-import { useNavigate } from 'react-router-dom';
 import { TitleBar, StatusBadge, Image } from 'components';
 import FormContainer from 'forms';
 import { LongTextInput, MultiSelectWithMultiLine, TextInput } from 'forms/Inputs';
-import AppRoutes from 'navigation/AppRoutes';
 import { ViewRecipeButton, FormActions, ValidationErrors } from './components';
 import useRecipeFormData from './useRecipeFormData';
 
-export default function AddRecipeForm({ ingredientOptions }) {
-	const { recipe, formStatus, errorMessages, submitHandler, updateRecipeDataHandler } =
-		useRecipeFormData();
-
-	const navigate = useNavigate();
+export default function AddOrEdit({ ingredientOptions }) {
+	const {
+		recipe,
+		formStatus,
+		errorMessages,
+		submitHandler,
+		updateRecipeDataHandler,
+		handleCancel,
+		isAdd
+	} = useRecipeFormData();
 
 	return (
 		<FormContainer
@@ -64,11 +67,9 @@ export default function AddRecipeForm({ ingredientOptions }) {
 				/>
 			</div>
 
-			{recipe.id && (
-				<ViewRecipeButton handler={() => navigate(`${AppRoutes.recipe}/${recipe.id}`)} />
-			)}
+			{isAdd && <ViewRecipeButton recipeId={recipe.id} />}
 
-			<FormActions handleCancel={() => navigate(`${AppRoutes.root}`)} />
+			<FormActions handleCancel={handleCancel} />
 		</FormContainer>
 	);
 }
