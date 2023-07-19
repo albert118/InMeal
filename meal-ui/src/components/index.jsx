@@ -9,3 +9,4 @@ export { default as Button } from './Button';
 export { default as Badge } from './Badge';
 export { default as IndexRow } from './IndexRow';
 export { default as EditModalWrapper } from './EditModal';
+export { default as Image } from './Image';

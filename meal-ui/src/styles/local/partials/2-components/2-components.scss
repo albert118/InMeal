@@ -35,3 +35,6 @@
 
 /* a labeled row by an index name (eg. 'A.', 'B.', 'C.') */
 @import 'index-row.scss';
+
+/* a custom image 'slot' for clean and scaled images in components */
+@import 'image-content.scss';
