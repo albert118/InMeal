@@ -13,4 +13,10 @@
 		align-items: flex-start;
 		margin: $spacing-08;
 	}
+
+	.left-pane {
+		.recipe--data {
+			border-radius: 0 0 12px 12px;
+		}
+	}
 }

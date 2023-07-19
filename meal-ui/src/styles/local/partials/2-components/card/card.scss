@@ -13,7 +13,7 @@
 	flex-direction: column;
 	background-color: var(--background-neutral);
 	border: 1.25px solid var(--background-neutral);
-	border-radius: 0 12px;
+	border-radius: 0 0 12px 12px;
 	@include card-shadow();
 }
 

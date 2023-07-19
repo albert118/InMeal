@@ -6,7 +6,7 @@ import { objectMap } from 'utils';
 
 export function LeftPane({ recipe }) {
 	return (
-		<div className='card recipe-card'>
+		<div className='card recipe-card left-pane'>
 			<Image
 				alt={recipe.title}
 				className='image-slot'
@@ -24,7 +24,7 @@ export function LeftPane({ recipe }) {
 
 export function RightPane({ recipe }) {
 	return (
-		<div className='card recipe-card'>
+		<div className='card recipe-card right-pane'>
 			<div className='recipe--data scrollbar-vertical'>
 				<p className='recipe--steps'>{recipe.preparationSteps}</p>
 			</div>
