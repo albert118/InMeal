@@ -70,10 +70,7 @@ export default function AddRecipeForm({ ingredientOptions }) {
 				<ViewRecipeButton handler={() => navigate(`${AppRoutes.recipe}/${recipe.id}`)} />
 			)}
 
-			<FormActions
-				handleCancel={() => navigate(`${AppRoutes.root}`)}
-				saveActionText='save'
-			/>
+			<FormActions handleCancel={() => navigate(`${AppRoutes.root}`)} />
 		</FormContainer>
 	);
 }
