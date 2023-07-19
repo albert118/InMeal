@@ -19,8 +19,6 @@
 
 .card > .title-bar {
 	background-color: var(--background);
-	padding-right: $spacing-06;
-	padding-left: $spacing-06;
 	@include card-shadow-3();
 }
 
