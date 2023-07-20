@@ -44,16 +44,26 @@ export function LeftPane({ recipe, formStatus, errors, onUpdate }) {
 					onChange={onUpdate}
 					placeholder='add another ingredient'
 				>
-					<MultiSelectItemRow />
+					<MultiSelectItemRow onChange={onUpdate} />
 				</MultiSelectWithMultiLine>
 			</div>
 		</div>
 	);
 }
-function MultiSelectItemRow({ item, attrName, onRemove }) {
+function MultiSelectItemRow({ item, attrName, onRemove, onUpdate }) {
 	return (
-		<div className='ingredient-form-row'>
-			<QuantityInput quantity={item.quantity.amount} />
+		<div
+			className='ingredient-form-row'
+			key={item.id}
+		>
+			<TextInput
+				className='ingredient-form-row--quantity'
+				name='recipeIngredients'
+				id={item.label}
+				value={item.quantity.amount}
+				placeholder='1'
+				handler={onUpdate}
+			/>
 			<MultiSelectItemBadge
 				item={item}
 				attrName={attrName}
@@ -63,7 +73,4 @@ function MultiSelectItemRow({ item, attrName, onRemove }) {
 			/>
 		</div>
 	);
-}
-function QuantityInput({ quantity }) {
-	return <div className='ingredient-form-row--quantity'>{quantity}</div>;
 }

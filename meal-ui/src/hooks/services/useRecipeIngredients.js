@@ -3,7 +3,8 @@ import { multiSelectEvents } from 'forms/Inputs';
 export default function useRecipeIngredients() {
 	const strategies = Object.freeze({
 		[multiSelectEvents.Add]: executeExisting,
-		[multiSelectEvents.Remove]: executeRemoval
+		[multiSelectEvents.Remove]: executeRemoval,
+		[multiSelectEvents.Update]: executeUpdate
 	});
 
 	function handleRecipeIngredients(event, recipe) {
@@ -34,6 +35,21 @@ export default function useRecipeIngredients() {
 		};
 	}
 
+	function executeUpdate(event, recipe) {
+		// the form uses the label as an ID in this event
+		const { id, data: quantity } = event.target.value;
+
+		const recipeIngredientsCopy = [...recipe.recipeIngredients];
+
+		// perform the update
+		recipeIngredientsCopy.find(ri => ri['label'] === id).quantity.amount = quantity;
+
+		return {
+			...recipe,
+			recipeIngredients: recipeIngredientsCopy
+		};
+	}
+
 	return { handleRecipeIngredients };
 }
 
@@ -43,6 +59,7 @@ function createRecipeIngredient(name, id, numberOf) {
 		ingredientId: id,
 		quantity: {
 			amount: numberOf,
+			// TODO: quantity logic
 			units: 0
 		}
 	};

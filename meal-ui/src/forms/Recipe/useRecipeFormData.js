@@ -30,11 +30,11 @@ export default function useRecipeFormData() {
 		setFormStatus(error ? FormStatuses.Error : FormStatuses.Saved);
 	}, [error]);
 
-	const onUpdate = async event => {
+	function onUpdate(event) {
 		const recipeIngredientFormAttributeName = 'recipeIngredients';
 
 		if (event.target.name === recipeIngredientFormAttributeName) {
-			setRecipe(await handleRecipeIngredients(event, recipe));
+			setRecipe(handleRecipeIngredients(event, recipe));
 		} else {
 			setRecipe({
 				...recipe,
@@ -43,7 +43,7 @@ export default function useRecipeFormData() {
 		}
 
 		setFormStatus(FormStatuses.Unsaved);
-	};
+	}
 
 	const handleCancel = event => {
 		event.preventDefault();
@@ -53,7 +53,7 @@ export default function useRecipeFormData() {
 	function submitHandler(event) {
 		event.preventDefault();
 		// update the recipe after adding for the first time
-		isAdd ? postEditedRecipe(recipe) : postRecipe(recipe);
+		isAdd ? postRecipe(recipe) : postEditedRecipe(recipe);
 		setFormStatus(FormStatuses.Saved);
 	}
 

@@ -5,10 +5,11 @@ import { propagateProps } from 'utils';
 
 export const multiSelectEvents = Object.freeze({
 	Add: 'add',
-	Remove: 'remove'
+	Remove: 'remove',
+	Update: 'update'
 });
 
-// will provide children with these props { item, onRemove, attrName }
+// will provide children with these props { item, onRemove, attrName, onChange }
 export default function MultiSelectWithMultiLine({
 	className,
 	items,
@@ -45,6 +46,16 @@ export default function MultiSelectWithMultiLine({
 		});
 	}
 
+	function onUpdate(event) {
+		onChange({
+			target: {
+				id: multiSelectEvents.Update,
+				name: attrName,
+				value: { id: event.target.id, data: event.target.value }
+			}
+		});
+	}
+
 	return (
 		<div className={`multi-line-input ${className ?? ''}`}>
 			<span className='add-new-item'>
@@ -63,7 +74,7 @@ export default function MultiSelectWithMultiLine({
 				</Button>
 			</span>
 
-			{items?.map(item => propagateProps(props.children, { item, onRemove, attrName }))}
+			{items?.map(item => propagateProps(props.children, { item, onRemove, attrName, onUpdate }))}
 		</div>
 	);
 }
