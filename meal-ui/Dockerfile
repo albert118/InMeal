@@ -12,7 +12,7 @@ COPY package.json package-lock.json ./
 
 # install deps
 RUN apk add --no-cache --update python3 make g++ && rm -rf /var/cache/apk/*
-RUN npm ci
+RUN npm install --production
 
 ENV PATH /src/app/node_modules/.bin:$PATH
 
