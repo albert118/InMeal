@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { default as MultiSelectCustom } from './MultiSelectCustom';
-import MultiSelectItemBadge from './MultiSelectItemBadge';
 import { Button } from 'components';
+import { propagateProps } from 'utils';
 
 export const multiSelectEvents = Object.freeze({
 	Add: 'add',
 	Remove: 'remove'
 });
 
+// will provide children with these props { item, onRemove, attrName }
 export default function MultiSelectWithMultiLine({
 	className,
 	items,
 	selectableOptions,
 	attrName,
-	onChange
+	onChange,
+	...props
 }) {
 	const [selectedItems, setSelectedItems] = useState([]);
 	const [updatedKey, setUpdatedKey] = useState(0);
@@ -61,14 +63,7 @@ export default function MultiSelectWithMultiLine({
 				</Button>
 			</span>
 
-			{items?.map(item => (
-				<MultiSelectItemBadge
-					item={item}
-					attrName={attrName}
-					onChange={onRemove}
-					key={item.hasOwnProperty('label') ? item.label : item}
-				/>
-			))}
+			{items?.map(item => propagateProps(props.children, { item, onRemove, attrName }))}
 		</div>
 	);
 }

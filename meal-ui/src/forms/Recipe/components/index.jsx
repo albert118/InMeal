@@ -1,3 +1,4 @@
 export { default as ViewRecipeButton } from './ViewRecipeButton';
 export { default as FormActions } from './FormActions';
 export { default as ValidationErrors } from './ValidationErrors';
+export { default as MultiSelectItemBadge } from './MultiSelectItemBadge';
