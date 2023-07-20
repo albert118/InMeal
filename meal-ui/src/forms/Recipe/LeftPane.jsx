@@ -1,5 +1,5 @@
 import { TitleBar, StatusBadge, Image } from 'components';
-import { LongTextInput, MultiSelectWithMultiLine, TextInput } from 'forms/Inputs';
+import { LongTextInput, MultiSelectWithMultiLine, TextInput, NumberInput } from 'forms/Inputs';
 import { ValidationErrors, MultiSelectItemBadge } from './components';
 import { useIngredients } from 'hooks/data';
 
@@ -56,13 +56,13 @@ function MultiSelectItemRow({ item, attrName, onRemove, onUpdate }) {
 			className='ingredient-form-row'
 			key={item.id}
 		>
-			<TextInput
+			<NumberInput
 				className='ingredient-form-row--quantity'
 				name='recipeIngredients'
 				id={item.label}
 				value={item.quantity.amount}
 				placeholder='1'
-				handler={onUpdate}
+				onChange={onUpdate}
 			/>
 			<MultiSelectItemBadge
 				item={item}
