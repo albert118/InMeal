@@ -50,6 +50,7 @@ export function LeftPane({ recipe, formStatus, errors, onUpdate }) {
 		</div>
 	);
 }
+
 function MultiSelectItemRow({ item, attrName, onRemove, onUpdate }) {
 	return (
 		<div
@@ -61,7 +62,7 @@ function MultiSelectItemRow({ item, attrName, onRemove, onUpdate }) {
 				name='recipeIngredients'
 				id={item.label}
 				value={item.quantity.amount}
-				placeholder='1'
+				placeholder='how many?'
 				onChange={onUpdate}
 			/>
 			<MultiSelectItemBadge

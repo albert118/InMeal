@@ -1,13 +1,4 @@
-export default function NumberInput({
-	className,
-	name,
-	label,
-	value,
-	placeholder,
-	onChange,
-	id,
-	handleKeyDown
-}) {
+export default function NumberInput({ className, label, id, ...additionalProps }) {
 	const getIdOrLabel = () => {
 		if (id) return id;
 		if (label) return label;
@@ -21,12 +12,8 @@ export default function NumberInput({
 			<input
 				id={getIdOrLabel()}
 				className='text-input'
-				name={name}
-				value={value}
-				placeholder={placeholder}
-				onChange={onChange}
-				onKeyDown={handleKeyDown}
 				type='number'
+				{...additionalProps}
 			/>
 		</div>
 	);

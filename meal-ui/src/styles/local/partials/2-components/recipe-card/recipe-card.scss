@@ -40,6 +40,12 @@
 			width: 100%;
 		}
 
+		.recipe--ingredients {
+			display: flex;
+			flex-direction: column;
+			row-gap: 1em;
+		}
+
 		.recipe--steps > :first-child {
 			height: 100%;
 		}
