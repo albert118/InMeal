@@ -24,7 +24,7 @@ public static class IngredientMapper
             Name: ingredient.Name,
             RecipeUsageCount: recipeUsageCount,
             // TODO: this is just a mock to setup the UI
-            Units: MeasurementMapper.ToDto(MeasurementUnit.integer)
+            Units: MeasurementMapper.ToDto(MeasurementUnit.Unknown)
         );
     }
 

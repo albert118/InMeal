@@ -1,4 +1,5 @@
 using InMeal.Core.Entities;
+using InMeal.Core.Enumerations;
 using InMeal.DTOs.Recipes;
 
 namespace InMeal.Mappers;
