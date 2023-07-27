@@ -60,3 +60,7 @@
 .form-input > input:disabled {
 	background-color: var(--input-background-disabled);
 }
+
+.form-input > label.disabled {
+	@include disabled-text();
+}
