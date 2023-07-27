@@ -6,6 +6,8 @@ export default function IngredientsIndexContainer() {
 	const { indexedIngredients, refreshData } = useAlphabeticallyIndexedIngredients();
 	const { measurementOptions } = useMeasurements();
 
+	console.log(measurementOptions);
+
 	return (
 		<div className='p-ingredients'>
 			<h2>

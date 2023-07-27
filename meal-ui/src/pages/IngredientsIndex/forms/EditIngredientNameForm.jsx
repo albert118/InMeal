@@ -1,10 +1,12 @@
 import { TextInput, Checkbox } from 'forms/Inputs';
 import { ValidationWarnings } from 'forms/Validation';
+
 export default function EditIngredientForm({
 	formData,
 	disableDeletion,
 	recipeUsageCount,
-	onChange
+	onChange,
+	measurementOptions
 }) {
 	const getWarnings = count => {
 		const recipePlural = count > 1 ? 'recipes' : 'recipe';

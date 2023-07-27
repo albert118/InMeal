@@ -54,6 +54,7 @@ export function IngredientsModalBadge({ ingredient, refreshData, measurementOpti
 				onChange={onFormChange}
 				disableDeletion={ingredient.recipeUsageCount !== 0}
 				recipeUsageCount={ingredient.recipeUsageCount}
+				measurementOptions={measurementOptions}
 			/>
 		</EditModalWrapper>
 	);
