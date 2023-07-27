@@ -8,7 +8,7 @@ import { isFalsishOrEmpty } from 'utils';
 const defaultFormState = (name, units) => {
 	return {
 		name: name,
-		units: units,
+		unit: units,
 		isDeleted: false
 	};
 };

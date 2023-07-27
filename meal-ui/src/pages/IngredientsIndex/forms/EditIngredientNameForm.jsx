@@ -1,3 +1,4 @@
+import { Dropdown } from 'components';
 import { TextInput, Checkbox } from 'forms/Inputs';
 import { ValidationWarnings } from 'forms/Validation';
 
@@ -27,13 +28,18 @@ export default function EditIngredientForm({
 				handler={onChange}
 				placeHolder="what's this ingredient called?"
 			></TextInput>
-			<TextInput
-				name='units'
-				label='measurement'
-				value={formData.units}
-				handler={onChange}
-				placeHolder='how is this ingredient measured?'
-			></TextInput>
+
+			<Dropdown
+				id='add-new-item-select'
+				label='choose a measurement'
+				items={measurementOptions}
+				title='measurement'
+				onChange={selectedUnit => {
+					onChange({
+						target: { name: 'unit', value: selectedUnit }
+					});
+				}}
+			/>
 
 			<div className='edit-ingredient-form--remove'>
 				<Checkbox
