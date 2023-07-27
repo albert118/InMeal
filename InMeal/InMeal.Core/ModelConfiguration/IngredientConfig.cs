@@ -15,5 +15,6 @@ public class IngredientConfig
         builder.Property(e => e.Id).HasValueGenerator<NewIdGenerator>();
 
         builder.Property(e => e.Name).IsRequired();
+        builder.Property(e => e.Unit).IsRequired();
     }
 }

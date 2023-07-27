@@ -10,6 +10,7 @@ public static class ModelConfigurationBuilderExtensions
         builder.Properties<MealCourse>().HaveConversion<MealCourseConverter>();
         builder.Properties<MealType>().HaveConversion<MealTypeConverter>();
         builder.Properties<Cuisine>().HaveConversion<CuisineConverter>();
+        builder.Properties<MeasurementUnit>().HaveConversion<MeasurementUnitConverter>();
 
         return builder;
     }
