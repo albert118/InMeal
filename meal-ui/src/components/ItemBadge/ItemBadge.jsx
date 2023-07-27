@@ -1,6 +1,4 @@
 import { Badge } from 'components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faX } from '@fortawesome/free-solid-svg-icons';
 
 export default function ItemBadge({ item, subLabel }) {
 	return (
@@ -10,12 +8,6 @@ export default function ItemBadge({ item, subLabel }) {
 				text={item.hasOwnProperty('label') ? item.label : item}
 				labelText={subLabel ?? ''}
 			/>
-			<div className='badge--remove'>
-				<FontAwesomeIcon
-					icon={faX}
-					size='xs'
-				/>
-			</div>
 		</div>
 	);
 }
