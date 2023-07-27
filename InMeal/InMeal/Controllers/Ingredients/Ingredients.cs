@@ -79,6 +79,8 @@ public class IngredientsController : ControllerBase
         return Ok();
     }
 
+    [HttpGet(Name = "Get ingredient measurement options")]
+    [ActionName("measurements")]
     public ActionResult<List<MeasurementUnitDto>> GetMeasurementOptions()
     {
         var results = _ingredientsManager.GetMeasurementOptions();
