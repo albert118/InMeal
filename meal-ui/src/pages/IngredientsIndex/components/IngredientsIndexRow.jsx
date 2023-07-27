@@ -1,7 +1,12 @@
 import { IndexRow } from 'components';
 import { IngredientsModalBadge } from '../forms/IngredientsModalBadge';
 
-export default function IngredientsIndexRow({ label, ingredients, refreshData }) {
+export default function IngredientsIndexRow({
+	label,
+	ingredients,
+	refreshData,
+	measurementOptions
+}) {
 	return (
 		<IndexRow label={label}>
 			{ingredients.map(ingredient => (
@@ -9,6 +14,7 @@ export default function IngredientsIndexRow({ label, ingredients, refreshData })
 					key={ingredient.ingredientId}
 					ingredient={ingredient}
 					refreshData={refreshData}
+					measurementOptions={measurementOptions}
 				/>
 			))}
 		</IndexRow>

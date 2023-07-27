@@ -13,7 +13,7 @@ const defaultFormState = (name, units) => {
 	};
 };
 
-export function IngredientsModalBadge({ ingredient, refreshData }) {
+export function IngredientsModalBadge({ ingredient, refreshData, measurementOptions }) {
 	const { updateIngredientName, deleteIngredient } = useIngredient();
 	const [formData, setFormData] = useState(defaultFormState(ingredient.name, ingredient.units));
 
