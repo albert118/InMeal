@@ -4,7 +4,7 @@ export default function SimpleLabel({ label }) {
 	return (
 		<div className='form-input u-form-flexed-input'>
 			<label>
-				{getLabelOrLabels().map((idx, l) => (
+				{getLabelOrLabels().map((l, idx) => (
 					<div
 						key={idx}
 						style={{ paddingTop: 0 }}
