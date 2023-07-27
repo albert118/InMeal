@@ -56,3 +56,7 @@
 	-webkit-appearance: none;
 	margin: 0;
 }
+
+.form-input > input:disabled {
+	background-color: var(--input-background-disabled);
+}
