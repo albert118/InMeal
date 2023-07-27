@@ -29,4 +29,9 @@ public sealed class RecipeIngredientMemento : EntityMemento
     public Guid IngredientId { get; private set; }
 
     public Quantity Quantity { get; private set; }
+
+    public void UpdateFrom(RecipeIngredientMemento memento)
+    {
+        Quantity = memento.Quantity;
+    }
 }

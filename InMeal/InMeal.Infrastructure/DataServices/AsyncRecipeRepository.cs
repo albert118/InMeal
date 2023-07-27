@@ -112,6 +112,16 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
                 var toRemove = existingRecipe.RecipeIngredients.Single(e => e.Id == removedKey);
                 _recipeDbContext.RecipeIngredients.Remove(toRemove);
             }
+            
+            // update any existing keys with the latest data from incoming
+            var updatedKeys = recipe.RecipeIngredients.Select(e => e.Id.Key).Intersect(existingRecipe.RecipeIngredients.Select(e => e.Id));
+            var updatedValues = recipe.RecipeIngredients.Where(e => updatedKeys.Contains(e.Id.Key)).Select(ri => ri.State);
+            foreach (var updatedValue in updatedValues) {
+                var toUpdate = existingRecipe.RecipeIngredients.Single(ri => ri.Id == updatedValue.Id);
+                toUpdate.UpdateFrom(updatedValue);
+                _recipeDbContext.RecipeIngredients.Update(toUpdate);
+
+            }
 
             // add everything else
             var additionalKeys = recipe.RecipeIngredients.Select(e => e.Id.Key).Except(existingRecipe.RecipeIngredients.Select(e => e.Id));
