@@ -8,7 +8,7 @@ public class Recipe : IHaveState<RecipeMemento>
 {
     public Recipe(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
     {
-        if (string.IsNullOrEmpty(title)) throw new ArgumentException("the title should not be empty");
+        if (string.IsNullOrEmpty(title)) throw new ArgumentException("a title is required");
         if (string.IsNullOrEmpty(preparationSteps)) throw new ArgumentException("preparation steps are required");
 
         Id = new RecipeId(Guid.NewGuid());
@@ -93,7 +93,7 @@ public class Recipe : IHaveState<RecipeMemento>
     
     public void EditDetails(string title, string? blurb, string preparationSteps, int? prepTime, int? cookTime)
     {
-        if (string.IsNullOrEmpty(title)) throw new ArgumentException("the title should not be empty");
+        if (string.IsNullOrEmpty(title)) throw new ArgumentException("a title is required");
         if (string.IsNullOrEmpty(preparationSteps)) throw new ArgumentException("preparation steps are required");
 
         Title = title;
