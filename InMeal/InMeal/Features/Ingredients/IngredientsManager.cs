@@ -1,5 +1,7 @@
 using System.Data;
+using System.Diagnostics.Metrics;
 using InMeal.Core.Entities;
+using InMeal.Core.Enumerations;
 using InMeal.DTOs.Ingredients;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Infrastructure.Interfaces.QueryServices;
@@ -19,6 +21,8 @@ public interface IIngredientsManager
     Task<List<Ingredient>> AddAndGetExistingAsync(IEnumerable<string> names, CancellationToken ct);
 
     Task DeleteManyAsync(IEnumerable<IngredientId> ids, CancellationToken ct);
+    
+    List<MeasurementUnit> GetMeasurementOptions();
 }
 
 [InstanceScopedBusinessService]
@@ -99,5 +103,10 @@ public class IngredientsManager : IIngredientsManager
         }
 
         await _ingredientRepository.DeleteManyAsync(ids, ct);
+    }
+
+    public List<MeasurementUnit> GetMeasurementOptions()
+    {
+        return Enum.GetValues<MeasurementUnit>().ToList();
     }
 }
