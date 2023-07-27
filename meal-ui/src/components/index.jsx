@@ -22,3 +22,4 @@ export { default as IndexRow } from './IndexRow';
 export { default as EditModalWrapper } from './EditModal';
 export { default as Image } from './Image';
 export { default as MultiSelect } from './MultiSelect';
+export { default as Dropdown } from './Dropdown';
