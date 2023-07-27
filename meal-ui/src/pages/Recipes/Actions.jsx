@@ -11,7 +11,7 @@ export function Actions({ onViewArchived, onArchive }) {
 			<Checkbox
 				className='font-white'
 				label='view archived'
-				handler={onViewArchived}
+				onClick={onViewArchived}
 			/>
 			<Button
 				onClick={() => navigate(`${AppRoutes.recipe}/add`)}
