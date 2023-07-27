@@ -15,9 +15,14 @@
 		}
 	}
 
-	.edit-ingredient-name-form {
+	.edit-ingredient-form {
 		display: flex;
 		flex-direction: column;
 		row-gap: $spacing-04;
+
+		.edit-ingredient-form--remove {
+			display: flex;
+			flex-direction: column;
+		}
 	}
 }

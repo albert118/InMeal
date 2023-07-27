@@ -5,16 +5,17 @@ import { EditModalWrapper } from 'components';
 import { useIngredient } from 'hooks/data';
 import { isFalsishOrEmpty } from 'utils';
 
-const defaultFormState = name => {
+const defaultFormState = (name, units) => {
 	return {
 		name: name,
+		units: units,
 		isDeleted: false
 	};
 };
 
 export function IngredientsModalBadge({ ingredient, refreshData }) {
 	const { updateIngredientName, deleteIngredient } = useIngredient();
-	const [formData, setFormData] = useState(defaultFormState(ingredient.name));
+	const [formData, setFormData] = useState(defaultFormState(ingredient.name, ingredient.units));
 
 	const onFormChange = event => {
 		setFormData({
@@ -49,7 +50,7 @@ export function IngredientsModalBadge({ ingredient, refreshData }) {
 			}
 		>
 			<EditIngredientForm
-				currentName={formData.name}
+				formData={formData}
 				onChange={onFormChange}
 				disableDeletion={ingredient.recipeUsageCount !== 0}
 				recipeUsageCount={ingredient.recipeUsageCount}
