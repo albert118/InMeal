@@ -79,5 +79,9 @@ public class IngredientsController : ControllerBase
         return Ok();
     }
 
-    public record PostIngredientsDto(List<string> IngredientNames);
+    public ActionResult<List<MeasurementUnitDto>> GetMeasurementOptions()
+    {
+        var results = _ingredientsManager.GetMeasurementOptions();
+        return Ok(results.Select(MeasurementMapper.ToDto).ToList());
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using InMeal.Core.Entities;
+using InMeal.Core.Enumerations;
 using InMeal.DTOs.Ingredients;
 
 namespace InMeal.Mappers;
@@ -19,9 +20,11 @@ public static class IngredientMapper
         recipeIngredientUsageCounts.TryGetValue(ingredient.Id, out var recipeUsageCount);
 
         return new(
-            ingredient.Id.Key,
-            ingredient.Name,
-            recipeUsageCount
+            IngredientId: ingredient.Id.Key,
+            Name: ingredient.Name,
+            RecipeUsageCount: recipeUsageCount,
+            // TODO: this is just a mock to setup the UI
+            Units: MeasurementMapper.ToDto(MeasurementUnit.integer)
         );
     }
 
