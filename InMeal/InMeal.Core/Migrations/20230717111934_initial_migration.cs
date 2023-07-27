@@ -8,12 +8,10 @@ namespace InMeal.Core.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
+            migrationBuilder.AlterDatabase()
+                            .Annotation("MySql:CharSet", "utf8mb4");
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-
-        }
+        protected override void Down(MigrationBuilder migrationBuilder) { }
     }
 }
