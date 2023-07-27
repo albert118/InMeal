@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { default as MultiSelectCustom } from './MultiSelectCustom';
-import { Button } from 'components';
+import { Button, MultiSelect } from 'components';
 import { propagateProps } from 'utils';
 
 export const multiSelectEvents = Object.freeze({
@@ -59,7 +58,7 @@ export default function MultiSelectWithMultiLine({
 	return (
 		<div className={`multi-line-input ${className ?? ''}`}>
 			<span className='add-new-item'>
-				<MultiSelectCustom
+				<MultiSelect
 					label={selectedItems.length === 0 ? 'choose ingredients' : `ingredients selected`}
 					id='add-new-item-multi-select'
 					items={mapToDropdownItems(selectableOptions)}
