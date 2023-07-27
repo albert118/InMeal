@@ -29,8 +29,9 @@
 /* a selectable icon around a zone of child props */
 @import 'selectable/selectable.scss';
 
-/* a neat form validation error message bubble */
+/* form validation bubbles */
 @import 'validation-errors.scss';
+@import 'validation-warnings.scss';
 
 /* a neat badge with a subscript label and hyperlinked text */
 @import 'badge.scss';

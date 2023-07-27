@@ -1,6 +1,7 @@
 import { TitleBar, StatusBadge, Image } from 'components';
 import { LongTextInput, MultiSelectWithMultiLine, TextInput, NumberInput } from 'forms/Inputs';
-import { ValidationErrors, MultiSelectItemBadge } from './components';
+import { ValidationErrors } from 'forms/Validation';
+import { MultiSelectItemBadge } from './components';
 import { useIngredients } from 'hooks/data';
 
 export function LeftPane({ recipe, formStatus, errors, onUpdate }) {

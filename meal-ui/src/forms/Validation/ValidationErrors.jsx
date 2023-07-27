@@ -1,5 +1,4 @@
 export default function ValidationErrors({ errors }) {
-	// don't render if there's nothing to show
 	const showErrors = errors && Array.isArray(errors) && errors.length > 0;
 
 	const classes = `validation-errors ${showErrors ? 'validation-error--active' : ''}`;
