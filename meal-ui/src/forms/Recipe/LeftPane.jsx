@@ -63,6 +63,7 @@ function MultiSelectItemRow({ item, attrName, onRemove, onUpdate }) {
 				name='recipeIngredients'
 				id={item.label}
 				value={item.quantity.amount}
+				label={item.quantity.units}
 				placeholder='how many?'
 				onChange={onUpdate}
 			/>

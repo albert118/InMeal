@@ -8,13 +8,13 @@ export default function NumberInput({ className, label, id, ...additionalProps }
 
 	return (
 		<div className={`form-input ${className ?? ''}`}>
-			{label ? <label htmlFor={label}>{label}</label> : ''}
 			<input
 				id={getIdOrLabel()}
 				className='text-input'
 				type='number'
 				{...additionalProps}
 			/>
+			{label ? <label htmlFor={label}>{label}</label> : ''}
 		</div>
 	);
 }
