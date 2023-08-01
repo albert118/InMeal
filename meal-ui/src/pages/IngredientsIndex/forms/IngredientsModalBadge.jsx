@@ -24,14 +24,13 @@ export function IngredientsModalBadge({ ingredient, refreshData, measurementOpti
 		});
 	};
 
-	const onEditSave = async () => {
+	const onEditSave = () => {
 		if (formData.isDeleted && ingredient.recipeUsageCount === 0) {
 			deleteIngredient(ingredient.ingredientId);
-			await refreshData();
+			refreshData();
 		} else {
-			console.log(formData);
 			updateIngredientName(ingredient.ingredientId, formData.name, formData.unit);
-			await refreshData();
+			refreshData();
 		}
 	};
 

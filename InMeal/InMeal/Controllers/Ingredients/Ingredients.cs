@@ -34,9 +34,14 @@ public class IngredientsController : ControllerBase
     [ActionName("update")]
     public IActionResult Get(EditIngredientDto dto)
     {
-        _ingredientsManager.EditAsync(dto, _tokenAccessor.Token)
-                           .GetAwaiter()
-                           .GetResult();
+        try {
+            _ingredientsManager.EditAsync(dto, _tokenAccessor.Token)
+                               .GetAwaiter()
+                               .GetResult();
+        } catch (Exception ex) {
+            throw new BadHttpRequestException(
+                $"couldn't edit the {nameof(Ingredient)} '{dto.IngredientId}', {ex.Message}");
+        }
 
         return Ok();
     }
