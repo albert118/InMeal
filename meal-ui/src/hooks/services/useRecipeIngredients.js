@@ -63,7 +63,6 @@ function createRecipeIngredient(name, id, units) {
 }
 
 function updateLocalIngredientsWithIds(newIngredients, recipe, apiData) {
-	console.log(newIngredients);
 	const recipeIngredients = newIngredients.map((newItem, idx) =>
 		createRecipeIngredient(newItem.label, apiData ? apiData[idx].id : newItem.id, newItem.units)
 	);
