@@ -64,7 +64,10 @@ function handleResponse(response) {
 
 		if (!response.ok) {
 			const errorDetail = handleError(response.statusText, data);
-			return Promise.reject(errorDetail);
+			// continue as if nothing happened
+			// this allows the custom handling to work its magic
+			// rather than bubbling up an exception to (potentially) unknowning components
+			// return Promise.reject(errorDetail);
 		}
 
 		return data;

@@ -10,10 +10,10 @@ export default function EditModalWrapper({
 }) {
 	const [open, setOpen] = useState(false);
 
-	const handleEditSubmit = () => {
+	function onSubmitWrapper() {
 		editCallback();
 		setOpen(false);
-	};
+	}
 
 	return (
 		<div className='edit-modal'>
@@ -24,7 +24,7 @@ export default function EditModalWrapper({
 				open={open}
 				primaryButtonText='Save'
 				secondaryButtonText='Cancel'
-				onRequestSubmit={() => handleEditSubmit()}
+				onRequestSubmit={onSubmitWrapper}
 				onRequestClose={() => setOpen(false)}
 				shouldSubmitOnEnter={true}
 			>

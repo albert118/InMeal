@@ -13,7 +13,7 @@ const defaultFormState = (name, units) => {
 };
 
 export function IngredientsModalBadge({ ingredient, refreshData, measurementOptions }) {
-	const { updateIngredientName, deleteIngredient } = useIngredient();
+	const { updateIngredient, deleteIngredient } = useIngredient();
 	const [formData, setFormData] = useState(defaultFormState(ingredient.name, ingredient.units));
 
 	const onFormChange = event => {
@@ -24,15 +24,18 @@ export function IngredientsModalBadge({ ingredient, refreshData, measurementOpti
 		});
 	};
 
-	const onEditSave = () => {
-		if (formData.isDeleted && ingredient.recipeUsageCount === 0) {
-			deleteIngredient(ingredient.ingredientId);
-			refreshData();
-		} else {
-			updateIngredientName(ingredient.ingredientId, formData.name, formData.unit);
-			refreshData();
+	function onEditSave() {
+		const shouldDelete = formData.isDeleted && ingredient.recipeUsageCount === 0;
+
+		try {
+			if (shouldDelete) deleteIngredient(ingredient.ingredientId);
+			else updateIngredient(ingredient.ingredientId, formData.name, formData.unit);
+		} catch (ex) {
+			console.warn('modal submission triggered an exception');
 		}
-	};
+
+		refreshData();
+	}
 
 	return (
 		<EditModalWrapper
