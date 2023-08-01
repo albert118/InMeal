@@ -7,11 +7,15 @@ public static class RecipeIngredientMapper
 {
     public static RecipeIngredientDto ToDto(RecipeIngredient recipeIngredient)
     {
+        if (recipeIngredient.Ingredient == null)
+            throw new ArgumentException($"{nameof(RecipeIngredient)} ingredient was found to be null while mapping to DTO");
+
         return new(
-            recipeIngredient.Id.Key,
-            recipeIngredient.Ingredient?.Name ?? string.Empty,
-            recipeIngredient.Ingredient?.Id.Key ?? Guid.Empty,
-            recipeIngredient.Quantity
+            Id: recipeIngredient.Id.Key,
+            Label: recipeIngredient.Ingredient?.Name ?? string.Empty,
+            IngredientId: recipeIngredient.Ingredient?.Id.Key ?? Guid.Empty,
+            Quantity: recipeIngredient.Quantity,
+            Units:  MeasurementMapper.ToDto(recipeIngredient.Ingredient!.Unit)
         );
     }
 
@@ -26,9 +30,6 @@ public static class RecipeIngredientMapper
             dto.Id.HasValue ? new RecipeIngredientId(dto.Id.Value) : new RecipeIngredientId(Guid.NewGuid()),
             quantity: dto.Quantity,
             recipeId: recipeId,
-            // TODO: why pass back the label here (data won't be updated, we only care about the association)
-            //  -> the UI should consider editing the ingredient label a mutation of the ingredient and PATCH it
-            //  -> this code path should only handle the collection 
             ingredient: new Ingredient(new(dto.IngredientId), dto.Label)
         );
     }

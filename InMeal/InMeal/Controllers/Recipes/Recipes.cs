@@ -45,25 +45,27 @@ public class RecipesController : ControllerBase
     [ActionName("add")]
     public ActionResult<Guid> Post(RecipeDto dto)
     {
-        if (dto.Id != null) return BadRequest("A new recipe shouldn't have an ID yet (an ID was provided)");
-
-        var result = _recipeManager.AddAsync(dto, _tokenAccessor.Token)
-                                   .GetAwaiter()
-                                   .GetResult();
-
-        return Ok(result.Id.Key);
+        try {
+            var result = _recipeManager.AddAsync(dto, _tokenAccessor.Token)
+                                       .GetAwaiter()
+                                       .GetResult();
+            return Ok(result.Id.Key);
+        } catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPost("[action]", Name = "Edit an existing recipe")]
     [ActionName("edit")]
     public IActionResult Patch(RecipeDto dto)
     {
-        if (dto.Id == null) return BadRequest("An ID is required to edit an existing recipe");
-
-        _recipeManager.EditAsync(dto, _tokenAccessor.Token)
-                      .GetAwaiter()
-                      .GetResult();
-
+        try {
+            _recipeManager.EditAsync(dto, _tokenAccessor.Token)
+                          .GetAwaiter()
+                          .GetResult();
+        } catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
         return Ok();
     }
 
@@ -96,10 +98,15 @@ public class RecipesController : ControllerBase
     public IActionResult ArchiveRecipes(ICollection<Guid> ids)
     {
         var keys = ids.Select(id => new RecipeId(id));
-        _recipeManager.ArchiveAsync(keys, _tokenAccessor.Token)
-                      .GetAwaiter()
-                      .GetResult();
-        return Ok();
+
+        try {
+            _recipeManager.ArchiveAsync(keys, _tokenAccessor.Token)
+                          .GetAwaiter()
+                          .GetResult();
+            return Ok();
+        } catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
     }
 
     [HttpPost("[action]", Name = "Add a new recipe category for a given recipe")]
@@ -119,10 +126,15 @@ public class RecipesController : ControllerBase
     public IActionResult RemoveCategories(List<Guid> recipeIds)
     {
         var keys = recipeIds.Select(id => new RecipeId(id));
-        _recipeManager.RemoveCategoriesAsync(keys, _tokenAccessor.Token)
-                      .GetAwaiter()
-                      .GetResult();
 
-        return Ok();
+        try {
+            _recipeManager.RemoveCategoriesAsync(keys, _tokenAccessor.Token)
+                          .GetAwaiter()
+                          .GetResult();
+
+            return Ok();
+        } catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
     }
 }

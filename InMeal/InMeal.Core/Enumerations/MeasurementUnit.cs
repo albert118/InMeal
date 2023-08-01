@@ -1,7 +1,14 @@
 ﻿namespace InMeal.Core.Enumerations;
 
-// to avoid confusion with SI units, all enums are lowercase
+// these should be singular, consumers can stringify these and pluralise as needed
 public enum MeasurementUnit
 {
-    integer = 0
+    Unknown = 0,
+    Cup,
+    Gram,
+    Kilogram,
+    MilliLitre,
+    TableSpoon,
+    TeaSpoon,
+    Count
 }

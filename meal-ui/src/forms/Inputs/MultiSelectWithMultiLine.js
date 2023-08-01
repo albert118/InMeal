@@ -1,19 +1,21 @@
 import { useState } from 'react';
-import { default as MultiSelectCustom } from './MultiSelectCustom';
-import MultiSelectItemBadge from './MultiSelectItemBadge';
-import { Button } from 'components';
+import { Button, MultiSelect } from 'components';
+import { propagateProps } from 'utils';
 
 export const multiSelectEvents = Object.freeze({
 	Add: 'add',
-	Remove: 'remove'
+	Remove: 'remove',
+	Update: 'update'
 });
 
+// will provide children with these props { item, onRemove, attrName, onChange }
 export default function MultiSelectWithMultiLine({
 	className,
 	items,
 	selectableOptions,
 	attrName,
-	onChange
+	onChange,
+	...props
 }) {
 	const [selectedItems, setSelectedItems] = useState([]);
 	const [updatedKey, setUpdatedKey] = useState(0);
@@ -43,10 +45,20 @@ export default function MultiSelectWithMultiLine({
 		});
 	}
 
+	function onUpdate(event) {
+		onChange({
+			target: {
+				id: multiSelectEvents.Update,
+				name: attrName,
+				value: { id: event.target.id, data: event.target.value }
+			}
+		});
+	}
+
 	return (
 		<div className={`multi-line-input ${className ?? ''}`}>
 			<span className='add-new-item'>
-				<MultiSelectCustom
+				<MultiSelect
 					label={selectedItems.length === 0 ? 'choose ingredients' : `ingredients selected`}
 					id='add-new-item-multi-select'
 					items={mapToDropdownItems(selectableOptions)}
@@ -61,14 +73,7 @@ export default function MultiSelectWithMultiLine({
 				</Button>
 			</span>
 
-			{items?.map(item => (
-				<MultiSelectItemBadge
-					item={item}
-					attrName={attrName}
-					onChange={onRemove}
-					key={item.hasOwnProperty('label') ? item.label : item}
-				/>
-			))}
+			{items?.map(item => propagateProps(props.children, { item, onRemove, attrName, onUpdate }))}
 		</div>
 	);
 }
@@ -76,6 +81,7 @@ export default function MultiSelectWithMultiLine({
 function mapToDropdownItems(items) {
 	return items.map(item => {
 		return {
+			...item,
 			id: item.id,
 			label: item.name
 		};

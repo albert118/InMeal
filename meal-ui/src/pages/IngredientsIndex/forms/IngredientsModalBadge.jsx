@@ -3,18 +3,18 @@ import IngredientBadge from '../components/IngredientsBadge';
 import EditIngredientForm from './EditIngredientNameForm';
 import { EditModalWrapper } from 'components';
 import { useIngredient } from 'hooks/data';
-import { isFalsishOrEmpty } from 'utils';
 
-const defaultFormState = name => {
+const defaultFormState = (name, units) => {
 	return {
 		name: name,
+		unit: units.name,
 		isDeleted: false
 	};
 };
 
-export function IngredientsModalBadge({ ingredient, refreshData }) {
-	const { updateIngredientName, deleteIngredient } = useIngredient();
-	const [formData, setFormData] = useState(defaultFormState(ingredient.name));
+export function IngredientsModalBadge({ ingredient, refreshData, measurementOptions }) {
+	const { updateIngredient, deleteIngredient } = useIngredient();
+	const [formData, setFormData] = useState(defaultFormState(ingredient.name, ingredient.units));
 
 	const onFormChange = event => {
 		setFormData({
@@ -24,17 +24,21 @@ export function IngredientsModalBadge({ ingredient, refreshData }) {
 		});
 	};
 
-	const onEditSave = async () => {
-		if (formData.isDeleted && ingredient.recipeUsageCount === 0) {
-			deleteIngredient(ingredient.id);
-			await refreshData();
-		} else if (IsIngredientNameValid(ingredient.name, formData.name)) {
-			updateIngredientName(ingredient.id, formData.name);
-			await refreshData();
-		} else {
-			setFormData(defaultFormState(ingredient.name));
+	async function onEditSave() {
+		const shouldDelete = formData.isDeleted && ingredient.recipeUsageCount === 0;
+
+		try {
+			if (shouldDelete) {
+				deleteIngredient(ingredient.ingredientId).then(() => refreshData());
+			} else {
+				updateIngredient(ingredient.ingredientId, formData.name, formData.unit).then(() =>
+					refreshData()
+				);
+			}
+		} catch (ex) {
+			console.warn('modal submission triggered an exception');
 		}
-	};
+	}
 
 	return (
 		<EditModalWrapper
@@ -49,15 +53,12 @@ export function IngredientsModalBadge({ ingredient, refreshData }) {
 			}
 		>
 			<EditIngredientForm
-				currentName={formData.name}
+				formData={formData}
 				onChange={onFormChange}
 				disableDeletion={ingredient.recipeUsageCount !== 0}
 				recipeUsageCount={ingredient.recipeUsageCount}
+				measurementOptions={measurementOptions}
 			/>
 		</EditModalWrapper>
 	);
-}
-
-function IsIngredientNameValid(oldIngredientName, newIngredientName) {
-	return !isFalsishOrEmpty(newIngredientName) && oldIngredientName !== newIngredientName;
 }

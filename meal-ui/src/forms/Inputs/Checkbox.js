@@ -1,17 +1,18 @@
-export default function Checkbox({ label, handler, className, ...additionalProps }) {
-	const classes = className
-		? `form-input u-form-flexed-input ${className}`
-		: `form-input u-form-flexed-input`;
-
+export default function Checkbox({ label, className, disabled, ...additionalProps }) {
 	return (
-		<div className={classes}>
+		<div className={`form-input u-form-flexed-input ${className ?? ''}`}>
 			<input
-				type='checkbox'
 				id={label}
-				onClick={handler}
+				type='checkbox'
+				disabled={disabled}
 				{...additionalProps}
 			/>
-			<label htmlFor={label}>{label}</label>
+			<label
+				className={`${disabled ? 'disabled' : ''}`}
+				htmlFor={label}
+			>
+				{label}
+			</label>
 		</div>
 	);
 }

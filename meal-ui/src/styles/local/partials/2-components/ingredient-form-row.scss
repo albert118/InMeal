@@ -1,0 +1,28 @@
+@use '@carbon/react/scss/spacing' as *;
+
+.ingredient-form-row {
+	display: flex;
+	column-gap: $spacing-02;
+	width: 100%;
+
+	.ingredient-form-row--quantity,
+	.ingredient-form-row--ingredient-badge {
+		background-color: var(--background);
+	}
+
+	.ingredient-form-row--quantity {
+		padding: $spacing-04;
+		border-radius: 12px 0 0 12px;
+		flex-grow: 1;
+		max-width: 25%;
+	}
+
+	.ingredient-form-row--ingredient-badge {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		border-radius: 0 12px 12px 0;
+		flex-grow: 3;
+		max-width: 75%;
+	}
+}

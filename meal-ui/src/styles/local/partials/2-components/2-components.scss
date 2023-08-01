@@ -18,6 +18,7 @@
 /* recipe card designs */
 @import 'recipe-card/recipe-card.scss';
 @import 'two-pane-recipe-card.scss';
+@import 'ingredient-form-row.scss';
 
 /* neat little scrollbar */
 @import 'scrollbar-vertical.scss';
@@ -28,8 +29,9 @@
 /* a selectable icon around a zone of child props */
 @import 'selectable/selectable.scss';
 
-/* a neat form validation error message bubble */
+/* form validation bubbles */
 @import 'validation-errors.scss';
+@import 'validation-warnings.scss';
 
 /* a neat badge with a subscript label and hyperlinked text */
 @import 'badge.scss';

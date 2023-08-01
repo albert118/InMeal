@@ -1,0 +1,30 @@
+.cds--list-box__menu {
+	border-radius: 12px;
+	border: 1px transparent;
+}
+
+.cds--list-box__menu,
+.cds--list-box__menu:focus,
+.cds--list-box__menu-item,
+.cds--list-box__menu-item__option {
+	background-color: var(--foreground-details);
+	border: 1px transparent;
+	outline: transparent;
+	color: var(--text);
+}
+
+.cds--list-box__menu-item__option {
+	background-color: transparent;
+}
+
+.cds--list-box__menu-item:hover {
+	background-color: var(--primary-action);
+}
+
+.cds--list-box__label {
+	color: var(--text);
+}
+
+.cds--list-box__field:focus {
+	outline: transparent;
+}

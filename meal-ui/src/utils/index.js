@@ -1,4 +1,5 @@
 import { isFalsishOrEmpty } from './stringUtils';
 import { objectMap } from './objectMap';
+import { propagateProps } from './childrenUtils';
 
-export { isFalsishOrEmpty, objectMap };
+export { isFalsishOrEmpty, objectMap, propagateProps };

@@ -6,8 +6,28 @@
 	margin-left: $spacing-08;
 
 	.two-pane-recipe-card--left {
+		border-radius: 12px 0 0 12px;
+
 		.recipe--data {
-			border-radius: 0 0 12px 12px;
+			border-radius: 0 0 0 12px;
+		}
+
+		.image-content,
+		.image-content--alt {
+			border-radius: 12px 0 0 0;
+		}
+	}
+
+	.two-pane-recipe-card--right {
+		border-radius: 0 12px 12px 0;
+
+		.recipe--data {
+			border-radius: 0 12px 0 0;
+			overflow-y: hidden;
+		}
+
+		.action-container {
+			border-radius: 0 0 12px 0;
 		}
 	}
 }

@@ -74,3 +74,8 @@
 	opacity: 0.8;
 	font-size: 0.6rem;
 }
+
+@mixin disabled-text {
+	@include form-input();
+	color: var(--text-disabled);
+}

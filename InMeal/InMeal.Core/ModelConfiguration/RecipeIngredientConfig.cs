@@ -20,15 +20,6 @@ public class RecipeIngredientConfig
             .WithMany()
             .HasForeignKey(e => e.IngredientId);
 
-        // ensure quantity is serialized and deserialized
-        // also ensure it is always required (never null)
-        builder
-            .Property(e => e.Quantity).HasConversion(
-                data => JsonConvert.SerializeObject(data),
-                data => JsonConvert.DeserializeObject<Quantity>(
-                    data,
-                    new JsonSerializerSettings {NullValueHandling = NullValueHandling.Ignore}
-                )!
-            ).IsRequired();
+        builder.Property(e => e.Quantity).IsRequired();
     }
 }

@@ -19,6 +19,7 @@
 }
 
 .form-input > input[type='text'],
+.form-input > input[type='number'],
 .form-input > select .select-items,
 .form-input > option,
 .form-input > textarea {
@@ -48,4 +49,22 @@
 .form-input > input[type='checkbox'] {
 	margin: $spacing-04;
 	width: unset;
+}
+
+.form-input > input::-webkit-outer-spin-button,
+.form-input > input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+.form-input > input:disabled {
+	background-color: var(--input-background-disabled);
+}
+
+.form-input > label {
+	@include label();
+}
+
+.form-input > label.disabled {
+	@include disabled-text();
 }

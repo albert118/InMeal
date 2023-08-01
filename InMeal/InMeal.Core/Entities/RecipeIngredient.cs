@@ -5,7 +5,7 @@ namespace InMeal.Core.Entities;
 
 public class RecipeIngredient : IHaveState<RecipeIngredientMemento>
 {
-    public RecipeIngredient(RecipeIngredientId id, RecipeId recipeId, Ingredient ingredient, Quantity quantity)
+    public RecipeIngredient(RecipeIngredientId id, RecipeId recipeId, Ingredient ingredient, int quantity)
     {
         Id = id;
         Quantity = quantity;
@@ -20,7 +20,11 @@ public class RecipeIngredient : IHaveState<RecipeIngredientMemento>
         RecipeId = new(memento.RecipeId);
         Quantity = memento.Quantity;
         IngredientId = new(memento.IngredientId);
-        Ingredient = memento.Ingredient != null ? Ingredient.FromMemento(memento.Ingredient) : null;
+
+        if (memento.Ingredient == null)
+            throw new ArgumentNullException($"{nameof(memento.Ingredient)} should exist for a {nameof(RecipeIngredient)} to exist");
+
+        Ingredient = Ingredient.FromMemento(memento.Ingredient);
     }
 
     public static RecipeIngredient FromMemento(RecipeIngredientMemento memento) => new(memento);
@@ -33,7 +37,7 @@ public class RecipeIngredient : IHaveState<RecipeIngredientMemento>
     
     public IngredientId IngredientId { get; set; }
 
-    public Quantity Quantity { get; set; }
+    public int Quantity { get; set; }
 
     public RecipeIngredientMemento State => new(Id.Key, RecipeId.Key, IngredientId.Key, Quantity);
 }

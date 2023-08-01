@@ -30,14 +30,17 @@ public class IngredientsController : ControllerBase
         return results.Count == 0 ? new() : results.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
 
-    [HttpPatch(Name = "Edit an ingredient name")]
+    [HttpPatch(Name = "Edit an ingredient")]
     [ActionName("update")]
-    public IActionResult Get(EditIngredientNameDto dto)
+    public IActionResult Get(EditIngredientDto dto)
     {
-        var key = new IngredientId(dto.IngredientId);
-        _ingredientsManager.UpdateNameAsync(key, dto.NewName, _tokenAccessor.Token)
-                           .GetAwaiter()
-                           .GetResult();
+        try {
+            _ingredientsManager.EditAsync(dto, _tokenAccessor.Token)
+                               .GetAwaiter()
+                               .GetResult();
+        } catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
 
         return Ok();
     }
@@ -68,16 +71,21 @@ public class IngredientsController : ControllerBase
     public IActionResult Delete(Guid ingredientId)
     {
         try {
-            _ingredientsManager.DeleteManyAsync(new List<IngredientId> { new(ingredientId) }, _tokenAccessor.Token)
+            _ingredientsManager.DeleteAsync(new(ingredientId), _tokenAccessor.Token)
                                .GetAwaiter()
                                .GetResult();
         } catch (Exception ex) {
-            throw new BadHttpRequestException(
-                $"couldn't remove the {nameof(Ingredient)} '{ingredientId}', {ex.Message}");
+            return BadRequest(ex.Message);
         }
 
         return Ok();
     }
 
-    public record PostIngredientsDto(List<string> IngredientNames);
+    [HttpGet(Name = "Get ingredient measurement options")]
+    [ActionName("measurements")]
+    public ActionResult<List<MeasurementUnitDto>> GetMeasurementOptions()
+    {
+        var results = _ingredientsManager.GetMeasurementOptions();
+        return Ok(results.Select(MeasurementMapper.ToDto).OrderBy(dto => dto.Name).ToList());
+    }
 }

@@ -8,8 +8,9 @@ public static class IngredientMapper
     public static IngredientDto MapToIngredientDto(this Ingredient ingredient)
     {
         return new(
-            ingredient.Id.Key,
-            ingredient.Name
+            Id: ingredient.Id.Key,
+            Name: ingredient.Name,
+            Units: MeasurementMapper.ToDto(ingredient.Unit)
         );
     }
 
@@ -19,9 +20,10 @@ public static class IngredientMapper
         recipeIngredientUsageCounts.TryGetValue(ingredient.Id, out var recipeUsageCount);
 
         return new(
-            ingredient.Id.Key,
-            ingredient.Name,
-            recipeUsageCount
+            IngredientId: ingredient.Id.Key,
+            Name: ingredient.Name,
+            RecipeUsageCount: recipeUsageCount,
+            Units: MeasurementMapper.ToDto(ingredient.Unit)
         );
     }
 

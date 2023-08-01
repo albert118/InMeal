@@ -56,6 +56,8 @@ public class RecipeManager : IRecipeManager
 
     public async Task<Recipe> AddAsync(RecipeDto dto, CancellationToken ct)
     {
+        if (dto.Id != null) throw new ArgumentException("A new recipe shouldn't have an ID yet (an ID was provided)");
+
         var newRecipe = new Recipe(
             dto.Title,
             dto.Blurb,
@@ -72,7 +74,9 @@ public class RecipeManager : IRecipeManager
 
     public async Task<Recipe> EditAsync(RecipeDto dto, CancellationToken ct)
     {
-        var key = new RecipeId(dto.Id!.Value);
+        if (!dto.Id.HasValue) throw new ArgumentException("An ID is required to edit an existing recipe");
+
+        var key = new RecipeId(dto.Id.Value);
         var recipe = await _recipeRepository.GetRecipeAsync(key, ct)
                      ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{key}'");
 
