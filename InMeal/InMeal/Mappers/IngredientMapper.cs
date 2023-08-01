@@ -22,7 +22,7 @@ public static class IngredientMapper
             IngredientId: ingredient.Id.Key,
             Name: ingredient.Name,
             RecipeUsageCount: recipeUsageCount,
-            Units: new(Name: ingredient.Unit.ToString())
+            Units: MeasurementMapper.ToDto(ingredient.Unit)
         );
     }
 

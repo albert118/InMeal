@@ -7,7 +7,7 @@ import { useIngredient } from 'hooks/data';
 const defaultFormState = (name, units) => {
 	return {
 		name: name,
-		unit: units.label,
+		unit: units.name,
 		isDeleted: false
 	};
 };

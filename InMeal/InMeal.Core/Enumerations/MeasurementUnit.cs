@@ -3,7 +3,7 @@
 // these should be singular, consumers can stringify these and pluralise as needed
 public enum MeasurementUnit
 {
-    Unknown = 0,
+    unknown = 0,
     Cup,
     Gram,
     Kilogram,
