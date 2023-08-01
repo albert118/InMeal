@@ -71,9 +71,8 @@ namespace InMeal.Core.Migrations
                     b.Property<Guid>("IngredientId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Quantity")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("RecipeId")
                         .HasColumnType("char(36)");
