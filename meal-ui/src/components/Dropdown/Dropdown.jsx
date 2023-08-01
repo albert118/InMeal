@@ -13,7 +13,7 @@ export default function DropdownCustom({ items, onChange, ...additionalProps }) 
 function mapToDropdownItems(items) {
 	return items.map(item => {
 		return {
-			id: item.id ? item.id : 1, // TODO
+			id: item.id ? item.id : 1,
 			label: item.name
 		};
 	});
