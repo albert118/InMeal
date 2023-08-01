@@ -86,6 +86,6 @@ public class IngredientsController : ControllerBase
     public ActionResult<List<MeasurementUnitDto>> GetMeasurementOptions()
     {
         var results = _ingredientsManager.GetMeasurementOptions();
-        return Ok(results.Select(MeasurementMapper.ToDto).ToList());
+        return Ok(results.Select(MeasurementMapper.ToDto).OrderBy(dto => dto.Name).ToList());
     }
 }

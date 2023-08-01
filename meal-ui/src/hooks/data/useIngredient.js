@@ -6,7 +6,7 @@ export default function useIngredient() {
 
 	function updateIngredient(id, newName, newUnit) {
 		const url = `${ApiConfig.API_URL}/ingredients/update`;
-		patchApi(url, {
+		return patchApi(url, {
 			ingredientId: id,
 			newName: newName,
 			newUnit: newUnit
@@ -15,7 +15,7 @@ export default function useIngredient() {
 
 	function deleteIngredient(id) {
 		const url = `${ApiConfig.API_URL}/ingredients/delete/${id}`;
-		deleteApi(url);
+		return deleteApi(url);
 	}
 
 	return { updateIngredient, deleteIngredient };

@@ -24,17 +24,20 @@ export function IngredientsModalBadge({ ingredient, refreshData, measurementOpti
 		});
 	};
 
-	function onEditSave() {
+	async function onEditSave() {
 		const shouldDelete = formData.isDeleted && ingredient.recipeUsageCount === 0;
 
 		try {
-			if (shouldDelete) deleteIngredient(ingredient.ingredientId);
-			else updateIngredient(ingredient.ingredientId, formData.name, formData.unit);
+			if (shouldDelete) {
+				deleteIngredient(ingredient.ingredientId).then(() => refreshData());
+			} else {
+				updateIngredient(ingredient.ingredientId, formData.name, formData.unit).then(() =>
+					refreshData()
+				);
+			}
 		} catch (ex) {
 			console.warn('modal submission triggered an exception');
 		}
-
-		refreshData();
 	}
 
 	return (
