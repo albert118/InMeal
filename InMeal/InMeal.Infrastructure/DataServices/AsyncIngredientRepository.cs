@@ -1,9 +1,9 @@
-﻿using InMeal.Core.Entities;
+﻿using System.Data;
+using InMeal.Core.Entities;
 using InMeal.Core.Extensions;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace InMeal.Infrastructure.DataServices;
 
@@ -11,19 +11,18 @@ namespace InMeal.Infrastructure.DataServices;
 public class AsyncIngredientRepository : IAsyncIngredientRepository
 {
     private readonly IRecipeDbContext _recipeDbContext;
-    private readonly ILogger<AsyncIngredientRepository> _logger;
 
-    public AsyncIngredientRepository(IRecipeDbContext recipeDbContext, ILogger<AsyncIngredientRepository> logger)
+    public AsyncIngredientRepository(IRecipeDbContext recipeDbContext)
     {
         _recipeDbContext = recipeDbContext;
-        _logger = logger;
     }
 
-    public async Task UpdateAsync(List<Ingredient> ingredients, CancellationToken ct)
+    public async Task UpdateAsync(Ingredient ingredient, CancellationToken ct)
     {
-        EmptyGuidGuard.Apply(ingredients.Select(r => r.Id.Key));
+        var existingIngredient = await _recipeDbContext.Ingredients.SingleOrDefaultAsync(e => e.Id == ingredient.Id.Key, ct) 
+            ?? throw new DataException($"cannot find the given {nameof(Ingredient)} with Id '{ingredient.Id}'");
 
-        _recipeDbContext.Ingredients.UpdateRange(ingredients.Select(i => i.State));
+        _recipeDbContext.Entry(existingIngredient).CurrentValues.SetValues(ingredient.State);
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 
@@ -66,35 +65,13 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
             .ToDictionary(grouping => grouping.Key, grouping => grouping.Select(Ingredient.FromMemento).ToList());
     }
     
-    public async Task<bool> DeleteManyAsync(IEnumerable<IngredientId> ingredientIds, CancellationToken ct)
+    public async Task DeleteAsync(IngredientId ingredientId, CancellationToken ct)
     {
-        var keys = ingredientIds.Select(identity => identity.Key).ToList();
-        EmptyGuidGuard.Apply(keys);
+        var existingIngredient = await _recipeDbContext.Ingredients.SingleOrDefaultAsync(e => e.Id == ingredientId.Key)
+            ?? throw new DataException($"cannot find the given {nameof(Ingredient)} with Id '{ingredientId}'");
 
-        var existingIngredients = await _recipeDbContext.Ingredients
-            .Where(e => keys.Contains(e.Id))
-            .ToListAsync(ct);
-
-        if (!existingIngredients.Any()) {
-            _logger.LogWarning(
-                "no {Ingredient}s were deleted with the given Ids", 
-                nameof(Ingredient)
-            );
-        }
-
-        var notFoundIds = keys.Except(existingIngredients.Select(i => i.Id)).ToList();
-        if (notFoundIds.Any()) {
-            _logger.LogWarning(
-                "some {Ingredient}s weren't found and will not be deleted (missing Ids '{NotFoundIds}')",
-                nameof(Ingredient),
-                string.Join(", ", notFoundIds)
-            );
-        }
-
-        _recipeDbContext.Ingredients.RemoveRange(existingIngredients);
+        _recipeDbContext.Ingredients.Remove(existingIngredient);
         await _recipeDbContext.SaveChangesAsync(ct);
-
-        return true;
     }
 
     public async Task AddManyAsync(List<Ingredient> ingredients, CancellationToken ct)

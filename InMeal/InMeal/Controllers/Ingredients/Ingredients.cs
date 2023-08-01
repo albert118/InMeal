@@ -30,12 +30,11 @@ public class IngredientsController : ControllerBase
         return results.Count == 0 ? new() : results.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
 
-    [HttpPatch(Name = "Edit an ingredient name")]
+    [HttpPatch(Name = "Edit an ingredient")]
     [ActionName("update")]
-    public IActionResult Get(EditIngredientNameDto dto)
+    public IActionResult Get(EditIngredientDto dto)
     {
-        var key = new IngredientId(dto.IngredientId);
-        _ingredientsManager.UpdateNameAsync(key, dto.NewName, _tokenAccessor.Token)
+        _ingredientsManager.EditAsync(dto, _tokenAccessor.Token)
                            .GetAwaiter()
                            .GetResult();
 
@@ -68,7 +67,7 @@ public class IngredientsController : ControllerBase
     public IActionResult Delete(Guid ingredientId)
     {
         try {
-            _ingredientsManager.DeleteManyAsync(new List<IngredientId> { new(ingredientId) }, _tokenAccessor.Token)
+            _ingredientsManager.DeleteAsync(new(ingredientId), _tokenAccessor.Token)
                                .GetAwaiter()
                                .GetResult();
         } catch (Exception ex) {

@@ -43,6 +43,14 @@ public class Ingredient : IHaveState<IngredientMemento>
         Name = newName;
     }
 
+    public void UpdateMeasurement(MeasurementUnit newUnit)
+    {
+        if (newUnit == MeasurementUnit.Unknown)
+            throw new ArgumentException($"cannot update an {nameof(Ingredient)} with an unknown measurement");
+
+        Unit = newUnit;
+    }
+
     public IngredientMemento State => new(this);
 
     public IngredientId Id { get; private set; }

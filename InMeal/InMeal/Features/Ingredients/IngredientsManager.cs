@@ -12,14 +12,14 @@ public interface IIngredientsManager
 {
     Task<List<Ingredient>> GetIngredientsAsync(int? skip, int? take, CancellationToken ct);
 
-    Task UpdateNameAsync(IngredientId id, string newName, CancellationToken ct);
-
+    Task EditAsync(EditIngredientDto dto, CancellationToken ct);
+    
     Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(
         CancellationToken ct);
 
     Task<List<Ingredient>> AddAndGetExistingAsync(IEnumerable<string> names, CancellationToken ct);
 
-    Task DeleteManyAsync(IEnumerable<IngredientId> ids, CancellationToken ct);
+    Task DeleteAsync(IngredientId id, CancellationToken ct);
     
     List<MeasurementUnit> GetMeasurementOptions();
 }
@@ -47,13 +47,17 @@ public class IngredientsManager : IIngredientsManager
         return ingredients;
     }
 
-    public async Task UpdateNameAsync(IngredientId id, string newName, CancellationToken ct)
+    public async Task EditAsync(EditIngredientDto dto, CancellationToken ct)
     {
-        var ingredient = await _ingredientRepository.GetAsync(id, ct) 
-            ?? throw new DataException($"no {nameof(Ingredient)} was found with the given ID '{id.Key}'");
+        var key = new IngredientId(dto.IngredientId);
+        var ingredient = await _ingredientRepository.GetAsync(key, ct) 
+            ?? throw new DataException($"no {nameof(Ingredient)} was found with the given ID '{key}'");
 
-        ingredient.UpdateName(newName);
-        await _ingredientRepository.UpdateAsync(new List<Ingredient> { ingredient }, ct);
+        // only update what's changed
+        if (dto.NewName != null) ingredient.UpdateName(dto.NewName);
+        if (dto.NewUnit != null) ingredient.UpdateMeasurement(dto.NewUnit.Value);
+
+        await _ingredientRepository.UpdateAsync(ingredient, ct);
     }
 
     public async Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(
@@ -88,20 +92,17 @@ public class IngredientsManager : IIngredientsManager
         return existingIngredients;
     }
 
-    public async Task DeleteManyAsync(IEnumerable<IngredientId> ids, CancellationToken ct)
+    public async Task DeleteAsync(IngredientId id, CancellationToken ct)
     {
         var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCount(ct);
+        var isUsed = usageCountResults.TryGetValue(id, out _);
 
-        if (usageCountResults.Any(e => e.Value > 0)) {
-            var ingredientsInUse = string.Join(", ", usageCountResults.Keys.ToList());
-            _logger.LogWarning("cannot remove {Ingredient}(s) used by recipes with Ids '{IngredientIds}'",
-                nameof(Ingredient),
-                ingredientsInUse
-            );
+        if (isUsed) {
+            _logger.LogWarning("cannot remove {Ingredient}(s) used by recipes with Ids '{IngredientIds}'", nameof(Ingredient), id);
             throw new IngredientDeletionException($"cannot remove {nameof(Ingredient)}s used by existing recipes");
         }
 
-        await _ingredientRepository.DeleteManyAsync(ids, ct);
+        await _ingredientRepository.DeleteAsync(id, ct);
     }
 
     public List<MeasurementUnit> GetMeasurementOptions()
