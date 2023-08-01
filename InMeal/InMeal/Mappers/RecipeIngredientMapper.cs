@@ -1,5 +1,4 @@
 using InMeal.Core.Entities;
-using InMeal.Core.Enumerations;
 using InMeal.DTOs.Recipes;
 
 namespace InMeal.Mappers;
@@ -8,11 +7,15 @@ public static class RecipeIngredientMapper
 {
     public static RecipeIngredientDto ToDto(RecipeIngredient recipeIngredient)
     {
+        if (recipeIngredient.Ingredient == null)
+            throw new ArgumentException($"{nameof(RecipeIngredient)} ingredient was found to be null while mapping to DTO");
+
         return new(
-            recipeIngredient.Id.Key,
-            recipeIngredient.Ingredient?.Name ?? string.Empty,
-            recipeIngredient.Ingredient?.Id.Key ?? Guid.Empty,
-            recipeIngredient.Quantity
+            Id: recipeIngredient.Id.Key,
+            Label: recipeIngredient.Ingredient?.Name ?? string.Empty,
+            IngredientId: recipeIngredient.Ingredient?.Id.Key ?? Guid.Empty,
+            Quantity: recipeIngredient.Quantity,
+            Units:  MeasurementMapper.ToDto(recipeIngredient.Ingredient!.Unit)
         );
     }
 
