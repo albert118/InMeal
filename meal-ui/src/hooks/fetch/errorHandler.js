@@ -17,10 +17,12 @@ function unpackKestralErrorResponse(errorResponse) {
 }
 
 function stringifyErrorArray(errors) {
-	return errors
-		.slice(0, -1)
-		.join(', ')
-		.concat(', and ', errors[errors.length - 1]);
+	return errors.length === 1
+		? errors[0]
+		: errors
+				.slice(0, -1)
+				.join(', ')
+				.concat(', and ', errors[errors.length - 1]);
 }
 
 function formatError(errorString) {
