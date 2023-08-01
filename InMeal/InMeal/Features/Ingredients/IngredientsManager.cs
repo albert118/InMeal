@@ -107,6 +107,6 @@ public class IngredientsManager : IIngredientsManager
 
     public List<MeasurementUnit> GetMeasurementOptions()
     {
-        return Enum.GetValues<MeasurementUnit>().Where(e => e != MeasurementUnit.unknown).ToList();
+        return Enum.GetValues<MeasurementUnit>().Where(e => e != MeasurementUnit.Unknown).ToList();
     }
 }

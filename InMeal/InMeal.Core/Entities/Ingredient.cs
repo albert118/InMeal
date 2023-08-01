@@ -6,7 +6,7 @@ namespace InMeal.Core.Entities;
 
 public class Ingredient : IHaveState<IngredientMemento>
 {
-    public Ingredient(IngredientId id, string name, MeasurementUnit unit = MeasurementUnit.unknown)
+    public Ingredient(IngredientId id, string name, MeasurementUnit unit = MeasurementUnit.Unknown)
     {
         if (string.IsNullOrEmpty(name))
             throw new ArgumentException($"{nameof(Ingredient)} cannot be created without a name");
@@ -16,7 +16,7 @@ public class Ingredient : IHaveState<IngredientMemento>
         Unit = unit;
     }
     
-    public Ingredient(string name, MeasurementUnit unit = MeasurementUnit.unknown)
+    public Ingredient(string name, MeasurementUnit unit = MeasurementUnit.Unknown)
     {
         if (string.IsNullOrEmpty(name))
             throw new ArgumentException($"{nameof(Ingredient)} cannot be created without a name");
@@ -45,7 +45,7 @@ public class Ingredient : IHaveState<IngredientMemento>
 
     public void UpdateMeasurement(MeasurementUnit newUnit)
     {
-        if (newUnit == MeasurementUnit.unknown)
+        if (newUnit == MeasurementUnit.Unknown)
             throw new ArgumentException($"cannot update an {nameof(Ingredient)} with an unknown measurement");
 
         Unit = newUnit;
