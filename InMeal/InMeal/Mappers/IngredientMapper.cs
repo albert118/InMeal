@@ -8,8 +8,9 @@ public static class IngredientMapper
     public static IngredientDto MapToIngredientDto(this Ingredient ingredient)
     {
         return new(
-            ingredient.Id.Key,
-            ingredient.Name
+            Id: ingredient.Id.Key,
+            Name: ingredient.Name,
+            Units: MeasurementMapper.ToDto(ingredient.Unit)
         );
     }
 

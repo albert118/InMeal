@@ -62,7 +62,7 @@ function MultiSelectItemRow({ item, attrName, onRemove, onUpdate }) {
 				className='ingredient-form-row--quantity'
 				name='recipeIngredients'
 				id={item.label}
-				value={item.quantity.amount}
+				value={item.quantity}
 				placeholder='how many?'
 				onChange={onUpdate}
 			/>
@@ -71,7 +71,7 @@ function MultiSelectItemRow({ item, attrName, onRemove, onUpdate }) {
 				attrName={attrName}
 				onChange={onRemove}
 				key={item.hasOwnProperty('label') ? item.label : item}
-				subLabel={item.quantity.units}
+				subLabel={item.units.name}
 			/>
 		</div>
 	);

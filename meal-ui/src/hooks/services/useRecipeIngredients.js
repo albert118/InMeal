@@ -38,11 +38,10 @@ export default function useRecipeIngredients() {
 	function executeUpdate(event, recipe) {
 		// the form uses the label as an ID in this event
 		const { id, data: quantity } = event.target.value;
-
 		const recipeIngredientsCopy = [...recipe.recipeIngredients];
 
 		// perform the update
-		recipeIngredientsCopy.find(ri => ri['label'] === id).quantity.amount = quantity;
+		recipeIngredientsCopy.find(ri => ri['label'] === id).quantity = quantity;
 
 		return {
 			...recipe,
@@ -53,23 +52,20 @@ export default function useRecipeIngredients() {
 	return { handleRecipeIngredients };
 }
 
-function createRecipeIngredient(name, id, numberOf) {
+function createRecipeIngredient(name, id, units) {
+	const defaultQuantity = 1;
 	return {
 		label: name,
 		ingredientId: id,
-		quantity: {
-			amount: numberOf,
-			// TODO: quantity logic
-			units: 0
-		}
+		quantity: defaultQuantity,
+		units: units
 	};
 }
 
 function updateLocalIngredientsWithIds(newIngredients, recipe, apiData) {
-	// TODO: quantity logic
-	const fakeQuantity = 1;
+	console.log(newIngredients);
 	const recipeIngredients = newIngredients.map((newItem, idx) =>
-		createRecipeIngredient(newItem.label, apiData ? apiData[idx].id : newItem.id, fakeQuantity)
+		createRecipeIngredient(newItem.label, apiData ? apiData[idx].id : newItem.id, newItem.units)
 	);
 
 	// add the new recipe ingredients to the existing recipe ingredients

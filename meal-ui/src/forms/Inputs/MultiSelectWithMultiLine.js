@@ -81,6 +81,7 @@ export default function MultiSelectWithMultiLine({
 function mapToDropdownItems(items) {
 	return items.map(item => {
 		return {
+			...item,
 			id: item.id,
 			label: item.name
 		};

@@ -25,13 +25,13 @@ function IngredientItemRow({ item }) {
 			<NumberInput
 				className='ingredient-form-row--quantity'
 				id={item.label}
-				value={item.quantity.amount}
+				value={item.quantity}
 				placeholder=''
 				disabled={true}
 			/>
 			<ItemBadge
 				item={item}
-				subLabel={item.quantity.units}
+				subLabel={item.units.name}
 			/>
 		</div>
 	);
