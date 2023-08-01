@@ -26,6 +26,7 @@ export default function EditModalWrapper({
 				secondaryButtonText='Cancel'
 				onRequestSubmit={() => handleEditSubmit()}
 				onRequestClose={() => setOpen(false)}
+				shouldSubmitOnEnter={true}
 			>
 				<div className='edit-modal__content'>{children}</div>
 			</Modal>

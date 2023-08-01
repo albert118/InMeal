@@ -1,6 +1,7 @@
 import defaultRequestOptions from './defaultRequestOptions';
 import useLoadingStateDecoration from './useLoadingDecorator';
 import handleError from './errorHandler';
+
 export function useFetch() {
 	function get(url) {
 		return fetch(url, {

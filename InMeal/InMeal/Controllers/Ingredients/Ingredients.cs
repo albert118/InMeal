@@ -39,8 +39,7 @@ public class IngredientsController : ControllerBase
                                .GetAwaiter()
                                .GetResult();
         } catch (Exception ex) {
-            throw new BadHttpRequestException(
-                $"couldn't edit the {nameof(Ingredient)} '{dto.IngredientId}', {ex.Message}");
+            return BadRequest(ex.Message);
         }
 
         return Ok();
@@ -76,8 +75,7 @@ public class IngredientsController : ControllerBase
                                .GetAwaiter()
                                .GetResult();
         } catch (Exception ex) {
-            throw new BadHttpRequestException(
-                $"couldn't remove the {nameof(Ingredient)} '{ingredientId}', {ex.Message}");
+            return BadRequest(ex.Message);
         }
 
         return Ok();
