@@ -9,5 +9,6 @@ public enum MeasurementUnit
     Kilogram,
     MilliLitre,
     TableSpoon,
-    TeaSpoon
+    TeaSpoon,
+    Count
 }

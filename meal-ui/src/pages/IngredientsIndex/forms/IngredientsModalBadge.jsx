@@ -3,12 +3,11 @@ import IngredientBadge from '../components/IngredientsBadge';
 import EditIngredientForm from './EditIngredientNameForm';
 import { EditModalWrapper } from 'components';
 import { useIngredient } from 'hooks/data';
-import { isFalsishOrEmpty } from 'utils';
 
 const defaultFormState = (name, units) => {
 	return {
 		name: name,
-		unit: units,
+		unit: units.label,
 		isDeleted: false
 	};
 };
@@ -27,13 +26,12 @@ export function IngredientsModalBadge({ ingredient, refreshData, measurementOpti
 
 	const onEditSave = async () => {
 		if (formData.isDeleted && ingredient.recipeUsageCount === 0) {
-			deleteIngredient(ingredient.id);
-			await refreshData();
-		} else if (IsIngredientNameValid(ingredient.name, formData.name)) {
-			updateIngredientName(ingredient.id, formData.name);
+			deleteIngredient(ingredient.ingredientId);
 			await refreshData();
 		} else {
-			setFormData(defaultFormState(ingredient.name));
+			console.log(formData);
+			updateIngredientName(ingredient.ingredientId, formData.name, formData.unit);
+			await refreshData();
 		}
 	};
 
@@ -58,8 +56,4 @@ export function IngredientsModalBadge({ ingredient, refreshData, measurementOpti
 			/>
 		</EditModalWrapper>
 	);
-}
-
-function IsIngredientNameValid(oldIngredientName, newIngredientName) {
-	return !isFalsishOrEmpty(newIngredientName) && oldIngredientName !== newIngredientName;
 }

@@ -4,11 +4,12 @@ import { useFetch } from 'hooks/fetch';
 export default function useIngredient() {
 	const { patchApi, deleteApi } = useFetch();
 
-	function updateIngredientName(id, newName) {
+	function updateIngredientName(id, newName, newUnit) {
 		const url = `${ApiConfig.API_URL}/ingredients/update`;
 		patchApi(url, {
 			ingredientId: id,
-			newName: newName
+			newName: newName,
+			newUnit: newUnit
 		});
 	}
 

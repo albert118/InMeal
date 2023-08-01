@@ -34,9 +34,10 @@ export default function EditIngredientForm({
 				label='choose a measurement'
 				items={measurementOptions}
 				title='measurement'
+				selectedItem={formData.unit}
 				onChange={selectedUnit => {
 					onChange({
-						target: { name: 'unit', value: selectedUnit }
+						target: { name: 'unit', value: selectedUnit.label }
 					});
 				}}
 			/>
