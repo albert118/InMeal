@@ -1,8 +1,10 @@
 @keyframes minimalist-sidebar-fade-in {
 	from {
+		opacity: 0.3;
 		width: var(--sidebar-width);
 	}
 	to {
+		opacity: 1;
 		width: 18%;
 	}
 }
