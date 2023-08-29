@@ -58,13 +58,13 @@ header {
 			padding-left: var(--sidebar-width);
 		}
 		to {
-			padding-left: 30%;
+			padding-left: 18%;
 		}
 	}
 
 	@keyframes header-fade-out {
 		from {
-			padding-left: 30%;
+			padding-left: 18%;
 		}
 		to {
 			padding-left: var(--sidebar-width);

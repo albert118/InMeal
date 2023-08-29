@@ -22,11 +22,17 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 			 	${isActive ? 'minimalist-sidebar-active' : ''} 
 				${isInActive ? 'minimalist-sidebar-inactive' : ''}`}
 		>
-			<HeroBrandingLogo
-				config={config}
-				onClick={() => navigate(AppRoutes.root)}
-			/>
-			<AnimatedHamburger callback={toggleActive} />
+			<div className='top-section'>
+				{/* neater sidebar if the branding appears when expanded */}
+				{isActive && (
+					<HeroBrandingLogo
+						config={config}
+						onClick={() => navigate(AppRoutes.root)}
+					/>
+				)}
+				<AnimatedHamburger callback={toggleActive} />
+			</div>
+
 			<div className='nav-links'>
 				<NavLinkItem
 					isActive={isActive}

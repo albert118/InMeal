@@ -11,29 +11,33 @@
 	// defined in layouts.scss to make it global
 	// this helps ensure animations are smoother
 	width: var(--sidebar-width);
-}
 
-.minimalist-sidebar h1 {
-	font-size: 0.9em;
-}
+	h1 {
+		font-size: 0.9em;
+	}
 
-.nav-links {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: flex-start;
-	height: 50%;
-}
+	.nav-links {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		row-gap: $spacing-06;
+		height: 50%;
 
-.nav-label {
-	font-size: 0.8em;
-}
+		& > * {
+			width: 100%;
+		}
 
-.setting-links {
-	display: flex;
-	height: 10%;
-	align-items: center;
-	justify-content: center;
+		.nav-label {
+			@include label();
+		}
+	}
+
+	.setting-links {
+		display: flex;
+		height: 10%;
+		align-items: center;
+		justify-content: center;
+	}
 }
 
 // header moves to top of page - change to row direction
@@ -68,6 +72,20 @@
 	.minimalist-sidebar-active {
 		animation: minimalist-sidebar-fade-in 0.8s ease-out forwards;
 
+		// move from a center to left alignment to take advantage of all the space
+		align-items: flex-start;
+		padding-left: $spacing-08;
+		padding-right: $spacing-08;
+
+		.top-section {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			// full width top section keeps the logo left and button right (aligned)
+			// the +2% makes this section stand out with different negative spacing
+			width: 102%;
+		}
+
 		.labelled-icon-btn,
 		.labelled-icon-btn > span {
 			transition: width 0.2s ease-out;
@@ -89,13 +107,13 @@
 			width: var(--sidebar-width);
 		}
 		to {
-			width: 30%;
+			width: 18%;
 		}
 	}
 
 	@keyframes minimalist-sidebar-fade-out {
 		from {
-			width: 30%;
+			width: 18%;
 		}
 		to {
 			width: var(--sidebar-width);

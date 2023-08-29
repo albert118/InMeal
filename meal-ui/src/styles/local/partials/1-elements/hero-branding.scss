@@ -17,7 +17,7 @@
 	.hero-title {
 		display: flex;
 		justify-content: space-between;
-		column-gap: $spacing-05;
+		column-gap: $spacing-06;
 
 		p {
 			@include logo-title();
