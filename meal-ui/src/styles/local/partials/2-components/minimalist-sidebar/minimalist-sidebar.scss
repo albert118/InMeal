@@ -43,12 +43,10 @@
 	}
 
 	.minimalist-sidebar-active {
-		// TODO: this
-		z-index: 9999;
-
 		position: fixed;
 		width: 100%;
 		height: 100%;
+		z-index: var(--layers-overlay);
 
 		// revert menu to use the column layout as used on the full-screen design
 		@include sidebar-element-alignments();

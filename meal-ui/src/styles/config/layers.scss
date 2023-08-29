@@ -1,3 +1,9 @@
 /** 
  * Add global Z-Index Levels here
+ * this defines layers from -1 to 99
  */
+
+body {
+	--layers-background: -1;
+	--layers-overlay: 99;
+}
