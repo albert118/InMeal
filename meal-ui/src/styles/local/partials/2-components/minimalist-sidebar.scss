@@ -8,6 +8,9 @@
 	justify-content: space-around;
 	align-items: center;
 	background-color: var(--background);
+	// defined in layouts.scss to make it global
+	// this helps ensure animations are smoother
+	width: var(--sidebar-width);
 }
 
 .minimalist-sidebar h1 {
