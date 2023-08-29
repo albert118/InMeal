@@ -1,61 +1,66 @@
 @use '@carbon/react/scss/spacing' as *;
-@use '../../mixins/text-mixins' as *;
+@use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/glass-background' as *;
 
-.minimalist-sidebar {
-	@include text();
-	display: flex;
+@import 'nav-links.scss';
+
+@mixin sidebar-element-alignments {
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
-	background-color: var(--background);
-	// defined in layouts.scss to make it global
-	// this helps ensure animations are smoother
+}
+
+.minimalist-sidebar {
+	// defined in layouts to ensure smoother animations
 	width: var(--sidebar-width);
+	display: flex;
+	@include sidebar-element-alignments();
+	@include text();
+	background-color: var(--background);
 
-	h1 {
-		font-size: 0.9em;
-	}
-
-	.nav-links {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-		row-gap: $spacing-06;
+	.page-links {
 		height: 50%;
-
-		& > * {
-			width: 100%;
-		}
-
-		.nav-label {
-			@include label();
-		}
 	}
 
-	.setting-links {
+	.top-section {
 		display: flex;
-		height: 10%;
 		align-items: center;
-		justify-content: center;
+		justify-content: space-between;
+		column-gap: $spacing-06;
 	}
 }
 
-// header moves to top of page - change to row direction
+// header moves to top of page - change flex direction and simplify layout
 @media (max-width: 1056px) {
 	.minimalist-sidebar {
 		flex-direction: row;
-	}
+		justify-content: flex-end;
+		padding: $spacing-04 $spacing-06;
+		width: 100%;
 
-	.minimalist-sidebar-active {
-		.labelled-icon-btn,
-		.labelled-icon-btn > span {
-			animation: fadeIn var(--sequence-slow);
+		.nav-links {
+			display: none;
 		}
 	}
 
-	.minimalist-sidebar-inactive {
-		.icon-btn {
-			animation: fadeIn var(--sequence-slow);
+	.minimalist-sidebar-active {
+		// TODO: this
+		z-index: 9999;
+
+		position: fixed;
+		width: 100%;
+		height: 100%;
+
+		// revert menu to use the column layout as used on the full-screen design
+		@include sidebar-element-alignments();
+		@include glass-background();
+
+		.top-section {
+			width: 30%;
+		}
+
+		.nav-links {
+			display: inherit;
 		}
 	}
 }
@@ -73,14 +78,11 @@
 			// full width top section keeps the logo left and button right (aligned)
 			// the +2% makes this section stand out with different negative spacing
 			width: 102%;
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
 		}
 
 		.labelled-icon-btn,
 		.labelled-icon-btn > span {
-			animation: fadeIn var(--sequence-slow);
+			animation: fade-in var(--sequence-slow);
 		}
 	}
 
@@ -88,7 +90,7 @@
 		animation: minimalist-sidebar-fade-out var(--sequence-fast) ease-out forwards;
 
 		.icon-btn {
-			animation: fadeIn var(--sequence-slow);
+			animation: fade-in var(--sequence-slow);
 		}
 	}
 }

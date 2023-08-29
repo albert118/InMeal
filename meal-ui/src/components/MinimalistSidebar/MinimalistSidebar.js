@@ -33,7 +33,7 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 				<AnimatedHamburger callback={toggleActive} />
 			</div>
 
-			<div className='nav-links'>
+			<div className='nav-links page-links'>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faSeedling}
@@ -49,7 +49,7 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 					Manage Recipes
 				</NavLinkItem>
 			</div>
-			<div className='social-links'>
+			<div className='nav-links social-links'>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faGithub}

@@ -18,6 +18,8 @@
 		display: flex;
 		justify-content: space-between;
 		column-gap: $spacing-06;
+		// shared elements will use this font-size
+		font-size: 0.9em;
 
 		p {
 			@include logo-title();
