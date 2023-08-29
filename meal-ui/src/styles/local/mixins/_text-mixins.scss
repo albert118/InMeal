@@ -20,8 +20,8 @@
 }
 
 @mixin logo-title {
-	@include text();
-	font-size: 1.2em;
+	color: var(--text);
+	font-size: 0.9em;
 	text-transform: uppercase;
 }
 
