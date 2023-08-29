@@ -1,17 +1,7 @@
-@keyframes fadeIn {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
-}
+@import 'sidebar-fade-in.scss';
+@import 'fades.scss';
 
-@keyframes fadeOut {
-	0% {
-		opacity: 1;
-	}
-	100% {
-		opacity: 0;
-	}
+body {
+	--sequence-slow: 1.6s;
+	--sequence-fast: 0.4s;
 }

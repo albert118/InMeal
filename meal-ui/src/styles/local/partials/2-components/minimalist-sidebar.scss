@@ -49,74 +49,46 @@
 	.minimalist-sidebar-active {
 		.labelled-icon-btn,
 		.labelled-icon-btn > span {
-			transition: width 0.2s ease-in;
-			animation: fadeIn 1.2s;
+			animation: fadeIn var(--sequence-slow);
 		}
 	}
 
 	.minimalist-sidebar-inactive {
 		.icon-btn {
-			transition: width 0.2s ease-out;
-			animation: fadeIn 0.8s;
+			animation: fadeIn var(--sequence-slow);
 		}
-	}
-
-	.nav-links,
-	.setting-links {
-		display: none;
 	}
 }
 
 /* toggling the sidebar-heading shifts the layout around - but only for larger screens */
 @media (min-width: 1056px) {
 	.minimalist-sidebar-active {
-		animation: minimalist-sidebar-fade-in 0.8s ease-out forwards;
+		animation: minimalist-sidebar-fade-in var(--sequence-fast) ease-out forwards;
 
 		// move from a center to left alignment to take advantage of all the space
 		align-items: flex-start;
-		padding-left: $spacing-08;
-		padding-right: $spacing-08;
+		padding: 0 $spacing-08;
 
 		.top-section {
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
 			// full width top section keeps the logo left and button right (aligned)
 			// the +2% makes this section stand out with different negative spacing
 			width: 102%;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
 		}
 
 		.labelled-icon-btn,
 		.labelled-icon-btn > span {
-			transition: width 0.2s ease-out;
-			animation: fadeIn 1.2s;
+			animation: fadeIn var(--sequence-slow);
 		}
 	}
 
 	.minimalist-sidebar-inactive {
-		animation: minimalist-sidebar-fade-out 0.8s ease-out forwards;
+		animation: minimalist-sidebar-fade-out var(--sequence-fast) ease-out forwards;
 
 		.icon-btn {
-			transition: width 0.2s ease-out;
-			animation: fadeIn 1.2s;
-		}
-	}
-
-	@keyframes minimalist-sidebar-fade-in {
-		from {
-			width: var(--sidebar-width);
-		}
-		to {
-			width: 18%;
-		}
-	}
-
-	@keyframes minimalist-sidebar-fade-out {
-		from {
-			width: 18%;
-		}
-		to {
-			width: var(--sidebar-width);
+			animation: fadeIn var(--sequence-slow);
 		}
 	}
 }
