@@ -1,14 +1,9 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/text-mixins' as *;
 @use '../../../mixins/glass-background' as *;
+@use 'helper-mixins' as *;
 
 @import 'nav-links.scss';
-
-@mixin sidebar-element-alignments {
-	flex-direction: column;
-	justify-content: space-around;
-	align-items: center;
-}
 
 .minimalist-sidebar {
 	// defined in layouts to ensure smoother animations
@@ -16,7 +11,8 @@
 	display: flex;
 	@include sidebar-element-alignments();
 	@include text();
-	background-color: var(--background);
+	@include glass-background();
+	border: 1.25px solid var(--background-neutral);
 
 	.page-links {
 		height: 50%;
@@ -25,22 +21,24 @@
 	.top-section {
 		display: flex;
 		align-items: center;
-		justify-content: space-between;
+		justify-content: center;
 		column-gap: $spacing-06;
+		min-height: 20%;
+		min-width: 40%;
 	}
 }
 
-// header moves to top of page - change flex direction and simplify layout
+/* header moves to top of page - change flex direction and simplify layout */
 @media (max-width: 1056px) {
 	.minimalist-sidebar {
-		flex-direction: row;
+		flex-direction: row-reverse;
 		justify-content: flex-end;
 		padding: $spacing-04 $spacing-06;
 		width: 100%;
 
 		.nav-links {
 			opacity: 0;
-			height: 0;
+			display: none;
 		}
 	}
 
@@ -55,15 +53,23 @@
 		// revert menu to use the column layout as used on the full-screen design
 		@include sidebar-element-alignments();
 		@include glass-background();
-		transition: var(--sequence-fast) backdrop-filter ease-in-out;
+		// TODO: this
+		// transition: backdrop-filter var(--sequence-fast);
+
+		.top-section,
+		.nav-links {
+			@include menu-card();
+		}
 
 		.top-section {
-			width: 30%;
+			justify-content: space-between;
 		}
 
 		.nav-links {
+			display: inherit;
 			opacity: 1;
-			transition: var(--sequence-slow) opacity ease-in-out;
+			// TODO: this
+			transition: var(--sequence-slow) opacity linear;
 		}
 
 		.page-links {
@@ -76,20 +82,22 @@
 @media (min-width: 1056px) {
 	.minimalist-sidebar-active {
 		animation: minimalist-sidebar-fade-in var(--sequence-fast) ease-out forwards;
-
-		// move from a center to left alignment to take advantage of all the space
-		align-items: flex-start;
-		padding: 0 $spacing-08;
-
-		.top-section {
-			// full width top section keeps the logo left and button right (aligned)
-			// the +2% makes this section stand out with different negative spacing
-			width: 102%;
-		}
+		background-color: transparent;
+		padding: 0 $spacing-04;
 
 		.labelled-icon-btn,
 		.labelled-icon-btn > span {
 			animation: fade-in var(--sequence-slow);
+		}
+
+		.top-section,
+		.nav-links {
+			width: 100%;
+			@include menu-card();
+		}
+
+		.top-section {
+			justify-content: space-between;
 		}
 	}
 
