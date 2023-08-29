@@ -39,7 +39,8 @@
 		width: 100%;
 
 		.nav-links {
-			display: none;
+			opacity: 0;
+			height: 0;
 		}
 	}
 
@@ -54,13 +55,19 @@
 		// revert menu to use the column layout as used on the full-screen design
 		@include sidebar-element-alignments();
 		@include glass-background();
+		transition: var(--sequence-fast) backdrop-filter ease-in-out;
 
 		.top-section {
 			width: 30%;
 		}
 
 		.nav-links {
-			display: inherit;
+			opacity: 1;
+			transition: var(--sequence-slow) opacity ease-in-out;
+		}
+
+		.page-links {
+			height: 50%;
 		}
 	}
 }
