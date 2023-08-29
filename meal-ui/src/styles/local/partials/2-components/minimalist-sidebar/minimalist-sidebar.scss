@@ -24,35 +24,34 @@
 		justify-content: center;
 		column-gap: $spacing-06;
 		min-height: 20%;
-		min-width: 40%;
 	}
 }
 
 /* header moves to top of page - change flex direction and simplify layout */
 @media (max-width: 1056px) {
 	.minimalist-sidebar {
-		flex-direction: row-reverse;
-		justify-content: flex-end;
+		flex-direction: row;
 		padding: $spacing-04 $spacing-06;
 		width: 100%;
 
 		.nav-links {
-			opacity: 0;
 			display: none;
+		}
+
+		.top-section {
+			width: 100%;
+			justify-content: flex-start;
 		}
 	}
 
 	.minimalist-sidebar-active {
 		position: fixed;
-		width: 100%;
 		height: 100%;
 		z-index: var(--layers-overlay);
 
 		// revert menu to use the column layout as used on the full-screen design
 		@include sidebar-element-alignments();
-		@include glass-background();
-		// TODO: this
-		// transition: backdrop-filter var(--sequence-fast);
+		animation: fade-in var(--sequence-fast);
 
 		.top-section,
 		.nav-links {
@@ -60,14 +59,12 @@
 		}
 
 		.top-section {
+			width: 40%;
 			justify-content: space-between;
 		}
 
 		.nav-links {
 			display: inherit;
-			opacity: 1;
-			// TODO: this
-			transition: var(--sequence-slow) opacity linear;
 		}
 
 		.page-links {
