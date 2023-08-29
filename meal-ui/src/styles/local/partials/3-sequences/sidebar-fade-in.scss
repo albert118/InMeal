@@ -1,0 +1,38 @@
+@keyframes minimalist-sidebar-fade-in {
+	from {
+		opacity: 0.3;
+		width: var(--sidebar-width);
+	}
+	to {
+		opacity: 1;
+		width: 18%;
+	}
+}
+
+@keyframes minimalist-sidebar-fade-out {
+	from {
+		width: 18%;
+	}
+	to {
+		width: var(--sidebar-width);
+	}
+}
+
+// the header fade is linked to the sidebar fade to move elements in-sync
+@keyframes header-fade-in {
+	from {
+		padding-left: var(--sidebar-width);
+	}
+	to {
+		padding-left: 18%;
+	}
+}
+
+@keyframes header-fade-out {
+	from {
+		padding-left: 18%;
+	}
+	to {
+		padding-left: var(--sidebar-width);
+	}
+}

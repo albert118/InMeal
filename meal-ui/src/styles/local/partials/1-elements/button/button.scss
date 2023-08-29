@@ -1,6 +1,7 @@
 @use '@carbon/react/scss/spacing' as *;
 @use './overrides';
 @use '../../../mixins/card-shadow' as *;
+@use '../../../mixins/text-mixins' as *;
 
 .btn {
 	border: 1px solid var(--mealui-colors-gray900);
@@ -17,23 +18,48 @@
 }
 
 .icon-btn {
-	color: var(--text);
-	font-size: 1.4em;
+	@include label();
+
+	svg {
+		font-size: 1rem;
+	}
 }
 
 .icon-btn:hover,
 .icon-btn:active {
-	color: var(--background);
-	opacity: 0.8;
+	@include label-hover-or-active();
+
+	svg {
+		color: var(--mealui-colors-purple700);
+	}
 }
 
 .labelled-icon-btn {
+	@include label();
 	gap: $spacing-06;
+
+	svg {
+		font-size: 1rem;
+	}
+}
+
+.labelled-icon-btn:hover,
+.labelled-icon-btn:active {
+	@include label-hover-or-active();
+	transition: all var(--sequence-fast) ease-in;
+	transition-property: color, opacity;
+
+	svg {
+		color: var(--mealui-colors-purple700);
+		transition: color var(--sequence-fast) ease-in;
+	}
 }
 
 .icon-btn:disabled,
 .icon-btn:disabled:hover,
 .icon-btn:disabled:active,
+.labelled-icon-btn:disabled:hover,
+.labelled-icon-btn:disabled:active,
 .btn:disabled:hover,
 .btn:disabled:active,
 .btn:disabled {

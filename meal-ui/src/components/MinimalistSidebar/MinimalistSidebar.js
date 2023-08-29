@@ -22,12 +22,18 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 			 	${isActive ? 'minimalist-sidebar-active' : ''} 
 				${isInActive ? 'minimalist-sidebar-inactive' : ''}`}
 		>
-			<HeroBrandingLogo
-				config={config}
-				onClick={() => navigate(AppRoutes.root)}
-			/>
-			<AnimatedHamburger callback={toggleActive} />
-			<div className='nav-links'>
+			<div className='top-section'>
+				{/* neater sidebar if the branding appears when expanded */}
+				{isActive && (
+					<HeroBrandingLogo
+						config={config}
+						onClick={() => navigate(AppRoutes.root)}
+					/>
+				)}
+				<AnimatedHamburger callback={toggleActive} />
+			</div>
+
+			<div className='nav-links page-links'>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faSeedling}
@@ -43,7 +49,7 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 					Manage Recipes
 				</NavLinkItem>
 			</div>
-			<div className='social-links'>
+			<div className='nav-links social-links'>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faGithub}

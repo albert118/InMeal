@@ -3,6 +3,13 @@
 	border: 1px solid var(--primary);
 }
 
+.cds--btn--ghost:hover,
+.cds--btn--primary.btn:active,
+.cds--btn--ghost:focus {
+	background-color: var(--mealui-colors-lynx-white);
+	border: 1px solid transparent;
+}
+
 .cds--btn--primary.btn:hover,
 .cds--btn--primary.btn:active,
 .cds--btn--primary.btn:focus {

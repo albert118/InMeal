@@ -1,34 +1,33 @@
 @use '@carbon/react/scss/spacing' as *;
+@use '../../mixins/text-mixins' as *;
 
 .hero-branding-logo {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
-
-	padding-left: $spacing-04;
-	padding-right: $spacing-04;
-	height: 100px;
+	margin: $spacing-02;
+	height: 60px;
 
 	.divider {
-		width: 70%;
+		width: 80%;
 		border: 1px solid var(--mealui-colors-gray900);
 	}
-}
 
-.hero-branding-logo:hover,
-.hero-branding-logo:active {
-	opacity: 0.8;
+	.hero-title {
+		display: flex;
+		justify-content: space-between;
+		column-gap: $spacing-06;
+		// shared elements will use this font-size
+		font-size: 0.9em;
 
-	.divider {
+		p {
+			@include logo-title();
+		}
+	}
+
+	&:hover,
+	&:active {
 		opacity: 0.8;
 	}
-}
-
-.hero-title {
-	font-size: 1.2em;
-	letter-spacing: $spacing-06;
-	padding-left: $spacing-06;
-	color: var(--text);
-	text-transform: uppercase;
 }

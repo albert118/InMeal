@@ -1,0 +1,106 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/glass-background' as *;
+@use 'helper-mixins' as *;
+
+@import 'nav-links.scss';
+
+.minimalist-sidebar {
+	// defined in layouts to ensure smoother animations
+	width: var(--sidebar-width);
+	display: flex;
+	@include sidebar-element-alignments();
+	@include text();
+	@include glass-background();
+	border: 1.25px solid var(--background-neutral);
+
+	.page-links {
+		height: 50%;
+	}
+
+	.top-section {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		column-gap: $spacing-06;
+		min-height: 20%;
+	}
+}
+
+/* header moves to top of page - change flex direction and simplify layout */
+@media (max-width: 1056px) {
+	.minimalist-sidebar {
+		flex-direction: row;
+		padding: $spacing-04 $spacing-06;
+		width: 100%;
+
+		.nav-links {
+			display: none;
+		}
+
+		.top-section {
+			width: 100%;
+			justify-content: flex-start;
+		}
+	}
+
+	.minimalist-sidebar-active {
+		position: fixed;
+		height: 100%;
+		z-index: var(--layers-overlay);
+
+		// revert menu to use the column layout as used on the full-screen design
+		@include sidebar-element-alignments();
+		animation: fade-in var(--sequence-fast);
+
+		.top-section,
+		.nav-links {
+			@include menu-card();
+		}
+
+		.top-section {
+			width: 40%;
+			justify-content: space-between;
+		}
+
+		.nav-links {
+			display: inherit;
+		}
+
+		.page-links {
+			height: 50%;
+		}
+	}
+}
+
+/* toggling the sidebar-heading shifts the layout around - but only for larger screens */
+@media (min-width: 1056px) {
+	.minimalist-sidebar-active {
+		animation: minimalist-sidebar-fade-in var(--sequence-fast) ease-out forwards;
+		background-color: transparent;
+		padding: 0 $spacing-04;
+
+		.labelled-icon-btn,
+		.labelled-icon-btn > span {
+			animation: fade-in var(--sequence-slow);
+		}
+
+		.top-section,
+		.nav-links {
+			width: 100%;
+			@include menu-card();
+		}
+
+		.top-section {
+			justify-content: space-between;
+		}
+	}
+
+	.minimalist-sidebar-inactive {
+		animation: minimalist-sidebar-fade-out var(--sequence-fast) ease-out forwards;
+
+		.icon-btn {
+			animation: fade-in var(--sequence-slow);
+		}
+	}
+}

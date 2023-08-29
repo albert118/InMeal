@@ -1,7 +1,7 @@
 /* all pages follow this layout */
 html,
 body {
-	--sidebar-width: 300px;
+	--sidebar-width: 100px;
 
 	margin: 0;
 	padding: 0;
@@ -46,29 +46,11 @@ header {
 /* toggling the sidebar-heading shifts the layout around - but only for larger screens */
 @media (min-width: 1056px) {
 	.header-active {
-		animation: header-fade-in 1s ease forwards;
+		animation: header-fade-in var(--sequence-fast) ease forwards;
 	}
 
 	.header-inactive {
-		animation: header-fade-out 1s ease forwards;
-	}
-
-	@keyframes header-fade-in {
-		from {
-			padding-left: var(--sidebar-width);
-		}
-		to {
-			padding-left: 30%;
-		}
-	}
-
-	@keyframes header-fade-out {
-		from {
-			padding-left: 30%;
-		}
-		to {
-			padding-left: var(--sidebar-width);
-		}
+		animation: header-fade-out var(--sequence-fast) ease forwards;
 	}
 }
 
@@ -79,7 +61,7 @@ body {
 
 .theming-gradient-1,
 .theming-gradient-2 {
-	z-index: -1;
+	z-index: var(--layers-background);
 	position: absolute;
 }
 
