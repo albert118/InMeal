@@ -68,8 +68,14 @@
 @mixin label {
 	@include text();
 	text-transform: lowercase;
-	opacity: 0.6;
-	font-size: 0.8rem;
+	opacity: 0.8;
+	font-size: 0.85rem;
+}
+
+@mixin label-hover-or-active {
+	@include label();
+	opacity: 1;
+	color: var(--mealui-colors-nero-black);
 }
 
 @mixin subscript-label {
