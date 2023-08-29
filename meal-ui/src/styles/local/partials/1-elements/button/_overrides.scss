@@ -4,10 +4,12 @@
 }
 
 .cds--btn--ghost:hover,
-.cds--btn--primary.btn:active,
-.cds--btn--ghost:focus {
-	background-color: var(--mealui-colors-lynx-white);
+.cds--btn--ghost:active {
 	border: 1px solid transparent;
+}
+
+.labelled-icon-btn.cds--btn--ghost:focus {
+	background-color: var(--mealui-colors-lynx-white);
 }
 
 .cds--btn--primary.btn:hover,

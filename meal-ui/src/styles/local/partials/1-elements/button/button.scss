@@ -45,6 +45,7 @@
 
 .labelled-icon-btn:hover,
 .labelled-icon-btn:active {
+	background-color: var(--mealui-colors-lynx-white);
 	@include label-hover-or-active();
 	transition: all var(--sequence-fast) ease-in;
 	transition-property: color, opacity;
