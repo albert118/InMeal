@@ -1,4 +1,9 @@
 /* all pages follow this layout */
+
+html {
+	overflow: hidden;
+}
+
 html,
 body {
 	--sidebar-width: 100px;
