@@ -46,15 +46,20 @@
 .labelled-icon-btn:hover,
 .labelled-icon-btn:active {
 	@include label-hover-or-active();
+	transition: all var(--sequence-fast) ease-in;
+	transition-property: color, opacity;
 
 	svg {
 		color: var(--mealui-colors-purple700);
+		transition: color var(--sequence-fast) ease-in;
 	}
 }
 
 .icon-btn:disabled,
 .icon-btn:disabled:hover,
 .icon-btn:disabled:active,
+.labelled-icon-btn:disabled:hover,
+.labelled-icon-btn:disabled:active,
 .btn:disabled:hover,
 .btn:disabled:active,
 .btn:disabled {
