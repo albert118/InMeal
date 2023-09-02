@@ -154,4 +154,14 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         
         await _recipeDbContext.SaveChangesAsync(ct);
     }
+
+    public async Task<bool> IsRecipeTitleUnique(string name, CancellationToken ct)
+    {
+        var countWithGivenName = await _recipeDbContext.Recipes
+            .Where(r => r.Title == name)
+            .ExcludeArchived()
+            .CountAsync(ct);
+
+        return countWithGivenName == 0;
+    }
 }

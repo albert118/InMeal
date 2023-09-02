@@ -19,4 +19,6 @@ public interface IAsyncRecipeRepository
     Task<Recipe> EditRecipeAsync(Recipe updatedRecipe, CancellationToken ct);
 
     Task ArchiveRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
+
+    Task<bool> IsRecipeTitleUnique(string name, CancellationToken ct);
 }

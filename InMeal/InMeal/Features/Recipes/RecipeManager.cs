@@ -65,6 +65,9 @@ public class RecipeManager : IRecipeManager
             dto.CookTime,
             dto.PrepTime
         );
+        
+        if (!await _recipeRepository.IsRecipeTitleUnique(newRecipe.Title, ct))
+            throw new RecipeUniqueTitleException($"A recipe should have a unique title ('{dto.Title}' has already been used)");
 
         newRecipe.UpdateIngredients(RecipeIngredientMapper.FromDto(dto.RecipeIngredients, newRecipe.Id));
         await _recipeRepository.AddRecipeAsync(newRecipe, ct);
