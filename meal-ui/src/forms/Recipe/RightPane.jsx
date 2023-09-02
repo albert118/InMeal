@@ -15,11 +15,7 @@ export function RightPane({ recipe, onUpdate, isAdd, handleCancel }) {
 				/>
 			</div>
 
-			<FormActions
-				showViewButton={isAdd && recipe.id}
-				recipeId={recipe.id}
-				handleCancel={handleCancel}
-			/>
+			<FormActions handleCancel={handleCancel} />
 		</div>
 	);
 }
