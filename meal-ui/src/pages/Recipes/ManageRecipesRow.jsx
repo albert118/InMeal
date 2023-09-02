@@ -9,7 +9,6 @@ export default function ManageRecipesRow({ label, recipes }) {
 					<SelectableRecipeCard
 						key={recipe.id}
 						recipe={recipe}
-						label={'this'}
 					></SelectableRecipeCard>
 				);
 			})}

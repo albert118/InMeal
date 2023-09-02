@@ -1,14 +1,13 @@
-// TODO: remove/refactor this
 import { ImageCard } from 'components/Card';
 import Selectable from 'components/Selectable';
 
-export function SelectableRecipeCard({ recipe, label, onClick, onCheck, ...additionalProps }) {
+export function SelectableRecipeCard({ recipe, onClick, onCheck, ...additionalProps }) {
 	return (
 		<ImageCard
 			key={additionalProps.key ?? recipe.id}
 			id={recipe.id}
 			className={additionalProps.className}
-			label={label}
+			label={recipe.title}
 			ctaHandler={onClick}
 			entityName='recipe'
 		>
