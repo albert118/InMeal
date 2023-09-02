@@ -71,7 +71,7 @@ public class RecipesController : ControllerBase
     }
 
     [HttpPost("[action]", Name = "View all recipes grouped by course")]
-    [ActionName("course")]
+    [ActionName("all/bycourse")]
     public ActionResult<RecipesByCourseDto> GetAll()
     {
         var result = _recipeManager.GetGroupedByMealCourseAsync(_tokenAccessor.Token)
