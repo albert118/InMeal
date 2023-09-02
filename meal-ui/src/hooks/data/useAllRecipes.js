@@ -1,11 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { ApiConfig } from 'config';
 import { useFetch } from 'hooks/fetch';
+import { ErrorDetailContext } from './errorContext';
 
 export default function useAllRecipes(mapper) {
 	const [recipes, setRecipes] = useState([]);
 	const [includeArchived, setIncludeArchived] = useState(false);
 	const [shouldRefresh, toggleRefresh] = useState(false);
+
+	const { setError } = useContext(ErrorDetailContext);
 
 	const { getApi, postApi } = useFetch();
 
@@ -17,29 +20,41 @@ export default function useAllRecipes(mapper) {
 		}
 	}, [shouldRefresh]);
 
-	const getAllRecipes = async () => {
+	function getAllRecipes() {
 		const url = `${ApiConfig.API_URL}/recipes/everything`;
-		postApi(url).then(data => setRecipes(data.map(mapper)));
-	};
+		postApi(url)
+			.then(data => {
+				setRecipes(data.map(mapper));
+				setError(null);
+			})
+			.catch(setError);
+	}
 
-	const getRecipesWithArchivedResults = async () => {
+	function getRecipesWithArchivedResults() {
 		const url = `${ApiConfig.API_URL}/recipes/archived`;
-		getApi(url).then(data => setRecipes(data.map(mapper)));
-	};
+		getApi(url)
+			.then(data => {
+				setRecipes(data.map(mapper));
+				setError(null);
+			})
+			.catch(setError);
+	}
 
-	const refreshData = args => {
+	function refreshData(args) {
 		if (args) {
 			const { includeArchived } = args;
 			setIncludeArchived(includeArchived);
 		}
 
 		toggleRefresh(!shouldRefresh);
-	};
+	}
 
-	const archiveRecipes = async ids => {
+	function archiveRecipes(ids) {
 		const url = `${ApiConfig.API_URL}/recipes/archive`;
-		postApi(url, ids);
-	};
+		postApi(url, ids)
+			.then(() => setError(null))
+			.catch(setError);
+	}
 
 	return { recipes, archiveRecipes, refreshData };
 }
