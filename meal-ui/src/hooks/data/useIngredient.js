@@ -13,12 +13,20 @@ export default function useIngredient() {
 			ingredientId: id,
 			newName: newName,
 			newUnit: newUnit
-		}).catch(setError);
+		})
+			.then(() => {
+				setError(null);
+			})
+			.catch(setError);
 	}
 
 	function deleteIngredient(id) {
 		const url = `${ApiConfig.API_URL}/ingredients/delete/${id}`;
-		return deleteApi(url).catch(setError);
+		return deleteApi(url)
+			.then(() => {
+				setError(null);
+			})
+			.catch(setError);
 	}
 
 	return { updateIngredient, deleteIngredient };
