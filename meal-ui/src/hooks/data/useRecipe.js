@@ -24,12 +24,13 @@ export default function useRecipe(recipeId) {
 		getRecipe(recipeId);
 	}, []);
 
-	function postRecipe(newRecipe) {
+	function postRecipe(newRecipe, onSuccess) {
 		const url = `${ApiConfig.API_URL}/recipes/add`;
 		postApi(url, newRecipe)
 			.then(data => {
 				setRecipe({ ...newRecipe, id: data });
 				setError(null);
+				if (!!onSuccess && typeof onSuccess === 'function') onSuccess(data);
 			})
 			.catch(errorDetail => setError(errorDetail));
 	}
