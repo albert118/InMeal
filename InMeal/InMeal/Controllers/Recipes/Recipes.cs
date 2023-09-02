@@ -82,7 +82,7 @@ public class RecipesController : ControllerBase
     }
 
     [HttpGet("[action]", Name = "Get all archived recipes")]
-    [ActionName("archived")]
+    [ActionName("all/archived")]
     public ActionResult<List<RecipeDto>> GetArchived()
     {
         // use the default for now, as pagination isn't a thing on this API yet
