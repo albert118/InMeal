@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 // allows implementing the useFetcher approach with react-router (simplifies the data layer)
 export default function App() {
 	return (
-		<div className='negative-space-scale'>
+		<div>
 			<BrowserRouter>
 				<RouterConfig />
 			</BrowserRouter>
