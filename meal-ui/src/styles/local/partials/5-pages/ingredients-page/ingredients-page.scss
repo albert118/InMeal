@@ -1,19 +1,9 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/page-title-block' as *;
 
 .p-ingredients {
-	margin-top: $spacing-08;
-	margin-left: $spacing-08;
-
-	& > h2 {
-		@include page-heading();
-		display: flex;
-		flex-direction: column;
-
-		label {
-			@include label();
-		}
-	}
+	@include page-title-block();
 
 	.edit-ingredient-form {
 		display: flex;
