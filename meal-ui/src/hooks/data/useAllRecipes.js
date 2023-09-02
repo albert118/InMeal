@@ -3,7 +3,7 @@ import { ApiConfig } from 'config';
 import { useFetch } from 'hooks/fetch';
 import { ErrorDetailContext } from './errorContext';
 
-export default function useAllRecipes(mapper) {
+export default function useAllRecipes() {
 	const [recipes, setRecipes] = useState([]);
 	const [includeArchived, setIncludeArchived] = useState(false);
 	const [shouldRefresh, toggleRefresh] = useState(false);
@@ -24,7 +24,7 @@ export default function useAllRecipes(mapper) {
 		const url = `${ApiConfig.API_URL}/recipes/everything`;
 		postApi(url)
 			.then(data => {
-				setRecipes(data.map(mapper));
+				setRecipes(data);
 				setError(null);
 			})
 			.catch(setError);
@@ -34,7 +34,7 @@ export default function useAllRecipes(mapper) {
 		const url = `${ApiConfig.API_URL}/recipes/archived`;
 		getApi(url)
 			.then(data => {
-				setRecipes(data.map(mapper));
+				setRecipes(data);
 				setError(null);
 			})
 			.catch(setError);

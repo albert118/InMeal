@@ -1,33 +1,25 @@
-import { Grid, Column } from '@carbon/react';
 import { Actions } from './Actions';
 import useManagementTable from './useManagementTable';
-import { SelectableRecipeCard } from 'components/RecipeCard';
+import ManageRecipesRow from './ManageRecipesRow';
 
 export function ManageRecipesTable() {
 	const { recipes, onAddOrRemove, onArchive, onViewArchived } = useManagementTable();
-
+	console.log(recipes);
 	return (
-		<Grid>
-			<Column
-				lg={16}
-				md={8}
-				sm={4}
-			>
-				{recipes.map(recipe => (
-					<SelectableRecipeCard
+		<div>
+			<Actions
+				onArchive={onArchive}
+				onViewArchived={onViewArchived}
+			/>
+			{recipes.map(recipe => {
+				return (
+					<ManageRecipesRow
+						label={1}
 						key={recipe.id}
-						className='recipe-grid--tile'
-						recipe={recipe}
-						label={recipe.content.title}
-						onClick={recipe.handler}
-						onCheck={onAddOrRemove}
+						className='index-row'
 					/>
-				))}
-				<Actions
-					onArchive={onArchive}
-					onViewArchived={onViewArchived}
-				/>
-			</Column>
-		</Grid>
+				);
+			})}
+		</div>
 	);
 }

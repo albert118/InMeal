@@ -1,24 +1,10 @@
 import { useState } from 'react';
-import AppRoutes from 'navigation/AppRoutes';
-import { demoImage } from 'DemoImage';
-import { useNavigate } from 'react-router-dom';
 import { useAllRecipes } from 'hooks/data';
 
 export default function useManagementTable() {
 	const [selectedItems, setSelectedItems] = useState([]);
 
-	const navigate = useNavigate();
-
-	const mapper = dto => {
-		return {
-			id: dto.id,
-			content: dto,
-			handler: id => navigate(`${AppRoutes.recipe}/${id}`),
-			image: demoImage
-		};
-	};
-
-	const { recipes, refreshData, archiveRecipes } = useAllRecipes(mapper);
+	const { recipes, refreshData, archiveRecipes } = useAllRecipes();
 
 	const addSelectedItem = newItem => {
 		setSelectedItems([...selectedItems, newItem]);
