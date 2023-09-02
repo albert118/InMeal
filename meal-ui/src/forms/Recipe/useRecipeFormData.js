@@ -57,11 +57,9 @@ export default function useRecipeFormData() {
 	function submitHandler(event) {
 		event.preventDefault();
 
-		if (isAdd) {
-			postRecipe(recipe, onSuccessfulAdd);
-		} else {
-			postEditedRecipe(recipe);
-		}
+		// update the recipe after adding for the first time
+		isAdd ? postRecipe(recipe, onSuccessfulAdd) : postEditedRecipe(recipe);
+		setFormStatus(FormStatuses.Saved);
 	}
 
 	return {
