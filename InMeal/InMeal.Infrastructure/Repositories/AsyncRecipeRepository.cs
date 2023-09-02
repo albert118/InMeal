@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using InMeal.Core.Entities;
+using InMeal.Core.Enumerations;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Infrastructure.IQueryableExtensions;
@@ -43,14 +44,14 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         return recipe.Id;
     }
 
-    public async Task<List<Recipe>> GetRecipesAsync(CancellationToken ct)
+    public async Task<Dictionary<MealCourse, List<Recipe>>> GetManyGroupedByMealCourseAsync(CancellationToken ct)
     {
-        var mementos = await _recipeDbContext.Recipes
-            .ExcludeArchived()
-            .Take(50)
-            .ToListAsync(ct);
-            
-        return mementos.Select(Recipe.FromMemento).ToList();
+        var mementos = await _recipeDbContext.Recipes.ExcludeArchived().ToListAsync(ct);
+        if (!mementos.Any()) return new Dictionary<MealCourse, List<Recipe>>();
+
+        return mementos
+               .GroupBy(e => e.CourseType)
+               .ToDictionary(grp => grp.Key, grp => grp.Select(Recipe.FromMemento).ToList());
     }
 
     public async Task<List<Recipe>> GetAllArchivedRecipesAsync(int take, int skip, CancellationToken ct)

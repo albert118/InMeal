@@ -1,4 +1,5 @@
 ﻿using InMeal.Core.Entities;
+using InMeal.Core.Enumerations;
 
 namespace InMeal.Infrastructure.Interfaces.DataServices;
 
@@ -8,7 +9,7 @@ public interface IAsyncRecipeRepository
 
     Task<RecipeId?> AddRecipeAsync(Recipe recipe, CancellationToken ct);
 
-    Task<List<Recipe>> GetRecipesAsync(CancellationToken ct);
+    Task<Dictionary<MealCourse, List<Recipe>>> GetManyGroupedByMealCourseAsync(CancellationToken ct);
 
     Task<List<Recipe>> GetAllArchivedRecipesAsync(int take, int skip, CancellationToken ct);
 

@@ -9,7 +9,7 @@ namespace InMeal.Features.Recipes;
 
 public interface IRecipeManager
 {
-    Task<List<Recipe>> GetManyAsync(CancellationToken ct);
+    Task<Dictionary<MealCourse, List<Recipe>>> GetGroupedByMealCourseAsync(CancellationToken ct);
 
     Task<List<Recipe>> GetManyAsync(IEnumerable<RecipeId> recipeIds, CancellationToken ct);
 
@@ -39,9 +39,9 @@ public class RecipeManager : IRecipeManager
         _recipeRepository = recipeRepository;
     }
 
-    public Task<List<Recipe>> GetManyAsync(CancellationToken ct)
+    public Task<Dictionary<MealCourse, List<Recipe>>> GetGroupedByMealCourseAsync(CancellationToken ct)
     {
-        return _recipeRepository.GetRecipesAsync(ct);
+        return _recipeRepository.GetManyGroupedByMealCourseAsync(ct);
     }
 
     public Task<List<Recipe>> GetManyAsync(IEnumerable<RecipeId> recipeIds, CancellationToken ct)
