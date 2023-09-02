@@ -64,8 +64,7 @@ public class IngredientsManager : IIngredientsManager
         await _ingredientRepository.UpdateAsync(ingredient, ct);
     }
 
-    public async Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(
-        CancellationToken ct)
+    public async Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(CancellationToken ct)
     {
         var indexedIngredients = await _ingredientRepository.GetManyOrderedAlphabeticallyAsync(ct);
 
