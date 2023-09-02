@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import MinimalistSidebar from 'components/MinimalistSidebar';
 import ThemingGradient from 'assets/theming-gradient.svg';
 
@@ -11,19 +11,13 @@ export default function Layout({ children }) {
 	const [isActive, setActive] = useState(false);
 	const [isInActive, setInActive] = useState(null);
 
-	const { error, setError } = useErrorDetail();
-	const { isLoading, setLoading } = useLoadingState();
-
-	const memoisedErrorContextValue = useMemo(() => ({ error, setError }), [error]);
-	const memoisedLoadingContextValue = useMemo(() => ({ isLoading, setLoading }), [isLoading]);
-
 	const getClassNames = () => {
 		return `${isActive ? 'header-active' : ''} ${isInActive ? 'header-inactive' : ''}`;
 	};
 
 	return (
-		<LoadingContext.Provider value={memoisedLoadingContextValue}>
-			<ErrorDetailContext.Provider value={memoisedErrorContextValue}>
+		<LoadingContext.Provider value={useLoadingState()}>
+			<ErrorDetailContext.Provider value={useErrorDetail()}>
 				<MinimalistSidebar
 					isActive={isActive}
 					setActive={setActive}

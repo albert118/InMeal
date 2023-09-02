@@ -13,7 +13,7 @@ public class Recipe : IHaveState<RecipeMemento>
 
         Id = new RecipeId(Guid.NewGuid());
 
-        Title = title;
+        Title = StandardiseTitle(title);
         Blurb = blurb ?? string.Empty;
         PreparationSteps = preparationSteps;
 
@@ -117,6 +117,8 @@ public class Recipe : IHaveState<RecipeMemento>
     {
         RecipeIngredients = new();
     }
+    
+    private static string StandardiseTitle(string title) => title.ToLowerInvariant().Trim();
 }
 
 public class RecipeId : Identity<Guid>

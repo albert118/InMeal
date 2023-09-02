@@ -4,8 +4,7 @@ import { RightPane } from './RightPane';
 import { LeftPane } from './LeftPane';
 
 export default function AddOrEdit() {
-	const { recipe, formStatus, errors, submitHandler, onUpdate, handleCancel, isAdd } =
-		useRecipeFormData();
+	const { recipe, formStatus, submitHandler, onUpdate, handleCancel, isAdd } = useRecipeFormData();
 
 	return (
 		<FormContainer
@@ -15,7 +14,6 @@ export default function AddOrEdit() {
 			<LeftPane
 				recipe={recipe}
 				formStatus={formStatus}
-				errors={errors}
 				onUpdate={onUpdate}
 			/>
 			<RightPane

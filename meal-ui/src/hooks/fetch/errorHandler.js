@@ -1,4 +1,4 @@
-import { objectMap } from 'utils';
+import { isFalsishOrEmpty, objectMap } from 'utils';
 
 export default function handleError(status, errorResponse) {
 	const unpackedErrors =
@@ -18,7 +18,9 @@ function unpackKestralErrorResponse(errorResponse) {
 
 function stringifyErrorArray(errors) {
 	return errors.length === 1
-		? errors[0]
+		? isFalsishOrEmpty(errors[0])
+			? 'no error details'
+			: errors[0]
 		: errors
 				.slice(0, -1)
 				.join(', ')

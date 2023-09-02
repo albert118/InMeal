@@ -17,21 +17,22 @@ export default function useRecipe(recipeId) {
 				setRecipe(data);
 				setError(null);
 			})
-			.catch(errorDetail => setError(errorDetail));
+			.catch(setError);
 	}
 
 	useEffect(() => {
 		getRecipe(recipeId);
 	}, []);
 
-	function postRecipe(newRecipe) {
+	function postRecipe(newRecipe, onSuccess) {
 		const url = `${ApiConfig.API_URL}/recipes/add`;
 		postApi(url, newRecipe)
 			.then(data => {
 				setRecipe({ ...newRecipe, id: data });
 				setError(null);
+				if (!!onSuccess && typeof onSuccess === 'function') onSuccess(data);
 			})
-			.catch(errorDetail => setError(errorDetail));
+			.catch(setError);
 	}
 
 	function postEditedRecipe(editedRecipe) {
@@ -41,7 +42,7 @@ export default function useRecipe(recipeId) {
 				setRecipe(editedRecipe);
 				setError(null);
 			})
-			.catch(errorDetail => setError(errorDetail));
+			.catch(setError);
 	}
 
 	return { postEditedRecipe, postRecipe, recipe };
