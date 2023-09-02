@@ -1,18 +1,33 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Modal } from 'carbon-components-react';
+import { ErrorDetailContext } from 'hooks/data';
 
 export default function EditModalWrapper({
 	editCallback,
+	refreshCallback,
 	headingText,
 	labelText,
 	buttonComponent,
 	children
 }) {
 	const [open, setOpen] = useState(false);
+	const { setError } = useContext(ErrorDetailContext);
 
 	function onSubmitWrapper() {
-		editCallback();
+		editCallback().then(hasError => {
+			if (hasError) return;
+
+			refreshCallback();
+			onCloseWrapper();
+		});
+	}
+
+	function onCloseWrapper() {
 		setOpen(false);
+		// remove the error when closing, as this modal
+		// implementation is too smart and remebers its state
+		// when we re-open itsetError
+		setError(null);
 	}
 
 	return (
@@ -25,7 +40,7 @@ export default function EditModalWrapper({
 				primaryButtonText='Save'
 				secondaryButtonText='Cancel'
 				onRequestSubmit={onSubmitWrapper}
-				onRequestClose={() => setOpen(false)}
+				onRequestClose={onCloseWrapper}
 				shouldSubmitOnEnter={true}
 			>
 				<div className='edit-modal__content'>{children}</div>

@@ -1,5 +1,5 @@
 import { IndexRow } from 'components';
-import { IngredientsModalBadge } from '../forms/IngredientsModalBadge';
+import { IngredientsModalBadge } from 'forms/EditIngredient';
 
 export default function IngredientsIndexRow({
 	label,

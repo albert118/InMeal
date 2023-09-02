@@ -13,12 +13,27 @@ export default function useIngredient() {
 			ingredientId: id,
 			newName: newName,
 			newUnit: newUnit
-		}).catch(setError);
+		})
+			.then(() => {
+				setError(null);
+			})
+			.catch(errorDetail => {
+				setError(errorDetail);
+				// allows the modal consumer to determine if an error exists
+				return true;
+			});
 	}
 
 	function deleteIngredient(id) {
 		const url = `${ApiConfig.API_URL}/ingredients/delete/${id}`;
-		return deleteApi(url).catch(setError);
+		return deleteApi(url)
+			.then(() => {
+				setError(null);
+			})
+			.catch(errorDetail => {
+				setError(errorDetail);
+				return true;
+			});
 	}
 
 	return { updateIngredient, deleteIngredient };

@@ -54,7 +54,11 @@ public class IngredientsManager : IIngredientsManager
             ?? throw new DataException($"no {nameof(Ingredient)} was found with the given ID '{key}'");
 
         // only update what's changed
-        if (dto.NewName != null) ingredient.UpdateName(dto.NewName);
+        if (dto.NewName != null) {
+            var isUnique = await _ingredientRepository.IsIngredientNameUnique(dto.NewName, ct);
+            if (!isUnique) throw new IngredientUniqueNameException($"An ingredient should have a unique name ('{dto.NewName}' has already been used)");
+            ingredient.UpdateName(dto.NewName);
+        }
         if (dto.NewUnit != null) ingredient.UpdateMeasurement(dto.NewUnit.Value);
 
         await _ingredientRepository.UpdateAsync(ingredient, ct);
