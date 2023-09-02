@@ -1,6 +1,5 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { Modal } from 'carbon-components-react';
-import { ErrorDetailContext } from 'hooks/data';
 
 export default function EditModalWrapper({
 	editCallback,
@@ -11,11 +10,10 @@ export default function EditModalWrapper({
 	children
 }) {
 	const [open, setOpen] = useState(false);
-	const { error } = useContext(ErrorDetailContext);
 
 	function onSubmitWrapper() {
-		editCallback().then(() => {
-			if (error !== null) return;
+		editCallback().then(hasError => {
+			if (hasError) return;
 
 			refreshCallback();
 			setOpen(false);

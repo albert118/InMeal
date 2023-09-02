@@ -17,7 +17,11 @@ export default function useIngredient() {
 			.then(() => {
 				setError(null);
 			})
-			.catch(setError);
+			.catch(errorDetail => {
+				setError(errorDetail);
+				// allows the modal consumer to determine if an error exists
+				return true;
+			});
 	}
 
 	function deleteIngredient(id) {
@@ -26,7 +30,10 @@ export default function useIngredient() {
 			.then(() => {
 				setError(null);
 			})
-			.catch(setError);
+			.catch(errorDetail => {
+				setError(errorDetail);
+				return true;
+			});
 	}
 
 	return { updateIngredient, deleteIngredient };
