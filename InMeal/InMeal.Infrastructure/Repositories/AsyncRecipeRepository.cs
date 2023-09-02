@@ -6,7 +6,7 @@ using InMeal.Infrastructure.IQueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace InMeal.Infrastructure.DataServices;
+namespace InMeal.Infrastructure.Repositories;
 
 [InstanceScopedService]
 public class AsyncRecipeRepository : IAsyncRecipeRepository
