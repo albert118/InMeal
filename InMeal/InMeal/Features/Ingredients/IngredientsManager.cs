@@ -14,8 +14,7 @@ public interface IIngredientsManager
 
     Task EditAsync(EditIngredientDto dto, CancellationToken ct);
     
-    Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(
-        CancellationToken ct);
+    Task<Dictionary<string, List<AlphabeticallyIndexedIngredientDto>>> GetUsagesSortedAlphabeticallyAsync(CancellationToken ct);
 
     Task<List<Ingredient>> AddAndGetExistingAsync(IEnumerable<string> names, CancellationToken ct);
 

@@ -31,4 +31,12 @@ public static class RecipeMapper
             )
         );
     }
+
+    public static RecipesByCourseDto ToDto(Dictionary<MealCourse, List<Recipe>> recipes)
+    {
+        return new(recipes.ToDictionary(
+            kvp => kvp.Key,
+            kvp => kvp.Value.Select(ToDto).ToList()
+        ));
+    }
 }

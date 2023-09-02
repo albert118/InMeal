@@ -1,4 +1,5 @@
 using InMeal.Core.Entities;
+using InMeal.Core.Enumerations;
 using InMeal.DTOs.Recipes;
 using InMeal.Features.Recipes;
 using InMeal.Mappers;
@@ -69,16 +70,15 @@ public class RecipesController : ControllerBase
         return Ok();
     }
 
-    // personally im not a fan of this endpoint, but it's a nice stop gap for smaller datasets where nothing complex is required
-    [HttpPost("[action]", Name = "View all stopgap")]
-    [ActionName("everything")]
-    public ActionResult<List<RecipeDto>> GetAll()
+    [HttpPost("[action]", Name = "View all recipes grouped by course")]
+    [ActionName("course")]
+    public ActionResult<RecipesByCourseDto> GetAll()
     {
-        var result = _recipeManager.GetManyAsync(_tokenAccessor.Token)
+        var result = _recipeManager.GetGroupedByMealCourseAsync(_tokenAccessor.Token)
                                    .GetAwaiter()
                                    .GetResult();
 
-        return !result.Any() ? NoContent() : Ok(result.Select(RecipeMapper.ToDto).ToList());
+        return !result.Any() ? NoContent() : Ok(RecipeMapper.ToDto(result));
     }
 
     [HttpGet("[action]", Name = "Get all archived recipes")]
