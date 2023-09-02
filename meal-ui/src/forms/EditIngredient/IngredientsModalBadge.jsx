@@ -7,10 +7,8 @@ import { ValidationErrors, ValidationWarnings } from 'forms/Validation';
 import { ErrorDetailContext } from 'hooks/data';
 
 export default function IngredientsModalBadge({ ingredient, refreshData, measurementOptions }) {
-	const { formData, onSubmit, onUpdate, getWarnings, disableDelete } = useEditIngredientFormData(
-		ingredient,
-		refreshData
-	);
+	const { formData, onSubmit, onUpdate, getWarnings, disableDelete } =
+		useEditIngredientFormData(ingredient);
 
 	const { error } = useContext(ErrorDetailContext);
 
@@ -23,6 +21,7 @@ export default function IngredientsModalBadge({ ingredient, refreshData, measure
 	return (
 		<EditModalWrapper
 			editCallback={onSubmit}
+			refreshCallback={refreshData}
 			headingText='Update ingredient'
 			labelText={`editing ${ingredient.name}`}
 			buttonComponent={
@@ -50,6 +49,8 @@ export default function IngredientsModalBadge({ ingredient, refreshData, measure
 					onChange={onDropdownUpdate}
 				/>
 
+				{error && <ValidationErrors errors={error} />}
+
 				<div className='edit-ingredient-form--remove'>
 					<Checkbox
 						name='isDeleted'
@@ -57,7 +58,6 @@ export default function IngredientsModalBadge({ ingredient, refreshData, measure
 						onClick={onUpdate}
 						disabled={disableDelete}
 					/>
-					{error && <ValidationErrors errors={error} />}
 					{disableDelete && <ValidationWarnings warnings={getWarnings()} />}
 				</div>
 			</div>
