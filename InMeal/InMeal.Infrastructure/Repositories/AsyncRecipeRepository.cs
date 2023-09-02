@@ -155,10 +155,10 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 
-    public async Task<bool> IsRecipeTitleUnique(string name, CancellationToken ct)
+    public async Task<bool> IsRecipeTitleUnique(string title, CancellationToken ct)
     {
         var countWithGivenName = await _recipeDbContext.Recipes
-            .Where(r => r.Title == name)
+            .Where(r => r.Title == title)
             .ExcludeArchived()
             .CountAsync(ct);
 
