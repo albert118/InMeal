@@ -55,8 +55,8 @@ public class IngredientsManager : IIngredientsManager
 
         // only update what's changed
         if (dto.NewName != null) {
-            var isExisting = await _ingredientRepository.IsIngredientNameUnique(dto.NewName, ct);
-            if (isExisting) throw new IngredientUniqueNameException($"An ingredient should have a unique name ('{dto.NewName}' has already been used)");
+            var isUnique = await _ingredientRepository.IsIngredientNameUnique(dto.NewName, ct);
+            if (!isUnique) throw new IngredientUniqueNameException($"An ingredient should have a unique name ('{dto.NewName}' has already been used)");
             ingredient.UpdateName(dto.NewName);
         }
         if (dto.NewUnit != null) ingredient.UpdateMeasurement(dto.NewUnit.Value);
