@@ -6,12 +6,12 @@ export default function useAlphabeticallyIndexedIngredients() {
 	const [indexedIngredients, setIndexedIngredients] = useState([]);
 	const [shouldRefresh, toggleRefresh] = useState(false);
 
+	const { getApi } = useFetch();
+
 	function getIndexedIngredients() {
 		const url = `${ApiConfig.API_URL}/ingredients/indexed`;
 		getApi(url).then(data => setIndexedIngredients(data));
 	}
-
-	const { getApi } = useFetch();
 
 	useEffect(() => {
 		getIndexedIngredients();
