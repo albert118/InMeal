@@ -5,8 +5,7 @@ const defaultFormState = (name, units) => {
 	return {
 		name: name,
 		unit: units.name,
-		isDeleted: false,
-		hasUpdated: false
+		isDeleted: false
 	};
 };
 
@@ -30,8 +29,7 @@ export default function useEditIngredientFormData(ingredient) {
 
 		setFormData({
 			...formData,
-			[event.target.name]: getTarget(event.target),
-			hasUpdated: true
+			[event.target.name]: getTarget(event.target)
 		});
 	}
 
@@ -45,7 +43,8 @@ export default function useEditIngredientFormData(ingredient) {
 		}
 
 		// dont post an update if no data has changed
-		if (formData.hasUpdated) {
+		// this hack is (again) because of the modal being 'clever' remembering state between re-opens
+		if (formData.name !== ingredient.name) {
 			return updateIngredient(ingredient.ingredientId, formData.name, formData.unit);
 		}
 
