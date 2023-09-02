@@ -16,12 +16,12 @@ export default function useAllRecipes() {
 		if (includeArchived) {
 			getRecipesWithArchivedResults();
 		} else {
-			getAllRecipes();
+			getAllGroupedByCourse();
 		}
 	}, [shouldRefresh]);
 
-	function getAllRecipes() {
-		const url = `${ApiConfig.API_URL}/recipes/everything`;
+	function getAllGroupedByCourse() {
+		const url = `${ApiConfig.API_URL}/recipes/all/bycourse`;
 		postApi(url)
 			.then(data => {
 				setRecipes(data);
@@ -31,7 +31,7 @@ export default function useAllRecipes() {
 	}
 
 	function getRecipesWithArchivedResults() {
-		const url = `${ApiConfig.API_URL}/recipes/archived`;
+		const url = `${ApiConfig.API_URL}/recipes/all/archived`;
 		getApi(url)
 			.then(data => {
 				setRecipes(data);
