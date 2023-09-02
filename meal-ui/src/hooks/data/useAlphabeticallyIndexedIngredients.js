@@ -8,14 +8,14 @@ export default function useAlphabeticallyIndexedIngredients() {
 
 	const { getApi } = useFetch();
 
-	function getIndexedIngredients() {
-		const url = `${ApiConfig.API_URL}/ingredients/indexed`;
-		getApi(url).then(data => setIndexedIngredients(data));
-	}
-
 	useEffect(() => {
+		function getIndexedIngredients() {
+			const url = `${ApiConfig.API_URL}/ingredients/indexed`;
+			getApi(url).then(data => setIndexedIngredients(data));
+		}
+
 		getIndexedIngredients();
-	}, [shouldRefresh]);
+	}, [shouldRefresh, getApi]);
 
 	const refreshData = () => {
 		toggleRefresh(!shouldRefresh);
