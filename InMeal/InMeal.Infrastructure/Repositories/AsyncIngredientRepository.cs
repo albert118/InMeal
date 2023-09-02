@@ -3,6 +3,7 @@ using InMeal.Core.Entities;
 using InMeal.Core.Extensions;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
+using InMeal.Infrastructure.IQueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace InMeal.Infrastructure.Repositories;
@@ -72,6 +73,16 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
 
         _recipeDbContext.Ingredients.Remove(existingIngredient);
         await _recipeDbContext.SaveChangesAsync(ct);
+    }
+
+    public async Task<bool> IsIngredientNameUnique(string name, CancellationToken ct)
+    {
+        var countWithGivenName = await _recipeDbContext.Ingredients
+           .Where(r => r.Name == name)
+           .ExcludeArchived()
+           .CountAsync(ct);
+
+        return countWithGivenName == 0;
     }
 
     public async Task AddManyAsync(List<Ingredient> ingredients, CancellationToken ct)

@@ -12,7 +12,7 @@ public class Ingredient : IHaveState<IngredientMemento>
             throw new ArgumentException($"{nameof(Ingredient)} cannot be created without a name");
 
         Id = id;
-        Name = name.ToLowerInvariant().Trim();
+        Name = StandardiseName(name);
         Unit = unit;
     }
     
@@ -40,7 +40,7 @@ public class Ingredient : IHaveState<IngredientMemento>
         if (string.IsNullOrEmpty(newName)) 
             throw new ArgumentException($"cannot update an {nameof(Ingredient)} with an empty name");
 
-        Name = newName;
+        Name = StandardiseName(newName);
     }
 
     public void UpdateMeasurement(MeasurementUnit newUnit)
@@ -58,6 +58,8 @@ public class Ingredient : IHaveState<IngredientMemento>
     public string Name { get; private set; }
     
     public MeasurementUnit Unit { get; private set; }
+    
+    private static string StandardiseName(string name) => name.ToLowerInvariant().Trim();
 }
 
 public class IngredientId : Identity<Guid>
