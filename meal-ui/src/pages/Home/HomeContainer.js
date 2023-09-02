@@ -1,7 +1,6 @@
 import AppRoutes from 'navigation/AppRoutes';
 import { useNavigate } from 'react-router-dom';
 import { useUpcomingRecipes } from 'hooks/data';
-import { CommonActions } from './CommonActions';
 import { QuickRecipesView } from './QuickRecipesView';
 import { Grid, Column } from '@carbon/react';
 
@@ -30,15 +29,6 @@ export default function HomeContainer() {
 					plannedRecipes={upcomingRecipes}
 					suggestedRecipes={upcomingRecipes}
 				/>
-			</Column>
-			<Column
-				className='p-home__r2'
-				max={16}
-				lg={16}
-				md={8}
-				sm={4}
-			>
-				<CommonActions />
 			</Column>
 		</Grid>
 	);

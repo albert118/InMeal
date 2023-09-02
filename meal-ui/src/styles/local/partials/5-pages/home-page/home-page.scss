@@ -3,8 +3,7 @@
 @use '../../../mixins/glass-background' as *;
 @use '../../../mixins/alignment' as *;
 
-.p-home__r1,
-.p-home__r2 {
+.p-home__r1 {
 	margin-top: $spacing-08;
 }
 
