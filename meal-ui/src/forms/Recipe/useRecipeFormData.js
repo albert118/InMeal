@@ -60,7 +60,6 @@ export default function useRecipeFormData() {
 	return {
 		recipe,
 		formStatus,
-		errors: error,
 		handleCancel,
 		onUpdate,
 		submitHandler,

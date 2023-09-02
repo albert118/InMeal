@@ -1,11 +1,13 @@
+import { useContext } from 'react';
 import { TitleBar, StatusBadge, Image } from 'components';
 import { LongTextInput, MultiSelectWithMultiLine, TextInput, NumberInput } from 'forms/Inputs';
 import { ValidationErrors } from 'forms/Validation';
 import { MultiSelectItemBadge } from './components';
-import { useIngredients } from 'hooks/data';
+import { ErrorDetailContext, useIngredients } from 'hooks/data';
 
-export function LeftPane({ recipe, formStatus, errors, onUpdate }) {
+export function LeftPane({ recipe, formStatus, onUpdate }) {
 	const { ingredients } = useIngredients();
+	const { error: errors } = useContext(ErrorDetailContext);
 
 	return (
 		<div className='card recipe-card two-pane-recipe-card--left'>
