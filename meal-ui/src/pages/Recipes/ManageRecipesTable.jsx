@@ -1,6 +1,7 @@
 import { Actions } from './Actions';
 import useManagementTable from './useManagementTable';
 import ManageRecipesRow from './ManageRecipesRow';
+import { objectMap } from 'utils';
 
 export function ManageRecipesTable() {
 	const { recipes, onAddOrRemove, onArchive, onViewArchived } = useManagementTable();
@@ -11,11 +12,12 @@ export function ManageRecipesTable() {
 				onArchive={onArchive}
 				onViewArchived={onViewArchived}
 			/>
-			{recipes.map(recipe => {
+			{objectMap(recipes, (group, recipes) => {
 				return (
 					<ManageRecipesRow
-						label={1}
-						key={recipe.id}
+						label={group}
+						key={group}
+						recipes={recipes}
 						className='index-row'
 					/>
 				);

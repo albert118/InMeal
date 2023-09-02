@@ -24,7 +24,7 @@ export default function useAllRecipes() {
 		const url = `${ApiConfig.API_URL}/recipes/all/bycourse`;
 		postApi(url)
 			.then(data => {
-				setRecipes(data);
+				setRecipes(data.recipes);
 				setError(null);
 			})
 			.catch(setError);

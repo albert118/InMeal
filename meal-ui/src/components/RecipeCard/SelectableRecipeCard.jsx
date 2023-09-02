@@ -1,13 +1,8 @@
+// TODO: remove/refactor this
 import { ImageCard } from 'components/Card';
 import Selectable from 'components/Selectable';
 
-export function SelectableRecipeCard({
-	recipe,
-	label,
-	onClick,
-	onCheck,
-	...additionalProps
-}) {
+export function SelectableRecipeCard({ recipe, label, onClick, onCheck, ...additionalProps }) {
 	return (
 		<ImageCard
 			key={additionalProps.key ?? recipe.id}
@@ -21,10 +16,10 @@ export function SelectableRecipeCard({
 				className='image-slot'
 				onClick={isSelected => onCheck(recipe.id, isSelected)}
 			>
-				<img
+				{/* <img
 					src={recipe.image.url}
 					alt={label}
-				/>
+				/> */}
 			</Selectable>
 		</ImageCard>
 	);
