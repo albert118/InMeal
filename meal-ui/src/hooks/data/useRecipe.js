@@ -17,7 +17,7 @@ export default function useRecipe(recipeId) {
 				setRecipe(data);
 				setError(null);
 			})
-			.catch(errorDetail => setError(errorDetail));
+			.catch(setError);
 	}
 
 	useEffect(() => {
@@ -32,7 +32,7 @@ export default function useRecipe(recipeId) {
 				setError(null);
 				if (!!onSuccess && typeof onSuccess === 'function') onSuccess(data);
 			})
-			.catch(errorDetail => setError(errorDetail));
+			.catch(setError);
 	}
 
 	function postEditedRecipe(editedRecipe) {
@@ -42,7 +42,7 @@ export default function useRecipe(recipeId) {
 				setRecipe(editedRecipe);
 				setError(null);
 			})
-			.catch(errorDetail => setError(errorDetail));
+			.catch(setError);
 	}
 
 	return { postEditedRecipe, postRecipe, recipe };
