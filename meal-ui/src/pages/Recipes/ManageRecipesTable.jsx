@@ -1,7 +1,7 @@
 import { Grid, Column } from '@carbon/react';
-import { RecipeGrid } from './RecipeGrid';
 import { Actions } from './Actions';
 import useManagementTable from './useManagementTable';
+import { SelectableRecipeCard } from 'components/RecipeCard';
 
 export function ManageRecipesTable() {
 	const { recipes, onAddOrRemove, onArchive, onViewArchived } = useManagementTable();
@@ -13,13 +13,16 @@ export function ManageRecipesTable() {
 				md={8}
 				sm={4}
 			>
-				<div className='recipes-grid-header'>
-					<h2>Manage Recipes</h2>
-				</div>
-				<RecipeGrid
-					addOrRemoveSelectedItem={onAddOrRemove}
-					recipes={recipes}
-				/>
+				{recipes.map(recipe => (
+					<SelectableRecipeCard
+						key={recipe.id}
+						className='recipe-grid--tile'
+						recipe={recipe}
+						label={recipe.content.title}
+						onClick={recipe.handler}
+						onCheck={onAddOrRemove}
+					/>
+				))}
 				<Actions
 					onArchive={onArchive}
 					onViewArchived={onViewArchived}

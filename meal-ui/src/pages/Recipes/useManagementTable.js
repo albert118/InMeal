@@ -36,22 +36,22 @@ export default function useManagementTable() {
 		}
 	};
 
-	const addOrRemoveSelectedItem = (item, toggle) => {
+	function onAddOrRemove(item, toggle) {
 		toggle ? addSelectedItem(item) : removeSelectedItem(item);
-	};
+	}
 
-	const onArchive = async () => {
-		await archiveRecipes(selectedItems);
+	function onArchive() {
+		archiveRecipes(selectedItems);
 		refreshData();
-	};
+	}
 
-	const onViewArchived = event => {
+	function onViewArchived(event) {
 		refreshData({ includeArchived: event.target.checked });
-	};
+	}
 
 	return {
 		recipes,
-		addOrRemoveSelectedItem,
+		onAddOrRemove,
 		onArchive,
 		onViewArchived
 	};
