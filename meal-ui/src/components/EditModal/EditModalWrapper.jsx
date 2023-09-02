@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Modal } from 'carbon-components-react';
+import { ErrorDetailContext } from 'hooks/data';
 
 export default function EditModalWrapper({
 	editCallback,
+	refreshCallback,
 	headingText,
 	labelText,
 	buttonComponent,
 	children
 }) {
 	const [open, setOpen] = useState(false);
+	const { error } = useContext(ErrorDetailContext);
 
 	function onSubmitWrapper() {
-		editCallback();
-		setOpen(false);
+		editCallback().then(() => {
+			if (error !== null) return;
+
+			refreshCallback();
+			setOpen(false);
+		});
 	}
 
 	return (
