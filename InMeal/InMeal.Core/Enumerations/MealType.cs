@@ -6,5 +6,10 @@ public enum MealType
     Sauce,
     Salad,
     Shake,
-    Side
+    Side,
+    Soup,
+    Curry,
+    MealPrep,
+    Drink,
+    Alcoholic
 }

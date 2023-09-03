@@ -7,5 +7,7 @@ public enum MealCourse
     Starter,
     Main,
     Dessert,
-    Snack
+    Snack,
+    Appetizer,
+    Aperitif
 }
