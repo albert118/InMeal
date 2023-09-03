@@ -1,19 +1,9 @@
 import { Tile } from '@carbon/react';
 import { ArrowRight } from '@carbon/icons-react';
 
-const ImageCard = ({
-	id,
-	className,
-	label,
-	ctaHandler,
-	...additionalProps
-}) => {
+const ImageCard = ({ id, className, label, ctaHandler, ...additionalProps }) => {
 	return (
-		<Tile
-			className={
-				className ? `card image-card ${className}` : `card image-card`
-			}
-		>
+		<Tile className={className ? `card image-card ${className}` : `card image-card`}>
 			<div className='image-slot'>{additionalProps.children}</div>
 			<div
 				className='action'
@@ -21,7 +11,7 @@ const ImageCard = ({
 			>
 				<h4>{label}</h4>
 				<label>
-					Got to {additionalProps.entityName ?? ''} <ArrowRight />
+					Go to {additionalProps.entityName ?? ''} <ArrowRight />
 				</label>
 			</div>
 		</Tile>
