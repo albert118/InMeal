@@ -1,0 +1,36 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/card-shadow' as *;
+
+.horiz-card {
+	// temp
+	margin: $spacing-06;
+	//////////////////
+
+	display: flex;
+	height: 350px;
+	border-radius: 0 12px 12px 0;
+	border: 1.25px solid var(--background-neutral);
+	background-color: var(--mealui-colors-black-russian);
+	@include card-shadow();
+
+	.horiz-card__image-slot {
+		width: 40%;
+	}
+
+	.horiz-card__content-slot {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin: $spacing-06 0;
+
+		h4 {
+			@include text-header();
+		}
+
+		.content-slot__badges {
+			display: flex;
+			gap: 8px;
+		}
+	}
+}
