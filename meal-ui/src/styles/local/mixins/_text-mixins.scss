@@ -39,8 +39,9 @@
 
 @mixin action-text {
 	@include text();
-	margin-top: $spacing-04;
-	margin-bottom: $spacing-04;
+	padding-top: $spacing-04;
+	padding-bottom: $spacing-04;
+	margin: $spacing-02;
 }
 
 @mixin wrappable-text {
