@@ -31,10 +31,5 @@
 		h4 {
 			@include text-header();
 		}
-
-		.content-slot__badges {
-			display: flex;
-			gap: 8px;
-		}
 	}
 }

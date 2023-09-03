@@ -2,7 +2,6 @@ import { Actions } from './Actions';
 import useManagementTable from './useManagementTable';
 import ManageRecipesRow from './ManageRecipesRow';
 import { objectMap } from 'utils';
-import { HorizontalCard } from 'components/Card';
 
 export function ManageRecipesTable() {
 	const { recipes, onAddOrRemove, onArchive, onViewArchived } = useManagementTable();
@@ -12,7 +11,6 @@ export function ManageRecipesTable() {
 				onArchive={onArchive}
 				onViewArchived={onViewArchived}
 			/>
-			<HorizontalCard />
 			{objectMap(recipes, (group, recipes) => {
 				return (
 					<ManageRecipesRow
