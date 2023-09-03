@@ -1,5 +1,5 @@
 import { Tile } from '@carbon/react';
-import { ArrowRight } from '@carbon/icons-react';
+import { GoToCTA } from 'components';
 
 const ImageCard = ({ id, className, label, ctaHandler, ...additionalProps }) => {
 	return (
@@ -10,9 +10,7 @@ const ImageCard = ({ id, className, label, ctaHandler, ...additionalProps }) => 
 				onClick={() => ctaHandler(id)}
 			>
 				<h4>{label}</h4>
-				<label>
-					Go to {additionalProps.entityName ?? ''} <ArrowRight />
-				</label>
+				<GoToCTA {...additionalProps} />
 			</div>
 		</Tile>
 	);

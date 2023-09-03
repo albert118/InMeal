@@ -1,0 +1,14 @@
+@use '../../mixins/text-mixins' as *;
+
+label.goto-cta {
+	@include action-text();
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	width: 100%;
+
+	&,
+	& > * {
+		cursor: pointer;
+	}
+}
