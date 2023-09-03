@@ -2,6 +2,7 @@
 body {
 	--cultured: #f8f9faff;
 	--dove-grey: #6b6b6b;
+	--alt-grey: #373737;
 
 	--success: #04d137ff;
 	--error: #ba0000ff;
@@ -25,12 +26,12 @@ body {
 	--mealui-colors-note: hsla(210, 39%, 47%, 1);
 
 	--primary: var(--mealui-colors-purple700);
-	--secondary: var(--meal-ui-colors-blue100);
+	--secondary: var(--mealui-colors-blue100);
 	--primary-action: var(--mealui-colors-purple700);
 	--secondary-action: var(--mealui-colors-blue600);
 	--foreground: var(--mealui-colors-lynx-white);
 	--background: var(--mealui-colours-angel-number-black);
-	--border: var(--mealui-colors-dark-cyan);
+	--border: var(--alt-grey);
 	--background-neutral: var(--mealui-colors-nero-black);
 	--input-background-disabled: var(--mealui-colors-nero-black);
 	--text-disabled: var(--dove-grey);
