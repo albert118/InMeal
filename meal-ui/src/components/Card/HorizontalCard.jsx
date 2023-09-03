@@ -18,7 +18,7 @@ export default function HorizontalCard({ image, navigateLocation, ...additionalP
 
 				<GoToCTA
 					location={navigateLocation}
-					additionalProps={additionalProps}
+					{...additionalProps}
 				/>
 			</div>
 		</div>
