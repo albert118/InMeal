@@ -2,7 +2,6 @@ using System.Data;
 using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 using InMeal.DTOs.Recipes;
-using InMeal.Infrastructure;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Mappers;
 
@@ -27,6 +26,8 @@ public interface IRecipeManager
     Task<RecipeCategoryId> AddCategoryAsync(RecipeId recipeId, Cuisine cuisineType, CancellationToken ct);
 
     Task RemoveCategoriesAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
+
+    RecipeMetaDto GetMeta();
 }
 
 [InstanceScopedBusinessService]
@@ -120,5 +121,14 @@ public class RecipeManager : IRecipeManager
         foreach (var recipe in recipes) recipe.RemoveCategory();
 
         await _recipeRepository.UpdateRecipesAsync(recipes, ct);
+    }
+
+    public RecipeMetaDto GetMeta()
+    {
+        return new(
+            Courses: Enum.GetValues<MealCourse>().ToDictionary(e => (int)e, e => e),
+            Types: Enum.GetValues<MealType>().ToDictionary(e => (int)e, e => e),
+            Categories: Enum.GetValues<Cuisine>().ToDictionary(e => (int)e, e => e)
+        );
     }
 }

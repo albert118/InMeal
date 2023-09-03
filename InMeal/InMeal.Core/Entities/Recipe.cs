@@ -101,7 +101,7 @@ public class Recipe : IHaveState<RecipeMemento>
         if (string.IsNullOrEmpty(title)) throw new ArgumentException("a title is required");
         if (string.IsNullOrEmpty(preparationSteps)) throw new ArgumentException("preparation steps are required");
 
-        Title = StandardiseTitle(title);;
+        Title = StandardiseTitle(title);
         Blurb = blurb ?? string.Empty;
         PreparationSteps = preparationSteps;
         

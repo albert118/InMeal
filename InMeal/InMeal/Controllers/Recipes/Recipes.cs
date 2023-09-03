@@ -137,4 +137,11 @@ public class RecipesController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpGet("[action]", Name = "Get available meal types")]
+    [ActionName("meta")]
+    public ActionResult<RecipeMetaDto> GetMealTypes()
+    {
+        return Ok(_recipeManager.GetMeta());
+    }
 }
