@@ -36,7 +36,7 @@ export function RightPane({ recipe, onUpdate, handleCancel }) {
 						label='choose a category'
 						items={categories}
 						title='category'
-						selectedItem={null}
+						selectedItem={recipe.category}
 						direction='top'
 						onChange={() => console.log('selected category')}
 					/>
@@ -45,7 +45,7 @@ export function RightPane({ recipe, onUpdate, handleCancel }) {
 						label='choose which type'
 						items={mealTypes}
 						title='meal type'
-						selectedItem={null}
+						selectedItem={recipe.type}
 						direction='top'
 						onChange={() => console.log('selected type')}
 					/>
@@ -53,8 +53,8 @@ export function RightPane({ recipe, onUpdate, handleCancel }) {
 						id='recipe-data__course'
 						label='choose which course'
 						items={courses}
-						title='meal type'
-						selectedItem={null}
+						title='course'
+						selectedItem={recipe.course}
 						direction='top'
 						onChange={() => console.log('selected course')}
 					/>
