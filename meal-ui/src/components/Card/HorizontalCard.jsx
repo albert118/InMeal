@@ -1,18 +1,15 @@
 import { demoImage } from 'DemoImage';
-import { Badge } from 'components';
-import { GoToCTA } from 'components';
+import { Badge, GoToCTA } from 'components';
 import AppRoutes from 'navigation/AppRoutes';
 
 export default function HorizontalCard({ onClick, children, ...additionalProps }) {
 	const onBadgeClick = () => console.log('clicked badge');
 
-	const _onClick = onClick ? () => console.log('cta clicked') : onClick;
-
 	return (
 		<div className='horiz-card'>
 			<div className='horiz-card__image-slot'>
 				<img
-					src={demoImage.src}
+					src={demoImage.url}
 					label={demoImage.label}
 				/>
 			</div>
