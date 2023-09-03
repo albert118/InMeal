@@ -88,14 +88,11 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         var memento = await _recipeDbContext.Recipes
                                             .Include(e => e.RecipeIngredients)
                                             .ThenInclude(e => e.Ingredient)
+                                            .Include(e => e.Category)
                                             .ExcludeArchived()
                                             .SingleOrDefaultAsync(r => r.Id == id.Key, ct);
 
-        if (memento == null) {
-            return null;
-        }
-
-        return Recipe.FromMemento(memento);
+        return memento == null ? null : Recipe.FromMemento(memento);
     }
 
     public async Task<Recipe> EditRecipeAsync(Recipe recipe, CancellationToken ct)
@@ -105,12 +102,33 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         var existingRecipe = await _recipeDbContext.Recipes
                                                    .Include(e => e.RecipeIngredients)
                                                    .ThenInclude(e => e.Ingredient)
+                                                   .Include(e => e.Category)
                                                    .ExcludeArchived()
                                                    .SingleOrDefaultAsync(r => r.Id == recipe.Id.Key, ct)
             ?? throw new DataException($"cannot find the given {nameof(Recipe)} with Id '{recipe.Id}'");
 
         try {
             _recipeDbContext.Entry(existingRecipe).CurrentValues.SetValues(recipe.State);
+
+            //////////////////////////////
+            // handle the category
+            //////////////////////////////
+
+            if (recipe.Category != null && existingRecipe.Category == null) {
+                _recipeDbContext.RecipeCategories.Add(recipe.Category.State);
+            } else if (recipe.Category != null && existingRecipe.Category != null) {
+                existingRecipe.Category.UpdateFrom(recipe.Category);
+                _recipeDbContext.RecipeCategories.Update(existingRecipe.Category);
+            } else {
+                // this path is simply for completeness when consuming the, DTOs
+                // the frontend currently sets every new recipe to have "unknown" as a default rather than null
+                // this may change in the future or may be different for other API consumers
+                _recipeDbContext.RecipeCategories.Remove(existingRecipe.Category!);
+            }
+
+            //////////////////////////////
+            // handle the ingredients
+            //////////////////////////////
 
             // remove any existing that aren't incoming
             var removedKeys = existingRecipe.RecipeIngredients.Select(e => e.Id).Except(recipe.RecipeIngredients.Select(e => e.Id.Key));
@@ -126,7 +144,6 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
                 var toUpdate = existingRecipe.RecipeIngredients.Single(ri => ri.Id == updatedValue.Id);
                 toUpdate.UpdateFrom(updatedValue);
                 _recipeDbContext.RecipeIngredients.Update(toUpdate);
-
             }
 
             // add everything else
