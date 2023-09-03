@@ -1,5 +1,5 @@
 export const DefaultMeta = Object.freeze({
-	courses: [],
+	courses: {},
 	types: [],
 	categories: []
 });

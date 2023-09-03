@@ -10,10 +10,10 @@ export default function useRecipe() {
 	const [meta, setMeta] = useState(DefaultMeta);
 
 	function getMeta() {
-		const url = `${ApiConfig.API_URL}/meta`;
+		const url = `${ApiConfig.API_URL}/recipes/meta`;
 		getApi(url)
 			.then(data => {
-				setMeta(meta);
+				setMeta(data);
 				setError(null);
 			})
 			.catch(setError);
@@ -21,7 +21,7 @@ export default function useRecipe() {
 
 	useEffect(() => {
 		getMeta();
-	}, [meta]);
+	}, []);
 
 	return { meta };
 }

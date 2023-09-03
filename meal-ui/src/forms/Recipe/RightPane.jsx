@@ -4,6 +4,7 @@ import { FormActions } from './components';
 
 export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 	const { categories, types, courses } = meta;
+	console.log(meta);
 
 	return (
 		<div className='card recipe-card two-pane-recipe-card--right'>
