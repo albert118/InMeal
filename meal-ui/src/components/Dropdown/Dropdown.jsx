@@ -1,5 +1,5 @@
 import { Dropdown } from '@carbon/react';
-import { objectMap } from 'utils';
+import { objectMap, stringifyType } from 'utils';
 
 export default function DropdownCustom({ items, onChange, ...additionalProps }) {
 	return (
@@ -22,13 +22,14 @@ function mapArray(items) {
 	return items.map(item => {
 		return {
 			id: item.id ? item.id : 1,
-			label: item.name
+			label: stringifyType(item.name),
+			...item
 		};
 	});
 }
 
 function mapObjects(items) {
 	return objectMap(items, (key, value) => {
-		return { id: key, label: value };
+		return { id: key, ...value };
 	});
 }

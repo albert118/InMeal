@@ -4,7 +4,12 @@ import { FormActions } from './components';
 
 export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 	const { categories, types, courses } = meta;
-	console.log(meta);
+
+	const onDropdownUpdate = (name, selected) => {
+		onUpdate({
+			target: { name: name, value: selected }
+		});
+	};
 
 	return (
 		<div className='card recipe-card two-pane-recipe-card--right'>
@@ -25,7 +30,7 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						title='category'
 						selectedItem={recipe.category}
 						direction='top'
-						onChange={() => console.log('selected category')}
+						onChange={selected => onDropdownUpdate('category', selected)}
 					/>
 					<Dropdown
 						id='recipe-data__type'
@@ -34,7 +39,7 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						title='meal type'
 						selectedItem={recipe.type}
 						direction='top'
-						onChange={() => console.log('selected type')}
+						onChange={selected => onDropdownUpdate('type', selected)}
 					/>
 					<Dropdown
 						id='recipe-data__course'
@@ -43,7 +48,7 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						title='course'
 						selectedItem={recipe.course}
 						direction='top'
-						onChange={() => console.log('selected course')}
+						onChange={selected => onDropdownUpdate('course', selected)}
 					/>
 				</div>
 			</div>

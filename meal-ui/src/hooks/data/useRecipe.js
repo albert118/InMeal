@@ -1,8 +1,9 @@
-import { useEffect, useState, useContext } from 'react';
 import { ApiConfig } from 'config';
-import { defaultRecipe } from 'types/DefaultRecipe';
-import { ErrorDetailContext } from './errorContext';
 import { useFetch } from 'hooks/fetch';
+import { useContext, useEffect, useState } from 'react';
+import { defaultRecipe } from 'types/DefaultRecipe';
+import { mapToEditedRecipeDto, mapToEditableRecipe } from 'types/Recipes';
+import { ErrorDetailContext } from './errorContext';
 
 export default function useRecipe(recipeId) {
 	const [recipe, setRecipe] = useState(defaultRecipe);
@@ -14,7 +15,7 @@ export default function useRecipe(recipeId) {
 		const url = `${ApiConfig.API_URL}/recipes/${id}`;
 		getApi(url)
 			.then(data => {
-				setRecipe(data);
+				setRecipe(mapToEditableRecipe(data));
 				setError(null);
 			})
 			.catch(setError);
@@ -37,8 +38,8 @@ export default function useRecipe(recipeId) {
 
 	function postEditedRecipe(editedRecipe) {
 		const url = `${ApiConfig.API_URL}/recipes/edit`;
-		postApi(url, editedRecipe)
-			.then(_ => {
+		postApi(url, mapToEditedRecipeDto(editedRecipe))
+			.then(() => {
 				setRecipe(editedRecipe);
 				setError(null);
 			})
