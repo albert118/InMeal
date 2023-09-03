@@ -2,8 +2,8 @@
 
 .two-pane-recipe-card {
 	display: flex;
-	justify-content: flex-start;
-	margin-left: $spacing-08;
+	justify-content: center;
+	column-gap: $spacing-06;
 
 	.two-pane-recipe-card--left {
 		border-radius: 12px 0 0 12px;

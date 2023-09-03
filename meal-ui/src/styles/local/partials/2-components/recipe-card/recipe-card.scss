@@ -6,9 +6,6 @@
 .recipe-card {
 	--card-height: 950px;
 	width: 750px;
-	margin-right: $spacing-02;
-	margin-left: $spacing-02;
-	margin-top: $spacing-04;
 	background-color: transparent;
 	@include text();
 

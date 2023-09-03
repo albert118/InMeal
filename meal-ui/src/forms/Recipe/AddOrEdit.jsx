@@ -4,7 +4,7 @@ import { RightPane } from './RightPane';
 import useRecipeFormData from './useRecipeFormData';
 
 export default function AddOrEdit() {
-	const { recipe, formStatus, submitHandler, onUpdate, handleCancel, isAdd } = useRecipeFormData();
+	const { recipe, formStatus, submitHandler, onUpdate, handleCancel } = useRecipeFormData();
 
 	return (
 		<FormContainer

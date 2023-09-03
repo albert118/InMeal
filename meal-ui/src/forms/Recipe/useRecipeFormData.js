@@ -67,7 +67,6 @@ export default function useRecipeFormData() {
 		formStatus,
 		handleCancel,
 		onUpdate,
-		submitHandler,
-		isAdd
+		submitHandler
 	};
 }
