@@ -1,6 +1,8 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/text-mixins' as *;
 @use '../../../mixins/card-shadow' as *;
+@use '../../../mixins/glass-background' as *;
+@use '../../../mixins/image-cover' as *;
 
 .horiz-card {
 	// temp
@@ -11,18 +13,20 @@
 	height: 350px;
 	border-radius: 0 12px 12px 0;
 	border: 1.25px solid var(--background-neutral);
-	background-color: var(--mealui-colors-black-russian);
+	@include glass-background();
 	@include card-shadow();
 
 	.horiz-card__image-slot {
 		width: 40%;
+		border-right: 1.25px solid var(--border);
+		@include image-cover();
 	}
 
 	.horiz-card__content-slot {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		margin: $spacing-06 0;
+		margin: $spacing-06;
 
 		h4 {
 			@include text-header();
