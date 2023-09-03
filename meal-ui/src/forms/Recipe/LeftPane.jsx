@@ -30,7 +30,7 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 				{errors && <ValidationErrors errors={errors} />}
 			</TitleBar>
 
-			<div className='recipe--data scrollbar-vertical'>
+			<div className='recipe-card__data scrollbar-vertical'>
 				<LongTextInput
 					className='recipe--blurb'
 					name='blurb'
@@ -61,7 +61,7 @@ function MultiSelectItemRow({ item, attrName, onRemove, onUpdate }) {
 			key={item.id}
 		>
 			<NumberInput
-				className='ingredient-form-row--quantity'
+				className='ingredient-form-row__quantity'
 				name='recipeIngredients'
 				id={item.label}
 				value={item.quantity}
@@ -69,6 +69,7 @@ function MultiSelectItemRow({ item, attrName, onRemove, onUpdate }) {
 				onChange={onUpdate}
 			/>
 			<MultiSelectItemBadge
+				className='ingredient-form-row__detail'
 				item={item}
 				attrName={attrName}
 				onChange={onRemove}

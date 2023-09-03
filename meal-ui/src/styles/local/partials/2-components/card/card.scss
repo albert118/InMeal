@@ -18,7 +18,6 @@
 }
 
 .card > .title-bar {
-	background-color: var(--background);
 	@include card-shadow-3();
 }
 

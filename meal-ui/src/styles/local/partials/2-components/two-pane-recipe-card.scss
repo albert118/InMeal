@@ -8,7 +8,7 @@
 	.two-pane-recipe-card--left {
 		border-radius: 12px 0 0 12px;
 
-		.recipe--data {
+		.recipe-card__data {
 			border-radius: 0 0 0 12px;
 		}
 
@@ -21,7 +21,7 @@
 	.two-pane-recipe-card--right {
 		border-radius: 0 12px 12px 0;
 
-		.recipe--data {
+		.recipe-card__data {
 			border-radius: 0 12px 0 0;
 			overflow-y: hidden;
 		}
