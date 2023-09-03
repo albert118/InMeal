@@ -1,7 +1,7 @@
 import { stringifyType } from 'utils';
 
 function mapToEditedRecipeDto(editedRecipe) {
-	return {
+	var x = {
 		Id: editedRecipe.id,
 		Title: editedRecipe.title,
 		Blurb: editedRecipe.blurb,
@@ -13,6 +13,8 @@ function mapToEditedRecipeDto(editedRecipe) {
 		Course: editedRecipe.course.original,
 		Type: editedRecipe.type.original
 	};
+	console.log(x);
+	return x;
 }
 
 function mapToEditableRecipe(recipe) {

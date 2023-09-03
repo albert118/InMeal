@@ -30,6 +30,6 @@ function mapArray(items) {
 
 function mapObjects(items) {
 	return objectMap(items, (key, value) => {
-		return { id: key, ...value };
+		return { id: key, label: stringifyType(value), original: value };
 	});
 }
