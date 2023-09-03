@@ -5,13 +5,9 @@
 @use '../../../mixins/image-cover' as *;
 
 .horiz-card {
-	// temp
-	margin: $spacing-06;
-	//////////////////
-
 	display: flex;
 	height: 350px;
-	border-radius: 0 12px 12px 0;
+	border-radius: 12px;
 	border: 1.25px solid var(--background-neutral);
 	@include glass-background();
 	@include card-shadow();
@@ -20,6 +16,10 @@
 		width: 40%;
 		border-right: 1.25px solid var(--border);
 		@include image-cover();
+
+		img {
+			border-radius: 12px 0 0 12px;
+		}
 	}
 
 	.horiz-card__content-slot {
