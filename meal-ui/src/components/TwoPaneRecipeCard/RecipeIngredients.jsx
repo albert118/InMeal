@@ -23,13 +23,14 @@ function IngredientItemRow({ item }) {
 			key={item.id}
 		>
 			<NumberInput
-				className='ingredient-form-row--quantity'
+				className='ingredient-form-row__quantity'
 				id={item.label}
 				value={item.quantity}
 				placeholder=''
 				disabled={true}
 			/>
 			<ItemBadge
+				className='ingredient-form-row__detail'
 				item={item}
 				subLabel={item.units.name}
 			/>

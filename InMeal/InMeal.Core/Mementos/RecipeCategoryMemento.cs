@@ -26,4 +26,9 @@ public sealed class RecipeCategoryMemento : EntityMemento
     private readonly HashSet<RecipeMemento>? _recipes;
     
     public IEnumerable<RecipeMemento> Recipes => _recipes?.ToList() ?? new();
+
+    public void UpdateFrom(RecipeCategory memento)
+    {
+        Category = memento.Category;
+    }
 }

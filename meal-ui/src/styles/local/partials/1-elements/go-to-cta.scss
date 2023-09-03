@@ -1,0 +1,20 @@
+@use '../../mixins/text-mixins' as *;
+
+label.goto-cta {
+	@include action-text();
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	border-radius: 12px;
+
+	&,
+	& > * {
+		cursor: pointer;
+	}
+
+	&:hover,
+	&:active {
+		background-color: var(--background-details);
+	}
+}

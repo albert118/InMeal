@@ -1,4 +1,5 @@
 using InMeal.Core.Entities;
+using InMeal.Core.Enumerations;
 using InMeal.DTOs.Recipes;
 using InMeal.Features.Recipes;
 using InMeal.Mappers;
@@ -57,7 +58,7 @@ public class RecipesController : ControllerBase
 
     [HttpPost("[action]", Name = "Edit an existing recipe")]
     [ActionName("edit")]
-    public IActionResult Patch(RecipeDto dto)
+    public IActionResult Patch(EditRecipeDto dto)
     {
         try {
             _recipeManager.EditAsync(dto, _tokenAccessor.Token)
@@ -69,20 +70,19 @@ public class RecipesController : ControllerBase
         return Ok();
     }
 
-    // personally im not a fan of this endpoint, but it's a nice stop gap for smaller datasets where nothing complex is required
-    [HttpPost("[action]", Name = "View all stopgap")]
-    [ActionName("everything")]
-    public ActionResult<List<RecipeDto>> GetAll()
+    [HttpPost("[action]", Name = "View all recipes grouped by course")]
+    [ActionName("all/bycourse")]
+    public ActionResult<RecipesByCourseDto> GetAll()
     {
-        var result = _recipeManager.GetManyAsync(_tokenAccessor.Token)
+        var result = _recipeManager.GetGroupedByMealCourseAsync(_tokenAccessor.Token)
                                    .GetAwaiter()
                                    .GetResult();
 
-        return !result.Any() ? NoContent() : Ok(result.Select(RecipeMapper.ToDto).ToList());
+        return !result.Any() ? NoContent() : Ok(RecipeMapper.ToDto(result));
     }
 
     [HttpGet("[action]", Name = "Get all archived recipes")]
-    [ActionName("archived")]
+    [ActionName("all/archived")]
     public ActionResult<List<RecipeDto>> GetArchived()
     {
         // use the default for now, as pagination isn't a thing on this API yet
@@ -136,5 +136,12 @@ public class RecipesController : ControllerBase
         } catch (Exception ex) {
             return BadRequest(ex.Message);
         }
+    }
+
+    [HttpGet("[action]", Name = "Get available meal types")]
+    [ActionName("meta")]
+    public ActionResult<RecipeMetaDto> GetMealTypes()
+    {
+        return Ok(_recipeManager.GetMeta());
     }
 }

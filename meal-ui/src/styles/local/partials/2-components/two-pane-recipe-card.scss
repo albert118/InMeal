@@ -2,14 +2,15 @@
 
 .two-pane-recipe-card {
 	display: flex;
-	justify-content: flex-start;
-	margin-left: $spacing-08;
+	justify-content: center;
+	column-gap: $spacing-06;
 
 	.two-pane-recipe-card--left {
 		border-radius: 12px 0 0 12px;
 
-		.recipe--data {
+		.recipe-card__data {
 			border-radius: 0 0 0 12px;
+			overflow-x: hidden;
 		}
 
 		.image-content,
@@ -21,9 +22,9 @@
 	.two-pane-recipe-card--right {
 		border-radius: 0 12px 12px 0;
 
-		.recipe--data {
+		.recipe-card__data {
 			border-radius: 0 12px 0 0;
-			overflow-y: hidden;
+			overflow-x: hidden;
 		}
 
 		.action-container {

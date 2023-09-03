@@ -1,28 +1,16 @@
 import { Tile } from '@carbon/react';
-import { ArrowRight } from '@carbon/icons-react';
+import { GoToCTA } from 'components';
 
-const ImageCard = ({
-	id,
-	className,
-	label,
-	ctaHandler,
-	...additionalProps
-}) => {
+const ImageCard = ({ id, className, label, ctaHandler, ...additionalProps }) => {
 	return (
-		<Tile
-			className={
-				className ? `card image-card ${className}` : `card image-card`
-			}
-		>
+		<Tile className={className ? `card image-card ${className}` : `card image-card`}>
 			<div className='image-slot'>{additionalProps.children}</div>
 			<div
 				className='action'
 				onClick={() => ctaHandler(id)}
 			>
 				<h4>{label}</h4>
-				<label>
-					Got to {additionalProps.entityName ?? ''} <ArrowRight />
-				</label>
+				<GoToCTA {...additionalProps} />
 			</div>
 		</Tile>
 	);

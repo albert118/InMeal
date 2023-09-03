@@ -2,9 +2,9 @@ import { Badge } from 'components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faX } from '@fortawesome/free-solid-svg-icons';
 
-export default function MultiSelectItemBadge({ item, attrName, onChange, subLabel }) {
+export default function MultiSelectItemBadge({ item, attrName, onChange, subLabel, className }) {
 	return (
-		<div className='e-multi-select-badge ingredient-form-row--ingredient-badge'>
+		<div className={`e-multi-select-badge ${className ?? ''}`}>
 			<Badge
 				id={item.id}
 				name={attrName}

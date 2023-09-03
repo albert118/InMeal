@@ -1,0 +1,40 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/card-shadow' as *;
+@use '../../../mixins/glass-background' as *;
+@use '../../../mixins/image-cover' as *;
+
+.horiz-card {
+	display: flex;
+	height: 350px;
+	border-radius: 12px;
+	border: 1.25px solid var(--background-neutral);
+	@include glass-background();
+	@include card-shadow();
+
+	// not needed? Idk why some are being inconsistent
+	width: 100%;
+
+	.horiz-card__image-slot {
+		width: 50%;
+		border-right: 1.25px solid var(--border);
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		@include image-cover();
+
+		img {
+			border-radius: 12px 0 0 12px;
+		}
+	}
+
+	.horiz-card__content-slot {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		margin: $spacing-06;
+
+		h4 {
+			@include text-header();
+		}
+	}
+}

@@ -1,11 +1,10 @@
-import { useState, useEffect, useContext } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import AppRoutes from 'navigation/AppRoutes';
-import { defaultRecipe } from 'types/DefaultRecipe';
 import { FormStatuses } from 'forms';
+import { ErrorDetailContext, useRecipe, useRecipeMeta } from 'hooks/data';
 import { useRecipeIngredients } from 'hooks/services';
-import { useRecipe } from 'hooks/data';
-import { ErrorDetailContext } from 'hooks/data';
+import AppRoutes from 'navigation/AppRoutes';
+import { useContext, useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { defaultRecipe } from 'types/DefaultRecipe';
 
 export default function useRecipeFormData() {
 	const { recipeId } = useParams();
@@ -13,6 +12,8 @@ export default function useRecipeFormData() {
 	const isAdd = !!!recipeId;
 
 	const { postEditedRecipe, postRecipe, recipe: existingRecipe } = useRecipe(recipeId);
+	const { meta } = useRecipeMeta();
+
 	const [recipe, setRecipe] = useState(existingRecipe ?? defaultRecipe);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
@@ -68,6 +69,6 @@ export default function useRecipeFormData() {
 		handleCancel,
 		onUpdate,
 		submitHandler,
-		isAdd
+		meta
 	};
 }

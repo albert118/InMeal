@@ -5,8 +5,8 @@
 
 .btn {
 	border: 1px solid var(--mealui-colors-gray900);
-	border-radius: 4px;
 	color: var(--text);
+	border-radius: 4px;
 	@include card-shadow-2();
 }
 

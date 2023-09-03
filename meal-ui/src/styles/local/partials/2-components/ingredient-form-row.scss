@@ -2,27 +2,20 @@
 
 .ingredient-form-row {
 	display: flex;
+	align-items: center;
 	column-gap: $spacing-02;
 	width: 100%;
+	background-color: var(--background);
+	border-radius: 12px;
+	padding: $spacing-04;
 
-	.ingredient-form-row--quantity,
-	.ingredient-form-row--ingredient-badge {
-		background-color: var(--background);
-	}
-
-	.ingredient-form-row--quantity {
-		padding: $spacing-04;
-		border-radius: 12px 0 0 12px;
+	.ingredient-form-row__quantity {
 		flex-grow: 1;
-		max-width: 25%;
+		max-width: 10%;
 	}
 
-	.ingredient-form-row--ingredient-badge {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		border-radius: 0 12px 12px 0;
+	.ingredient-form-row__detail {
 		flex-grow: 3;
-		max-width: 75%;
+		max-width: 90%;
 	}
 }

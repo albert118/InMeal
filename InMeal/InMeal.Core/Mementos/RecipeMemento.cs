@@ -18,9 +18,9 @@ public sealed class RecipeMemento : EntityMemento, IArchivable
 
         CookTime = recipe.CookTime;
         PrepTime = recipe.PrepTime;
-        CourseType = MealCourse.Unknown;
-        MealType = MealType.Unknown;
-        Servings = 1;
+        CourseType = recipe.CourseType;
+        MealType = recipe.MealType;
+        Servings = recipe.Servings;
 
         Category = recipe.Category?.State;
         CategoryId = recipe.Category?.Id.Key;

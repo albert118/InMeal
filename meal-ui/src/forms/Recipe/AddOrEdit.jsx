@@ -1,10 +1,10 @@
-import useRecipeFormData from './useRecipeFormData';
 import FormContainer from 'forms';
-import { RightPane } from './RightPane';
 import { LeftPane } from './LeftPane';
+import { RightPane } from './RightPane';
+import useRecipeFormData from './useRecipeFormData';
 
 export default function AddOrEdit() {
-	const { recipe, formStatus, submitHandler, onUpdate, handleCancel, isAdd } = useRecipeFormData();
+	const { recipe, formStatus, submitHandler, onUpdate, handleCancel, meta } = useRecipeFormData();
 
 	return (
 		<FormContainer
@@ -19,8 +19,8 @@ export default function AddOrEdit() {
 			<RightPane
 				recipe={recipe}
 				onUpdate={onUpdate}
-				isAdd={isAdd}
 				handleCancel={handleCancel}
+				meta={meta}
 			/>
 		</FormContainer>
 	);

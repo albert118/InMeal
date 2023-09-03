@@ -12,7 +12,8 @@
 	@include sidebar-element-alignments();
 	@include text();
 	@include glass-background();
-	border: 1.25px solid var(--background-neutral);
+	border: 1.25px solid var(--border);
+	border-radius: 12px;
 
 	.page-links {
 		height: 50%;

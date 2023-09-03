@@ -2,12 +2,5 @@
 @import './action-buttons.scss';
 
 .p-recipe {
-	// freeze scrolling
-	position: fixed;
-
-	.nav-actions {
-		display: flex;
-		align-items: flex-start;
-		margin: $spacing-08;
-	}
+	margin: $spacing-06;
 }

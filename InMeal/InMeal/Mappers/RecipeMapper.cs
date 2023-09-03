@@ -15,7 +15,25 @@ public static class RecipeMapper
             recipe.PreparationSteps,
             recipe.CookTime,
             recipe.PrepTime,
-            recipe.RecipeIngredients.Select(RecipeIngredientMapper.ToDto).ToList()
+            recipe.RecipeIngredients.Select(RecipeIngredientMapper.ToDto).ToList(),
+            recipe.GetCategoryName(),
+            recipe.CourseType.ToString(),
+            recipe.MealType.ToString()
+        );
+    }
+    
+    public static RecipeDetailDto ToDetailDto(Recipe recipe)
+    {
+        return new(
+            Id: recipe.Id.Key,
+            Title: recipe.Title,
+            CookTime: recipe.CookTime ?? 0,
+            PrepTime: recipe.PrepTime ?? 0,
+            Servings: recipe.Servings,
+            IngredientsCount: recipe.RecipeIngredients.Count,
+            Category: recipe.GetCategoryName(),
+            Course: recipe.CourseType.ToString(),
+            Type: recipe.MealType.ToString()
         );
     }
 
@@ -30,5 +48,13 @@ public static class RecipeMapper
                 "https://media.tenor.com/1TjGpMd7GEYAAAAC/stitch-dessert.gif"
             )
         );
+    }
+
+    public static RecipesByCourseDto ToDto(Dictionary<MealCourse, List<Recipe>> recipes)
+    {
+        return new(recipes.ToDictionary(
+            kvp => kvp.Key,
+            kvp => kvp.Value.Select(ToDetailDto).ToList()
+        ));
     }
 }
