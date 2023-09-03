@@ -4,7 +4,7 @@ import { RightPane } from './RightPane';
 import useRecipeFormData from './useRecipeFormData';
 
 export default function AddOrEdit() {
-	const { recipe, formStatus, submitHandler, onUpdate, handleCancel } = useRecipeFormData();
+	const { recipe, formStatus, submitHandler, onUpdate, handleCancel, meta } = useRecipeFormData();
 
 	return (
 		<FormContainer
@@ -20,6 +20,7 @@ export default function AddOrEdit() {
 				recipe={recipe}
 				onUpdate={onUpdate}
 				handleCancel={handleCancel}
+				meta={meta}
 			/>
 		</FormContainer>
 	);
