@@ -1,4 +1,5 @@
-﻿using InMeal.Core.Entities;
+﻿using System.Data.Common;
+using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 using InMeal.DTOs.Recipes;
 
@@ -16,6 +17,21 @@ public static class RecipeMapper
             recipe.CookTime,
             recipe.PrepTime,
             recipe.RecipeIngredients.Select(RecipeIngredientMapper.ToDto).ToList()
+        );
+    }
+    
+    public static RecipeDetailDto ToDetailDto(Recipe recipe)
+    {
+        return new(
+            Id: recipe.Id.Key,
+            Title: recipe.Title,
+            CookTime: recipe.CookTime ?? 0,
+            PrepTime: recipe.PrepTime ?? 0,
+            Servings: recipe.Servings,
+            IngredientsCount: recipe.RecipeIngredients.Count,
+            Category: recipe.GetCategoryName(),
+            Course: recipe.CourseType.ToString(),
+            Type: recipe.MealType.ToString()
         );
     }
 
@@ -36,7 +52,7 @@ public static class RecipeMapper
     {
         return new(recipes.ToDictionary(
             kvp => kvp.Key,
-            kvp => kvp.Value.Select(ToDto).ToList()
+            kvp => kvp.Value.Select(ToDetailDto).ToList()
         ));
     }
 }
