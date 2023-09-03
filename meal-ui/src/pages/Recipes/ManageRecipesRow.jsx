@@ -28,28 +28,28 @@ function RecipeDetailBadges({ recipe }) {
 		<div className='tiled-badges'>
 			<div className='tiled-badges__row'>
 				<Badge
-					text='main'
+					text={recipe.course}
 					labelText='course'
 					onClick={onBadgeClick}
 				/>
 				<Badge
-					text='breakfast'
+					text={recipe.category}
 					labelText='cuisine'
 					onClick={onBadgeClick}
 				/>
 				<Badge
-					text='meal'
+					text={recipe.type}
 					labelText='type'
 					onClick={onBadgeClick}
 				/>
 			</div>
 			<div className='tiled-badges__row'>
 				<Badge
-					text='servings: 2'
+					text={`servings: ${recipe.servings}`}
 					onClick={onBadgeClick}
 				/>
 				<Badge
-					text='ingredients: 11'
+					text={`ingredients: ${recipe.ingredientsCount}`}
 					onClick={onBadgeClick}
 				/>
 			</div>
