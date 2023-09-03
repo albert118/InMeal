@@ -28,21 +28,27 @@ function RecipeDetailBadges({ recipe }) {
 	return (
 		<div className='tiled-badges'>
 			<div className='tiled-badges__row'>
-				<Badge
-					text={stringifyType(recipe.course)}
-					labelText='course'
-					onClick={onBadgeClick}
-				/>
-				<Badge
-					text={stringifyType(recipe.category)}
-					labelText='cuisine'
-					onClick={onBadgeClick}
-				/>
-				<Badge
-					text={stringifyType(recipe.type)}
-					labelText='type'
-					onClick={onBadgeClick}
-				/>
+				{recipe.course !== 'Unknown' && (
+					<Badge
+						text={stringifyType(recipe.course)}
+						labelText='course'
+						onClick={onBadgeClick}
+					/>
+				)}
+				{recipe.category !== 'Unknown' && (
+					<Badge
+						text={stringifyType(recipe.category)}
+						labelText='cuisine'
+						onClick={onBadgeClick}
+					/>
+				)}
+				{recipe.type !== 'Unknown' && (
+					<Badge
+						text={stringifyType(recipe.type)}
+						labelText='type'
+						onClick={onBadgeClick}
+					/>
+				)}
 			</div>
 			<div className='tiled-badges__row'>
 				<Badge

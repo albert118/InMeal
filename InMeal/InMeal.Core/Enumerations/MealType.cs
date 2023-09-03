@@ -11,5 +11,6 @@ public enum MealType
     Curry,
     MealPrep,
     Drink,
-    Alcoholic
+    Alcoholic,
+    PantryBasics
 }

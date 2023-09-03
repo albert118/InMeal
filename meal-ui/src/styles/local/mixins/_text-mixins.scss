@@ -29,6 +29,7 @@
 	@include text();
 	margin-top: $spacing-05;
 	margin-bottom: $spacing-05;
+	text-transform: capitalize;
 	font-size: 1.8rem;
 }
 
