@@ -1,7 +1,7 @@
 import { LongTextInput } from 'forms/Inputs';
 import { FormActions } from './components';
 
-export function RightPane({ recipe, onUpdate, isAdd, handleCancel }) {
+export function RightPane({ recipe, onUpdate, handleCancel }) {
 	return (
 		<div className='card recipe-card two-pane-recipe-card--right'>
 			<div className='recipe--data'>
