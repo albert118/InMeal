@@ -2,13 +2,19 @@
 
 label.goto-cta {
 	@include action-text();
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: baseline;
-	width: 100%;
+	border-radius: 12px;
 
 	&,
 	& > * {
 		cursor: pointer;
+	}
+
+	&:hover,
+	&:active {
+		background-color: var(--background-details);
 	}
 }
