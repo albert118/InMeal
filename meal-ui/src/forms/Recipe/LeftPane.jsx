@@ -1,9 +1,9 @@
-import { useContext } from 'react';
-import { TitleBar, StatusBadge, Image } from 'components';
-import { LongTextInput, MultiSelectWithMultiLine, TextInput, NumberInput } from 'forms/Inputs';
+import { Image, StatusBadge, TitleBar } from 'components';
+import { LongTextInput, MultiSelectWithMultiLine, NumberInput, TextInput } from 'forms/Inputs';
 import { ValidationErrors } from 'forms/Validation';
-import { MultiSelectItemBadge } from './components';
 import { ErrorDetailContext, useIngredients } from 'hooks/data';
+import { useContext } from 'react';
+import { MultiSelectItemBadge } from './components';
 
 export function LeftPane({ recipe, formStatus, onUpdate }) {
 	const { ingredients } = useIngredients();
