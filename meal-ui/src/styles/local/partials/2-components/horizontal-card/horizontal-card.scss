@@ -12,9 +12,13 @@
 	@include glass-background();
 	@include card-shadow();
 
+	// not needed? Idk why some are being inconsistent
+	width: 100%;
+
 	.horiz-card__image-slot {
-		width: 40%;
+		width: 50%;
 		border-right: 1.25px solid var(--border);
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 		@include image-cover();
 
 		img {
@@ -23,6 +27,7 @@
 	}
 
 	.horiz-card__content-slot {
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;

@@ -39,8 +39,7 @@
 
 @mixin action-text {
 	@include text();
-	padding-top: $spacing-04;
-	padding-bottom: $spacing-04;
+	padding: $spacing-04 $spacing-02;
 	margin: $spacing-02;
 }
 
