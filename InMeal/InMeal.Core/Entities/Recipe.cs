@@ -96,7 +96,7 @@ public class Recipe : IHaveState<RecipeMemento>
         return Category == null ? Cuisine.Unknown.ToString() : Category.Category.ToString();
     }
     
-    public void EditDetails(string title, string? blurb, string preparationSteps, int? prepTime, int? cookTime)
+    public void EditDetails(string title, string? blurb, string preparationSteps)
     {
         if (string.IsNullOrEmpty(title)) throw new ArgumentException("a title is required");
         if (string.IsNullOrEmpty(preparationSteps)) throw new ArgumentException("preparation steps are required");
@@ -104,6 +104,13 @@ public class Recipe : IHaveState<RecipeMemento>
         Title = StandardiseTitle(title);;
         Blurb = blurb ?? string.Empty;
         PreparationSteps = preparationSteps;
+        
+    }
+
+    public void EditMeta(MealCourse course, MealType type, int? prepTime, int? cookTime)
+    {
+        CourseType = course;
+        MealType = type;
         PrepTime = prepTime;
         CookTime = cookTime;
     }

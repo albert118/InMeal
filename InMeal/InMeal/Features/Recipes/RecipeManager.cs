@@ -2,6 +2,7 @@ using System.Data;
 using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 using InMeal.DTOs.Recipes;
+using InMeal.Infrastructure;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Mappers;
 
@@ -17,7 +18,7 @@ public interface IRecipeManager
 
     Task<Recipe> AddAsync(RecipeDto dto, CancellationToken ct);
 
-    Task<Recipe> EditAsync(RecipeDto dto, CancellationToken ct);
+    Task<Recipe> EditAsync(EditRecipeDto dto, CancellationToken ct);
 
     Task<List<Recipe>> GetArchivedAsync(int? take, int? skip, CancellationToken ct);
 
@@ -75,16 +76,16 @@ public class RecipeManager : IRecipeManager
         return newRecipe;
     }
 
-    public async Task<Recipe> EditAsync(RecipeDto dto, CancellationToken ct)
+    public async Task<Recipe> EditAsync(EditRecipeDto dto, CancellationToken ct)
     {
-        if (!dto.Id.HasValue) throw new ArgumentException("An ID is required to edit an existing recipe");
-
-        var key = new RecipeId(dto.Id.Value);
+        var key = new RecipeId(dto.Id);
         var recipe = await _recipeRepository.GetRecipeAsync(key, ct)
-                     ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{key}'");
+                    ?? throw new DataException($"no {nameof(Recipe)} was found with the given ID '{key}'");
 
-        recipe.EditDetails(dto.Title, dto.Blurb, dto.PreparationSteps, dto.PrepTime, dto.CookTime);
+        recipe.EditDetails(dto.Title, dto.Blurb, dto.PreparationSteps);
         recipe.UpdateIngredients(RecipeIngredientMapper.FromDto(dto.RecipeIngredients, recipe.Id));
+        recipe.EditMeta(dto.Course, dto.Type, dto.PrepTime, dto.CookTime);
+        recipe.AddCategory(dto.Category);
 
         await _recipeRepository.EditRecipeAsync(recipe, ct);
 

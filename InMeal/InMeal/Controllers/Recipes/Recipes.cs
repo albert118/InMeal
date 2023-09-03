@@ -58,7 +58,7 @@ public class RecipesController : ControllerBase
 
     [HttpPost("[action]", Name = "Edit an existing recipe")]
     [ActionName("edit")]
-    public IActionResult Patch(RecipeDto dto)
+    public IActionResult Patch(EditRecipeDto dto)
     {
         try {
             _recipeManager.EditAsync(dto, _tokenAccessor.Token)

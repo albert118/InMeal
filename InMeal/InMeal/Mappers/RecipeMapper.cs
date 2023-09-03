@@ -1,5 +1,4 @@
-﻿using System.Data.Common;
-using InMeal.Core.Entities;
+﻿using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
 using InMeal.DTOs.Recipes;
 
@@ -16,7 +15,10 @@ public static class RecipeMapper
             recipe.PreparationSteps,
             recipe.CookTime,
             recipe.PrepTime,
-            recipe.RecipeIngredients.Select(RecipeIngredientMapper.ToDto).ToList()
+            recipe.RecipeIngredients.Select(RecipeIngredientMapper.ToDto).ToList(),
+            recipe.GetCategoryName(),
+            recipe.CourseType.ToString(),
+            recipe.MealType.ToString()
         );
     }
     
