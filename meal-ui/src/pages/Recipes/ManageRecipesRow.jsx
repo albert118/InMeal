@@ -1,6 +1,7 @@
 import { Badge, IndexRow } from 'components';
 import { HorizontalCard } from 'components/Card';
 import AppRoutes from 'navigation/AppRoutes';
+import { stringifyType } from 'utils';
 
 export default function ManageRecipesRow({ label, recipes }) {
 	return (
@@ -28,17 +29,17 @@ function RecipeDetailBadges({ recipe }) {
 		<div className='tiled-badges'>
 			<div className='tiled-badges__row'>
 				<Badge
-					text={recipe.course}
+					text={stringifyType(recipe.course)}
 					labelText='course'
 					onClick={onBadgeClick}
 				/>
 				<Badge
-					text={recipe.category}
+					text={stringifyType(recipe.category)}
 					labelText='cuisine'
 					onClick={onBadgeClick}
 				/>
 				<Badge
-					text={recipe.type}
+					text={stringifyType(recipe.type)}
 					labelText='type'
 					onClick={onBadgeClick}
 				/>
