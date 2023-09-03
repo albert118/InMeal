@@ -46,7 +46,12 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
     public async Task<Dictionary<MealCourse, List<Recipe>>> GetManyGroupedByMealCourseAsync(CancellationToken ct)
     {
-        var mementos = await _recipeDbContext.Recipes.ExcludeArchived().ToListAsync(ct);
+        var mementos = await _recipeDbContext.Recipes
+             .ExcludeArchived()
+             .Include(e => e.RecipeIngredients)
+             .Include(e => e.Category)
+             .ToListAsync(ct);
+
         if (!mementos.Any()) return new Dictionary<MealCourse, List<Recipe>>();
 
         return mementos
