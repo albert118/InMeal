@@ -13,6 +13,6 @@ public static class IsArchived
     public static IQueryable<TEntity> IncludeArchived<TEntity>(this IQueryable<TEntity> query)
         where TEntity : IArchivable
     {
-        return query.Where(e => e.IsArchived);
+        return query.Where(e => e.IsArchived || !e.IsArchived);
     }
 }
