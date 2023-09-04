@@ -18,6 +18,7 @@ export function ManageRecipesTable() {
 				return (
 					<ManageRecipesRow
 						label={group}
+						onClick={onAddOrRemove}
 						key={group}
 						recipes={recipes}
 						className='index-row'

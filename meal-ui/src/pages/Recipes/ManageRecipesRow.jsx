@@ -3,7 +3,7 @@ import { HorizontalCard } from 'components/Card';
 import AppRoutes from 'navigation/AppRoutes';
 import { stringifyType } from 'utils';
 
-export default function ManageRecipesRow({ label, recipes }) {
+export default function ManageRecipesRow({ label, recipes, onClick }) {
 	return (
 		<IndexRow label={label}>
 			{recipes.map(recipe => {
@@ -13,6 +13,7 @@ export default function ManageRecipesRow({ label, recipes }) {
 						navigateLocation={`${AppRoutes.recipe}/${recipe.id}`}
 						title={recipe.title}
 						entityName='recipe'
+						onClick={() => onClick(recipe)}
 					>
 						<RecipeDetailBadges recipe={recipe} />
 					</HorizontalCard>

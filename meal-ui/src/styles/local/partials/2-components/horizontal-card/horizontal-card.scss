@@ -48,6 +48,14 @@
 		}
 	}
 
+	.horiz-card__image-slot-selected {
+		background-color: var(--secondary);
+
+		img {
+			opacity: 0.05;
+		}
+	}
+
 	.horiz-card__content-slot {
 		width: 100%;
 		display: flex;

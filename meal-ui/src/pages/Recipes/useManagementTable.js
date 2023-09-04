@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAllRecipes } from 'hooks/data';
 
 export default function useManagementTable() {
@@ -6,24 +6,18 @@ export default function useManagementTable() {
 
 	const { recipes, refreshData, archiveRecipes } = useAllRecipes();
 
-	const addSelectedItem = newItem => {
-		setSelectedItems([...selectedItems, newItem]);
-	};
+	useEffect(() => {
+		console.log(selectedItems);
+	}, [selectedItems]);
 
-	const removeSelectedItem = oldItem => {
-		const idx = selectedItems.indexOf(oldItem);
+	function onAddOrRemove(recipe) {
+		const addedAlready = selectedItems.indexOf(recipe) > -1;
 
-		if (idx > -1) {
-			const tempItems = [...selectedItems];
-			tempItems.splice(idx, 1);
-			setSelectedItems(tempItems);
+		if (addedAlready) {
+			setSelectedItems([...selectedItems.filter(i => i.id !== recipe.id)]);
 		} else {
-			console.warn('cannot remove unknown item from grid');
+			setSelectedItems([...selectedItems, recipe]);
 		}
-	};
-
-	function onAddOrRemove(item, toggle) {
-		toggle ? addSelectedItem(item) : removeSelectedItem(item);
 	}
 
 	function onArchive() {
