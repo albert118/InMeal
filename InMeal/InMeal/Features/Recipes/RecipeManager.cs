@@ -9,7 +9,7 @@ namespace InMeal.Features.Recipes;
 
 public interface IRecipeManager
 {
-    Task<Dictionary<MealCourse, List<Recipe>>> GetGroupedByMealCourseAsync(CancellationToken ct);
+    Task<Dictionary<MealCourse, List<Recipe>>> GetGroupedByMealCourseAsync(bool includeArchived, CancellationToken ct);
 
     Task<List<Recipe>> GetManyAsync(IEnumerable<RecipeId> recipeIds, CancellationToken ct);
 
@@ -18,8 +18,6 @@ public interface IRecipeManager
     Task<Recipe> AddAsync(RecipeDto dto, CancellationToken ct);
 
     Task<Recipe> EditAsync(EditRecipeDto dto, CancellationToken ct);
-
-    Task<List<Recipe>> GetArchivedAsync(int? take, int? skip, CancellationToken ct);
 
     Task ArchiveAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
 
@@ -41,9 +39,9 @@ public class RecipeManager : IRecipeManager
         _recipeRepository = recipeRepository;
     }
 
-    public Task<Dictionary<MealCourse, List<Recipe>>> GetGroupedByMealCourseAsync(CancellationToken ct)
+    public Task<Dictionary<MealCourse, List<Recipe>>> GetGroupedByMealCourseAsync(bool includeArchived, CancellationToken ct)
     {
-        return _recipeRepository.GetManyGroupedByMealCourseAsync(ct);
+        return _recipeRepository.GetManyGroupedByMealCourseAsync(includeArchived, ct);
     }
 
     public Task<List<Recipe>> GetManyAsync(IEnumerable<RecipeId> recipeIds, CancellationToken ct)
@@ -92,11 +90,6 @@ public class RecipeManager : IRecipeManager
         await _recipeRepository.EditRecipeAsync(recipe, ct);
 
         return recipe;
-    }
-
-    public Task<List<Recipe>> GetArchivedAsync(int? take, int? skip, CancellationToken ct)
-    {
-        return _recipeRepository.GetAllArchivedRecipesAsync(take ?? DefaultTake, skip ?? 0, ct);
     }
 
     public Task ArchiveAsync(IEnumerable<RecipeId> ids, CancellationToken ct)

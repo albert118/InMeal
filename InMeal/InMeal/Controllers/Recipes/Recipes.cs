@@ -72,25 +72,13 @@ public class RecipesController : ControllerBase
 
     [HttpPost("[action]", Name = "View all recipes grouped by course")]
     [ActionName("all/bycourse")]
-    public ActionResult<RecipesByCourseDto> GetAll()
+    public ActionResult<RecipesByCourseDto> GroupedByCourse(GroupedByCourse request)
     {
-        var result = _recipeManager.GetGroupedByMealCourseAsync(_tokenAccessor.Token)
+        var result = _recipeManager.GetGroupedByMealCourseAsync(includeArchived: request.IncludeArchived, _tokenAccessor.Token)
                                    .GetAwaiter()
                                    .GetResult();
 
         return !result.Any() ? NoContent() : Ok(RecipeMapper.ToDto(result));
-    }
-
-    [HttpGet("[action]", Name = "Get all archived recipes")]
-    [ActionName("all/archived")]
-    public ActionResult<List<RecipeDto>> GetArchived()
-    {
-        // use the default for now, as pagination isn't a thing on this API yet
-        var results = _recipeManager.GetArchivedAsync(null, null, _tokenAccessor.Token)
-                                    .GetAwaiter()
-                                    .GetResult();
-
-        return !results.Any() ? NoContent() : Ok(results.Select(RecipeMapper.ToDto).ToList());
     }
 
     [HttpPost("[action]", Name = "Archive given Recipes")]
