@@ -9,6 +9,7 @@ export default function ToggleCustom({ onClick, ...additionalProps }) {
 
 	return (
 		<Toggle
+			className={`toggle ${additionalProps.className ?? ''}`}
 			onClick={onClickAdaptor}
 			{...additionalProps}
 		/>

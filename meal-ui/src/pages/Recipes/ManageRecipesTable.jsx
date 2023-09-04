@@ -37,7 +37,6 @@ function Actions({ onViewArchived, onArchive }) {
 				<div className='filters'>
 					<Toggle
 						id='1'
-						className='font-white'
 						labelText='view archived'
 						onClick={onViewArchived}
 					/>
