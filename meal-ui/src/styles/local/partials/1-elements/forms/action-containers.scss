@@ -7,35 +7,24 @@
 	top: $spacing-04;
 	margin: $spacing-04;
 	display: flex;
-	flex-direction: column;
 	z-index: var(--layers-foreground);
 
-	.action-container__invisible-gutter {
+	.action-container__card {
 		@include glass-background();
-		position: fixed;
-		height: calc(130px + $spacing-04);
-		z-index: var(--layers-midground);
-		padding: $spacing-05;
-		min-width: 100vw;
-		top: 0;
-		left: 0;
-		// apply a mask to blur the hard bottom edge
-		// I could tweak this more, but moving on for now
-		mask: linear-gradient(to top, var(--background-details) -20%, var(--background) 40%);
-	}
-
-	.action-container__invisible-gutter_active {
-		// on scrolling, this will fade in
-		animation: fade-in var(--sequence-fast);
-	}
-
-	.action-container__actions {
-		background-color: var(--background-neutral);
 		@include card-shadow-3();
 		height: 130px;
 		padding: $spacing-05;
 		min-width: 100%;
 		border-radius: 12px;
-		z-index: var(--layers-foreground);
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		.filters,
+		.actions {
+			flex: 1;
+			display: flex;
+			gap: $spacing-02;
+		}
 	}
 }
