@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { faSquarePlus, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { demoImage } from 'DemoImage';
 import { GoToCTA } from 'components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquarePlus, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 export default function HorizontalCard({ onClick, image, navigateLocation, ...additionalProps }) {
 	const { url, label } = image ?? demoImage;
