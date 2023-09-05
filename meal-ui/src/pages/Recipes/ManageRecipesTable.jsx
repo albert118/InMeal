@@ -6,14 +6,11 @@ import ManageRecipesRow from './ManageRecipesRow';
 import useManagementTable from './useManagementTable';
 
 export function ManageRecipesTable() {
-	const { recipes, onAddOrRemove, onArchive, onViewArchived } = useManagementTable();
+	const { recipes, onAddOrRemove, ...hookProps } = useManagementTable();
 
 	return (
 		<div>
-			<Actions
-				onArchive={onArchive}
-				onViewArchived={onViewArchived}
-			/>
+			<Actions {...hookProps} />
 			{objectMap(recipes, (group, recipes) => {
 				return (
 					<ManageRecipesRow
@@ -29,7 +26,7 @@ export function ManageRecipesTable() {
 	);
 }
 
-function Actions({ onViewArchived, onArchive }) {
+function Actions({ onViewArchived, onArchive, selectedItems, onRestore }) {
 	const navigate = useNavigate();
 
 	return (
@@ -45,15 +42,23 @@ function Actions({ onViewArchived, onArchive }) {
 				<div className='actions'>
 					<Button
 						onClick={() => navigate(`${AppRoutes.recipe}/add`)}
-						kind='secondary'
+						kind='primary'
 					>
 						add
 					</Button>
 					<Button
 						onClick={onArchive}
 						kind='secondary'
+						disabled={selectedItems.length < 1}
 					>
 						archive
+					</Button>
+					<Button
+						onClick={onRestore}
+						kind='secondary'
+						disabled={selectedItems.length < 1}
+					>
+						restore
 					</Button>
 				</div>
 			</div>

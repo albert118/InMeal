@@ -42,5 +42,12 @@ export default function useAllRecipes() {
 			.catch(setError);
 	}
 
-	return { recipes, archiveRecipes, refreshData };
+	function restoreRecipes(ids) {
+		const url = `${ApiConfig.API_URL}/recipes/restore`;
+		postApi(url, ids)
+			.then(() => setError(null))
+			.catch(setError);
+	}
+
+	return { recipes, archiveRecipes, refreshData, restoreRecipes };
 }

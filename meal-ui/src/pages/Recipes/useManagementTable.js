@@ -1,14 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAllRecipes } from 'hooks/data';
 
 export default function useManagementTable() {
 	const [selectedItems, setSelectedItems] = useState([]);
 
-	const { recipes, refreshData, archiveRecipes } = useAllRecipes();
-
-	useEffect(() => {
-		console.log(selectedItems);
-	}, [selectedItems]);
+	const { recipes, refreshData, archiveRecipes, restoreRecipes } = useAllRecipes();
 
 	function onAddOrRemove(recipe) {
 		const addedAlready = selectedItems.indexOf(recipe) > -1;
@@ -21,7 +17,7 @@ export default function useManagementTable() {
 	}
 
 	function onArchive() {
-		archiveRecipes(selectedItems);
+		archiveRecipes(selectedItems.map(item => item.id));
 		refreshData();
 	}
 
@@ -29,10 +25,17 @@ export default function useManagementTable() {
 		refreshData({ includeArchived: event.target.checked });
 	}
 
+	function onRestore() {
+		restoreRecipes(selectedItems.map(item => item.id));
+		refreshData();
+	}
+
 	return {
 		recipes,
 		onAddOrRemove,
 		onArchive,
-		onViewArchived
+		onViewArchived,
+		onRestore,
+		selectedItems
 	};
 }
