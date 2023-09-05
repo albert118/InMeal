@@ -1,6 +1,7 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/glass-background' as *;
+@use '../../../mixins/text-mixins' as *;
 
 .action-container {
 	position: sticky;
@@ -19,6 +20,14 @@
 		border-radius: 12px;
 		display: flex;
 		justify-content: space-between;
+
+		.filter-info {
+			position: absolute;
+			top: $spacing-05;
+			left: $spacing-05;
+			@include subscript-label();
+			color: var(--note);
+		}
 
 		.filters,
 		.actions {
