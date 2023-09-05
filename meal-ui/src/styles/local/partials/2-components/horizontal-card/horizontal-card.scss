@@ -26,7 +26,8 @@
 			border-radius: 12px 0 0 12px;
 		}
 
-		.add-button {
+		.add,
+		.remove {
 			position: relative;
 			top: -55%;
 			left: 40%;
@@ -42,17 +43,9 @@
 				opacity: 0.05;
 			}
 
-			.add-button {
+			.add {
 				opacity: 1;
 			}
-		}
-	}
-
-	.horiz-card__image-slot-selected {
-		background-color: var(--secondary);
-
-		img {
-			opacity: 0.05;
 		}
 	}
 
@@ -65,6 +58,31 @@
 
 		h4 {
 			@include text-header();
+		}
+
+		&[disabled] {
+			h4,
+			* {
+				color: var(--text-disabled);
+			}
+		}
+	}
+}
+
+.horiz-card-selected {
+	border: 1.25px solid var(--primary);
+
+	.horiz-card__image-slot {
+		background-color: var(--background-details);
+		transition: background-color (--sequence-clicky) ease-out;
+
+		img {
+			transition: opacity var(--sequence-clicky) ease-out;
+			opacity: 0.05;
+		}
+
+		.remove {
+			opacity: 1;
 		}
 	}
 }

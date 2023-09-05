@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { demoImage } from 'DemoImage';
 import { GoToCTA } from 'components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 
 export default function HorizontalCard({ onClick, image, navigateLocation, ...additionalProps }) {
 	const { url, label } = image ?? demoImage;
@@ -14,23 +14,36 @@ export default function HorizontalCard({ onClick, image, navigateLocation, ...ad
 	};
 
 	return (
-		<div className='horiz-card'>
+		<div className={`horiz-card ${selected ? 'horiz-card-selected' : ''}`}>
 			<div
-				className={`horiz-card__image-slot ${selected ? 'horiz-card__image-slot-selected' : ''}`}
+				className='horiz-card__image-slot'
 				onClick={onClickWrapper}
 			>
 				<img
 					src={url}
 					label={label}
 				/>
-				<div className='add-button'>
-					<FontAwesomeIcon
-						icon={faPlus}
-						size={'3x'}
-					/>
-				</div>
+				{!selected && (
+					<div className='add'>
+						<FontAwesomeIcon
+							icon={faSquarePlus}
+							size={'2x'}
+						/>
+					</div>
+				)}
+				{selected && (
+					<div className='remove'>
+						<FontAwesomeIcon
+							icon={faXmarkSquare}
+							size={'2x'}
+						/>
+					</div>
+				)}
 			</div>
-			<div className='horiz-card__content-slot'>
+			<div
+				className='horiz-card__content-slot'
+				disabled={selected}
+			>
 				<h4>{additionalProps.title ?? ''}</h4>
 				{additionalProps.children}
 
