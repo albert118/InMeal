@@ -20,6 +20,8 @@ public interface IRecipeManager
     Task<Recipe> EditAsync(EditRecipeDto dto, CancellationToken ct);
 
     Task ArchiveAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
+    
+    Task RestoreAsync(IEnumerable<RecipeId> ids, CancellationToken ct);
 
     Task<RecipeCategoryId> AddCategoryAsync(RecipeId recipeId, Cuisine cuisineType, CancellationToken ct);
 
@@ -95,6 +97,11 @@ public class RecipeManager : IRecipeManager
     public Task ArchiveAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
     {
         return _recipeRepository.ArchiveRecipesAsync(ids, ct);
+    }
+
+    public Task RestoreAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
+    {
+        return _recipeRepository.RestoreRecipesAsync(ids, ct);
     }
 
     public async Task<RecipeCategoryId> AddCategoryAsync(RecipeId recipeId, Cuisine cuisineType, CancellationToken ct)

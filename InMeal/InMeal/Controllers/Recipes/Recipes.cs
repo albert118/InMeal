@@ -81,7 +81,7 @@ public class RecipesController : ControllerBase
         return !result.Any() ? NoContent() : Ok(RecipeMapper.ToDto(result));
     }
 
-    [HttpPost("[action]", Name = "Archive given Recipes")]
+    [HttpPost("[action]", Name = "Archive the given Recipes")]
     [ActionName("archive")]
     public IActionResult ArchiveRecipes(ICollection<Guid> ids)
     {
@@ -89,6 +89,22 @@ public class RecipesController : ControllerBase
 
         try {
             _recipeManager.ArchiveAsync(keys, _tokenAccessor.Token)
+                          .GetAwaiter()
+                          .GetResult();
+            return Ok();
+        } catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
+    }
+    
+    [HttpPost("[action]", Name = "Restore (unarchive) the given Recipes")]
+    [ActionName("restore")]
+    public IActionResult RestoreRecipes(ICollection<Guid> ids)
+    {
+        var keys = ids.Select(id => new RecipeId(id));
+
+        try {
+            _recipeManager.RestoreAsync(keys, _tokenAccessor.Token)
                           .GetAwaiter()
                           .GetResult();
             return Ok();

@@ -189,6 +189,23 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 
+    public async Task RestoreRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
+    {
+        var keys = ids.Select(identity => identity.Key).Distinct().ToList();
+        EmptyGuidGuard.Apply(keys);
+
+        var recipesToRestore = await _recipeDbContext.Recipes
+                                                     .Where(r => keys.Contains(r.Id))
+                                                     .IncludeArchived()
+                                                     .ToListAsync(ct);
+
+        foreach (var recipe in recipesToRestore) {
+            recipe.IsArchived = false;
+        }
+        
+        await _recipeDbContext.SaveChangesAsync(ct);
+    }
+
     public async Task<bool> IsRecipeTitleUnique(string title, CancellationToken ct)
     {
         var countWithGivenName = await _recipeDbContext.Recipes
