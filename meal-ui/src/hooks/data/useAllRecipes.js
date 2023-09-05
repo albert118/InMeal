@@ -10,31 +10,17 @@ export default function useAllRecipes() {
 
 	const { setError } = useContext(ErrorDetailContext);
 
-	const { getApi, postApi } = useFetch();
+	const { postApi } = useFetch();
 
 	useEffect(() => {
-		if (includeArchived) {
-			getRecipesWithArchivedResults();
-		} else {
-			getAllGroupedByCourse();
-		}
+		getAllGroupedByCourse(includeArchived);
 	}, [shouldRefresh]);
 
-	function getAllGroupedByCourse() {
+	function getAllGroupedByCourse(includeArchived) {
 		const url = `${ApiConfig.API_URL}/recipes/all/bycourse`;
-		postApi(url)
+		postApi(url, { includeArchived: includeArchived })
 			.then(data => {
 				setRecipes(data.recipes);
-				setError(null);
-			})
-			.catch(setError);
-	}
-
-	function getRecipesWithArchivedResults() {
-		const url = `${ApiConfig.API_URL}/recipes/all/archived`;
-		getApi(url)
-			.then(data => {
-				setRecipes(data);
 				setError(null);
 			})
 			.catch(setError);
@@ -56,5 +42,12 @@ export default function useAllRecipes() {
 			.catch(setError);
 	}
 
-	return { recipes, archiveRecipes, refreshData };
+	function restoreRecipes(ids) {
+		const url = `${ApiConfig.API_URL}/recipes/restore`;
+		postApi(url, ids)
+			.then(() => setError(null))
+			.catch(setError);
+	}
+
+	return { recipes, archiveRecipes, refreshData, restoreRecipes };
 }

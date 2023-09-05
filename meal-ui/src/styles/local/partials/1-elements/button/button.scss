@@ -7,14 +7,7 @@
 	border: 1px solid var(--mealui-colors-gray900);
 	color: var(--text);
 	border-radius: 4px;
-	@include card-shadow-2();
-}
-
-.btn:hover,
-.btn:active,
-.btn:focus {
-	@include card-shadow-2('light');
-	color: var(--background);
+	@include card-shadow-3();
 }
 
 .icon-btn {
@@ -46,12 +39,10 @@
 .labelled-icon-btn:hover,
 .labelled-icon-btn:active {
 	@include label-hover-or-active();
-	transition: all var(--sequence-fast) ease-in;
-	transition-property: color, opacity;
 
 	svg {
 		color: var(--mealui-colors-purple700);
-		transition: color var(--sequence-fast) ease-in;
+		transition: color var(--sequence-fast) ease-out;
 	}
 }
 

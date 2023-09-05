@@ -6,6 +6,8 @@
 @import 'nav-links.scss';
 
 .minimalist-sidebar {
+	// sidebar is always visible over all other layers except the overlay
+	z-index: var(--layers-sidebar);
 	// defined in layouts to ensure smoother animations
 	width: var(--sidebar-width);
 	display: flex;

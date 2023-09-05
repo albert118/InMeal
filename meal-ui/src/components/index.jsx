@@ -24,3 +24,5 @@ export { default as Image } from './Image';
 export { default as MultiSelect } from './MultiSelect';
 export { default as Dropdown } from './Dropdown';
 export { default as GoToCTA } from './GoTo';
+export { default as Toggle } from './Toggle';
+export { ToggleInline } from './Toggle';

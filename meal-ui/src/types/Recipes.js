@@ -13,7 +13,6 @@ function mapToEditedRecipeDto(editedRecipe) {
 		Course: editedRecipe.course.original,
 		Type: editedRecipe.type.original
 	};
-	console.log(x);
 	return x;
 }
 

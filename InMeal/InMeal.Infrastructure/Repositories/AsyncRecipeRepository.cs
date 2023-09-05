@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
+using InMeal.Core.Mementos;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Infrastructure.IQueryableExtensions;
@@ -44,13 +45,23 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
         return recipe.Id;
     }
 
-    public async Task<Dictionary<MealCourse, List<Recipe>>> GetManyGroupedByMealCourseAsync(CancellationToken ct)
+    public async Task<Dictionary<MealCourse, List<Recipe>>> GetManyGroupedByMealCourseAsync(bool includeArchived, CancellationToken ct)
     {
-        var mementos = await _recipeDbContext.Recipes
-             .ExcludeArchived()
+        List<RecipeMemento> mementos; 
+        
+        if (includeArchived) {
+            mementos = await _recipeDbContext.Recipes
+             .IncludeArchived()
              .Include(e => e.RecipeIngredients)
              .Include(e => e.Category)
              .ToListAsync(ct);
+        } else {
+            mementos  = await _recipeDbContext.Recipes
+              .ExcludeArchived()
+              .Include(e => e.RecipeIngredients)
+              .Include(e => e.Category)
+              .ToListAsync(ct);
+        }
 
         if (!mementos.Any()) return new Dictionary<MealCourse, List<Recipe>>();
 
@@ -173,6 +184,23 @@ public class AsyncRecipeRepository : IAsyncRecipeRepository
 
         foreach (var recipe in recipesToArchive) {
             recipe.IsArchived = true;
+        }
+        
+        await _recipeDbContext.SaveChangesAsync(ct);
+    }
+
+    public async Task RestoreRecipesAsync(IEnumerable<RecipeId> ids, CancellationToken ct)
+    {
+        var keys = ids.Select(identity => identity.Key).Distinct().ToList();
+        EmptyGuidGuard.Apply(keys);
+
+        var recipesToRestore = await _recipeDbContext.Recipes
+                                                     .Where(r => keys.Contains(r.Id))
+                                                     .IncludeArchived()
+                                                     .ToListAsync(ct);
+
+        foreach (var recipe in recipesToRestore) {
+            recipe.IsArchived = false;
         }
         
         await _recipeDbContext.SaveChangesAsync(ct);

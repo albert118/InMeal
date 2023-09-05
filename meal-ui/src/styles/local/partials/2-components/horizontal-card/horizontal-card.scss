@@ -19,10 +19,33 @@
 		width: 50%;
 		border-right: 1.25px solid var(--border);
 		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+		border-radius: 12px 0 0 12px;
 		@include image-cover();
 
 		img {
 			border-radius: 12px 0 0 12px;
+		}
+
+		.add,
+		.remove {
+			position: relative;
+			top: -55%;
+			left: 40%;
+			opacity: 0;
+		}
+
+		&:hover {
+			background-color: var(--background-details);
+			transition: background-color (--sequence-clicky) ease-out;
+
+			img {
+				transition: opacity var(--sequence-clicky) ease-out;
+				opacity: 0.05;
+			}
+
+			.add {
+				opacity: 1;
+			}
 		}
 	}
 
@@ -35,6 +58,31 @@
 
 		h4 {
 			@include text-header();
+		}
+
+		&[disabled] {
+			h4,
+			* {
+				color: var(--text-disabled);
+			}
+		}
+	}
+}
+
+.horiz-card-selected {
+	border: 1.25px solid var(--primary);
+
+	.horiz-card__image-slot {
+		background-color: var(--background-details);
+		transition: background-color (--sequence-clicky) ease-out;
+
+		img {
+			transition: opacity var(--sequence-clicky) ease-out;
+			opacity: 0.05;
+		}
+
+		.remove {
+			opacity: 1;
 		}
 	}
 }

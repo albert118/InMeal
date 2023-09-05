@@ -1,5 +1,4 @@
 @mixin glass-background() {
-	border: unset;
 	background-color: var(--background-details);
 	backdrop-filter: saturate(140%) blur(32px);
 }

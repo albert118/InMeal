@@ -9,6 +9,7 @@
 
 @mixin text {
 	letter-spacing: 3px;
+	text-overflow: ellipsis;
 	color: var(--text);
 }
 
@@ -35,12 +36,13 @@
 
 @mixin thick-text {
 	@include text();
+
 	font-weight: 800;
 }
 
 @mixin action-text {
 	@include text();
-	padding: $spacing-04 $spacing-02;
+	padding: $spacing-04;
 	margin: $spacing-02;
 }
 

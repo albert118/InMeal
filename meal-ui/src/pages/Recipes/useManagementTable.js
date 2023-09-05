@@ -1,33 +1,24 @@
-import { useState } from 'react';
+import { objectMap } from 'utils';
 import { useAllRecipes } from 'hooks/data';
+import { useState } from 'react';
 
 export default function useManagementTable() {
 	const [selectedItems, setSelectedItems] = useState([]);
 
-	const { recipes, refreshData, archiveRecipes } = useAllRecipes();
+	const { recipes, refreshData, archiveRecipes, restoreRecipes } = useAllRecipes();
 
-	const addSelectedItem = newItem => {
-		setSelectedItems([...selectedItems, newItem]);
-	};
+	function onAddOrRemove(recipe) {
+		const addedAlready = selectedItems.indexOf(recipe) > -1;
 
-	const removeSelectedItem = oldItem => {
-		const idx = selectedItems.indexOf(oldItem);
-
-		if (idx > -1) {
-			const tempItems = [...selectedItems];
-			tempItems.splice(idx, 1);
-			setSelectedItems(tempItems);
+		if (addedAlready) {
+			setSelectedItems([...selectedItems.filter(i => i.id !== recipe.id)]);
 		} else {
-			console.warn('cannot remove unknown item from grid');
+			setSelectedItems([...selectedItems, recipe]);
 		}
-	};
-
-	function onAddOrRemove(item, toggle) {
-		toggle ? addSelectedItem(item) : removeSelectedItem(item);
 	}
 
 	function onArchive() {
-		archiveRecipes(selectedItems);
+		archiveRecipes(selectedItems.map(item => item.id));
 		refreshData();
 	}
 
@@ -35,10 +26,30 @@ export default function useManagementTable() {
 		refreshData({ includeArchived: event.target.checked });
 	}
 
+	function onRestore() {
+		restoreRecipes(selectedItems.map(item => item.id));
+		refreshData();
+	}
+
+	function onSelectAll(event) {
+		if (event.target.checked) {
+			const allRecipes = objectMap(recipes, (_, _recipes) => _recipes).reduce((all, _recipes) =>
+				all.concat(_recipes)
+			);
+
+			setSelectedItems(allRecipes);
+		} else {
+			setSelectedItems([]);
+		}
+	}
+
 	return {
 		recipes,
 		onAddOrRemove,
 		onArchive,
-		onViewArchived
+		onViewArchived,
+		onRestore,
+		onSelectAll,
+		selectedItems
 	};
 }
