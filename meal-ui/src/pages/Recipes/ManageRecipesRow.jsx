@@ -3,7 +3,9 @@ import { HorizontalCard } from 'components/Card';
 import AppRoutes from 'navigation/AppRoutes';
 import { stringifyType } from 'utils';
 
-export default function ManageRecipesRow({ label, recipes, onClick }) {
+export default function ManageRecipesRow({ label, recipes, onAddOrRemove, selectedItems }) {
+	const isSelected = recipe => selectedItems.map(r => r.id).includes(recipe.id);
+
 	return (
 		<IndexRow label={label}>
 			{recipes.map(recipe => {
@@ -13,7 +15,8 @@ export default function ManageRecipesRow({ label, recipes, onClick }) {
 						navigateLocation={`${AppRoutes.recipe}/${recipe.id}`}
 						title={recipe.title}
 						entityName='recipe'
-						onClick={() => onClick(recipe)}
+						onClick={() => onAddOrRemove(recipe)}
+						selected={isSelected(recipe)}
 					>
 						<RecipeDetailBadges recipe={recipe} />
 					</HorizontalCard>

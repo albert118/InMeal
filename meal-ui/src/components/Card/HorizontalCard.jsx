@@ -2,22 +2,21 @@ import { faSquarePlus, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { demoImage } from 'DemoImage';
 import { GoToCTA } from 'components';
-import { useState } from 'react';
 
-export default function HorizontalCard({ onClick, image, navigateLocation, ...additionalProps }) {
+export default function HorizontalCard({
+	onClick,
+	image,
+	navigateLocation,
+	selected,
+	...additionalProps
+}) {
 	const { url, label } = image ?? demoImage;
-	const [selected, setSelected] = useState(false);
-
-	const onClickWrapper = args => {
-		setSelected(!selected);
-		onClick(args);
-	};
 
 	return (
 		<div className={`horiz-card ${selected ? 'horiz-card-selected' : ''}`}>
 			<div
 				className='horiz-card__image-slot'
-				onClick={onClickWrapper}
+				onClick={onClick}
 			>
 				<img
 					src={url}

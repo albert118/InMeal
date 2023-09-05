@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { objectMap } from 'utils';
 import { useAllRecipes } from 'hooks/data';
+import { useState } from 'react';
 
 export default function useManagementTable() {
 	const [selectedItems, setSelectedItems] = useState([]);
@@ -30,12 +31,25 @@ export default function useManagementTable() {
 		refreshData();
 	}
 
+	function onSelectAll(event) {
+		if (event.target.checked) {
+			const allRecipes = objectMap(recipes, (_, _recipes) => _recipes).reduce((all, _recipes) =>
+				all.concat(_recipes)
+			);
+
+			setSelectedItems(allRecipes);
+		} else {
+			setSelectedItems([]);
+		}
+	}
+
 	return {
 		recipes,
 		onAddOrRemove,
 		onArchive,
 		onViewArchived,
 		onRestore,
+		onSelectAll,
 		selectedItems
 	};
 }
