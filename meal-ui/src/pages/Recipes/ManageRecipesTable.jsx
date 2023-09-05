@@ -1,4 +1,4 @@
-import { Button, Toggle } from 'components';
+import { Button, ToggleInline } from 'components';
 import AppRoutes from 'navigation/AppRoutes';
 import { useNavigate } from 'react-router-dom';
 import { objectMap } from 'utils';
@@ -56,12 +56,12 @@ function Actions({
 					</div>
 				)}
 				<div className='filters'>
-					<Toggle
+					<ToggleInline
 						id='select_all'
 						labelText='select all'
 						onClick={onSelectAll}
 					/>
-					<Toggle
+					<ToggleInline
 						id='view_archived'
 						labelText='view archived'
 						onClick={onViewArchived}
