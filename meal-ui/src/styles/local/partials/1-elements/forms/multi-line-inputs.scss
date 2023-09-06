@@ -7,16 +7,8 @@
 
 	.multi-line-input__add {
 		display: flex;
-		column-gap: 2em;
+		column-gap: $spacing-08;
 		justify-content: space-between;
 		align-items: flex-end;
-
-		.e-full-width-new-item {
-			width: 100%;
-		}
-
-		.new-item {
-			width: 200px;
-		}
 	}
 }
