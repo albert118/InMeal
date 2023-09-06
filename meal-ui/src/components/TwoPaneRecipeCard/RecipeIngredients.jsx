@@ -4,7 +4,7 @@ import { NumberInput } from 'forms/Inputs';
 
 export function RecipeIngredients({ recipeIngredients }) {
 	return (
-		<div className='recipe--ingredients'>
+		<div className='recipe-data__ingredients'>
 			{recipeIngredients &&
 				objectMap(recipeIngredients, (key, value) => (
 					<IngredientItemRow

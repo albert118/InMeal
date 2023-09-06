@@ -22,7 +22,7 @@ function LeftPane({ recipe }) {
 			<TitleBar>{recipe.title}</TitleBar>
 
 			<div className='recipe-card__data scrollbar-vertical'>
-				<p className='recipe--blurb'>{recipe.blurb}</p>
+				<p className='recipe-data__blurb'>{recipe.blurb}</p>
 				<RecipeIngredients recipeIngredients={recipe.recipeIngredients} />
 			</div>
 		</div>

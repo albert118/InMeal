@@ -24,12 +24,12 @@
 			@include wrappable-text();
 		}
 
-		.recipe--blurb,
-		.recipe--ingredients {
+		.recipe-data__blurb,
+		.recipe-data__ingredients {
 			flex-basis: 100%;
 		}
 
-		.recipe--ingredients {
+		.recipe-data__ingredients {
 			display: flex;
 			flex-direction: column;
 			row-gap: 1em;
