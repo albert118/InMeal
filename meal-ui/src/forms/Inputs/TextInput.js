@@ -12,6 +12,7 @@ export default function TextInput({ label, onChange, ...additionalProps }) {
 				id={additionalProps.id ?? 'default_text_input_id'}
 				className='text-input'
 				onKeyDown={handleKeyDown}
+				onChange={onChange}
 				type='text'
 			/>
 		</div>
