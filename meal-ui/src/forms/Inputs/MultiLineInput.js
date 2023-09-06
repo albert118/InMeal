@@ -4,13 +4,7 @@ import Button from 'components/Button';
 import { objectMap } from 'utils';
 
 // will set newly added item IDs to 'new-item'
-export default function MultiLineInput({
-	className,
-	items,
-	attrName,
-	handler,
-	placeholder
-}) {
+export default function MultiLineInput({ className, items, attrName, handler, placeholder }) {
 	const [newItem, setNewItem] = useState('');
 
 	const appendNewItem = () => {
@@ -33,12 +27,8 @@ export default function MultiLineInput({
 	};
 
 	return (
-		<div
-			className={
-				className ? `multi-line-input ${className}` : `multi-line-input`
-			}
-		>
-			<span className='add-new-item'>
+		<div className={className ? `multi-line-input ${className}` : `multi-line-input`}>
+			<span className='multi-line-input__add'>
 				<TextInput
 					value={newItem}
 					handler={event => setNewItem(event.target.value)}
@@ -59,9 +49,7 @@ export default function MultiLineInput({
 						key={key}
 						id={key}
 						name={attrName}
-						value={
-							value.hasOwnProperty('label') ? value.label : value
-						}
+						value={value.hasOwnProperty('label') ? value.label : value}
 						handler={handler}
 					/>
 				))}

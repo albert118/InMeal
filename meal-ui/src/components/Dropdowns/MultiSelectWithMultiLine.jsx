@@ -56,10 +56,10 @@ export function MultiSelectWithMultiLine({
 
 	return (
 		<div className={`multi-line-input ${additionalProps.className ?? ''}`}>
-			<span className='add-new-item'>
+			<span className='multi-line-input__add'>
 				<FilterableMultiSelect
 					label={selectedItems.length === 0 ? 'choose ingredients' : `ingredients selected`}
-					id='add-new-item-multi-select'
+					id='multi-line-input__add-multi-select'
 					items={selectableOptions}
 					onChange={setSelectedItems}
 					key={updatedKey}

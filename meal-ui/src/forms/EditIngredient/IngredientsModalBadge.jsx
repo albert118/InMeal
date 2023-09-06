@@ -41,7 +41,7 @@ export default function IngredientsModalBadge({ ingredient, refreshData, measure
 				></TextInput>
 
 				<Dropdown
-					id='add-new-item-select'
+					id='multi-line-input__add-select'
 					label='choose a measurement'
 					items={measurementOptions}
 					title='measurement'
