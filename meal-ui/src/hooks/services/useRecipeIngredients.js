@@ -1,4 +1,5 @@
 import { multiSelectEvents } from 'components';
+import { createRecipeIngredient } from 'types/Ingredients';
 
 export default function useRecipeIngredients() {
 	const strategies = Object.freeze({
@@ -52,19 +53,9 @@ export default function useRecipeIngredients() {
 	return { handleRecipeIngredients };
 }
 
-function createRecipeIngredient(name, id, units) {
-	const defaultQuantity = 1;
-	return {
-		label: name,
-		ingredientId: id,
-		quantity: defaultQuantity,
-		units: units
-	};
-}
-
 function updateLocalIngredientsWithIds(newIngredients, recipe, apiData) {
 	const recipeIngredients = newIngredients.map((newItem, idx) =>
-		createRecipeIngredient(newItem.label, apiData ? apiData[idx].id : newItem.id, newItem.units)
+		createRecipeIngredient(newItem.label, apiData ? apiData[idx].id : newItem.id, newItem?.units)
 	);
 
 	// add the new recipe ingredients to the existing recipe ingredients
