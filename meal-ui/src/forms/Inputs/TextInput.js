@@ -1,4 +1,10 @@
-export default function TextInput({ label, onChange, handleKeyDown, ...additionalProps }) {
+export default function TextInput({ label, onChange, ...additionalProps }) {
+	function handleKeyDown(event) {
+		if (event.key !== 'Enter') return;
+		event.preventDefault();
+		onChange(event);
+	}
+
 	return (
 		<div className={`form-input ${additionalProps.className ?? ''}`}>
 			{label && <label htmlFor={label}>{label}</label>}
