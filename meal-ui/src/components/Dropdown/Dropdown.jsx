@@ -1,7 +1,7 @@
 import { Dropdown } from '@carbon/react';
 import { objectMap, stringifyType } from 'utils';
 
-export default function DropdownCustom({ items, onChange, ...additionalProps }) {
+export function DropdownCustom({ items, onChange, ...additionalProps }) {
 	return (
 		<Dropdown
 			items={mapToDropdownItems(items)}
