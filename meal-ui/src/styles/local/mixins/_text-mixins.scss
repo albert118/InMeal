@@ -78,6 +78,8 @@
 @mixin form-label {
 	@include label();
 	display: inline-block;
+	padding: unset;
+	margin-left: 4px;
 	margin-bottom: 4px;
 }
 

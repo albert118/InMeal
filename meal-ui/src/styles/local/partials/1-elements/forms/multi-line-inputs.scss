@@ -3,13 +3,13 @@
 .multi-line-input {
 	display: flex;
 	flex-direction: column;
-	row-gap: 1em;
+	row-gap: $spacing-05;
 
 	.multi-line-input__add {
 		display: flex;
 		column-gap: 2em;
 		justify-content: space-between;
-		align-items: center;
+		align-items: flex-end;
 
 		.e-full-width-new-item {
 			width: 100%;
