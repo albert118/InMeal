@@ -20,7 +20,7 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 					name='preparationSteps'
 					value={recipe.preparationSteps}
 					placeholder='include lots of detail'
-					handler={onUpdate}
+					onChange={onUpdate}
 					rows='20'
 				/>
 				<div className='recipe-data__meta'>

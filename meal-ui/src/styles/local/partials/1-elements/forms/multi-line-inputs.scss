@@ -5,9 +5,7 @@
 	flex-direction: column;
 	row-gap: $spacing-05;
 
-	.multi-line-input__new {
-	}
-
+	.multi-line-input__new,
 	.multi-line-input__add {
 		display: flex;
 		column-gap: $spacing-08;

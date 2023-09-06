@@ -41,13 +41,14 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 				/>
 
 				<MultiSelectWithMultiLine
-					label='search and select ingredients'
+					label='...or add from existing ingredients'
 					className='recipe-data__ingredients'
 					items={recipe.recipeIngredients}
 					selectableOptions={ingredients}
 					attrName='recipeIngredients'
+					entityName='ingredients'
 					onChange={onUpdate}
-					placeholder='add another ingredient'
+					placeholder='add ingredient(s)'
 				>
 					<MultiSelectItemRow onChange={onUpdate} />
 				</MultiSelectWithMultiLine>

@@ -9,6 +9,11 @@ export const multiSelectEvents = Object.freeze({
 	Update: 'update'
 });
 
+const defaultItem = Object.freeze({
+	id: null,
+	label: ''
+});
+
 // will provide children with these props { item, onRemove, attrName, onChange }
 export function MultiSelectWithMultiLine({
 	items,
@@ -19,20 +24,19 @@ export function MultiSelectWithMultiLine({
 }) {
 	const [selectedItems, setSelectedItems] = useState([]);
 	const [updatedKey, setUpdatedKey] = useState(0);
+	const [newItem, setNewItem] = useState(defaultItem);
 
 	function appendNewItems() {
-		selectedItems?.length > 0 &&
-			onChange({
-				target: {
-					id: multiSelectEvents.Add,
-					name: attrName,
-					value: { id: null, data: selectedItems }
-				}
-			});
+		selectedItems?.length > 0 && onChange(mapToSyntheticEvent(selectedItems, attrName));
 
 		setSelectedItems([]);
 		// this key hack forces the multiselect to reset after using it's selection
 		setUpdatedKey(Math.random());
+	}
+
+	function addNewItem() {
+		onChange(mapToSyntheticEvent(newItem, attrName));
+		setNewItem(defaultItem);
 	}
 
 	function onRemove(id, label) {
@@ -59,17 +63,20 @@ export function MultiSelectWithMultiLine({
 		<div className={`multi-line-input ${additionalProps.className ?? ''}`}>
 			<span className='multi-line-input__new'>
 				<TextInput
-					// className='e-full-width-new-item'
+					label='add a new item...'
 					value={newItem.label}
-					onChange={event => addSingleItem(event.target.value)}
-					handleKeyDown={handleKeyDown}
-					placeholder={placeholder}
+					onChange={event => setNewItem({ ...newItem, label: event.target.value })}
 				/>
+				<Button
+					disabled={!newItem.label.length > 0}
+					onClick={addNewItem}
+				>
+					add new
+				</Button>
 			</span>
 			<span className='multi-line-input__add'>
 				<FilterableMultiSelect
-					label={selectedItems.length === 0 ? 'choose ingredients' : `ingredients selected`}
-					id='multi-line-input__add-multi-select'
+					id='multi-line-input__add-dropdown'
 					items={selectableOptions}
 					onChange={setSelectedItems}
 					key={updatedKey}
@@ -89,4 +96,14 @@ export function MultiSelectWithMultiLine({
 			)}
 		</div>
 	);
+}
+
+function mapToSyntheticEvent(data, attrName) {
+	return {
+		target: {
+			id: multiSelectEvents.Add,
+			name: attrName,
+			value: { id: null, data: data }
+		}
+	};
 }
