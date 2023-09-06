@@ -15,7 +15,7 @@ export function MultiSelectWithMultiLine({
 	selectableOptions,
 	attrName,
 	onChange,
-	...props
+	...additionalProps
 }) {
 	const [selectedItems, setSelectedItems] = useState([]);
 	const [updatedKey, setUpdatedKey] = useState(0);
@@ -73,7 +73,9 @@ export function MultiSelectWithMultiLine({
 				</Button>
 			</span>
 
-			{items?.map(item => propagateProps(props.children, { item, onRemove, attrName, onUpdate }))}
+			{items?.map(item =>
+				propagateProps(additionalProps.children, { item, onRemove, attrName, onUpdate })
+			)}
 		</div>
 	);
 }
