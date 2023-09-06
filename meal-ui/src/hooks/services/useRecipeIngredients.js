@@ -1,4 +1,4 @@
-import { multiSelectEvents } from 'forms/Inputs';
+import { multiSelectEvents } from 'components';
 
 export default function useRecipeIngredients() {
 	const strategies = Object.freeze({

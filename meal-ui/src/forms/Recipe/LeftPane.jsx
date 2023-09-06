@@ -1,5 +1,5 @@
-import { Image, StatusBadge, TitleBar } from 'components';
-import { LongTextInput, MultiSelectWithMultiLine, NumberInput, TextInput } from 'forms/Inputs';
+import { Image, MultiSelectWithMultiLine, StatusBadge, TitleBar } from 'components';
+import { LongTextInput, NumberInput, TextInput } from 'forms/Inputs';
 import { ValidationErrors } from 'forms/Validation';
 import { ErrorDetailContext, useIngredients } from 'hooks/data';
 import { useContext } from 'react';

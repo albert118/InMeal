@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, MultiSelect, FilterableMultiSelect } from 'components';
+import { Button, FilterableMultiSelect } from 'components';
 import { propagateProps } from 'utils';
 
 export const multiSelectEvents = Object.freeze({
@@ -9,7 +9,7 @@ export const multiSelectEvents = Object.freeze({
 });
 
 // will provide children with these props { item, onRemove, attrName, onChange }
-export default function MultiSelectWithMultiLine({
+export function MultiSelectWithMultiLine({
 	className,
 	items,
 	selectableOptions,
