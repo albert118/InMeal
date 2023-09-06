@@ -33,7 +33,7 @@ function RightPane({ recipe }) {
 	return (
 		<div className='card recipe-card two-pane-recipe-card--right'>
 			<div className='recipe-card__data scrollbar-vertical'>
-				<p className='recipe--steps'>{recipe.preparationSteps}</p>
+				<p className='recipe__steps'>{recipe.preparationSteps}</p>
 			</div>
 			<Actions recipeId={recipe.id} />
 		</div>

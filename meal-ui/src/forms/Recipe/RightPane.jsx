@@ -13,9 +13,9 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 
 	return (
 		<div className='card recipe-card two-pane-recipe-card--right'>
-			<div className='recipe-card__data scrollbar-vertical'>
+			<div className='recipe-card__data'>
 				<LongTextInput
-					className='recipe--steps'
+					className='recipe__steps'
 					name='preparationSteps'
 					value={recipe.preparationSteps}
 					placeholder='include lots of details and steps'
@@ -29,7 +29,6 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						items={categories}
 						title='category'
 						selectedItem={recipe.category}
-						direction='top'
 						onChange={selected => onDropdownUpdate('category', selected)}
 					/>
 					<Dropdown
@@ -38,7 +37,6 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						items={types}
 						title='meal type'
 						selectedItem={recipe.type}
-						direction='top'
 						onChange={selected => onDropdownUpdate('type', selected)}
 					/>
 					<Dropdown
@@ -47,7 +45,6 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						items={courses}
 						title='course'
 						selectedItem={recipe.course}
-						direction='top'
 						onChange={selected => onDropdownUpdate('course', selected)}
 					/>
 				</div>

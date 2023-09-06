@@ -13,36 +13,26 @@
 		height: calc(var(--card-height) / 1.5);
 	}
 
-	.action-container {
-		border-radius: 0 0 12px 12px;
-	}
-
 	.recipe-card__data {
 		display: flex;
 		flex-direction: column;
 		gap: $spacing-06;
+		padding: $spacing-06 $spacing-08;
 		height: 100%;
-		overflow-y: scroll;
 
 		p {
 			@include wrappable-text();
 		}
 
 		.recipe--blurb,
-		.recipe--steps,
 		.recipe--ingredients {
 			flex-basis: 100%;
-			width: 100%;
 		}
 
 		.recipe--ingredients {
 			display: flex;
 			flex-direction: column;
 			row-gap: 1em;
-		}
-
-		.recipe--steps > :first-child {
-			height: 100%;
 		}
 
 		.recipe-data__meta {
@@ -58,12 +48,4 @@
 		gap: $spacing-04;
 		align-items: center;
 	}
-}
-
-.image-slot .recipe-card,
-.recipe-card .recipe-card__data {
-	padding-top: $spacing-06;
-	padding-bottom: $spacing-06;
-	padding-right: $spacing-08;
-	padding-left: $spacing-08;
 }
