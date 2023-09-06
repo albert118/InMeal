@@ -34,7 +34,7 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 					/>
 					<Dropdown
 						id='recipe-data__type'
-						label='choose which type'
+						label='choose a meal type'
 						items={types}
 						title='meal type'
 						selectedItem={recipe.type}
