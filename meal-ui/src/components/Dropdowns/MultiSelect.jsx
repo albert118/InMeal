@@ -1,14 +1,15 @@
 import { FilterableMultiSelect, MultiSelect } from '@carbon/react';
-
-const defaultItem = 'default-select-option';
+import mapToDropdownItems from './mappers';
 
 export function MultiSelectCustom({ items, onChange, ...additionalProps }) {
+	const defaultItem = 'default-select-option';
+
 	return (
 		<MultiSelect
 			items={mapToDropdownItems(items)}
 			onChange={event => onChange(event.selectedItems)}
 			defaultValue={defaultItem}
-			className='e-cds-form-input'
+			className={`e-cds-form-input ${additionalProps.className ?? ''}`}
 			{...additionalProps}
 		/>
 	);
@@ -23,14 +24,4 @@ export function FilterableMultiSelectCustom({ items, onChange, ...additionalProp
 			{...additionalProps}
 		/>
 	);
-}
-
-function mapToDropdownItems(items) {
-	return items.map(item => {
-		return {
-			...item,
-			id: item.id ?? 1,
-			label: item.name
-		};
-	});
 }

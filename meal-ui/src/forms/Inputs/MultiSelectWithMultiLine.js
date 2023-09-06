@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, MultiSelect } from 'components';
+import { Button, MultiSelect, FilterableMultiSelect } from 'components';
 import { propagateProps } from 'utils';
 
 export const multiSelectEvents = Object.freeze({
@@ -58,11 +58,11 @@ export default function MultiSelectWithMultiLine({
 	return (
 		<div className={`multi-line-input ${className ?? ''}`}>
 			<span className='add-new-item'>
-				<MultiSelect
+				<FilterableMultiSelect
 					label={selectedItems.length === 0 ? 'choose ingredients' : `ingredients selected`}
 					id='add-new-item-multi-select'
-					items={mapToDropdownItems(selectableOptions)}
-					setSelectedItems={setSelectedItems}
+					items={selectableOptions}
+					onChange={setSelectedItems}
 					key={updatedKey}
 				/>
 				<Button
@@ -76,14 +76,4 @@ export default function MultiSelectWithMultiLine({
 			{items?.map(item => propagateProps(props.children, { item, onRemove, attrName, onUpdate }))}
 		</div>
 	);
-}
-
-function mapToDropdownItems(items) {
-	return items.map(item => {
-		return {
-			...item,
-			id: item.id,
-			label: item.name
-		};
-	});
 }
