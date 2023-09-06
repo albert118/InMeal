@@ -22,7 +22,7 @@ export { default as IndexRow } from './IndexRow';
 export { default as EditModalWrapper } from './EditModal';
 export { default as Image } from './Image';
 
-export { Dropdown, MultiSelect, FilterableMultiSelect } from './Dropdown';
+export { Dropdown, MultiSelect, FilterableMultiSelect } from './Dropdowns';
 
 export { default as GoToCTA } from './GoTo';
 export { default as Toggle } from './Toggle';
