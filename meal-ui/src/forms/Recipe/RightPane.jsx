@@ -53,7 +53,7 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 				</div>
 			</div>
 
-			<div className='action-container'>
+			<div className='recipe-card__actions'>
 				<CancelButton onClick={handleCancel} />
 				<SaveButton />
 			</div>

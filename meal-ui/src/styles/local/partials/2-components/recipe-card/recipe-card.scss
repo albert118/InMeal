@@ -50,6 +50,14 @@
 			justify-content: space-between;
 		}
 	}
+
+	.recipe-card__actions {
+		display: flex;
+		justify-content: flex-end;
+		padding: $spacing-05;
+		gap: $spacing-04;
+		align-items: center;
+	}
 }
 
 .image-slot .recipe-card,
