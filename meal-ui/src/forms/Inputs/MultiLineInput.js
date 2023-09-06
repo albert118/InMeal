@@ -31,7 +31,7 @@ export default function MultiLineInput({ className, items, attrName, handler, pl
 			<span className='multi-line-input__add'>
 				<TextInput
 					value={newItem}
-					handler={event => setNewItem(event.target.value)}
+					onChange={event => setNewItem(event.target.value)}
 					handleKeyDown={handleKeyDown}
 					placeholder={placeholder}
 				/>

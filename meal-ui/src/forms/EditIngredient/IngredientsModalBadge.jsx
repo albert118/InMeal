@@ -36,9 +36,9 @@ export default function IngredientsModalBadge({ ingredient, refreshData, measure
 					name='name'
 					label='name'
 					value={formData.name}
-					handler={onUpdate}
+					onChange={onUpdate}
 					placeHolder="what's this ingredient called?"
-				></TextInput>
+				/>
 
 				<Dropdown
 					id='multi-line-input__add-select'

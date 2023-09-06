@@ -21,7 +21,7 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 					name='title'
 					value={recipe.title}
 					placeholder='Add a descriptive title'
-					handler={onUpdate}
+					onChange={onUpdate}
 				/>
 				<StatusBadge
 					className='e-image-status-badge'

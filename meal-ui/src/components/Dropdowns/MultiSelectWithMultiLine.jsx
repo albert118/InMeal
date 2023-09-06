@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Button, FilterableMultiSelect } from 'components';
 import { propagateProps } from 'utils';
+import { TextInput } from 'forms/Inputs';
 
 export const multiSelectEvents = Object.freeze({
 	Add: 'add',
@@ -56,6 +57,15 @@ export function MultiSelectWithMultiLine({
 
 	return (
 		<div className={`multi-line-input ${additionalProps.className ?? ''}`}>
+			<span className='multi-line-input__new'>
+				<TextInput
+					// className='e-full-width-new-item'
+					value={newItem.label}
+					onChange={event => addSingleItem(event.target.value)}
+					handleKeyDown={handleKeyDown}
+					placeholder={placeholder}
+				/>
+			</span>
 			<span className='multi-line-input__add'>
 				<FilterableMultiSelect
 					label={selectedItems.length === 0 ? 'choose ingredients' : `ingredients selected`}
