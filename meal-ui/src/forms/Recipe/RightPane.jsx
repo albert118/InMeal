@@ -13,7 +13,7 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 
 	return (
 		<div className='card recipe-card two-pane-recipe-card--right'>
-			<div className='recipe-card__data'>
+			<div className='recipe-card__data scrollbar-vertical'>
 				<LongTextInput
 					className='recipe__steps'
 					name='preparationSteps'
