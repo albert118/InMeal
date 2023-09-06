@@ -17,11 +17,18 @@ export function MultiSelectCustom({ items, onChange, ...additionalProps }) {
 
 export function FilterableMultiSelectCustom({ items, onChange, ...additionalProps }) {
 	return (
-		<FilterableMultiSelect
-			items={mapToDropdownItems(items)}
-			onChange={event => onChange(event.selectedItems)}
-			className={`e-cds-form-input ${additionalProps.className ?? ''}`}
-			{...additionalProps}
-		/>
+		<div className={`e-cds-form-input ${additionalProps.className ?? ''}`}>
+			{additionalProps.label ? (
+				<label htmlFor={additionalProps.label}>{additionalProps.label}</label>
+			) : (
+				''
+			)}
+			<FilterableMultiSelect
+				id={additionalProps.label ?? 'default_long_text_input_id'}
+				items={mapToDropdownItems(items)}
+				onChange={event => onChange(event.selectedItems)}
+				{...additionalProps}
+			/>
+		</div>
 	);
 }

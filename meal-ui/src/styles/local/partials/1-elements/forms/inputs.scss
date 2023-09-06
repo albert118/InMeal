@@ -62,7 +62,7 @@
 }
 
 .form-input > label {
-	@include label();
+	@include form-label();
 }
 
 .form-input > label.disabled {

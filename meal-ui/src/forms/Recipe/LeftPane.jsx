@@ -32,6 +32,7 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 
 			<div className='recipe-card__data scrollbar-vertical'>
 				<LongTextInput
+					label='blurb'
 					className='recipe-data__blurb'
 					name='blurb'
 					value={recipe.blurb}
@@ -40,6 +41,7 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 				/>
 
 				<MultiSelectWithMultiLine
+					label='search and select ingredients'
 					className='recipe-data__ingredients'
 					items={recipe.recipeIngredients}
 					selectableOptions={ingredients}

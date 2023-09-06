@@ -15,10 +15,11 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 		<div className='card recipe-card two-pane-recipe-card--right'>
 			<div className='recipe-card__data scrollbar-vertical'>
 				<LongTextInput
+					label='steps and notes'
 					className='recipe__steps'
 					name='preparationSteps'
 					value={recipe.preparationSteps}
-					placeholder='include lots of details and steps'
+					placeholder='include lots of detail'
 					handler={onUpdate}
 					rows='20'
 				/>

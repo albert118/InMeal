@@ -10,7 +10,6 @@ export const multiSelectEvents = Object.freeze({
 
 // will provide children with these props { item, onRemove, attrName, onChange }
 export function MultiSelectWithMultiLine({
-	className,
 	items,
 	selectableOptions,
 	attrName,
@@ -56,7 +55,7 @@ export function MultiSelectWithMultiLine({
 	}
 
 	return (
-		<div className={`multi-line-input ${className ?? ''}`}>
+		<div className={`multi-line-input ${additionalProps.className ?? ''}`}>
 			<span className='add-new-item'>
 				<FilterableMultiSelect
 					label={selectedItems.length === 0 ? 'choose ingredients' : `ingredients selected`}
@@ -64,6 +63,8 @@ export function MultiSelectWithMultiLine({
 					items={selectableOptions}
 					onChange={setSelectedItems}
 					key={updatedKey}
+					direction='top'
+					{...additionalProps}
 				/>
 				<Button
 					disabled={!selectedItems?.length > 0}
