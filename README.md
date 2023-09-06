@@ -18,4 +18,4 @@ A clean interface to view and manage recipes and ingredients.
 
 ### edit recipe
 
-![Uploading image.png…]()
+![image](https://github.com/albert118/InMeal/assets/26985949/df789de6-7afc-4c2b-b370-530cd256acd9)
