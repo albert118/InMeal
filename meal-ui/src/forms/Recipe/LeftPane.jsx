@@ -36,7 +36,7 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 					name='blurb'
 					value={recipe.blurb}
 					placeholder='maybe some details too?'
-					handler={onUpdate}
+					onChange={onUpdate}
 				/>
 
 				<MultiSelectWithMultiLine
