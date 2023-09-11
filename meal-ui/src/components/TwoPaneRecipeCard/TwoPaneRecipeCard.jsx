@@ -22,7 +22,7 @@ function LeftPane({ recipe }) {
 			<TitleBar>{recipe.title}</TitleBar>
 
 			<div className='recipe-card__data scrollbar-vertical'>
-				<p className='recipe--blurb'>{recipe.blurb}</p>
+				<p className='recipe-data__blurb'>{recipe.blurb}</p>
 				<RecipeIngredients recipeIngredients={recipe.recipeIngredients} />
 			</div>
 		</div>
@@ -33,9 +33,12 @@ function RightPane({ recipe }) {
 	return (
 		<div className='card recipe-card two-pane-recipe-card--right'>
 			<div className='recipe-card__data scrollbar-vertical'>
-				<p className='recipe--steps'>{recipe.preparationSteps}</p>
+				<p className='recipe__steps'>{recipe.preparationSteps}</p>
 			</div>
-			<Actions recipeId={recipe.id} />
+			<Actions
+				className='recipe-card__actions'
+				recipeId={recipe.id}
+			/>
 		</div>
 	);
 }

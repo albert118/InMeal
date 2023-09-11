@@ -12,6 +12,16 @@ export { default as Selectable } from './Selectable';
 export { default as Card } from './Card';
 export { SimpleCard, ImageCard } from './Card';
 
+// dropdowns and selects
+
+export {
+	Dropdown,
+	MultiSelect,
+	FilterableMultiSelect,
+	MultiSelectWithMultiLine,
+	multiSelectEvents
+} from './Dropdowns';
+
 // simple components and wrappers
 export { default as TitleBar } from './TitleBar';
 export { default as Carousel } from './Carousel';
@@ -21,8 +31,7 @@ export { default as ItemBadge } from './ItemBadge';
 export { default as IndexRow } from './IndexRow';
 export { default as EditModalWrapper } from './EditModal';
 export { default as Image } from './Image';
-export { default as MultiSelect } from './MultiSelect';
-export { default as Dropdown } from './Dropdown';
+
 export { default as GoToCTA } from './GoTo';
 export { default as Toggle } from './Toggle';
 export { ToggleInline } from './Toggle';

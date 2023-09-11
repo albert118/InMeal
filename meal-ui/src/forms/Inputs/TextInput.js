@@ -1,35 +1,18 @@
-import React from 'react';
-
-export default function TextInput({
-	className,
-	name,
-	label,
-	value,
-	placeholder,
-	handler,
-	id,
-	handleKeyDown
-}) {
-	const classes = className ? `form-input ${className}` : `form-input`;
-
-	const getIdOrLabel = () => {
-		if (id) return id;
-		if (label) return label;
-
-		return 'generic-text-input-id';
-	};
+export default function TextInput({ label, onChange, ...additionalProps }) {
+	function handleKeyDown(event) {
+		if (event.key !== 'Enter') return;
+		event.preventDefault();
+		onChange(event);
+	}
 
 	return (
-		<div className={classes}>
-			{label ? <label htmlFor={label}>{label}</label> : ''}
+		<div className={`form-input ${additionalProps.className ?? ''}`}>
+			{label && <label htmlFor={label}>{label}</label>}
 			<input
-				id={getIdOrLabel()}
+				id={additionalProps.id ?? 'default_text_input_id'}
 				className='text-input'
-				name={name}
-				value={value}
-				placeholder={placeholder}
-				onChange={handler}
 				onKeyDown={handleKeyDown}
+				onChange={onChange}
 				type='text'
 			/>
 		</div>

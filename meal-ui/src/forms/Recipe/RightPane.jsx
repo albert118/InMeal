@@ -1,6 +1,6 @@
 import { Dropdown } from 'components';
 import { LongTextInput } from 'forms/Inputs';
-import { FormActions } from './components';
+import { CancelButton, SaveButton } from 'forms/FormActions';
 
 export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 	const { categories, types, courses } = meta;
@@ -15,11 +15,12 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 		<div className='card recipe-card two-pane-recipe-card--right'>
 			<div className='recipe-card__data scrollbar-vertical'>
 				<LongTextInput
-					className='recipe--steps'
+					label='steps and notes'
+					className='recipe__steps'
 					name='preparationSteps'
 					value={recipe.preparationSteps}
-					placeholder='include lots of details and steps'
-					handler={onUpdate}
+					placeholder='include lots of detail'
+					onChange={onUpdate}
 					rows='20'
 				/>
 				<div className='recipe-data__meta'>
@@ -29,16 +30,14 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						items={categories}
 						title='category'
 						selectedItem={recipe.category}
-						direction='top'
 						onChange={selected => onDropdownUpdate('category', selected)}
 					/>
 					<Dropdown
 						id='recipe-data__type'
-						label='choose which type'
+						label='choose a meal type'
 						items={types}
 						title='meal type'
 						selectedItem={recipe.type}
-						direction='top'
 						onChange={selected => onDropdownUpdate('type', selected)}
 					/>
 					<Dropdown
@@ -47,13 +46,15 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						items={courses}
 						title='course'
 						selectedItem={recipe.course}
-						direction='top'
 						onChange={selected => onDropdownUpdate('course', selected)}
 					/>
 				</div>
 			</div>
 
-			<FormActions handleCancel={handleCancel} />
+			<div className='recipe-card__actions'>
+				<CancelButton onClick={handleCancel} />
+				<SaveButton />
+			</div>
 		</div>
 	);
 }

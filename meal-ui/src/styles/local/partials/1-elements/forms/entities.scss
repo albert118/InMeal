@@ -2,16 +2,26 @@
 @use '../../../mixins/text-mixins' as *;
 @use './overrides';
 
-.e-cds-form-input > * {
-	padding-right: 0;
-	padding-left: 0;
-	width: 100%;
-	border: none;
+.e-cds-form-input {
+	& > label {
+		@include form-label();
+	}
 
-	span,
-	svg {
-		@include form-input();
-		fill: var(--text);
-		padding: 0;
+	& > label.disabled {
+		@include disabled-text();
+	}
+
+	& > * {
+		padding-right: 0;
+		padding-left: 0;
+		width: 100%;
+		border: none;
+
+		span,
+		svg {
+			@include form-input();
+			fill: var(--text);
+			padding: 0;
+		}
 	}
 }

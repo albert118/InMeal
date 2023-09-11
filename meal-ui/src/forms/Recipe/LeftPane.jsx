@@ -1,5 +1,5 @@
-import { Image, StatusBadge, TitleBar } from 'components';
-import { LongTextInput, MultiSelectWithMultiLine, NumberInput, TextInput } from 'forms/Inputs';
+import { Image, MultiSelectWithMultiLine, StatusBadge, TitleBar } from 'components';
+import { LongTextInput, NumberInput, TextInput } from 'forms/Inputs';
 import { ValidationErrors } from 'forms/Validation';
 import { ErrorDetailContext, useIngredients } from 'hooks/data';
 import { useContext } from 'react';
@@ -21,7 +21,7 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 					name='title'
 					value={recipe.title}
 					placeholder='Add a descriptive title'
-					handler={onUpdate}
+					onChange={onUpdate}
 				/>
 				<StatusBadge
 					className='e-image-status-badge'
@@ -32,20 +32,23 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 
 			<div className='recipe-card__data scrollbar-vertical'>
 				<LongTextInput
-					className='recipe--blurb'
+					label='blurb'
+					className='recipe-data__blurb'
 					name='blurb'
 					value={recipe.blurb}
 					placeholder='maybe some details too?'
-					handler={onUpdate}
+					onChange={onUpdate}
 				/>
 
 				<MultiSelectWithMultiLine
-					className='recipe--ingredients'
+					label='...or add from existing ingredients'
+					className='recipe-data__ingredients'
 					items={recipe.recipeIngredients}
 					selectableOptions={ingredients}
 					attrName='recipeIngredients'
+					entityName='ingredients'
 					onChange={onUpdate}
-					placeholder='add another ingredient'
+					placeholder='add ingredient(s)'
 				>
 					<MultiSelectItemRow onChange={onUpdate} />
 				</MultiSelectWithMultiLine>

@@ -1,26 +1,13 @@
-export default function LongTextInput({
-	className,
-	name,
-	label,
-	value,
-	placeholder,
-	handler,
-	rows
-}) {
-	const classes = className ? `form-input ${className}` : `form-input`;
-
+export default function LongTextInput({ label, rows, ...additionalProps }) {
 	return (
-		<div className={classes}>
+		<div className={`form-input ${additionalProps.className ?? ''}`}>
 			{label ? <label htmlFor={label}>{label}</label> : ''}
 			<textarea
-				id={label ?? crypto.randomUUID()}
+				id={label ?? 'default_long_text_input_id'}
 				className='long-text-input scrollbar-vertical'
-				name={name}
-				value={value}
-				placeholder={placeholder}
-				onChange={handler}
 				rows={rows ?? '4'}
 				maxLength='5000'
+				{...additionalProps}
 			/>
 		</div>
 	);

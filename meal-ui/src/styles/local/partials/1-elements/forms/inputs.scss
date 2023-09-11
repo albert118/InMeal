@@ -39,7 +39,7 @@
 
 .form-input > input[type='text'].text-input,
 .form-input > textarea.long-text-input {
-	color: var(--text);
+	@include text();
 }
 
 .form-input > textarea {
@@ -62,7 +62,7 @@
 }
 
 .form-input > label {
-	@include label();
+	@include form-label();
 }
 
 .form-input > label.disabled {

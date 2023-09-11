@@ -29,3 +29,7 @@
 	background-color: var(--background-details);
 	border: none;
 }
+
+.cds--multi-select--filterable--input-focused {
+	outline: transparent;
+}

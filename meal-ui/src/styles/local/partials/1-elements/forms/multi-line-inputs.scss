@@ -1,20 +1,15 @@
+@use '@carbon/react/scss/spacing' as *;
+
 .multi-line-input {
 	display: flex;
 	flex-direction: column;
-	row-gap: 1em;
-}
+	row-gap: $spacing-05;
 
-.add-new-item {
-	display: flex;
-	column-gap: 2em;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.add-new-item .e-full-width-new-item {
-	width: 100%;
-}
-
-.add-new-item .new-item {
-	width: 200px;
+	.multi-line-input__new,
+	.multi-line-input__add {
+		display: flex;
+		column-gap: $spacing-08;
+		justify-content: space-between;
+		align-items: flex-end;
+	}
 }

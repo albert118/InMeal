@@ -4,9 +4,9 @@ const defaultRecipe = Object.freeze({
 	blurb: '',
 	cookTime: 0,
 	prepTime: 0,
-	type: 'Unknown',
-	category: 'Unknown',
-	course: 'Unknown'
+	type: 'unknown',
+	category: 'unknown',
+	course: 'unknown'
 });
 
 export { defaultRecipe };

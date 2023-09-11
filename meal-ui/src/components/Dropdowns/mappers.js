@@ -1,17 +1,6 @@
-import { Dropdown } from '@carbon/react';
 import { objectMap, stringifyType } from 'utils';
 
-export default function DropdownCustom({ items, onChange, ...additionalProps }) {
-	return (
-		<Dropdown
-			items={mapToDropdownItems(items)}
-			onChange={event => onChange(event.selectedItem)}
-			{...additionalProps}
-		/>
-	);
-}
-
-function mapToDropdownItems(items) {
+export default function mapToDropdownItems(items) {
 	if (Array.isArray(items)) return mapArray(items);
 	if (typeof items === 'object') return mapObjects(items);
 
@@ -21,7 +10,7 @@ function mapToDropdownItems(items) {
 function mapArray(items) {
 	return items.map(item => {
 		return {
-			id: item.id ? item.id : 1,
+			id: item.id ?? 'default_dropdown_id',
 			label: stringifyType(item.name),
 			...item
 		};
