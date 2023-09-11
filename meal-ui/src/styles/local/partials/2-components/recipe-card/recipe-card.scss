@@ -29,6 +29,10 @@
 			flex-basis: 100%;
 		}
 
+		.ingredients-list > * {
+			margin-top: $spacing-04;
+		}
+
 		.recipe-data__meta {
 			display: flex;
 			flex-direction: column;
