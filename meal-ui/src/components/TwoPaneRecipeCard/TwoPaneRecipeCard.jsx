@@ -35,7 +35,10 @@ function RightPane({ recipe }) {
 			<div className='recipe-card__data scrollbar-vertical'>
 				<p className='recipe__steps'>{recipe.preparationSteps}</p>
 			</div>
-			<Actions recipeId={recipe.id} />
+			<Actions
+				className='recipe-card__actions'
+				recipeId={recipe.id}
+			/>
 		</div>
 	);
 }
