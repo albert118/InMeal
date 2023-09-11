@@ -14,6 +14,7 @@ export default function TextInput({ label, onChange, ...additionalProps }) {
 				onKeyDown={handleKeyDown}
 				onChange={onChange}
 				type='text'
+				{...additionalProps}
 			/>
 		</div>
 	);

@@ -51,24 +51,18 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 					<NumberInput
 						onChange={onUpdate}
 						name='servings'
-						min='0'
-						max='999'
 						value={recipe.servings}
 						label='servings'
 					/>
 					<NumberInput
 						onChange={onUpdate}
 						name='prepTime'
-						min='0'
-						max='999'
 						value={recipe.prepTime}
 						label='preparation time (minutes)'
 					/>
 					<NumberInput
 						onChange={onUpdate}
 						name='cookTime'
-						min='0'
-						max='999'
 						value={recipe.cookTime}
 						label='cook time (minutes)'
 					/>
