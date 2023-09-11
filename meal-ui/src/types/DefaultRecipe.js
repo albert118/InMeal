@@ -4,6 +4,7 @@ const defaultRecipe = Object.freeze({
 	blurb: '',
 	cookTime: 0,
 	prepTime: 0,
+	servings: 0,
 	type: 'unknown',
 	category: 'unknown',
 	course: 'unknown'
