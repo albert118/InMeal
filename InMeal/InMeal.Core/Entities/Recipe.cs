@@ -109,6 +109,10 @@ public class Recipe : IHaveState<RecipeMemento>
 
     public void EditMeta(MealCourse course, MealType type, int prepTime, int cookTime, int servings)
     {
+        if (prepTime > 999) throw new ArgumentException("a preparation time greater than 999 minutes is not supported");
+        if (cookTime > 999) throw new ArgumentException("a cooking time greater than 999 minutes is not supported");
+        if (servings > 99) throw new ArgumentException("servings greater than 99 are not supported");
+        
         CourseType = course;
         MealType = type;
         PrepTime = prepTime;
