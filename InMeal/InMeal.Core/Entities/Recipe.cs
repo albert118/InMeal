@@ -107,12 +107,13 @@ public class Recipe : IHaveState<RecipeMemento>
         
     }
 
-    public void EditMeta(MealCourse course, MealType type, int prepTime, int cookTime)
+    public void EditMeta(MealCourse course, MealType type, int prepTime, int cookTime, int servings)
     {
         CourseType = course;
         MealType = type;
         PrepTime = prepTime;
         CookTime = cookTime;
+        Servings = servings;
     }
 
     public void UpdateIngredients(IReadOnlyCollection<RecipeIngredient> recipeIngredients)

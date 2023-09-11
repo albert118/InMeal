@@ -86,7 +86,7 @@ public class RecipeManager : IRecipeManager
 
         recipe.EditDetails(dto.Title, dto.Blurb, dto.PreparationSteps);
         recipe.UpdateIngredients(RecipeIngredientMapper.FromDto(dto.RecipeIngredients, recipe.Id));
-        recipe.EditMeta(dto.Course, dto.Type, dto.PrepTime, dto.CookTime);
+        recipe.EditMeta(dto.Course, dto.Type, dto.PrepTime, dto.CookTime, dto.Servings);
         recipe.AddCategory(dto.Category);
 
         await _recipeRepository.EditRecipeAsync(recipe, ct);

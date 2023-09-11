@@ -9,6 +9,7 @@ public sealed record EditRecipeDto(
     string PreparationSteps,
     int CookTime,
     int PrepTime,
+    int Servings,
     List<RecipeIngredientDto> RecipeIngredients,
     Cuisine Category,
     MealCourse Course,
