@@ -58,13 +58,13 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						onChange={onUpdate}
 						name='prepTime'
 						value={recipe.prepTime}
-						label='preparation time'
+						label='preparation time (minutes)'
 					/>
 					<NumberInput
 						onChange={onUpdate}
 						name='cookTime'
 						value={recipe.cookTime}
-						label='cook time'
+						label='cook time (minutes)'
 					/>
 				</div>
 			</div>

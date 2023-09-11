@@ -8,6 +8,7 @@ function mapToEditedRecipeDto(editedRecipe) {
 		PreparationSteps: editedRecipe.preparationSteps,
 		CookTime: editedRecipe.cookTime,
 		PrepTime: editedRecipe.prepTime,
+		Servings: editedRecipe.servings,
 		RecipeIngredients: editedRecipe.recipeIngredients,
 		Category: editedRecipe.category.original,
 		Course: editedRecipe.course.original,

@@ -36,9 +36,11 @@
 		.recipe-data__meta {
 			display: flex;
 			flex-direction: column;
-			justify-content: flex-start;
+			justify-content: space-between;
+			flex-wrap: wrap;
 			gap: $spacing-06;
 			width: 40%;
+			height: 30%;
 		}
 	}
 

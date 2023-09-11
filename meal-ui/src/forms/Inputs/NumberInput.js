@@ -1,20 +1,17 @@
-export default function NumberInput({ className, label, id, ...additionalProps }) {
-	const getIdOrLabel = () => {
-		if (id) return id;
-		if (label) return label;
-
-		return 'generic-text-input-id';
-	};
-
+export default function NumberInput({ className, ...additionalProps }) {
 	return (
 		<div className={`form-input ${className ?? ''}`}>
+			{additionalProps.label && (
+				<label htmlFor={additionalProps.label ?? 'generic-text-input-id'}>
+					{additionalProps.label}
+				</label>
+			)}
 			<input
-				id={getIdOrLabel()}
+				id={additionalProps.id ?? additionalProps.label ?? 'generic-text-input-id'}
 				className='text-input'
 				type='number'
 				{...additionalProps}
 			/>
-			{label ? <label htmlFor={label}>{label}</label> : ''}
 		</div>
 	);
 }
