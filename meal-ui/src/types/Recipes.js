@@ -24,6 +24,7 @@ function mapToEditableRecipe(recipe) {
 		preparationSteps: recipe.preparationSteps,
 		cookTime: recipe.cookTime,
 		prepTime: recipe.prepTime,
+		servings: recipe.servings,
 		recipeIngredients: recipe.recipeIngredients,
 		category: { label: stringifyType(recipe.category), original: recipe.category },
 		course: { label: stringifyType(recipe.course), original: recipe.course },

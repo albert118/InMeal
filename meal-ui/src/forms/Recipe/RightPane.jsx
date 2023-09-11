@@ -1,5 +1,5 @@
 import { Dropdown } from 'components';
-import { LongTextInput } from 'forms/Inputs';
+import { LongTextInput, NumberInput } from 'forms/Inputs';
 import { CancelButton, SaveButton } from 'forms/FormActions';
 
 export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
@@ -47,6 +47,24 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						title='course'
 						selectedItem={recipe.course}
 						onChange={selected => onDropdownUpdate('course', selected)}
+					/>
+					<NumberInput
+						onChange={onUpdate}
+						name='servings'
+						value={recipe.servings}
+						label='servings'
+					/>
+					<NumberInput
+						onChange={onUpdate}
+						name='prepTime'
+						value={recipe.prepTime}
+						label='preparation time'
+					/>
+					<NumberInput
+						onChange={onUpdate}
+						name='cookTime'
+						value={recipe.cookTime}
+						label='cook time'
 					/>
 				</div>
 			</div>
