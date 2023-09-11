@@ -60,18 +60,13 @@ public class RecipeManager : IRecipeManager
     {
         if (dto.Id != null) throw new ArgumentException("A new recipe shouldn't have an ID yet (an ID was provided)");
 
-        var newRecipe = new Recipe(
-            dto.Title,
-            dto.Blurb,
-            dto.PreparationSteps,
-            dto.CookTime,
-            dto.PrepTime
-        );
+        var newRecipe = new Recipe(dto.Title, dto.Blurb, dto.PreparationSteps);
 
         if (!await _recipeRepository.IsRecipeTitleUnique(newRecipe.Title, ct))
-            throw new RecipeUniqueTitleException(
-                $"A recipe should have a unique title ('{dto.Title}' has already been used)");
+            throw new RecipeUniqueTitleException($"A recipe should have a unique title ('{dto.Title}' has already been used)");
 
+        newRecipe.EditMeta(dto.Course, dto.Type, dto.PrepTime, dto.CookTime, dto.Servings);
+        newRecipe.AddCategory(dto.Category);
         newRecipe.UpdateIngredients(RecipeIngredientMapper.FromDto(dto.RecipeIngredients, newRecipe.Id));
         await _recipeRepository.AddRecipeAsync(newRecipe, ct);
 

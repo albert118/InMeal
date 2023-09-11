@@ -6,7 +6,7 @@ namespace InMeal.Core.Entities;
 
 public class Recipe : IHaveState<RecipeMemento>
 {
-    public Recipe(string title, string? blurb, string? preparationSteps, int cookTime, int prepTime)
+    public Recipe(string title, string? blurb, string? preparationSteps)
     {
         if (string.IsNullOrEmpty(title)) throw new ArgumentException("a title is required");
         if (string.IsNullOrEmpty(preparationSteps)) throw new ArgumentException("preparation steps are required");
@@ -17,12 +17,11 @@ public class Recipe : IHaveState<RecipeMemento>
         Blurb = blurb ?? string.Empty;
         PreparationSteps = preparationSteps;
 
-        CookTime = cookTime;
-        PrepTime = prepTime;
+        CookTime = 0;
+        PrepTime = 0;
+        Servings = 1;
         CourseType = MealCourse.Unknown;
         MealType = MealType.Unknown;
-        Servings = 1;
-
         Category = new(new(Guid.NewGuid()), Id, Cuisine.Unknown);
         RecipeIngredients = new();
     }
@@ -111,8 +110,10 @@ public class Recipe : IHaveState<RecipeMemento>
     {
         if (prepTime > 999) throw new ArgumentException("a preparation time greater than 999 minutes is not supported");
         if (cookTime > 999) throw new ArgumentException("a cooking time greater than 999 minutes is not supported");
+
         if (servings > 99) throw new ArgumentException("servings greater than 99 are not supported");
-        
+        if (servings < 1) throw new ArgumentException("a recipe should have at least one serving");
+
         CourseType = course;
         MealType = type;
         PrepTime = prepTime;
