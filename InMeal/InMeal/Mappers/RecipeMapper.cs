@@ -15,6 +15,7 @@ public static class RecipeMapper
             recipe.PreparationSteps,
             recipe.CookTime,
             recipe.PrepTime,
+            recipe.Servings,
             recipe.RecipeIngredients.Select(RecipeIngredientMapper.ToDto).ToList(),
             recipe.GetCategoryName(),
             recipe.CourseType.ToString(),
@@ -27,8 +28,8 @@ public static class RecipeMapper
         return new(
             Id: recipe.Id.Key,
             Title: recipe.Title,
-            CookTime: recipe.CookTime ?? 0,
-            PrepTime: recipe.PrepTime ?? 0,
+            CookTime: recipe.CookTime,
+            PrepTime: recipe.PrepTime,
             Servings: recipe.Servings,
             IngredientsCount: recipe.RecipeIngredients.Count,
             Category: recipe.GetCategoryName(),

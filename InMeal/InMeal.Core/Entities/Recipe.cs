@@ -6,7 +6,7 @@ namespace InMeal.Core.Entities;
 
 public class Recipe : IHaveState<RecipeMemento>
 {
-    public Recipe(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
+    public Recipe(string title, string? blurb, string? preparationSteps, int cookTime, int prepTime)
     {
         if (string.IsNullOrEmpty(title)) throw new ArgumentException("a title is required");
         if (string.IsNullOrEmpty(preparationSteps)) throw new ArgumentException("preparation steps are required");
@@ -49,9 +49,9 @@ public class Recipe : IHaveState<RecipeMemento>
 
     public RecipeId Id { get; set; }
 
-    public int? CookTime { get; set; }
+    public int CookTime { get; set; }
 
-    public int? PrepTime { get; set; }
+    public int PrepTime { get; set; }
 
     public int Servings { get; set; }
 
@@ -107,7 +107,7 @@ public class Recipe : IHaveState<RecipeMemento>
         
     }
 
-    public void EditMeta(MealCourse course, MealType type, int? prepTime, int? cookTime)
+    public void EditMeta(MealCourse course, MealType type, int prepTime, int cookTime)
     {
         CourseType = course;
         MealType = type;
