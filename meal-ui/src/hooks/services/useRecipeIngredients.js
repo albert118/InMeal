@@ -1,11 +1,15 @@
 import { multiSelectEvents } from 'components';
 import { createRecipeIngredient } from 'types/Ingredients';
+import { useIngredient } from 'hooks/data';
 
 export default function useRecipeIngredients() {
+	const { postIngredient, newIngredient } = useIngredient();
+
 	const strategies = Object.freeze({
 		[multiSelectEvents.Add]: executeExisting,
 		[multiSelectEvents.Remove]: executeRemoval,
-		[multiSelectEvents.Update]: executeUpdate
+		[multiSelectEvents.Update]: executeUpdate,
+		[multiSelectEvents.New]: executeNew
 	});
 
 	function handleRecipeIngredients(event, recipe) {
@@ -14,26 +18,46 @@ export default function useRecipeIngredients() {
 		return strategies[strategyName](event, recipe);
 	}
 
+	function executeNew(event, recipe) {
+		const { id, data: label } = event.target.value;
+
+		// Id should be null, as the ingredient hasn't been added yet
+		if (id !== null) {
+			console.warn(`adding a new recipe ingredient seems to have an existing Id '${id}'`);
+		}
+
+		// insert the new entity and update the client state by resolving the promise
+		return postIngredient(label).then(ingredient => {
+			return {
+				...recipe,
+				recipeIngredients: [
+					...recipe.recipeIngredients,
+					createRecipeIngredient(ingredient.name, ingredient.id, ingredient.units)
+				]
+			};
+		});
+	}
+
 	function executeExisting(event, recipe) {
 		const { data } = event.target.value;
 		const newIngredients = Array.isArray(data) ? data : [data];
 
-		return {
+		return Promise.resolve({
 			...recipe,
 			recipeIngredients: updateLocalIngredientsWithIds(newIngredients, recipe)
-		};
+		});
 	}
 
 	function executeRemoval(event, recipe) {
 		// compare either, as the recipe ingredient may not yet have an ID (because it's new)
 		const { id, data: label } = event.target.value;
 
-		return {
+		return Promise.resolve({
 			...recipe,
 			recipeIngredients: recipe.recipeIngredients.filter(ri =>
 				id ? ri['id'] !== id : ri['label'] !== label
 			)
-		};
+		});
 	}
 
 	function executeUpdate(event, recipe) {
@@ -44,10 +68,10 @@ export default function useRecipeIngredients() {
 		// perform the update
 		recipeIngredientsCopy.find(ri => ri['label'] === id).quantity = quantity;
 
-		return {
+		return Promise.resolve({
 			...recipe,
 			recipeIngredients: recipeIngredientsCopy
-		};
+		});
 	}
 
 	return { handleRecipeIngredients };

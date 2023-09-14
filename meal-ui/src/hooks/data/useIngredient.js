@@ -1,11 +1,12 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { ApiConfig } from 'config';
 import { useFetch } from 'hooks/fetch';
 import { ErrorDetailContext } from './errorContext';
 
 export default function useIngredient() {
-	const { patchApi, deleteApi } = useFetch();
+	const { patchApi, deleteApi, postApi } = useFetch();
 	const { setError } = useContext(ErrorDetailContext);
+	const [newIngredient, setNewIngredient] = useState(null);
 
 	function updateIngredient(id, newName, newUnit) {
 		const url = `${ApiConfig.API_URL}/ingredients/update`;
@@ -36,5 +37,19 @@ export default function useIngredient() {
 			});
 	}
 
-	return { updateIngredient, deleteIngredient };
+	function postIngredient(ingredientName) {
+		const url = `${ApiConfig.API_URL}/ingredients/add`;
+		const body = { ingredientNames: [ingredientName] };
+		return postApi(url, body)
+			.then(ingredients => {
+				setError(null);
+				return ingredients[0];
+			})
+			.catch(errorDetail => {
+				setError(errorDetail);
+				return true;
+			});
+	}
+
+	return { updateIngredient, postIngredient, deleteIngredient, newIngredient };
 }

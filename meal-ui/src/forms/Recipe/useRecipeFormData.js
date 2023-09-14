@@ -35,7 +35,7 @@ export default function useRecipeFormData() {
 		const recipeIngredientFormAttributeName = 'recipeIngredients';
 
 		if (event.target.name === recipeIngredientFormAttributeName) {
-			setRecipe(handleRecipeIngredients(event, recipe));
+			handleRecipeIngredients(event, recipe).then(updated => setRecipe(updated));
 		} else {
 			setRecipe({
 				...recipe,
