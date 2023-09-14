@@ -11,8 +11,8 @@ export default function EditIngredientContainer() {
 	return (
 		<div className='p-edit-ingredient'>
 			<h2>
-				Ingredients
-				<label>Manage your pantry's ingredients</label>
+				Edit Ingredient
+				<label>edit ingredient details</label>
 			</h2>
 
 			<EditIngredientForm />
