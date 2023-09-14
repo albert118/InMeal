@@ -20,7 +20,7 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 				<TextInput
 					name='title'
 					value={recipe.title}
-					placeholder='Add a descriptive title'
+					placeholder='add a descriptive title'
 					onChange={onUpdate}
 				/>
 				<StatusBadge

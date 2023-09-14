@@ -37,7 +37,7 @@ export default function IngredientsModalBadge({ ingredient, refreshData, measure
 					label='name'
 					value={formData.name}
 					onChange={onUpdate}
-					placeHolder="what's this ingredient called?"
+					placeholder="what's this ingredient called?"
 				/>
 
 				<Dropdown
