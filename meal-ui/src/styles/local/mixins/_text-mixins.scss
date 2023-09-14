@@ -34,10 +34,8 @@
 }
 
 @mixin text-header {
-	@include text();
+	@include item-header();
 	margin: $spacing-05 0;
-	text-transform: capitalize;
-	font-size: 1.8rem;
 }
 
 @mixin thick-text {

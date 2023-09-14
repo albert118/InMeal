@@ -1,15 +1,9 @@
 import { faSquarePlus, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { demoImage } from 'DemoImage';
-import { GoToCTA } from 'components';
+import { GoToCTA, Button } from 'components';
 
-export default function HorizontalCard({
-	onClick,
-	image,
-	navigateLocation,
-	selected,
-	...additionalProps
-}) {
+export default function HorizontalCard({ onClick, image, selected, ...additionalProps }) {
 	const { url, label } = image ?? demoImage;
 
 	return (
@@ -45,11 +39,21 @@ export default function HorizontalCard({
 			>
 				<h4>{additionalProps.title ?? ''}</h4>
 				{additionalProps.children}
-
-				<GoToCTA
-					location={navigateLocation}
-					{...additionalProps}
-				/>
+			</div>
+			<div className='horiz-card__actions'>
+				{/* optional navigation or generic button CTA */}
+				{additionalProps.navigateLocation && (
+					<GoToCTA
+						location={additionalProps.navigateLocation}
+						{...additionalProps}
+					/>
+				)}
+				{additionalProps.onAction && (
+					<Button
+						onClick={additionalProps.onAction}
+						{...additionalProps}
+					/>
+				)}
 			</div>
 		</div>
 	);

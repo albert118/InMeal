@@ -17,6 +17,7 @@ export default function IngredientsIndexRow({
 					title={ingredient.name}
 					entityName='ingredient'
 					onClick={() => onAddOrRemove(ingredient)}
+					onAction={() => console.log('action!')}
 					selected={isSelected(ingredient)}
 				>
 					<IngredientsModalBadge
