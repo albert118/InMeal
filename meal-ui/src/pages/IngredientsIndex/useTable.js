@@ -1,4 +1,4 @@
-import { useAlphabeticallyIndexedIngredients, useMeasurements, useIngredients } from 'hooks/data';
+import { useAlphabeticallyIndexedIngredients, useIngredients } from 'hooks/data';
 import { useState } from 'react';
 import { objectMap } from 'utils';
 
@@ -6,7 +6,6 @@ export default function useTable() {
 	const [selectedItems, setSelectedItems] = useState([]);
 
 	const { indexedIngredients, refreshData } = useAlphabeticallyIndexedIngredients();
-	const { measurementOptions } = useMeasurements();
 	const { deleteIngredients } = useIngredients();
 
 	function onAddOrRemove(item) {
@@ -58,7 +57,6 @@ export default function useTable() {
 
 	return {
 		indexedIngredients,
-		measurementOptions,
 		onAddOrRemove,
 		totalCount,
 		onDelete,

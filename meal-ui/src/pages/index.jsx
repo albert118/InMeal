@@ -6,3 +6,4 @@ export { default as ViewRecipe } from './ViewRecipe';
 export { default as Home } from './Home';
 
 export { default as IngredientsIndex } from './IngredientsIndex';
+export { default as EditIngredient } from './EditIngredient';

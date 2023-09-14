@@ -1,30 +1,16 @@
 import { Badge, IndexRow, HorizontalCard } from 'components';
-import { EditIngredientsModal } from 'forms/EditIngredient';
+import AppRoutes from 'navigation/AppRoutes';
 
-export default function IngredientsIndexRow({
-	label,
-	ingredients,
-	refreshData,
-	measurementOptions,
-	isSelected,
-	onAddOrRemove
-}) {
+export default function IngredientsIndexRow({ label, ingredients, isSelected, onAddOrRemove }) {
 	return (
 		<IndexRow label={label}>
 			{ingredients.map(ingredient => (
 				<HorizontalCard
 					key={ingredient.id}
 					title={ingredient.name}
-					entityName='ingredient'
+					entityName='edit ingredient'
+					navigateLocation={`${AppRoutes.ingredients}/edit/${ingredient.id}`}
 					onClick={() => onAddOrRemove(ingredient)}
-					onAction={
-						<EditIngredientsModal
-							key={ingredient.ingredientId}
-							ingredient={ingredient}
-							refreshData={refreshData}
-							measurementOptions={measurementOptions}
-						/>
-					}
 					selected={isSelected(ingredient)}
 				>
 					<IngredientDetailBadges ingredient={ingredient} />
@@ -57,3 +43,10 @@ function IngredientDetailBadges({ ingredient }) {
 		</div>
 	);
 }
+
+// <EditIngredientsModal
+// key={ingredient.ingredientId}
+// ingredient={ingredient}
+// refreshData={refreshData}
+// measurementOptions={measurementOptions}
+// /

@@ -1,7 +1,7 @@
 import { faSquarePlus, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { demoImage } from 'DemoImage';
-import { GoToCTA, Button } from 'components';
+import { GoToCTA } from 'components';
 
 export default function HorizontalCard({ onClick, image, selected, ...additionalProps }) {
 	const { url, label } = image ?? demoImage;
@@ -49,7 +49,6 @@ export default function HorizontalCard({ onClick, image, selected, ...additional
 							{...additionalProps}
 						/>
 					)}
-					{additionalProps.onAction}
 				</div>
 			</div>
 		</div>

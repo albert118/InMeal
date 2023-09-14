@@ -1,13 +1,15 @@
 import { useContext } from 'react';
-import useEditIngredientFormData from './useEditIngredientFormData';
-import { Button, Dropdown, EditModalWrapper } from 'components';
+import useEditIngredientFormData from 'forms/Ingredient/useEditIngredientFormData';
+import { Dropdown } from 'components';
 import { TextInput, Checkbox } from 'forms/Inputs';
 import { ValidationErrors, ValidationWarnings } from 'forms/Validation';
 import { ErrorDetailContext } from 'hooks/data';
+import { SaveButton, CancelButton } from 'forms/FormActions';
+import FormContainer from 'forms';
 
-export default function EditIngredientsModal({ ingredient, refreshData, measurementOptions }) {
-	const { formData, onSubmit, onUpdate, getWarnings, disableDelete } =
-		useEditIngredientFormData(ingredient);
+export default function EditIngredientContainer() {
+	const { formData, measurementOptions, onUpdate, getWarnings, canDelete, ...formHooks } =
+		useEditIngredientFormData();
 
 	const { error } = useContext(ErrorDetailContext);
 
@@ -18,14 +20,11 @@ export default function EditIngredientsModal({ ingredient, refreshData, measurem
 	};
 
 	return (
-		<EditModalWrapper
-			editCallback={onSubmit}
-			refreshCallback={refreshData}
-			headingText='Update ingredient'
-			labelText={`editing ${ingredient.name}`}
-			buttonComponent={<Button>edit ingredient</Button>}
-		>
-			<div className='edit-ingredient-form'>
+		<div className='p-edit-ingredient'>
+			<FormContainer
+				className='edit-ingredient-form'
+				{...formHooks}
+			>
 				<TextInput
 					name='name'
 					label='name'
@@ -50,11 +49,15 @@ export default function EditIngredientsModal({ ingredient, refreshData, measurem
 						name='isDeleted'
 						label='delete ingredient?'
 						onClick={onUpdate}
-						disabled={disableDelete}
+						disabled={canDelete}
 					/>
-					{disableDelete && <ValidationWarnings warnings={getWarnings()} />}
+					{canDelete && <ValidationWarnings warnings={getWarnings()} />}
 				</div>
-			</div>
-		</EditModalWrapper>
+				<div className='edit-ingredient-form__actions'>
+					<CancelButton {...formHooks} />
+					<SaveButton />
+				</div>
+			</FormContainer>
+		</div>
 	);
 }
