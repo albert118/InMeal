@@ -52,7 +52,9 @@ export default function HorizontalCard({ onClick, image, selected, ...additional
 					<Button
 						onClick={additionalProps.onAction}
 						{...additionalProps}
-					/>
+					>
+						{`edit ${additionalProps.entityName}`}
+					</Button>
 				)}
 			</div>
 		</div>
