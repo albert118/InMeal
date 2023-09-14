@@ -3,6 +3,7 @@
 @use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/glass-background' as *;
 @use '../../../mixins/image-cover' as *;
+@use '../../../mixins/alignment' as *;
 
 .horiz-card {
 	display: flex;
@@ -28,9 +29,11 @@
 
 		.add,
 		.remove {
+			@include align-center();
+			// icons are 32px in this usage
+			width: 32px;
 			position: relative;
 			top: -55%;
-			left: 40%;
 			opacity: 0;
 		}
 
