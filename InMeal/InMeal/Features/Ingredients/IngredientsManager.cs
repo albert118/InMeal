@@ -12,7 +12,7 @@ public interface IIngredientsManager
 {
     Task<List<Ingredient>> GetIngredientsAsync(int? skip, int? take, CancellationToken ct);
     
-    Task<List<Ingredient>> GetIngredientsAsync(List<IngredientId> ids, CancellationToken ct);
+    Task<List<IngredientDetailDto>> GetIngredientDetailAsync(List<IngredientId> ids, CancellationToken ct);
 
     Task EditAsync(EditIngredientDto dto, CancellationToken ct);
     
@@ -48,11 +48,12 @@ public class IngredientsManager : IIngredientsManager
         return ingredients;
     }
 
-    public async Task<List<Ingredient>> GetIngredientsAsync(List<IngredientId> ids, CancellationToken ct)
+    public async Task<List<IngredientDetailDto>> GetIngredientDetailAsync(List<IngredientId> ids, CancellationToken ct)
     {
+        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCountAsync(ids, ct);
         var ingredients = await _ingredientRepository.GetManyAsync(ids, ct);
 
-        return ingredients;
+        return ingredients.Select(i => i.ToDto(usageCountResults)).ToList();
     }
 
     public async Task EditAsync(EditIngredientDto dto, CancellationToken ct)
@@ -76,7 +77,7 @@ public class IngredientsManager : IIngredientsManager
     {
         var indexedIngredients = await _ingredientRepository.GetManyOrderedAlphabeticallyAsync(ct);
 
-        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCount(ct);
+        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCountAsync(ct);
 
         // merge results with the mapper
         return indexedIngredients.Count == 0
@@ -113,7 +114,7 @@ public class IngredientsManager : IIngredientsManager
             throw new IngredientDeletionException($"cannot remove {nameof(Ingredient)}s that may not exist");
         }
 
-        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCount(ct);
+        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCountAsync(ct);
         var unusedIngredients = usageCountResults.Keys.ToHashSet().Except(ids).ToList();
 
         // check if they are used
