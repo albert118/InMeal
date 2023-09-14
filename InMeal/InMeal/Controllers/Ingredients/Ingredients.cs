@@ -32,13 +32,14 @@ public class IngredientsController : ControllerBase
     }
     
     [HttpGet("{ingredientId:guid}", Name = "View an ingredient")]
-    public ActionResult<List<IngredientDto>> Get(Guid ingredientId)
+    public ActionResult<IngredientDto> Get(Guid ingredientId)
     {
-        var results = _ingredientsManager.GetIngredientsAsync(new() { new(ingredientId) }, _tokenAccessor.Token)
+        var result = _ingredientsManager.GetIngredientsAsync(new() { new(ingredientId) }, _tokenAccessor.Token)
                                          .GetAwaiter()
-                                         .GetResult();
+                                         .GetResult()
+                                         .SingleOrDefault();
 
-        return results.Count == 0 ? new() : results.Select(IngredientMapper.MapToIngredientDto).ToList();
+        return result == null ? BadRequest("no ingredient found") : result.MapToIngredientDto();
     }
 
     [HttpPatch(Name = "Edit an ingredient")]
