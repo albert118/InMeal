@@ -52,6 +52,10 @@ export default function useTable() {
 		.map(category => category.length)
 		.reduce((partialSum, a) => partialSum + a, 0);
 
+	function isSelected(ingredient) {
+		selectedItems.map(i => i.id).includes(ingredient.id);
+	}
+
 	return {
 		indexedIngredients,
 		measurementOptions,
@@ -60,6 +64,7 @@ export default function useTable() {
 		onDelete,
 		onSelectAll,
 		selectedItems,
-		onViewUnused
+		onViewUnused,
+		isSelected
 	};
 }
