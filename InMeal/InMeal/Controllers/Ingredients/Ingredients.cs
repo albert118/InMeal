@@ -30,6 +30,16 @@ public class IngredientsController : ControllerBase
 
         return results.Count == 0 ? new() : results.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
+    
+    [HttpGet("{ingredientId:guid}", Name = "View an ingredient")]
+    public ActionResult<List<IngredientDto>> Get(Guid ingredientId)
+    {
+        var results = _ingredientsManager.GetIngredientsAsync(new() { new(ingredientId) }, _tokenAccessor.Token)
+                                         .GetAwaiter()
+                                         .GetResult();
+
+        return results.Count == 0 ? new() : results.Select(IngredientMapper.MapToIngredientDto).ToList();
+    }
 
     [HttpPatch(Name = "Edit an ingredient")]
     [ActionName("update")]

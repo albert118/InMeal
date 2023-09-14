@@ -11,6 +11,8 @@ namespace InMeal.Features.Ingredients;
 public interface IIngredientsManager
 {
     Task<List<Ingredient>> GetIngredientsAsync(int? skip, int? take, CancellationToken ct);
+    
+    Task<List<Ingredient>> GetIngredientsAsync(List<IngredientId> ids, CancellationToken ct);
 
     Task EditAsync(EditIngredientDto dto, CancellationToken ct);
     
@@ -42,6 +44,13 @@ public class IngredientsManager : IIngredientsManager
     public async Task<List<Ingredient>> GetIngredientsAsync(int? skip, int? take, CancellationToken ct)
     {
         var ingredients = await _ingredientRepository.GetManyAsync(skip ?? 0, take ?? DefaultTake, ct);
+
+        return ingredients;
+    }
+
+    public async Task<List<Ingredient>> GetIngredientsAsync(List<IngredientId> ids, CancellationToken ct)
+    {
+        var ingredients = await _ingredientRepository.GetManyAsync(ids, ct);
 
         return ingredients;
     }
