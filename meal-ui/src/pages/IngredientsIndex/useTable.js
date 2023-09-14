@@ -35,6 +35,19 @@ export default function useTable() {
 		}
 	}
 
+	function onViewUnused(event) {
+		if (event.target.checked) {
+			const allUnusedItems = objectMap(indexedIngredients, (_, ingredients) => ingredients).reduce(
+				(all, ingredients) =>
+					all.concat(ingredients.filter(ingredient => ingredient.recipeUsageCount === 0))
+			);
+
+			setSelectedItems(allUnusedItems);
+		} else {
+			setSelectedItems([]);
+		}
+	}
+
 	const totalCount = Object.values(indexedIngredients)
 		.map(category => category.length)
 		.reduce((partialSum, a) => partialSum + a, 0);
@@ -46,6 +59,7 @@ export default function useTable() {
 		totalCount,
 		onDelete,
 		onSelectAll,
-		selectedItems
+		selectedItems,
+		onViewUnused
 	};
 }

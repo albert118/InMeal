@@ -39,7 +39,7 @@ export default function IngredientsIndexContainer() {
 	);
 }
 
-function Actions({ totalCount, selectedItems, onDelete, onSelectAll }) {
+function Actions({ totalCount, selectedItems, onDelete, onSelectAll, onViewUnused }) {
 	return (
 		<div className='action-container'>
 			<div className='action-container__card'>
@@ -55,6 +55,11 @@ function Actions({ totalCount, selectedItems, onDelete, onSelectAll }) {
 						id='select_all'
 						labelText='select all'
 						onClick={onSelectAll}
+					/>
+					<ToggleInline
+						id='select_unused'
+						labelText='view unused'
+						onClick={onViewUnused}
 					/>
 				</div>
 				<div className='actions'>
