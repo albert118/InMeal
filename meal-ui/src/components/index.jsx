@@ -10,7 +10,7 @@ export { default as Selectable } from './Selectable';
 
 // cards
 export { default as Card } from './Card';
-export { SimpleCard, ImageCard } from './Card';
+export { SimpleCard, ImageCard, HorizontalCard } from './Card';
 
 // dropdowns and selects
 

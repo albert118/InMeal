@@ -1,5 +1,4 @@
-import { Badge, IndexRow } from 'components';
-import { HorizontalCard } from 'components/Card';
+import { Badge, IndexRow, HorizontalCard } from 'components';
 import AppRoutes from 'navigation/AppRoutes';
 import { stringifyType } from 'utils';
 
