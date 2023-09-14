@@ -6,5 +6,5 @@ export default function mapToItem(item) {
 		string: arg => arg
 	}[typeof item];
 
-	return !!handle ? handle(item?.value ?? item?.label ?? '') : '';
+	return !!handle ? handle(item?.value ?? item?.label ?? item) : '';
 }
