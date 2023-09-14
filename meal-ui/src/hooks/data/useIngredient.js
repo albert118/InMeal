@@ -4,7 +4,7 @@ import { useFetch } from 'hooks/fetch';
 import { ErrorDetailContext } from './errorContext';
 
 export default function useIngredient() {
-	const { patchApi, deleteApi, postApi } = useFetch();
+	const { patchApi, postApi } = useFetch();
 	const { setError } = useContext(ErrorDetailContext);
 	const [newIngredient, setNewIngredient] = useState(null);
 
@@ -26,8 +26,9 @@ export default function useIngredient() {
 	}
 
 	function deleteIngredient(id) {
-		const url = `${ApiConfig.API_URL}/ingredients/delete/${id}`;
-		return deleteApi(url)
+		const url = `${ApiConfig.API_URL}/ingredients/delete`;
+		const body = { ingredientIds: [id] };
+		return postApi(url, body)
 			.then(() => {
 				setError(null);
 			})

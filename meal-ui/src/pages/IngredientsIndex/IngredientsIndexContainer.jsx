@@ -1,10 +1,17 @@
-import { useAlphabeticallyIndexedIngredients, useMeasurements } from 'hooks/data';
-import { IngredientsIndexRow } from './components';
+import { Button, ToggleInline } from 'components';
 import { objectMap } from 'utils';
+import { IngredientsIndexRow } from './components';
+import useTable from './useTable';
 
 export default function IngredientsIndexContainer() {
-	const { indexedIngredients, refreshData } = useAlphabeticallyIndexedIngredients();
-	const { measurementOptions } = useMeasurements();
+	const {
+		indexedIngredients,
+		measurementOptions,
+		selectedItems,
+		onAddOrRemove,
+		refreshData,
+		...hookProps
+	} = useTable();
 
 	return (
 		<div className='p-ingredients'>
@@ -13,6 +20,10 @@ export default function IngredientsIndexContainer() {
 				<label>Manage your pantry's ingredients</label>
 			</h2>
 
+			<Actions
+				selectedItems={selectedItems}
+				{...hookProps}
+			/>
 			{objectMap(indexedIngredients, (idx, ingredients) => {
 				return (
 					<IngredientsIndexRow
@@ -24,6 +35,38 @@ export default function IngredientsIndexContainer() {
 					/>
 				);
 			})}
+		</div>
+	);
+}
+
+function Actions({ totalCount, selectedItems, onDelete, onSelectAll }) {
+	return (
+		<div className='action-container'>
+			<div className='action-container__card'>
+				{
+					<div className='filter-info'>
+						<label>
+							selected: {selectedItems.length}/{totalCount}
+						</label>
+					</div>
+				}
+				<div className='filters'>
+					<ToggleInline
+						id='select_all'
+						labelText='select all'
+						onClick={onSelectAll}
+					/>
+				</div>
+				<div className='actions'>
+					<Button
+						onClick={onDelete}
+						kind='secondary'
+						disabled={selectedItems.length < 1}
+					>
+						delete
+					</Button>
+				</div>
+			</div>
 		</div>
 	);
 }

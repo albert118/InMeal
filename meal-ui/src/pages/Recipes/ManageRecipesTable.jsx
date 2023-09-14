@@ -48,13 +48,13 @@ function Actions({
 	return (
 		<div className='action-container'>
 			<div className='action-container__card'>
-				{selectedItems.length > 0 && (
+				{
 					<div className='filter-info'>
 						<label>
 							selected: {selectedItems.length}/{recipesCount}
 						</label>
 					</div>
-				)}
+				}
 				<div className='filters'>
 					<ToggleInline
 						id='select_all'
