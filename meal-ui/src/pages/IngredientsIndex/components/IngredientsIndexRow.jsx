@@ -6,10 +6,10 @@ export default function IngredientsIndexRow({ label, ingredients, isSelected, on
 		<IndexRow label={label}>
 			{ingredients.map(ingredient => (
 				<HorizontalCard
-					key={ingredient.id}
+					key={ingredient.ingredientId}
 					title={ingredient.name}
 					entityName='edit ingredient'
-					navigateLocation={`${AppRoutes.ingredients}/edit/${ingredient.id}`}
+					navigateLocation={`${AppRoutes.ingredients}/edit/${ingredient.ingredientId}`}
 					onClick={() => onAddOrRemove(ingredient)}
 					selected={isSelected(ingredient)}
 				>

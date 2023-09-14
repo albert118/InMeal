@@ -9,7 +9,7 @@ export default function useIngredient() {
 	const [ingredient, setIngredient] = useState(null);
 
 	function getIngredient(ingredientId) {
-		const url = `${ApiConfig.API_URL}/ingredients/${ingredientId}`;
+		const url = `${ApiConfig.API_URL}/ingredients/get/${ingredientId}`;
 		return getApi(url)
 			.then(ingredient => {
 				setError(null);

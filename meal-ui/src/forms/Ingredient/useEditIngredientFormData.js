@@ -12,18 +12,24 @@ export default function useEditIngredientFormData() {
 	const { error } = useContext(ErrorDetailContext);
 
 	const [formData, setFormData] = useState(initialFormState);
-	const [canDelete, setCanDelete] = useState(false);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
-	const { existingIngredient, getIngredient, updateIngredient, deleteIngredient } = useIngredient();
+	const {
+		ingredient: existingIngredient,
+		getIngredient,
+		updateIngredient,
+		deleteIngredient
+	} = useIngredient();
 	const { measurementOptions } = useMeasurements();
 
 	useEffect(() => {
-		getIngredient(ingredientId).then(existing => {
-			setFormData(defaultFormState(existing.name, existing.units));
-			setCanDelete(existing.recipeUsageCount !== 0);
-		});
+		getIngredient(ingredientId);
 	}, []);
+
+	useEffect(() => {
+		if (!existingIngredient) return;
+		setFormData(defaultFormState(existingIngredient.name, existingIngredient.units));
+	}, [existingIngredient]);
 
 	useEffect(() => {
 		setFormStatus(error ? FormStatuses.Error : FormStatuses.Saved);
@@ -59,6 +65,20 @@ export default function useEditIngredientFormData() {
 		setFormStatus(FormStatuses.Saved);
 		navigate(-1);
 	}
+
+	function getWarnings() {
+		if (!existingIngredient) return [];
+
+		const recipePlural = existingIngredient.recipeUsageCount > 1 ? 'recipes' : 'recipe';
+		const usagePlural = existingIngredient.recipeUsageCount > 1 ? 'usages' : 'usage';
+
+		return [
+			`ingredient is currently used in ${existingIngredient.recipeUsageCount} ${recipePlural}`,
+			`remove the ${usagePlural} to delete this ingredient`
+		];
+	}
+
+	const canDelete = () => existingIngredient?.recipeUsageCount !== 0;
 
 	return {
 		formData,

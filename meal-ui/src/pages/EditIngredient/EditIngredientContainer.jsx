@@ -8,15 +8,8 @@ import { SaveButton, CancelButton } from 'forms/FormActions';
 import FormContainer from 'forms';
 
 export default function EditIngredientContainer() {
-	const {
-		formData,
-		measurementOptions,
-		onUpdate,
-		getWarnings,
-		canDelete,
-		formStatus,
-		...formHooks
-	} = useEditIngredientFormData();
+	const { formData, measurementOptions, onUpdate, getWarnings, canDelete, onSubmit, onCancel } =
+		useEditIngredientFormData();
 
 	const { error } = useContext(ErrorDetailContext);
 
@@ -30,7 +23,7 @@ export default function EditIngredientContainer() {
 		<div className='p-edit-ingredient'>
 			<FormContainer
 				className='edit-ingredient-form'
-				{...formHooks}
+				onSubmit={onSubmit}
 			>
 				<TextInput
 					name='name'
@@ -56,12 +49,12 @@ export default function EditIngredientContainer() {
 						name='isDeleted'
 						label='delete ingredient?'
 						onClick={onUpdate}
-						disabled={canDelete}
+						disabled={canDelete()}
 					/>
-					{canDelete && <ValidationWarnings warnings={getWarnings()} />}
+					{canDelete() && <ValidationWarnings warnings={getWarnings()} />}
 				</div>
 				<div className='edit-ingredient-form__actions'>
-					<CancelButton {...formHooks} />
+					<CancelButton onClick={onCancel} />
 					<SaveButton />
 				</div>
 			</FormContainer>
