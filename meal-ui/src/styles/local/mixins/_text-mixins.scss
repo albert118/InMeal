@@ -26,23 +26,28 @@
 	text-transform: uppercase;
 }
 
+@mixin item-header {
+	@include text();
+	padding: 0 $spacing-04;
+	text-transform: capitalize;
+	font-size: 1.3rem;
+}
+
 @mixin text-header {
 	@include text();
-	margin-top: $spacing-05;
-	margin-bottom: $spacing-05;
+	margin: $spacing-05 0;
 	text-transform: capitalize;
 	font-size: 1.8rem;
 }
 
 @mixin thick-text {
 	@include text();
-
 	font-weight: 800;
 }
 
 @mixin action-text {
 	@include text();
-	padding: $spacing-04;
+	padding: $spacing-04 $spacing-06;
 	margin: $spacing-02;
 }
 
