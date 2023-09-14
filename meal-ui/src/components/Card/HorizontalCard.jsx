@@ -37,25 +37,20 @@ export default function HorizontalCard({ onClick, image, selected, ...additional
 				className='horiz-card__content-slot'
 				disabled={selected}
 			>
-				<h4>{additionalProps.title ?? ''}</h4>
-				{additionalProps.children}
-			</div>
-			<div className='horiz-card__actions'>
-				{/* optional navigation or generic button CTA */}
-				{additionalProps.navigateLocation && (
-					<GoToCTA
-						location={additionalProps.navigateLocation}
-						{...additionalProps}
-					/>
-				)}
-				{additionalProps.onAction && (
-					<Button
-						onClick={additionalProps.onAction}
-						{...additionalProps}
-					>
-						{`edit ${additionalProps.entityName}`}
-					</Button>
-				)}
+				<div className='content'>
+					<h4>{additionalProps.title ?? ''}</h4>
+					{additionalProps.children}
+				</div>
+				<div className='actions'>
+					{/* optional navigation or generic button CTA */}
+					{additionalProps.navigateLocation && (
+						<GoToCTA
+							location={additionalProps.navigateLocation}
+							{...additionalProps}
+						/>
+					)}
+					{additionalProps.onAction}
+				</div>
 			</div>
 		</div>
 	);

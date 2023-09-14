@@ -1,1 +1,1 @@
-export { default as IngredientsModalBadge } from './IngredientsModalBadge';
+export { default as EditIngredientsModal } from './EditIngredientsModal';

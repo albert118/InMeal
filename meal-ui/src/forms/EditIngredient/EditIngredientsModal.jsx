@@ -1,12 +1,11 @@
 import { useContext } from 'react';
-import IngredientBadge from './IngredientBadge';
 import useEditIngredientFormData from './useEditIngredientFormData';
-import { Dropdown, EditModalWrapper } from 'components';
+import { Button, Dropdown, EditModalWrapper } from 'components';
 import { TextInput, Checkbox } from 'forms/Inputs';
 import { ValidationErrors, ValidationWarnings } from 'forms/Validation';
 import { ErrorDetailContext } from 'hooks/data';
 
-export default function IngredientsModalBadge({ ingredient, refreshData, measurementOptions }) {
+export default function EditIngredientsModal({ ingredient, refreshData, measurementOptions }) {
 	const { formData, onSubmit, onUpdate, getWarnings, disableDelete } =
 		useEditIngredientFormData(ingredient);
 
@@ -24,12 +23,7 @@ export default function IngredientsModalBadge({ ingredient, refreshData, measure
 			refreshCallback={refreshData}
 			headingText='Update ingredient'
 			labelText={`editing ${ingredient.name}`}
-			buttonComponent={
-				<IngredientBadge
-					ingredientName={ingredient.name}
-					recipeUsagesCount={ingredient.recipeUsageCount}
-				/>
-			}
+			buttonComponent={<Button>edit ingredient</Button>}
 		>
 			<div className='edit-ingredient-form'>
 				<TextInput

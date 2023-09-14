@@ -1,5 +1,5 @@
-import { IndexRow, HorizontalCard } from 'components';
-import { IngredientsModalBadge } from 'forms/EditIngredient';
+import { Badge, IndexRow, HorizontalCard } from 'components';
+import { EditIngredientsModal } from 'forms/EditIngredient';
 
 export default function IngredientsIndexRow({
 	label,
@@ -17,18 +17,81 @@ export default function IngredientsIndexRow({
 					title={ingredient.name}
 					entityName='ingredient'
 					onClick={() => onAddOrRemove(ingredient)}
-					onAction={() => console.log('action!')}
-					onActionText='edit'
+					onAction={
+						<EditIngredientsModal
+							key={ingredient.ingredientId}
+							ingredient={ingredient}
+							refreshData={refreshData}
+							measurementOptions={measurementOptions}
+						/>
+					}
 					selected={isSelected(ingredient)}
 				>
-					<IngredientsModalBadge
-						key={ingredient.ingredientId}
-						ingredient={ingredient}
-						refreshData={refreshData}
-						measurementOptions={measurementOptions}
-					/>
+					<IngredientDetailBadges ingredient={ingredient} />
 				</HorizontalCard>
 			))}
 		</IndexRow>
 	);
+}
+
+function IngredientDetailBadges({ ingredient }) {
+	const onBadgeClick = () => console.log('clicked badge');
+
+	const isUsed = ingredient.recipeUsageCount && ingredient.recipeUsageCount > 0;
+
+	return (
+		<div className='tiled-badges'>
+			<div className='tiled-badges__row'>
+				<Badge
+					text={isUsed ? `used in ${ingredient.recipeUsageCount} recipes` : 'unused'}
+					labelText={!isUsed ? 'available for deletion' : ''}
+					isWarning={!isUsed}
+					onClick={onBadgeClick}
+				/>
+				<Badge
+					text='measurement'
+					labelText={ingredient.units.name}
+					onClick={onBadgeClick}
+				/>
+			</div>
+		</div>
+	);
+}
+
+{
+	/* <div className='tiled-badges'>
+			<div className='tiled-badges__row'>
+				{recipe.course !== 'Unknown' && (
+					<Badge
+						text={stringifyType(recipe.course)}
+						labelText='course'
+						onClick={onBadgeClick}
+					/>
+				)}
+				{recipe.category !== 'Unknown' && (
+					<Badge
+						text={stringifyType(recipe.category)}
+						labelText='cuisine'
+						onClick={onBadgeClick}
+					/>
+				)}
+				{recipe.type !== 'Unknown' && (
+					<Badge
+						text={stringifyType(recipe.type)}
+						labelText='type'
+						onClick={onBadgeClick}
+					/>
+				)}
+			</div>
+			<div className='tiled-badges__row'>
+				<Badge
+					text={`servings: ${recipe.servings}`}
+					onClick={onBadgeClick}
+				/>
+				<Badge
+					text={`ingredients: ${recipe.ingredientsCount}`}
+					onClick={onBadgeClick}
+				/>
+			</div>
+		</div> */
 }

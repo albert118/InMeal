@@ -7,18 +7,16 @@
 
 .horiz-card {
 	display: flex;
-	--horiz-card-height: 200px;
+	--horiz-card-height: 250px;
 	height: var(--horiz-card-height);
+	width: 45%;
 	border-radius: 12px;
 	border: 1.25px solid var(--background-neutral);
 	@include glass-background();
 	@include card-shadow();
 
-	// not needed? Idk why some are being inconsistent
-	width: 100%;
-
 	.horiz-card__image-slot {
-		width: 40%;
+		width: 20%;
 		border-right: 1.25px solid var(--border);
 		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 		border-radius: 12px 0 0 12px;
@@ -56,27 +54,35 @@
 	.horiz-card__content-slot {
 		display: flex;
 		flex-direction: column;
-		width: 100%;
 		justify-content: space-between;
+		row-gap: $spacing-04;
 		margin-left: $spacing-06;
-		padding-bottom: $spacing-06;
+		width: 100%;
 
-		h4 {
-			@include text-header();
-		}
+		.content {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
 
-		&[disabled] {
-			h4,
-			* {
-				color: var(--text-disabled);
+			h4 {
+				@include text-header();
+			}
+
+			&[disabled] {
+				h4,
+				* {
+					color: var(--text-disabled);
+				}
 			}
 		}
-	}
 
-	.horiz-card__actions {
-		position: absolute;
-		top: calc(var(--horiz-card-height) - 60px);
-		left: 60%;
+		.actions {
+			display: flex;
+			justify-content: flex-end;
+			padding: $spacing-05;
+			gap: $spacing-04;
+			align-items: center;
+		}
 	}
 }
 
