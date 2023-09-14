@@ -18,8 +18,8 @@ public static class RecipeMapper
             recipe.Servings,
             recipe.RecipeIngredients.Select(RecipeIngredientMapper.ToDto).ToList(),
             recipe.GetCategoryName(),
-            recipe.CourseType.ToString(),
-            recipe.MealType.ToString()
+            recipe.CourseType,
+            recipe.MealType
         );
     }
     
@@ -32,7 +32,7 @@ public static class RecipeMapper
             PrepTime: recipe.PrepTime,
             Servings: recipe.Servings,
             IngredientsCount: recipe.RecipeIngredients.Count,
-            Category: recipe.GetCategoryName(),
+            Category: recipe.GetCategoryName().ToString(),
             Course: recipe.CourseType.ToString(),
             Type: recipe.MealType.ToString()
         );

@@ -90,9 +90,9 @@ public class Recipe : IHaveState<RecipeMemento>
             Category.Category = Cuisine.Unknown;
     }
 
-    public string GetCategoryName()
+    public Cuisine GetCategoryName()
     {
-        return Category == null ? Cuisine.Unknown.ToString() : Category.Category.ToString();
+        return Category?.Category ?? Cuisine.Unknown;
     }
     
     public void EditDetails(string title, string? blurb, string preparationSteps)
