@@ -3,6 +3,7 @@ import { useIngredient, useMeasurements } from 'hooks/data';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorDetailContext } from 'hooks/data';
+import { getWarnings, valueUpdateStrategies } from './helpers';
 
 const defaultFormState = (name, units) => {
 	return {
@@ -11,11 +12,6 @@ const defaultFormState = (name, units) => {
 		isDeleted: false
 	};
 };
-
-const valueUpdateStrategies = Object.freeze({
-	isDeleted: target => target.checked,
-	default: target => target.value
-});
 
 export default function useEditIngredientFormData() {
 	const { ingredientId } = useParams();
@@ -96,13 +92,3 @@ export default function useEditIngredientFormData() {
 }
 
 // helpers
-
-function getWarnings(ingredient) {
-	const recipePlural = ingredient.recipeUsageCount > 1 ? 'recipes' : 'recipe';
-	const usagePlural = ingredient.recipeUsageCount > 1 ? 'usages' : 'usage';
-
-	return [
-		`ingredient is currently used in ${ingredient.recipeUsageCount} ${recipePlural}`,
-		`remove the ${usagePlural} to delete this ingredient`
-	];
-}
