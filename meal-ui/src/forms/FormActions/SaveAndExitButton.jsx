@@ -1,17 +1,15 @@
 import { Button } from '@carbon/react';
 
-const SaveButton = ({ className, children, ...additionalProps }) => {
+export default function SaveAndExitButton({ className, children, ...additionalProps }) {
 	return (
 		<Button
 			{...additionalProps}
 			className={className ? `btn  ${className}` : `btn save-btn`}
 			kind='tertiary'
 			type='submit'
-			value='save'
+			value='save-and-exit'
 		>
-			{children ?? 'Save'}
+			Save and Exit
 		</Button>
 	);
-};
-
-export default SaveButton;
+}

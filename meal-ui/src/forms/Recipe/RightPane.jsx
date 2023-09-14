@@ -1,6 +1,6 @@
 import { Dropdown } from 'components';
 import { LongTextInput, NumberInput } from 'forms/Inputs';
-import { CancelButton, SaveButton } from 'forms/FormActions';
+import { CancelButton, SaveButton, SaveAndExitButton } from 'forms/FormActions';
 
 export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 	const { categories, types, courses } = meta;
@@ -74,6 +74,7 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 			<div className='recipe-card__actions'>
 				<CancelButton onClick={handleCancel} />
 				<SaveButton />
+				<SaveAndExitButton />
 			</div>
 		</div>
 	);
