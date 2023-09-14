@@ -4,14 +4,7 @@ import { IngredientsIndexRow } from './components';
 import useTable from './useTable';
 
 export default function IngredientsIndexContainer() {
-	const {
-		indexedIngredients,
-		measurementOptions,
-		selectedItems,
-		onAddOrRemove,
-		refreshData,
-		...hookProps
-	} = useTable();
+	const { indexedIngredients, ...hookProps } = useTable();
 
 	return (
 		<div className='p-ingredients'>
@@ -20,18 +13,14 @@ export default function IngredientsIndexContainer() {
 				<label>Manage your pantry's ingredients</label>
 			</h2>
 
-			<Actions
-				selectedItems={selectedItems}
-				{...hookProps}
-			/>
+			<Actions {...hookProps} />
 			{objectMap(indexedIngredients, (idx, ingredients) => {
 				return (
 					<IngredientsIndexRow
 						key={idx}
 						label={idx}
 						ingredients={ingredients}
-						refreshData={refreshData}
-						measurementOptions={measurementOptions}
+						{...hookProps}
 					/>
 				);
 			})}
