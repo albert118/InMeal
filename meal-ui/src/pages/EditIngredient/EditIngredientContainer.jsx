@@ -27,41 +27,43 @@ function EditIngredientForm() {
 		});
 	};
 
-	<FormContainer
-		className='edit-ingredient-form'
-		onSubmit={onSubmit}
-	>
-		<TextInput
-			name='name'
-			label='name'
-			value={formData.name}
-			onChange={onUpdate}
-			placeholder="what's this ingredient called?"
-		/>
-
-		<Dropdown
-			id='multi-line-input__add-select'
-			label='choose a measurement'
-			items={measurementOptions}
-			title='measurement'
-			selectedItem={formData.unit}
-			onChange={onDropdownUpdate}
-		/>
-
-		{error && <ValidationErrors errors={error} />}
-
-		<div className='edit-ingredient-form--remove'>
-			<Checkbox
-				name='isDeleted'
-				label='delete ingredient?'
-				onClick={onUpdate}
-				disabled={canDelete()}
+	return (
+		<FormContainer
+			className='edit-ingredient-form'
+			onSubmit={onSubmit}
+		>
+			<TextInput
+				name='name'
+				label='name'
+				value={formData.name}
+				onChange={onUpdate}
+				placeholder="what's this ingredient called?"
 			/>
-			{canDelete() && <ValidationWarnings warnings={getWarnings()} />}
-		</div>
-		<div className='edit-ingredient-form__actions'>
-			<CancelButton onClick={onCancel} />
-			<SaveButton />
-		</div>
-	</FormContainer>;
+
+			<Dropdown
+				id='multi-line-input__add-select'
+				label='choose a measurement'
+				items={measurementOptions}
+				title='measurement'
+				selectedItem={formData.unit}
+				onChange={onDropdownUpdate}
+			/>
+
+			{error && <ValidationErrors errors={error} />}
+
+			<div className='edit-ingredient-form--remove'>
+				<Checkbox
+					name='isDeleted'
+					label='delete ingredient?'
+					onClick={onUpdate}
+					disabled={canDelete()}
+				/>
+				{canDelete() && <ValidationWarnings warnings={getWarnings()} />}
+			</div>
+			<div className='edit-ingredient-form__actions'>
+				<CancelButton onClick={onCancel} />
+				<SaveButton />
+			</div>
+		</FormContainer>
+	);
 }
