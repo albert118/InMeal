@@ -15,17 +15,17 @@
 	border: 1.25px solid var(--background-neutral);
 	border-radius: 0 0 12px 12px;
 	@include card-shadow();
-}
 
-.card > .title-bar {
-	@include card-shadow-3();
-}
+	.title-bar {
+		@include card-shadow-3();
 
-.card .title-bar > h2.title {
-	@include text-header();
-}
+		h2.title {
+			@include text-header();
+		}
+	}
 
-.card > div.content-slot > div {
-	display: flex;
-	justify-content: center;
+	div.content-slot > div {
+		display: flex;
+		justify-content: center;
+	}
 }

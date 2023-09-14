@@ -1,3 +1,4 @@
+using InMeal.Core.Enumerations;
 
 namespace InMeal.DTOs.Recipes;
 
@@ -6,10 +7,11 @@ public sealed record RecipeDto(
     string Title,
     string? Blurb,
     string PreparationSteps,
-    int? CookTime,
-    int? PrepTime,
+    int CookTime,
+    int PrepTime,
+    int Servings,
     List<RecipeIngredientDto> RecipeIngredients,
-    string Category,
-    string Course,
-    string Type
+    Cuisine Category,
+    MealCourse Course,
+    MealType Type
 );

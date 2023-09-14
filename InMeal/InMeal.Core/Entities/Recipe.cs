@@ -6,7 +6,7 @@ namespace InMeal.Core.Entities;
 
 public class Recipe : IHaveState<RecipeMemento>
 {
-    public Recipe(string title, string? blurb, string? preparationSteps, int? cookTime, int? prepTime)
+    public Recipe(string title, string? blurb, string? preparationSteps)
     {
         if (string.IsNullOrEmpty(title)) throw new ArgumentException("a title is required");
         if (string.IsNullOrEmpty(preparationSteps)) throw new ArgumentException("preparation steps are required");
@@ -17,12 +17,11 @@ public class Recipe : IHaveState<RecipeMemento>
         Blurb = blurb ?? string.Empty;
         PreparationSteps = preparationSteps;
 
-        CookTime = cookTime;
-        PrepTime = prepTime;
+        CookTime = 0;
+        PrepTime = 0;
+        Servings = 1;
         CourseType = MealCourse.Unknown;
         MealType = MealType.Unknown;
-        Servings = 1;
-
         Category = new(new(Guid.NewGuid()), Id, Cuisine.Unknown);
         RecipeIngredients = new();
     }
@@ -49,9 +48,9 @@ public class Recipe : IHaveState<RecipeMemento>
 
     public RecipeId Id { get; set; }
 
-    public int? CookTime { get; set; }
+    public int CookTime { get; set; }
 
-    public int? PrepTime { get; set; }
+    public int PrepTime { get; set; }
 
     public int Servings { get; set; }
 
@@ -91,9 +90,9 @@ public class Recipe : IHaveState<RecipeMemento>
             Category.Category = Cuisine.Unknown;
     }
 
-    public string GetCategoryName()
+    public Cuisine GetCategoryName()
     {
-        return Category == null ? Cuisine.Unknown.ToString() : Category.Category.ToString();
+        return Category?.Category ?? Cuisine.Unknown;
     }
     
     public void EditDetails(string title, string? blurb, string preparationSteps)
@@ -107,12 +106,19 @@ public class Recipe : IHaveState<RecipeMemento>
         
     }
 
-    public void EditMeta(MealCourse course, MealType type, int? prepTime, int? cookTime)
+    public void EditMeta(MealCourse course, MealType type, int prepTime, int cookTime, int servings)
     {
+        if (prepTime > 999) throw new ArgumentException("a preparation time greater than 999 minutes is not supported");
+        if (cookTime > 999) throw new ArgumentException("a cooking time greater than 999 minutes is not supported");
+
+        if (servings > 99) throw new ArgumentException("servings greater than 99 are not supported");
+        if (servings < 1) throw new ArgumentException("a recipe should have at least one serving");
+
         CourseType = course;
         MealType = type;
         PrepTime = prepTime;
         CookTime = cookTime;
+        Servings = servings;
     }
 
     public void UpdateIngredients(IReadOnlyCollection<RecipeIngredient> recipeIngredients)

@@ -4,7 +4,7 @@
 @use '../../../mixins/glass-background' as *;
 
 .recipe-card {
-	--card-height: 950px;
+	--card-height: 900px;
 	width: 750px;
 	@include glass-background();
 	@include text();
@@ -33,12 +33,18 @@
 			margin-top: $spacing-04;
 		}
 
-		.recipe-data__meta {
+		.recipe-data__meta-wrapper {
+			width: 50%;
+			height: 30%;
+		}
+
+		.recipe-data__meta-wrapper > .recipe-data__meta {
 			display: flex;
 			flex-direction: column;
-			justify-content: flex-start;
-			gap: $spacing-06;
-			width: 40%;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			column-gap: $spacing-06;
+			height: 100%;
 		}
 	}
 

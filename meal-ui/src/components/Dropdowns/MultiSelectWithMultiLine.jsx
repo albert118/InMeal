@@ -6,13 +6,11 @@ import { TextInput } from 'forms/Inputs';
 export const multiSelectEvents = Object.freeze({
 	Add: 'add',
 	Remove: 'remove',
-	Update: 'update'
+	Update: 'update',
+	New: 'new'
 });
 
-const defaultItem = Object.freeze({
-	id: null,
-	label: ''
-});
+const defaultItem = '';
 
 // will provide children with these props { item, onRemove, attrName, onChange }
 export function MultiSelectWithMultiLine({
@@ -26,8 +24,9 @@ export function MultiSelectWithMultiLine({
 	const [updatedKey, setUpdatedKey] = useState(0);
 	const [newItem, setNewItem] = useState(defaultItem);
 
-	function appendNewItems() {
-		selectedItems?.length > 0 && onChange(mapToSyntheticEvent(selectedItems, attrName));
+	function appendExistingItems() {
+		selectedItems?.length > 0 &&
+			onChange(mapToSyntheticEvent(multiSelectEvents.Add, selectedItems, attrName));
 
 		setSelectedItems([]);
 		// this key hack forces the multiselect to reset after using it's selection
@@ -35,7 +34,7 @@ export function MultiSelectWithMultiLine({
 	}
 
 	function addNewItem() {
-		onChange(mapToSyntheticEvent(newItem, attrName));
+		onChange(mapToSyntheticEvent(multiSelectEvents.New, newItem, attrName));
 		setNewItem(defaultItem);
 	}
 
@@ -64,11 +63,11 @@ export function MultiSelectWithMultiLine({
 			<span className='multi-line-input__new'>
 				<TextInput
 					label='add a new item...'
-					value={newItem.label}
-					onChange={event => setNewItem({ ...newItem, label: event.target.value })}
+					value={newItem}
+					onChange={event => setNewItem(event.target.value)}
 				/>
 				<Button
-					disabled={!newItem.label.length > 0}
+					disabled={!newItem.length > 0}
 					onClick={addNewItem}
 				>
 					add new
@@ -85,7 +84,7 @@ export function MultiSelectWithMultiLine({
 				/>
 				<Button
 					disabled={!selectedItems?.length > 0}
-					onClick={appendNewItems}
+					onClick={appendExistingItems}
 				>
 					add
 				</Button>
@@ -98,10 +97,10 @@ export function MultiSelectWithMultiLine({
 	);
 }
 
-function mapToSyntheticEvent(data, attrName) {
+function mapToSyntheticEvent(eventType, data, attrName) {
 	return {
 		target: {
-			id: multiSelectEvents.Add,
+			id: eventType,
 			name: attrName,
 			value: { id: null, data: data }
 		}

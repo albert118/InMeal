@@ -1,4 +1,6 @@
-export default function TextInput({ label, onChange, ...additionalProps }) {
+import mapToItem from './mappers';
+
+export default function TextInput({ label, value, onChange, ...additionalProps }) {
 	function handleKeyDown(event) {
 		if (event.key !== 'Enter') return;
 		event.preventDefault();
@@ -14,6 +16,8 @@ export default function TextInput({ label, onChange, ...additionalProps }) {
 				onKeyDown={handleKeyDown}
 				onChange={onChange}
 				type='text'
+				value={mapToItem(value)}
+				{...additionalProps}
 			/>
 		</div>
 	);

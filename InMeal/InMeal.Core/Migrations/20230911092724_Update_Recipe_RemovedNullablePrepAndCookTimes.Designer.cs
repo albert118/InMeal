@@ -3,6 +3,7 @@ using System;
 using InMeal.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace InMeal.Core.Migrations
 {
     [DbContext(typeof(InMealDbMigrationContext))]
-    partial class InMealDbMigrationContextModelSnapshot : ModelSnapshot
+    [Migration("20230911092724_Update_Recipe_RemovedNullablePrepAndCookTimes")]
+    partial class Update_Recipe_RemovedNullablePrepAndCookTimes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

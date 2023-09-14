@@ -32,9 +32,9 @@ public sealed class RecipeMemento : EntityMemento, IArchivable
 
     public Guid Id { get; private set; }
 
-    public int? CookTime { get; private set; }
+    public int CookTime { get; private set; }
 
-    public int? PrepTime { get; private set; }
+    public int PrepTime { get; private set; }
 
     public int Servings { get; private set; }
 

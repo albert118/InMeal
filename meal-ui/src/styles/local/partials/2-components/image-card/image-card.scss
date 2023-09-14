@@ -1,6 +1,7 @@
 @use './overrides';
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/glass-background' as *;
+@use '../../../mixins/text-mixins' as *;
 
 .image-card {
 	--image-card-height: 300px;
@@ -33,25 +34,18 @@
 .action {
 	display: flex;
 	flex-direction: column;
-	padding: $spacing-05 $spacing-07 0 $spacing-07;
+	padding: $spacing-05 $spacing-04;
+	padding-bottom: 0;
 	color: white;
 	border-radius: 0 0 12px 12px;
 	height: 100%;
 
 	h4 {
-		font-size: 1.4em;
-		letter-spacing: 4px;
-		text-overflow: ellipsis;
+		@include item-header();
+		padding-left: $spacing-04;
+		padding-right: $spacing-04;
 		overflow: hidden;
 		white-space: nowrap;
-	}
-
-	label {
-		display: flex;
-		justify-content: space-between;
-		align-items: baseline;
-		padding-top: $spacing-04;
-		letter-spacing: 4px;
 	}
 }
 
