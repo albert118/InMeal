@@ -1,5 +1,7 @@
-﻿using InMeal.DTOs.Ingredients;
+﻿using InMeal.Core.Entities;
+using InMeal.DTOs.Ingredients;
 using InMeal.Features.Ingredients;
+using InMeal.Infrastructure;
 using InMeal.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -66,11 +68,14 @@ public class IngredientsController : ControllerBase
         return results.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
 
-    [HttpDelete("{ingredientId:guid}", Name = "Remove a given ingredient")]
-    public IActionResult Delete(Guid ingredientId)
+    [HttpPost(Name = "Delete the given ingredients")]
+    [ActionName("delete")]
+    public IActionResult Delete(List<Guid> ingredientIds)
     {
         try {
-            _ingredientsManager.DeleteAsync(new(ingredientId), _tokenAccessor.Token)
+            EmptyGuidGuard.Apply(ingredientIds);
+            var keys = ingredientIds.Select(id => new IngredientId(id)).ToList();
+            _ingredientsManager.DeleteAsync(keys, _tokenAccessor.Token)
                                .GetAwaiter()
                                .GetResult();
         } catch (Exception ex) {

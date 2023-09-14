@@ -14,9 +14,11 @@ public interface IAsyncIngredientRepository
 
     Task<List<Ingredient>> GetManyAsync(List<string> names, CancellationToken ct);
     
+    Task<List<Ingredient>> GetManyAsync(List<IngredientId> ids, CancellationToken ct);
+    
     Task<Dictionary<string, List<Ingredient>>> GetManyOrderedAlphabeticallyAsync(CancellationToken ct);
     
-    Task DeleteAsync(IngredientId ingredientId, CancellationToken ct);
+    Task DeleteManyAsync(List<IngredientId> ingredientIds, CancellationToken ct);
 
     Task<bool> IsIngredientNameUnique(string name, CancellationToken ct);
 }
