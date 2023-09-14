@@ -69,12 +69,11 @@ function RightPane({ recipe }) {
 					</div>
 				</div>
 				<p className='recipe__steps'>{recipe.preparationSteps}</p>
-
-				<Actions
-					className='recipe-card__actions'
-					recipeId={recipe.id}
-				/>
 			</div>
+			<Actions
+				className='recipe-card__actions'
+				recipeId={recipe.id}
+			/>
 		</div>
 	);
 }
