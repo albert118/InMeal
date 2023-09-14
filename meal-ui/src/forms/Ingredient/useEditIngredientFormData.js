@@ -3,46 +3,27 @@ import { useIngredient, useMeasurements } from 'hooks/data';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorDetailContext } from 'hooks/data';
-import { getWarnings, valueUpdateStrategies } from './helpers';
-
-const defaultFormState = (name, units) => {
-	return {
-		name: name,
-		unit: units.name,
-		isDeleted: false
-	};
-};
+import { getWarnings, defaultFormState, initialFormState, valueUpdateStrategies } from './helpers';
 
 export default function useEditIngredientFormData() {
 	const { ingredientId } = useParams();
+
 	const navigate = useNavigate();
 	const { error } = useContext(ErrorDetailContext);
 
-	const [existingIngredient, setIngredient] = useState({
-		name: 'test',
-		recipeUsageCount: 0,
-		units: { label: 'test' }
-	});
-
-	const [formData, setFormData] = useState(
-		defaultFormState(existingIngredient.name, existingIngredient.units)
-	);
-	const [canDelete, setCanDelete] = useState(existingIngredient.recipeUsageCount !== 0);
+	const [formData, setFormData] = useState(initialFormState);
+	const [canDelete, setCanDelete] = useState(false);
 	const [formStatus, setFormStatus] = useState(FormStatuses.Saved);
 
-	// TODO: getIngredient
-	const { updateIngredient, deleteIngredient } = useIngredient();
+	const { existingIngredient, getIngredient, updateIngredient, deleteIngredient } = useIngredient();
 	const { measurementOptions } = useMeasurements();
 
-	// TODO:
-	// useEffect(() => {
-	// 	getIngredient(ingredientId).then(i => setIngredient(i));
-	// }, []);
-
 	useEffect(() => {
-		setIngredient(existingIngredient);
-		setCanDelete(existingIngredient.recipeUsageCount !== 0);
-	}, [existingIngredient]);
+		getIngredient(ingredientId).then(existing => {
+			setFormData(defaultFormState(existing.name, existing.units));
+			setCanDelete(existing.recipeUsageCount !== 0);
+		});
+	}, []);
 
 	useEffect(() => {
 		setFormStatus(error ? FormStatuses.Error : FormStatuses.Saved);
@@ -90,5 +71,3 @@ export default function useEditIngredientFormData() {
 		canDelete
 	};
 }
-
-// helpers

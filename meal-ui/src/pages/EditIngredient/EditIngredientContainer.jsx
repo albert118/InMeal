@@ -8,8 +8,15 @@ import { SaveButton, CancelButton } from 'forms/FormActions';
 import FormContainer from 'forms';
 
 export default function EditIngredientContainer() {
-	const { formData, measurementOptions, onUpdate, getWarnings, canDelete, ...formHooks } =
-		useEditIngredientFormData();
+	const {
+		formData,
+		measurementOptions,
+		onUpdate,
+		getWarnings,
+		canDelete,
+		formStatus,
+		...formHooks
+	} = useEditIngredientFormData();
 
 	const { error } = useContext(ErrorDetailContext);
 

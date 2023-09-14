@@ -43,10 +43,3 @@ function IngredientDetailBadges({ ingredient }) {
 		</div>
 	);
 }
-
-// <EditIngredientsModal
-// key={ingredient.ingredientId}
-// ingredient={ingredient}
-// refreshData={refreshData}
-// measurementOptions={measurementOptions}
-// /
