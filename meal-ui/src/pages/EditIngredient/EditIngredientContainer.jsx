@@ -10,6 +10,11 @@ import { useContext } from 'react';
 export default function EditIngredientContainer() {
 	return (
 		<div className='p-edit-ingredient'>
+			<h2>
+				Ingredients
+				<label>Manage your pantry's ingredients</label>
+			</h2>
+
 			<EditIngredientForm />
 		</div>
 	);
@@ -29,7 +34,7 @@ function EditIngredientForm() {
 
 	return (
 		<FormContainer
-			className='edit-ingredient-form'
+			className='card edit-ingredient-card'
 			onSubmit={onSubmit}
 		>
 			<TextInput
@@ -51,7 +56,7 @@ function EditIngredientForm() {
 
 			{error && <ValidationErrors errors={error} />}
 
-			<div className='edit-ingredient-form--remove'>
+			<div className='edit-ingredient-card__remove'>
 				<Checkbox
 					name='isDeleted'
 					label='delete ingredient?'
@@ -60,7 +65,7 @@ function EditIngredientForm() {
 				/>
 				{canDelete() && <ValidationWarnings warnings={getWarnings()} />}
 			</div>
-			<div className='edit-ingredient-form__actions'>
+			<div className='edit-ingredient-card__actions'>
 				<CancelButton onClick={onCancel} />
 				<SaveButton />
 			</div>
