@@ -33,14 +33,18 @@
 			margin-top: $spacing-04;
 		}
 
-		.recipe-data__meta {
+		.recipe-data__meta-wrapper {
+			width: 50%;
+			height: 30%;
+		}
+
+		.recipe-data__meta-wrapper > .recipe-data__meta {
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
 			flex-wrap: wrap;
 			gap: $spacing-06;
-			width: 40%;
-			height: 30%;
+			height: 100%;
 		}
 	}
 

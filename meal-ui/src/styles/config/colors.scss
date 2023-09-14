@@ -14,6 +14,7 @@ body {
 	--mealui-colors-blue600: #0072f5;
 	--mealui-colours-angel-number-black: #121212;
 	--mealui-colors-nero-black: #1a1a1a;
+	--mealui-colors-high-nero-black: #252525;
 	--mealui-colors-black-russian: #20232a;
 	--mealui-colors-dark-cyan: #282c34;
 	--mealui-colors-lynx-white: #f7f7f7;
@@ -33,7 +34,7 @@ body {
 	--background: var(--mealui-colours-angel-number-black);
 	--border: var(--alt-grey);
 	--background-neutral: var(--mealui-colors-nero-black);
-	--input-background-disabled: var(--mealui-colors-nero-black);
+	--input-background-disabled: var(--mealui-colors-high-nero-black);
 	--text-disabled: var(--dove-grey);
 	--background-details: rgba(255, 255, 255, 0.1);
 	--foreground-details: var(--mealui-colors-black-russian);
