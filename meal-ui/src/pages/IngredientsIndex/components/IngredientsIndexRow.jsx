@@ -2,6 +2,8 @@ import { Badge, IndexRow, HorizontalCard } from 'components';
 import AppRoutes from 'navigation/AppRoutes';
 
 export default function IngredientsIndexRow({ label, ingredients, isSelected, onAddOrRemove }) {
+	// const isSelected = ingredient => selectedItems.map(i => i.id).includes(ingredient.id);
+
 	return (
 		<IndexRow label={label}>
 			{ingredients.map(ingredient => (

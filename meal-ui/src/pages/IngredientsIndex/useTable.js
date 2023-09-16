@@ -1,17 +1,23 @@
 import { useAlphabeticallyIndexedIngredients, useIngredients } from 'hooks/data';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { objectMap } from 'utils';
+
+class TableState {
+	constructor() {
+		this.selectedItems = [];
+		this.items = [];
+	}
+}
 
 export default function useTable() {
 	const [selectedItems, setSelectedItems] = useState([]);
 
 	const { indexedIngredients, refreshData } = useAlphabeticallyIndexedIngredients();
+	const [tableItems, setTableItems] = useState(indexedIngredients ?? []);
 	const { deleteIngredients } = useIngredients();
 
 	function onAddOrRemove(item) {
-		const addedAlready = selectedItems.indexOf(item) > -1;
-
-		if (addedAlready) {
+		if (isSelected(item)) {
 			setSelectedItems([...selectedItems.filter(i => i.id !== item.id)]);
 		} else {
 			setSelectedItems([...selectedItems, item]);
@@ -41,9 +47,9 @@ export default function useTable() {
 					all.concat(ingredients.filter(ingredient => ingredient.recipeUsageCount === 0))
 			);
 
-			setSelectedItems(allUnusedItems);
+			setTableItems(allUnusedItems);
 		} else {
-			setSelectedItems([]);
+			setTableItems([]);
 		}
 	}
 
@@ -51,9 +57,11 @@ export default function useTable() {
 		.map(category => category.length)
 		.reduce((partialSum, a) => partialSum + a, 0);
 
-	function isSelected(ingredient) {
-		selectedItems.map(i => i.id).includes(ingredient.id);
+	function isSelected(item) {
+		return selectedItems.indexOf(item) > -1;
 	}
+
+	useEffect(() => {}, [tableItems]);
 
 	return {
 		indexedIngredients,
