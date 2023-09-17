@@ -1,4 +1,5 @@
-import { Button, ToggleInline } from 'components';
+import { Button, SearchInput, ToggleInline } from 'components';
+import { useState } from 'react';
 import { objectMap } from 'utils';
 import { IngredientsIndexRow } from './components';
 import useIngredientsTable from './useIngredientsTable';
@@ -29,6 +30,8 @@ export default function IngredientsIndexContainer() {
 }
 
 function Actions({ totalCount, selectedItems, onDelete, onSelectAll, onViewUnused }) {
+	const [searchTerm, setSearchTerm] = useState('');
+
 	return (
 		<div className='action-container'>
 			<div className='action-container__card'>
@@ -49,6 +52,13 @@ function Actions({ totalCount, selectedItems, onDelete, onSelectAll, onViewUnuse
 						id='select_unused'
 						labelText='view unused'
 						onClick={onViewUnused}
+					/>
+				</div>
+				<div className='search'>
+					<SearchInput
+						searchTerm={searchTerm}
+						setSearchTerm={setSearchTerm}
+						onSearch={query => console.log(`running search ${query}`)}
 					/>
 				</div>
 				<div className='actions'>

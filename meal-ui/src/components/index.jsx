@@ -35,3 +35,6 @@ export { default as Image } from './Image';
 export { default as GoToCTA } from './GoTo';
 export { default as Toggle } from './Toggle';
 export { ToggleInline } from './Toggle';
+
+// inputs
+export { default as SearchInput } from './SearchInput';
