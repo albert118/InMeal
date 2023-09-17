@@ -1,16 +1,11 @@
 import { useAllRecipes } from 'hooks/data';
 import useTableState from 'hooks/table';
-import { useEffect } from 'react';
 
 export default function useManagementTable() {
 	const { recipes, refreshData, archiveRecipes, restoreRecipes } = useAllRecipes();
 
-	const { setSelectedItems, setAllItemsSelected, isSelected, setItems, resetItems, tableState } =
+	const { setSelectedItems, setAllItemsSelected, isSelected, useFuse, tableState } =
 		useTableState(recipes);
-
-	useEffect(() => {
-		setItems(recipes);
-	}, [recipes]);
 
 	function onAddOrRemove(item) {
 		if (isSelected(item)) {
@@ -49,6 +44,7 @@ export default function useManagementTable() {
 		onRestore,
 		onSelectAll,
 		isSelected,
+		useSearch: useFuse,
 		totalCount: tableState.count,
 		selectedItems: tableState.selectedItems,
 		items: tableState.items

@@ -14,7 +14,8 @@ export default function useTableState(initialItems) {
 	function setUpTable(initialItems) {
 		setTableState({ ...tableState, originalItems: initialItems, items: initialItems });
 		// configure Fuse once per setup to avoid expensive re-calc's
-		configureFuse(new Fuse(getAllItemsAsList(initialItems), { keys: ['name'] }));
+		// keys are just common DTO attributes worth searching, if they don't exist we don't search them
+		configureFuse(new Fuse(getAllItemsAsList(initialItems), { keys: ['name', 'title', 'label'] }));
 	}
 
 	function setSelectedItems(updatedValues) {
@@ -34,6 +35,7 @@ export default function useTableState(initialItems) {
 	}
 
 	function resetItems() {
+		console.log(tableState.originalItems);
 		setItems(tableState.originalItems);
 	}
 
@@ -47,9 +49,11 @@ export default function useTableState(initialItems) {
 
 	function useFuse(query) {
 		if (isFalsishOrEmpty(query)) {
+			console.debug('resettting table search');
 			resetItems();
 		} else {
 			const results = fuse.search(query);
+			console.debug(`queried table, found ${results.length} results`);
 			filterForItems(results.map(result => result.item));
 		}
 	}
