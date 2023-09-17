@@ -1,25 +1,23 @@
-import { objectMap } from 'utils';
 import { useAllRecipes } from 'hooks/data';
-import { useState } from 'react';
+import useTableState from 'hooks/table';
 
 export default function useManagementTable() {
-	const [selectedItems, setSelectedItems] = useState([]);
-
 	const { recipes, refreshData, archiveRecipes, restoreRecipes } = useAllRecipes();
 
-	function onAddOrRemove(recipe) {
-		const addedAlready = selectedItems.indexOf(recipe) > -1;
+	const { setSelectedItems, setAllItemsSelected, isSelected, useFuse, tableState } =
+		useTableState(recipes);
 
-		if (addedAlready) {
-			setSelectedItems([...selectedItems.filter(i => i.id !== recipe.id)]);
+	function onAddOrRemove(item) {
+		if (isSelected(item)) {
+			setSelectedItems([...tableState.selectedItems.filter(selectedItem => item !== selectedItem)]);
 		} else {
-			setSelectedItems([...selectedItems, recipe]);
+			setSelectedItems([...tableState.selectedItems, item]);
 		}
 	}
 
 	function onArchive() {
-		archiveRecipes(selectedItems.map(item => item.id));
-		refreshData();
+		archiveRecipes(tableState.selectedItems.map(item => item.id)).then(() => refreshData());
+		setSelectedItems([]);
 	}
 
 	function onViewArchived(event) {
@@ -27,29 +25,28 @@ export default function useManagementTable() {
 	}
 
 	function onRestore() {
-		restoreRecipes(selectedItems.map(item => item.id));
-		refreshData();
+		restoreRecipes(tableState.selectedItems.map(item => item.id)).then(() => refreshData());
+		setSelectedItems([]);
 	}
 
 	function onSelectAll(event) {
 		if (event.target.checked) {
-			const allRecipes = objectMap(recipes, (_, _recipes) => _recipes).reduce((all, _recipes) =>
-				all.concat(_recipes)
-			);
-
-			setSelectedItems(allRecipes);
+			setAllItemsSelected();
 		} else {
 			setSelectedItems([]);
 		}
 	}
 
 	return {
-		recipes,
 		onAddOrRemove,
 		onArchive,
 		onViewArchived,
 		onRestore,
 		onSelectAll,
-		selectedItems
+		isSelected,
+		useSearch: useFuse,
+		totalCount: tableState.count,
+		selectedItems: tableState.selectedItems,
+		items: tableState.items
 	};
 }

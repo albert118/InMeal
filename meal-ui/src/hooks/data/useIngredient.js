@@ -1,12 +1,24 @@
-import { useContext, useState } from 'react';
+import { useState, useContext } from 'react';
 import { ApiConfig } from 'config';
 import { useFetch } from 'hooks/fetch';
 import { ErrorDetailContext } from './errorContext';
 
 export default function useIngredient() {
-	const { patchApi, deleteApi, postApi } = useFetch();
+	const { getApi, patchApi, postApi } = useFetch();
 	const { setError } = useContext(ErrorDetailContext);
-	const [newIngredient, setNewIngredient] = useState(null);
+	const [ingredient, setIngredient] = useState(null);
+
+	function getIngredient(ingredientId) {
+		const url = `${ApiConfig.API_URL}/ingredients/get/${ingredientId}`;
+		return getApi(url)
+			.then(ingredient => {
+				setError(null);
+				setIngredient(ingredient);
+			})
+			.catch(errorDetail => {
+				setError(errorDetail);
+			});
+	}
 
 	function updateIngredient(id, newName, newUnit) {
 		const url = `${ApiConfig.API_URL}/ingredients/update`;
@@ -20,20 +32,18 @@ export default function useIngredient() {
 			})
 			.catch(errorDetail => {
 				setError(errorDetail);
-				// allows the modal consumer to determine if an error exists
-				return true;
 			});
 	}
 
 	function deleteIngredient(id) {
-		const url = `${ApiConfig.API_URL}/ingredients/delete/${id}`;
-		return deleteApi(url)
+		const url = `${ApiConfig.API_URL}/ingredients/delete`;
+		const body = { ingredientIds: [id] };
+		return postApi(url, body)
 			.then(() => {
 				setError(null);
 			})
 			.catch(errorDetail => {
 				setError(errorDetail);
-				return true;
 			});
 	}
 
@@ -47,9 +57,8 @@ export default function useIngredient() {
 			})
 			.catch(errorDetail => {
 				setError(errorDetail);
-				return true;
 			});
 	}
 
-	return { updateIngredient, postIngredient, deleteIngredient, newIngredient };
+	return { ingredient, getIngredient, updateIngredient, postIngredient, deleteIngredient };
 }

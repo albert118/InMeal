@@ -10,7 +10,7 @@ export { default as Selectable } from './Selectable';
 
 // cards
 export { default as Card } from './Card';
-export { SimpleCard, ImageCard } from './Card';
+export { SimpleCard, ImageCard, HorizontalCard } from './Card';
 
 // dropdowns and selects
 
@@ -35,3 +35,6 @@ export { default as Image } from './Image';
 export { default as GoToCTA } from './GoTo';
 export { default as Toggle } from './Toggle';
 export { ToggleInline } from './Toggle';
+
+// inputs
+export { default as SearchInput } from './SearchInput';

@@ -51,6 +51,14 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
         return mementos.Select(Ingredient.FromMemento).ToList();
     }
 
+    public async Task<List<Ingredient>> GetManyAsync(List<IngredientId> ids, CancellationToken ct)
+    {
+        var keys = ids.Select(key => key.Key).ToHashSet();
+        var mementos = await _recipeDbContext.Ingredients.Where(i => keys.Contains(i.Id)).ToListAsync(ct);
+
+        return mementos.Select(Ingredient.FromMemento).ToList();
+    }
+
     public async Task<Dictionary<string, List<Ingredient>>> GetManyOrderedAlphabeticallyAsync(CancellationToken ct)
     {
         var orderedIngredients = await _recipeDbContext.Ingredients
@@ -66,12 +74,12 @@ public class AsyncIngredientRepository : IAsyncIngredientRepository
             .ToDictionary(grouping => grouping.Key, grouping => grouping.Select(Ingredient.FromMemento).ToList());
     }
     
-    public async Task DeleteAsync(IngredientId ingredientId, CancellationToken ct)
+    public async Task DeleteManyAsync(List<IngredientId> ingredientIds, CancellationToken ct)
     {
-        var existingIngredient = await _recipeDbContext.Ingredients.SingleOrDefaultAsync(e => e.Id == ingredientId.Key)
-            ?? throw new DataException($"cannot find the given {nameof(Ingredient)} with Id '{ingredientId}'");
+        var keys = ingredientIds.Select(id => id.Key).ToList();
+        var existingIngredients = await _recipeDbContext.Ingredients.Where(e => keys.Contains(e.Id)).ToListAsync(ct);
 
-        _recipeDbContext.Ingredients.Remove(existingIngredient);
+        _recipeDbContext.Ingredients.RemoveRange(existingIngredients);
         await _recipeDbContext.SaveChangesAsync(ct);
     }
 

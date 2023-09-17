@@ -23,8 +23,8 @@
 
 		.filter-info {
 			position: absolute;
-			top: $spacing-05;
-			left: $spacing-05;
+			top: $spacing-04;
+			left: calc($spacing-05 + $spacing-04);
 			@include subscript-label();
 			color: var(--note);
 		}
@@ -36,6 +36,10 @@
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-start;
+		}
+
+		.search {
+			padding: $spacing-05;
 		}
 
 		.actions {

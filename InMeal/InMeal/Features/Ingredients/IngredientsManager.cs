@@ -11,6 +11,8 @@ namespace InMeal.Features.Ingredients;
 public interface IIngredientsManager
 {
     Task<List<Ingredient>> GetIngredientsAsync(int? skip, int? take, CancellationToken ct);
+    
+    Task<List<IngredientDetailDto>> GetIngredientDetailAsync(List<IngredientId> ids, CancellationToken ct);
 
     Task EditAsync(EditIngredientDto dto, CancellationToken ct);
     
@@ -18,7 +20,7 @@ public interface IIngredientsManager
 
     Task<List<Ingredient>> AddAndGetExistingAsync(IEnumerable<string> names, CancellationToken ct);
 
-    Task DeleteAsync(IngredientId id, CancellationToken ct);
+    Task DeleteAsync(List<IngredientId> ids, CancellationToken ct);
     
     List<MeasurementUnit> GetMeasurementOptions();
 }
@@ -46,6 +48,14 @@ public class IngredientsManager : IIngredientsManager
         return ingredients;
     }
 
+    public async Task<List<IngredientDetailDto>> GetIngredientDetailAsync(List<IngredientId> ids, CancellationToken ct)
+    {
+        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCountAsync(ids, ct);
+        var ingredients = await _ingredientRepository.GetManyAsync(ids, ct);
+
+        return ingredients.Select(i => i.ToDto(usageCountResults)).ToList();
+    }
+
     public async Task EditAsync(EditIngredientDto dto, CancellationToken ct)
     {
         var key = new IngredientId(dto.IngredientId);
@@ -67,7 +77,7 @@ public class IngredientsManager : IIngredientsManager
     {
         var indexedIngredients = await _ingredientRepository.GetManyOrderedAlphabeticallyAsync(ct);
 
-        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCount(ct);
+        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCountAsync(ct);
 
         // merge results with the mapper
         return indexedIngredients.Count == 0
@@ -94,17 +104,27 @@ public class IngredientsManager : IIngredientsManager
         return existingIngredients;
     }
 
-    public async Task DeleteAsync(IngredientId id, CancellationToken ct)
+    public async Task DeleteAsync(List<IngredientId> ids, CancellationToken ct)
     {
-        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCount(ct);
-        var isUsed = usageCountResults.TryGetValue(id, out _);
+        // check if they exist
+        var existingIngredients = await _ingredientRepository.GetManyAsync(ids, ct);
 
-        if (isUsed) {
-            _logger.LogWarning("cannot remove {Ingredient}(s) used by recipes with Ids '{IngredientIds}'", nameof(Ingredient), id);
-            throw new IngredientDeletionException($"cannot remove {nameof(Ingredient)}s used by existing recipes");
+        if (existingIngredients.Count != ids.Count) {
+            _logger.LogWarning("cannot remove {Ingredient}(s) with given Ids '{IngredientIds}' as they may not exist", nameof(Ingredient), ids);
+            throw new IngredientDeletionException($"cannot remove {nameof(Ingredient)}s that may not exist");
         }
 
-        await _ingredientRepository.DeleteAsync(id, ct);
+        var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCountAsync(ct);
+        var unusedIngredients = usageCountResults.Keys.ToHashSet().Except(ids).ToList();
+
+        // check if they are used
+        if (!unusedIngredients.Any()) {
+            var usedIds = ids.Except(unusedIngredients);
+            _logger.LogWarning("cannot remove {Ingredient}(s) used by recipes with Ids '{IngredientIds}'", nameof(Ingredient), usedIds);
+        }
+
+        _logger.LogInformation("removing unused {Ingredient}(s) with Ids '{IngredientIds}'", nameof(Ingredient), unusedIngredients);
+        await _ingredientRepository.DeleteManyAsync(unusedIngredients, ct);
     }
 
     public List<MeasurementUnit> GetMeasurementOptions()

@@ -3,7 +3,7 @@ import { createRecipeIngredient } from 'types/Ingredients';
 import { useIngredient } from 'hooks/data';
 
 export default function useRecipeIngredients() {
-	const { postIngredient, newIngredient } = useIngredient();
+	const { postIngredient } = useIngredient();
 
 	const strategies = Object.freeze({
 		[multiSelectEvents.Add]: executeExisting,

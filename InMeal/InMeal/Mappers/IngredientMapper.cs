@@ -13,6 +13,18 @@ public static class IngredientMapper
             Units: MeasurementMapper.ToDto(ingredient.Unit)
         );
     }
+    
+    public static IngredientDetailDto ToDto(this Ingredient ingredient, Dictionary<IngredientId, int> usageCounts)
+    {
+        usageCounts.TryGetValue(ingredient.Id, out var usageCount);
+
+        return new(
+            Id: ingredient.Id.Key,
+            Name: ingredient.Name,
+            Units: MeasurementMapper.ToDto(ingredient.Unit),
+            RecipeUsageCount: usageCount
+        );
+    }
 
     public static AlphabeticallyIndexedIngredientDto MapToAlphabeticallyIndexedIngredientDto(this Ingredient ingredient,
         Dictionary<IngredientId, int> recipeIngredientUsageCounts)

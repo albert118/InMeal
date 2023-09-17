@@ -1,5 +1,7 @@
-﻿using InMeal.DTOs.Ingredients;
+﻿using InMeal.Core.Entities;
+using InMeal.DTOs.Ingredients;
 using InMeal.Features.Ingredients;
+using InMeal.Infrastructure;
 using InMeal.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,6 +29,17 @@ public class IngredientsController : ControllerBase
                                          .GetResult();
 
         return results.Count == 0 ? new() : results.Select(IngredientMapper.MapToIngredientDto).ToList();
+    }
+    
+    [HttpGet("{ingredientId:guid}", Name = "View an ingredient")]
+    public ActionResult<IngredientDetailDto> Get(Guid ingredientId)
+    {
+        var result = _ingredientsManager.GetIngredientDetailAsync(new() { new(ingredientId) }, _tokenAccessor.Token)
+                                        .GetAwaiter()
+                                        .GetResult()
+                                        .SingleOrDefault();
+
+        return result == null ? BadRequest("no ingredient found") : result;
     }
 
     [HttpPatch(Name = "Edit an ingredient")]
@@ -66,11 +79,14 @@ public class IngredientsController : ControllerBase
         return results.Select(IngredientMapper.MapToIngredientDto).ToList();
     }
 
-    [HttpDelete("{ingredientId:guid}", Name = "Remove a given ingredient")]
-    public IActionResult Delete(Guid ingredientId)
+    [HttpPost(Name = "Delete the given ingredients")]
+    [ActionName("delete")]
+    public IActionResult Delete(List<Guid> ingredientIds)
     {
         try {
-            _ingredientsManager.DeleteAsync(new(ingredientId), _tokenAccessor.Token)
+            EmptyGuidGuard.Apply(ingredientIds);
+            var keys = ingredientIds.Select(id => new IngredientId(id)).ToList();
+            _ingredientsManager.DeleteAsync(keys, _tokenAccessor.Token)
                                .GetAwaiter()
                                .GetResult();
         } catch (Exception ex) {

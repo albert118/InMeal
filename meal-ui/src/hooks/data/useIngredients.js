@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { ApiConfig } from 'config';
 import { useFetch } from 'hooks/fetch';
+import { ErrorDetailContext } from './errorContext';
 
 export default function useIngredients() {
 	const [ingredients, setIngredients] = useState([]);
-	const { getApi } = useFetch();
+	const { setError } = useContext(ErrorDetailContext);
+	const { getApi, postApi } = useFetch();
 
 	function getIngredients() {
 		// the API will default to 25, which is reasonable. But to avoid implementing
@@ -14,9 +16,23 @@ export default function useIngredients() {
 		getApi(url).then(data => setIngredients(data));
 	}
 
+	function deleteIngredients(ids) {
+		const url = `${ApiConfig.API_URL}/ingredients/delete`;
+		const body = { ingredientIds: ids };
+		return postApi(url, body)
+			.then(() => {
+				setError(null);
+				setIngredients(ingredients.filter(i => !ids.includes(i.id)));
+			})
+			.catch(errorDetail => {
+				setError(errorDetail);
+				return true;
+			});
+	}
+
 	useEffect(() => {
 		getIngredients();
 	}, []);
 
-	return { ingredients };
+	return { deleteIngredients, ingredients };
 }

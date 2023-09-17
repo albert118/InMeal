@@ -37,14 +37,14 @@ export default function useAllRecipes() {
 
 	function archiveRecipes(ids) {
 		const url = `${ApiConfig.API_URL}/recipes/archive`;
-		postApi(url, ids)
+		return postApi(url, ids)
 			.then(() => setError(null))
 			.catch(setError);
 	}
 
 	function restoreRecipes(ids) {
 		const url = `${ApiConfig.API_URL}/recipes/restore`;
-		postApi(url, ids)
+		return postApi(url, ids)
 			.then(() => setError(null))
 			.catch(setError);
 	}

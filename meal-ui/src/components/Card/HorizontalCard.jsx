@@ -3,13 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { demoImage } from 'DemoImage';
 import { GoToCTA } from 'components';
 
-export default function HorizontalCard({
-	onClick,
-	image,
-	navigateLocation,
-	selected,
-	...additionalProps
-}) {
+export default function HorizontalCard({ onClick, image, selected, ...additionalProps }) {
 	const { url, label } = image ?? demoImage;
 
 	return (
@@ -43,13 +37,19 @@ export default function HorizontalCard({
 				className='horiz-card__content-slot'
 				disabled={selected}
 			>
-				<h4>{additionalProps.title ?? ''}</h4>
-				{additionalProps.children}
-
-				<GoToCTA
-					location={navigateLocation}
-					{...additionalProps}
-				/>
+				<div className='content'>
+					<h4>{additionalProps.title ?? ''}</h4>
+					{additionalProps.children}
+				</div>
+				<div className='actions'>
+					{/* optional navigation or generic button CTA */}
+					{additionalProps.navigateLocation && (
+						<GoToCTA
+							location={additionalProps.navigateLocation}
+							{...additionalProps}
+						/>
+					)}
+				</div>
 			</div>
 		</div>
 	);

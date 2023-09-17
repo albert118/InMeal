@@ -1,33 +1,24 @@
-import { Button, ToggleInline } from 'components';
+import { Button, SearchInput, ToggleInline } from 'components';
 import AppRoutes from 'navigation/AppRoutes';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { objectMap } from 'utils';
 import ManageRecipesRow from './ManageRecipesRow';
 import useManagementTable from './useManagementTable';
 
 export function ManageRecipesTable() {
-	const { recipes, selectedItems, onAddOrRemove, ...hookProps } = useManagementTable();
-
-	const recipesCount = Object.values(recipes)
-		.map(category => category.length)
-		.reduce((partialSum, a) => partialSum + a, 0);
+	const { items, ...hookProps } = useManagementTable();
 
 	return (
 		<div>
-			<Actions
-				recipesCount={recipesCount}
-				selectedItems={selectedItems}
-				{...hookProps}
-			/>
-			{objectMap(recipes, (group, recipes) => {
+			<Actions {...hookProps} />
+			{objectMap(items, (idx, recipes) => {
 				return (
 					<ManageRecipesRow
-						label={group}
-						onAddOrRemove={onAddOrRemove}
-						key={group}
+						key={idx}
+						label={idx}
 						recipes={recipes}
-						className='index-row'
-						selectedItems={selectedItems}
+						{...hookProps}
 					/>
 				);
 			})}
@@ -36,25 +27,27 @@ export function ManageRecipesTable() {
 }
 
 function Actions({
-	recipesCount,
-	onViewArchived,
-	onArchive,
+	totalCount,
 	selectedItems,
+	onArchive,
+	onSelectAll,
+	onViewArchived,
 	onRestore,
-	onSelectAll
+	useSearch
 }) {
 	const navigate = useNavigate();
+	const [searchTerm, setSearchTerm] = useState('');
 
 	return (
 		<div className='action-container'>
 			<div className='action-container__card'>
-				{selectedItems.length > 0 && (
+				{
 					<div className='filter-info'>
 						<label>
-							selected: {selectedItems.length}/{recipesCount}
+							selected: {selectedItems.length}/{totalCount}
 						</label>
 					</div>
-				)}
+				}
 				<div className='filters'>
 					<ToggleInline
 						id='select_all'
@@ -65,6 +58,13 @@ function Actions({
 						id='view_archived'
 						labelText='view archived'
 						onClick={onViewArchived}
+					/>
+				</div>
+				<div className='search'>
+					<SearchInput
+						searchTerm={searchTerm}
+						setSearchTerm={setSearchTerm}
+						onSearch={useSearch}
 					/>
 				</div>
 				<div className='actions'>

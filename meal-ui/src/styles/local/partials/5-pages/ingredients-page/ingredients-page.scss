@@ -1,18 +1,6 @@
 @use '@carbon/react/scss/spacing' as *;
-@use '../../../mixins/text-mixins' as *;
 @use '../../../mixins/page-title-block' as *;
 
 .p-ingredients {
 	@include page-title-block();
-
-	.edit-ingredient-form {
-		display: flex;
-		flex-direction: column;
-		row-gap: $spacing-04;
-
-		.edit-ingredient-form--remove {
-			display: flex;
-			flex-direction: column;
-		}
-	}
 }
