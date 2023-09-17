@@ -9,10 +9,20 @@ export default function useTableState(initialItems) {
 	// setup the table once data source has populated
 	useEffect(() => {
 		initialItems && Object.keys(initialItems).length > 0 && setUpTable(initialItems);
+		console.debug('setup table and configured Fuse');
 	}, [initialItems]);
 
 	function setUpTable(initialItems) {
-		setTableState({ ...tableState, originalItems: initialItems, items: initialItems });
+		const totalCount = Object.values(initialItems)
+			.map(row => row.length)
+			.reduce((partialSum, a) => partialSum + a, 0);
+
+		setTableState({
+			...tableState,
+			originalItems: initialItems,
+			items: initialItems,
+			count: totalCount
+		});
 		// configure Fuse once per setup to avoid expensive re-calc's
 		// keys are just common DTO attributes worth searching, if they don't exist we don't search them
 		configureFuse(new Fuse(getAllItemsAsList(initialItems), { keys: ['name', 'title', 'label'] }));
@@ -35,7 +45,6 @@ export default function useTableState(initialItems) {
 	}
 
 	function resetItems() {
-		console.log(tableState.originalItems);
 		setItems(tableState.originalItems);
 	}
 
