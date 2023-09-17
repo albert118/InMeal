@@ -40,5 +40,12 @@
 		flex-wrap: wrap;
 		justify-content: unset;
 		row-gap: $spacing-08;
+		column-gap: $spacing-03;
+
+		// left card is a scrollable list of ingredients
+		.two-pane-recipe-card--left {
+			min-width: 25%;
+			width: 25%;
+		}
 	}
 }

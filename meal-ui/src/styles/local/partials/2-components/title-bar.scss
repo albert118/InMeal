@@ -9,3 +9,10 @@
 	/* keep text and button relatively aligned */
 	align-items: baseline;
 }
+
+// remove the padding to maximise space efficiency
+@media (max-width: 1056px) or (max-width: 1180px) {
+	.title-bar {
+		padding: 0;
+	}
+}

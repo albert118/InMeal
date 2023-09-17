@@ -24,7 +24,8 @@
 		}
 
 		.recipe-data__blurb,
-		.recipe-data__ingredients {
+		.recipe-data__ingredients,
+		.recipe-data__steps {
 			flex-basis: 100%;
 		}
 
@@ -59,5 +60,25 @@
 // this card has lots of content, use all the space available
 @media (max-width: 1056px) or (max-width: 1180px) {
 	.recipe-card {
+		--card-height: 600px;
+		font-size: 12px;
+
+		// the image is less prominant in the mobile view to allow more readable content
+		.image-slot {
+			height: calc(var(--card-height) / 3);
+		}
+
+		.recipe-card__data {
+			padding: $spacing-04;
+		}
+
+		.action-container {
+			margin: 0;
+		}
+	}
+
+	// make more room on the mobile view, default to save and exit instead of just save
+	button[value='save'] {
+		display: none;
 	}
 }
