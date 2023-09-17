@@ -34,7 +34,7 @@
 }
 
 // these pages have a lot of content, use all the space available
-@media (max-width: 1056px) or (max-width: 1180px) {
+@media (max-width: 1180px) {
 	.two-pane-recipe-card {
 		// stack the left and right cards to make it scrollable
 		flex-wrap: wrap;
@@ -46,6 +46,22 @@
 		.two-pane-recipe-card--left {
 			min-width: 25%;
 			width: 25%;
+		}
+	}
+}
+
+@media (max-width: 1056px) {
+	.two-pane-recipe-card {
+		flex-wrap: wrap;
+		justify-content: unset;
+		row-gap: $spacing-08;
+		column-gap: $spacing-03;
+
+		// stack the cards when viewing in portrait
+		.two-pane-recipe-card--left,
+		.two-pane-recipe-card--right {
+			min-width: 600px;
+			max-width: 600px;
 		}
 	}
 }

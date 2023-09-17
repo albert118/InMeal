@@ -25,3 +25,12 @@
 		}
 	}
 }
+
+// restrict input sizes on mobile
+@media (max-width: 1056px) or (max-width: 1180px) {
+	.e-cds-form-input {
+		& > * {
+			width: 40%;
+		}
+	}
+}

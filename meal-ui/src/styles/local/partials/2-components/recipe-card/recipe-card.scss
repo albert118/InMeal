@@ -70,6 +70,15 @@
 
 		.recipe-card__data {
 			padding: $spacing-04;
+
+			// technically an over-ride, but this is kinda neat to do here
+			.recipe-data__meta-wrapper > .recipe-data__meta {
+				column-gap: 0;
+
+				.form-input {
+					width: 50%;
+				}
+			}
 		}
 
 		.action-container {
