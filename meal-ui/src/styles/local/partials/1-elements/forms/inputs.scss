@@ -9,62 +9,64 @@
 	@include form-input();
 }
 
-.form-input > ::placeholder {
-	opacity: 1;
-}
+.form-input {
+	::placeholder {
+		opacity: 1;
+	}
 
-.form-input > :focus::placeholder {
-	opacity: 0;
-	transition: opacity 0.4s ease-out;
-}
+	:focus::placeholder {
+		opacity: 0;
+		transition: opacity 0.4s ease-out;
+	}
 
-.form-input > input[type='text'],
-.form-input > input[type='number'],
-.form-input > select .select-items,
-.form-input > option,
-.form-input > textarea {
-	background-color: var(--background-details);
-	border: 1px solid transparent;
-	border-radius: 12px;
-}
+	input[type='text'],
+	input[type='number'],
+	select .select-items,
+	option,
+	textarea {
+		background-color: var(--background-details);
+		border: 1px solid transparent;
+		border-radius: 12px;
+	}
 
-.form-input > input:focus-visible,
-.form-input > textarea:focus-visible {
-	outline: none;
-	border: 1px solid var(--primary-action);
-	transition: border 0.4s ease-out;
-	border-radius: 12px;
-	@include card-shadow-3();
-}
+	input:focus-visible,
+	textarea:focus-visible {
+		outline: none;
+		border: 1px solid var(--primary-action);
+		transition: border 0.4s ease-out;
+		border-radius: 12px;
+		@include card-shadow-3();
+	}
 
-.form-input > input[type='text'].text-input,
-.form-input > textarea.long-text-input {
-	@include text();
-}
+	input[type='text'].text-input,
+	textarea.long-text-input {
+		@include text();
+	}
 
-.form-input > textarea {
-	resize: vertical;
-}
+	textarea {
+		resize: vertical;
+	}
 
-.form-input > input[type='checkbox'] {
-	margin: $spacing-04;
-	width: unset;
-}
+	input[type='checkbox'] {
+		margin: $spacing-04;
+		width: unset;
+	}
 
-.form-input > input::-webkit-outer-spin-button,
-.form-input > input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-}
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
 
-.form-input > input:disabled {
-	background-color: var(--input-background-disabled);
-}
+	input:disabled {
+		background-color: var(--input-background-disabled);
+	}
 
-.form-input > label {
-	@include form-label();
-}
+	label {
+		@include form-label();
+	}
 
-.form-input > label.disabled {
-	@include disabled-text();
+	label.disabled {
+		@include disabled-text();
+	}
 }
