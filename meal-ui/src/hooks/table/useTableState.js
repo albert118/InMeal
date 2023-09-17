@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { objectMap } from 'utils';
 
 export default function useTableState(initialItems) {

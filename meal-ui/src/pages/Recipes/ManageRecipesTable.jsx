@@ -6,12 +6,7 @@ import ManageRecipesRow from './ManageRecipesRow';
 import useManagementTable from './useManagementTable';
 
 export function ManageRecipesTable() {
-	// const { recipes, selectedItems, onAddOrRemove, ...hookProps } = useManagementTable();
 	const { items, ...hookProps } = useManagementTable();
-
-	// const recipesCount = Object.values(recipes)
-	// 	.map(category => category.length)
-	// 	.reduce((partialSum, a) => partialSum + a, 0);
 
 	return (
 		<div>

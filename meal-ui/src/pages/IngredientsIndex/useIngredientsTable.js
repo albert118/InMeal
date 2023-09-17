@@ -1,7 +1,7 @@
 import { useAlphabeticallyIndexedIngredients, useIngredients } from 'hooks/data';
-import { filterObjectMap } from 'utils';
 import useTableState from 'hooks/table';
 import { useEffect } from 'react';
+import { filterObjectMap } from 'utils';
 
 export default function useIngredientsTable() {
 	const { indexedIngredients, refreshData } = useAlphabeticallyIndexedIngredients();

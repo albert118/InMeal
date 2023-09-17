@@ -1,4 +1,4 @@
-import { Badge, IndexRow, HorizontalCard } from 'components';
+import { Badge, HorizontalCard, IndexRow } from 'components';
 import AppRoutes from 'navigation/AppRoutes';
 
 export default function IngredientsIndexRow({ label, ingredients, isSelected, onAddOrRemove }) {
