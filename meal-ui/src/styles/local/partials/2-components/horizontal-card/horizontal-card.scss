@@ -14,9 +14,18 @@
 	border: 1.25px solid var(--background-neutral);
 	@include glass-background();
 	@include card-shadow();
+	column-gap: $spacing-05;
 
 	.horiz-card__image-slot {
-		width: 20%;
+		max-width: 20%;
+	}
+
+	.horiz-card__content-slot {
+		max-width: 80%;
+		margin-right: $spacing-05;
+	}
+
+	.horiz-card__image-slot {
 		border-right: 1.25px solid var(--border);
 		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 		border-radius: 12px 0 0 12px;
@@ -55,9 +64,6 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		row-gap: $spacing-04;
-		margin-left: $spacing-06;
-		width: 100%;
 
 		.content {
 			display: flex;
