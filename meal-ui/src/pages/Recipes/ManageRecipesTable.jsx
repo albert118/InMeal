@@ -69,12 +69,6 @@ function Actions({
 				</div>
 				<div className='actions'>
 					<Button
-						onClick={() => navigate(`${AppRoutes.recipe}/add`)}
-						kind='primary'
-					>
-						add
-					</Button>
-					<Button
 						onClick={onArchive}
 						kind='secondary'
 						disabled={selectedItems.length < 1}
