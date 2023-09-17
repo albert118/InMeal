@@ -1,13 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { objectMap } from 'utils';
 
 export default function useTableState(initialItems) {
 	const originalItems = Object.freeze(initialItems);
 	const [tableState, setTableState] = useState(initialTableState(initialItems));
-
-	useEffect(() => {
-		console.log(tableState);
-	}, [tableState]);
 
 	function setSelectedItems(updatedValues) {
 		setTableState({ ...tableState, selectedItems: updatedValues });
