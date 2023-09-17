@@ -55,3 +55,9 @@
 		align-items: center;
 	}
 }
+
+// this card has lots of content, use all the space available
+@media (max-width: 1056px) or (max-width: 1180px) {
+	.recipe-card {
+	}
+}

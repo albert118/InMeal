@@ -32,3 +32,13 @@
 		}
 	}
 }
+
+// these pages have a lot of content, use all the space available
+@media (max-width: 1056px) or (max-width: 1180px) {
+	.two-pane-recipe-card {
+		// stack the left and right cards to make it scrollable
+		flex-wrap: wrap;
+		justify-content: unset;
+		row-gap: $spacing-08;
+	}
+}
