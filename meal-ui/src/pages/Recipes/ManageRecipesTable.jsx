@@ -1,5 +1,6 @@
-import { Button, ToggleInline } from 'components';
+import { Button, SearchInput, ToggleInline } from 'components';
 import AppRoutes from 'navigation/AppRoutes';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { objectMap } from 'utils';
 import ManageRecipesRow from './ManageRecipesRow';
@@ -25,8 +26,17 @@ export function ManageRecipesTable() {
 	);
 }
 
-function Actions({ totalCount, selectedItems, onArchive, onSelectAll, onViewArchived, onRestore }) {
+function Actions({
+	totalCount,
+	selectedItems,
+	onArchive,
+	onSelectAll,
+	onViewArchived,
+	onRestore,
+	useSearch
+}) {
 	const navigate = useNavigate();
+	const [searchTerm, setSearchTerm] = useState('');
 
 	return (
 		<div className='action-container'>
@@ -48,6 +58,13 @@ function Actions({ totalCount, selectedItems, onArchive, onSelectAll, onViewArch
 						id='view_archived'
 						labelText='view archived'
 						onClick={onViewArchived}
+					/>
+				</div>
+				<div className='search'>
+					<SearchInput
+						searchTerm={searchTerm}
+						setSearchTerm={setSearchTerm}
+						onSearch={useSearch}
 					/>
 				</div>
 				<div className='actions'>
