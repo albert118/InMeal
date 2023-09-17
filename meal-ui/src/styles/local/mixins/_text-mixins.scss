@@ -9,8 +9,10 @@
 
 @mixin text {
 	letter-spacing: 3px;
-	text-overflow: ellipsis;
 	color: var(--text);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 @mixin page-heading {
