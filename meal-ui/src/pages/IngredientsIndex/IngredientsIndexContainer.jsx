@@ -1,10 +1,10 @@
 import { Button, ToggleInline } from 'components';
 import { objectMap } from 'utils';
 import { IngredientsIndexRow } from './components';
-import useTable from './useTable';
+import useIngredientsTable from './useIngredientsTable';
 
 export default function IngredientsIndexContainer() {
-	const { items, ...hookProps } = useTable();
+	const { items, ...hookProps } = useIngredientsTable();
 
 	return (
 		<div className='p-ingredients'>

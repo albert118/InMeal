@@ -6,28 +6,23 @@ import ManageRecipesRow from './ManageRecipesRow';
 import useManagementTable from './useManagementTable';
 
 export function ManageRecipesTable() {
-	const { recipes, selectedItems, onAddOrRemove, ...hookProps } = useManagementTable();
+	// const { recipes, selectedItems, onAddOrRemove, ...hookProps } = useManagementTable();
+	const { items, ...hookProps } = useManagementTable();
 
-	const recipesCount = Object.values(recipes)
-		.map(category => category.length)
-		.reduce((partialSum, a) => partialSum + a, 0);
+	// const recipesCount = Object.values(recipes)
+	// 	.map(category => category.length)
+	// 	.reduce((partialSum, a) => partialSum + a, 0);
 
 	return (
 		<div>
-			<Actions
-				recipesCount={recipesCount}
-				selectedItems={selectedItems}
-				{...hookProps}
-			/>
-			{objectMap(recipes, (group, recipes) => {
+			<Actions {...hookProps} />
+			{objectMap(items, (idx, recipes) => {
 				return (
 					<ManageRecipesRow
-						label={group}
-						onAddOrRemove={onAddOrRemove}
-						key={group}
+						key={idx}
+						label={idx}
 						recipes={recipes}
-						className='index-row'
-						selectedItems={selectedItems}
+						{...hookProps}
 					/>
 				);
 			})}
@@ -35,14 +30,7 @@ export function ManageRecipesTable() {
 	);
 }
 
-function Actions({
-	recipesCount,
-	onViewArchived,
-	onArchive,
-	selectedItems,
-	onRestore,
-	onSelectAll
-}) {
+function Actions({ totalCount, selectedItems, onArchive, onSelectAll, onViewArchived, onRestore }) {
 	const navigate = useNavigate();
 
 	return (
@@ -51,7 +39,7 @@ function Actions({
 				{
 					<div className='filter-info'>
 						<label>
-							selected: {selectedItems.length}/{recipesCount}
+							selected: {selectedItems.length}/{totalCount}
 						</label>
 					</div>
 				}

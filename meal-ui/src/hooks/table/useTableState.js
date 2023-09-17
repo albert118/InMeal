@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { objectMap } from 'utils';
 
-export function useTableState(initialItems) {
+export default function useTableState(initialItems) {
 	const originalItems = Object.freeze(initialItems);
 	const [tableState, setTableState] = useState(initialTableState(initialItems));
 
