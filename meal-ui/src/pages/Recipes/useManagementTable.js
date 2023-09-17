@@ -22,6 +22,7 @@ export default function useManagementTable() {
 
 	function onArchive() {
 		archiveRecipes(tableState.selectedItems.map(item => item.id)).then(() => refreshData());
+		setSelectedItems([]);
 	}
 
 	function onViewArchived(event) {
@@ -30,6 +31,7 @@ export default function useManagementTable() {
 
 	function onRestore() {
 		restoreRecipes(tableState.selectedItems.map(item => item.id)).then(() => refreshData());
+		setSelectedItems([]);
 	}
 
 	function onSelectAll(event) {
