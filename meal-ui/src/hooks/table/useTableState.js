@@ -1,20 +1,28 @@
-import { useState } from 'react';
-import { objectMap } from 'utils';
+import Fuse from 'fuse.js';
+import { useState, useEffect } from 'react';
+import { isFalsishOrEmpty, objectMap, filterObjectMap } from 'utils';
 
 export default function useTableState(initialItems) {
-	const originalItems = Object.freeze(initialItems);
+	const [fuse, configureFuse] = useState(null);
 	const [tableState, setTableState] = useState(initialTableState(initialItems));
+
+	// setup the table once data source has populated
+	useEffect(() => {
+		initialItems && Object.keys(initialItems).length > 0 && setUpTable(initialItems);
+	}, [initialItems]);
+
+	function setUpTable(initialItems) {
+		setTableState({ ...tableState, originalItems: initialItems, items: initialItems });
+		// configure Fuse once per setup to avoid expensive re-calc's
+		configureFuse(new Fuse(getAllItemsAsList(initialItems), { keys: ['name'] }));
+	}
 
 	function setSelectedItems(updatedValues) {
 		setTableState({ ...tableState, selectedItems: updatedValues });
 	}
 
 	function setAllItemsSelected() {
-		const allItems = objectMap(tableState.items, (_, row) => row).reduce((all, row) =>
-			all.concat(row)
-		);
-
-		setSelectedItems(allItems);
+		setSelectedItems(getAllItemsAsList(tableState.items));
 	}
 
 	function setItems(updatedValues) {
@@ -26,11 +34,24 @@ export default function useTableState(initialItems) {
 	}
 
 	function resetItems() {
-		setItems(originalItems);
+		setItems(tableState.originalItems);
 	}
 
 	function isSelected(item) {
 		return tableState.selectedItems.indexOf(item) > -1;
+	}
+
+	function filterForItems(filterBy) {
+		setItems(filterObjectMap(tableState.items, item => filterBy.includes(item)));
+	}
+
+	function useFuse(query) {
+		if (isFalsishOrEmpty(query)) {
+			resetItems();
+		} else {
+			const results = fuse.search(query);
+			filterForItems(results.map(result => result.item));
+		}
 	}
 
 	return {
@@ -39,12 +60,18 @@ export default function useTableState(initialItems) {
 		setItems,
 		resetItems,
 		isSelected,
+		useFuse,
 		tableState
 	};
 }
 
+function getAllItemsAsList(items) {
+	return objectMap(items, (_, row) => row).reduce((all, row) => all.concat(row));
+}
+
 const initialTableState = items => {
 	return {
+		originalItems: [],
 		selectedItems: [],
 		items: items ?? [],
 		count: 0

@@ -3,7 +3,7 @@ import { ApiConfig } from 'config';
 import { useFetch } from 'hooks/fetch';
 
 export default function useAlphabeticallyIndexedIngredients() {
-	const [indexedIngredients, setIndexedIngredients] = useState([]);
+	const [indexedIngredients, setIndexedIngredients] = useState({});
 	const [shouldRefresh, toggleRefresh] = useState(false);
 
 	const { getApi } = useFetch();

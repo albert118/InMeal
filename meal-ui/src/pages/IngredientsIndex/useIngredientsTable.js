@@ -1,18 +1,20 @@
 import { useAlphabeticallyIndexedIngredients, useIngredients } from 'hooks/data';
 import useTableState from 'hooks/table';
-import { useEffect } from 'react';
 import { filterObjectMap } from 'utils';
 
 export default function useIngredientsTable() {
 	const { indexedIngredients, refreshData } = useAlphabeticallyIndexedIngredients();
 	const { deleteIngredients } = useIngredients();
 
-	const { setSelectedItems, setAllItemsSelected, isSelected, setItems, resetItems, tableState } =
-		useTableState(indexedIngredients);
-
-	useEffect(() => {
-		setItems(indexedIngredients);
-	}, [indexedIngredients]);
+	const {
+		setSelectedItems,
+		setAllItemsSelected,
+		isSelected,
+		setItems,
+		resetItems,
+		tableState,
+		useFuse
+	} = useTableState(indexedIngredients);
 
 	const isIngredientUnused = ingredient => ingredient.recipeUsageCount === 0;
 
@@ -52,6 +54,7 @@ export default function useIngredientsTable() {
 		onSelectAll,
 		onViewUnused,
 		isSelected,
+		useSearch: useFuse,
 		totalCount: tableState.count,
 		selectedItems: tableState.selectedItems,
 		items: tableState.items

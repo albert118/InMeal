@@ -29,7 +29,7 @@ export default function IngredientsIndexContainer() {
 	);
 }
 
-function Actions({ totalCount, selectedItems, onDelete, onSelectAll, onViewUnused }) {
+function Actions({ totalCount, selectedItems, onDelete, onSelectAll, onViewUnused, useSearch }) {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	return (
@@ -58,7 +58,7 @@ function Actions({ totalCount, selectedItems, onDelete, onSelectAll, onViewUnuse
 					<SearchInput
 						searchTerm={searchTerm}
 						setSearchTerm={setSearchTerm}
-						onSearch={query => console.log(`running search ${query}`)}
+						onSearch={useSearch}
 					/>
 				</div>
 				<div className='actions'>
