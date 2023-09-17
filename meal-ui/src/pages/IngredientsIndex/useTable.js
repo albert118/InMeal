@@ -1,40 +1,38 @@
 import { useAlphabeticallyIndexedIngredients, useIngredients } from 'hooks/data';
-import { useState, useEffect } from 'react';
-import { objectMap } from 'utils';
-
-class TableState {
-	constructor() {
-		this.selectedItems = [];
-		this.items = [];
-	}
-}
+import { filterObjectMap } from 'utils';
+import { useTableState } from './useTableState';
+import { useEffect } from 'react';
 
 export default function useTable() {
-	const [selectedItems, setSelectedItems] = useState([]);
-
 	const { indexedIngredients, refreshData } = useAlphabeticallyIndexedIngredients();
-	const [tableItems, setTableItems] = useState(indexedIngredients ?? []);
 	const { deleteIngredients } = useIngredients();
+
+	const { setSelectedItems, setAllItemsSelected, isSelected, setItems, resetItems, tableState } =
+		useTableState(indexedIngredients);
+
+	useEffect(() => {
+		setItems(indexedIngredients);
+	}, [indexedIngredients]);
+
+	const isIngredientUnused = ingredient => ingredient.recipeUsageCount === 0;
 
 	function onAddOrRemove(item) {
 		if (isSelected(item)) {
-			setSelectedItems([...selectedItems.filter(i => i.id !== item.id)]);
+			setSelectedItems([...tableState.selectedItems.filter(selectedItem => item !== selectedItem)]);
 		} else {
-			setSelectedItems([...selectedItems, item]);
+			setSelectedItems([...tableState.selectedItems, item]);
 		}
 	}
 
 	function onDelete() {
-		deleteIngredients(selectedItems.map(item => item.id)).then(() => refreshData());
+		deleteIngredients(tableState.selectedItems.map(item => item.ingredientId)).then(() =>
+			refreshData()
+		);
 	}
 
 	function onSelectAll(event) {
 		if (event.target.checked) {
-			const allItems = objectMap(indexedIngredients, (_, ingredients) => ingredients).reduce(
-				(all, ingredients) => all.concat(ingredients)
-			);
-
-			setSelectedItems(allItems);
+			setAllItemsSelected();
 		} else {
 			setSelectedItems([]);
 		}
@@ -42,35 +40,20 @@ export default function useTable() {
 
 	function onViewUnused(event) {
 		if (event.target.checked) {
-			const allUnusedItems = objectMap(indexedIngredients, (_, ingredients) => ingredients).reduce(
-				(all, ingredients) =>
-					all.concat(ingredients.filter(ingredient => ingredient.recipeUsageCount === 0))
-			);
-
-			setTableItems(allUnusedItems);
+			setItems(filterObjectMap(tableState.items, isIngredientUnused));
 		} else {
-			setTableItems([]);
+			resetItems();
 		}
 	}
 
-	const totalCount = Object.values(indexedIngredients)
-		.map(category => category.length)
-		.reduce((partialSum, a) => partialSum + a, 0);
-
-	function isSelected(item) {
-		return selectedItems.indexOf(item) > -1;
-	}
-
-	useEffect(() => {}, [tableItems]);
-
 	return {
-		indexedIngredients,
 		onAddOrRemove,
-		totalCount,
 		onDelete,
 		onSelectAll,
-		selectedItems,
 		onViewUnused,
-		isSelected
+		isSelected,
+		totalCount: tableState.count,
+		selectedItems: tableState.selectedItems,
+		items: tableState.items
 	};
 }

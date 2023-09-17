@@ -4,7 +4,7 @@ import { IngredientsIndexRow } from './components';
 import useTable from './useTable';
 
 export default function IngredientsIndexContainer() {
-	const { indexedIngredients, ...hookProps } = useTable();
+	const { items, ...hookProps } = useTable();
 
 	return (
 		<div className='p-ingredients'>
@@ -14,7 +14,7 @@ export default function IngredientsIndexContainer() {
 			</h2>
 
 			<Actions {...hookProps} />
-			{objectMap(indexedIngredients, (idx, ingredients) => {
+			{objectMap(items, (idx, ingredients) => {
 				return (
 					<IngredientsIndexRow
 						key={idx}
