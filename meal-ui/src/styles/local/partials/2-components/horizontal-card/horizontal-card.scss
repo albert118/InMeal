@@ -17,10 +17,12 @@
 	column-gap: $spacing-05;
 
 	.horiz-card__image-slot {
+		flex-basis: 20%;
 		max-width: 20%;
 	}
 
 	.horiz-card__content-slot {
+		flex-basis: 80%;
 		max-width: 80%;
 		margin-right: $spacing-05;
 	}
