@@ -6,6 +6,8 @@
 @import 'nav-links.scss';
 
 .minimalist-sidebar {
+	// ensure the height matches, even on mobile landscape
+	height: 100vh;
 	// sidebar is always visible over all other layers except the overlay
 	z-index: var(--layers-sidebar);
 	// defined in layouts to ensure smoother animations
@@ -33,6 +35,8 @@
 /* header moves to top of page - change flex direction and simplify layout */
 @media (max-width: 1056px) {
 	.minimalist-sidebar {
+		// reset the height for mobile
+		height: unset;
 		flex-direction: row;
 		padding: $spacing-04 $spacing-06;
 		width: 100%;
@@ -48,7 +52,8 @@
 	}
 
 	.minimalist-sidebar-active {
-		position: fixed;
+		position: absolute;
+		top: 0;
 		height: 100%;
 		z-index: var(--layers-overlay);
 
