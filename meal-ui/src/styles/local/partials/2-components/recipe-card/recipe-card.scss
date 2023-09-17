@@ -7,7 +7,6 @@
 	--card-height: 900px;
 	width: 750px;
 	@include glass-background();
-	@include text();
 
 	.image-slot {
 		height: calc(var(--card-height) / 1.5);
