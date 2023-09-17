@@ -5,7 +5,7 @@ export default function Badge({ text, labelText, isWarning, onClick }) {
 			onClick={onClick}
 		>
 			<a>{text}</a>
-			<label className={isWarning ? 'e-warning-label' : ''}>{labelText}</label>
+			{labelText && <label className={isWarning ? 'e-warning-label' : ''}>{labelText}</label>}
 		</div>
 	);
 }

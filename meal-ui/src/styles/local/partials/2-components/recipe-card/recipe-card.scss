@@ -7,7 +7,6 @@
 	--card-height: 900px;
 	width: 750px;
 	@include glass-background();
-	@include text();
 
 	.image-slot {
 		height: calc(var(--card-height) / 1.5);
@@ -25,7 +24,8 @@
 		}
 
 		.recipe-data__blurb,
-		.recipe-data__ingredients {
+		.recipe-data__ingredients,
+		.recipe-data__steps {
 			flex-basis: 100%;
 		}
 
@@ -54,5 +54,40 @@
 		padding: $spacing-05;
 		gap: $spacing-04;
 		align-items: center;
+	}
+}
+
+// this card has lots of content, use all the space available
+@media (max-width: 1056px) or (max-width: 1180px) {
+	.recipe-card {
+		--card-height: 600px;
+		font-size: 12px;
+
+		// the image is less prominant in the mobile view to allow more readable content
+		.image-slot {
+			height: calc(var(--card-height) / 3);
+		}
+
+		.recipe-card__data {
+			padding: $spacing-04;
+
+			// technically an over-ride, but this is kinda neat to do here
+			.recipe-data__meta-wrapper > .recipe-data__meta {
+				column-gap: 0;
+
+				.form-input {
+					width: 50%;
+				}
+			}
+		}
+
+		.action-container {
+			margin: 0;
+		}
+	}
+
+	// make more room on the mobile view, default to save and exit instead of just save
+	button[value='save'] {
+		display: none;
 	}
 }

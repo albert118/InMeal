@@ -29,3 +29,11 @@
 		justify-content: center;
 	}
 }
+
+// cards should show as much as possible, these views are quite dense
+@media (max-width: 1180px) {
+	.card {
+		min-width: 500px;
+		max-width: 500px;
+	}
+}

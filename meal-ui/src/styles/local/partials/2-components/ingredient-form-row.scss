@@ -8,6 +8,7 @@
 	background-color: var(--background);
 	border-radius: 12px;
 	padding: $spacing-04;
+	padding-right: $spacing-06;
 
 	.ingredient-form-row__quantity {
 		flex-grow: 1;
@@ -17,5 +18,21 @@
 	.ingredient-form-row__detail {
 		flex-grow: 3;
 		max-width: 90%;
+	}
+}
+
+// maximise space efficiency
+@media (max-width: 1056px) or (max-width: 1180px) {
+	.ingredient-form-row {
+		padding: $spacing-03;
+
+		.ingredient-form-row__quantity {
+			max-width: 20%;
+		}
+
+		.ingredient-form-row__detail {
+			flex-grow: 3;
+			max-width: 80%;
+		}
 	}
 }

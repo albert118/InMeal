@@ -9,8 +9,11 @@
 
 @mixin text {
 	letter-spacing: 3px;
-	text-overflow: ellipsis;
 	color: var(--text);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	line-height: 1rem;
 }
 
 @mixin page-heading {
@@ -18,11 +21,13 @@
 	margin-top: $spacing-06;
 	margin-bottom: $spacing-06;
 	font-size: 2.4rem;
+	line-height: 2.4rem;
 }
 
 @mixin logo-title {
 	color: var(--text);
 	font-size: 0.9em;
+	line-height: 0.9rem;
 	text-transform: uppercase;
 }
 
@@ -95,10 +100,8 @@
 @mixin subscript-label {
 	@include text();
 	text-transform: lowercase;
-	margin-top: $spacing-02;
-	margin-bottom: $spacing-02;
 	opacity: 0.8;
-	font-size: 0.6rem;
+	font-size: 10px;
 }
 
 @mixin disabled-text {

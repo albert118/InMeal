@@ -79,7 +79,7 @@ export function MultiSelectWithMultiLine({
 					items={selectableOptions}
 					onChange={setSelectedItems}
 					key={updatedKey}
-					direction='top'
+					direction='bottom'
 					{...additionalProps}
 				/>
 				<Button
