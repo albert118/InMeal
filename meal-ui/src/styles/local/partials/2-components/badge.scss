@@ -4,23 +4,22 @@
 .badge {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	width: fit-content;
-	min-width: 100px;
 	height: calc($spacing-04 * 2 + 12px + 10px + $spacing-01);
 	row-gap: $spacing-01;
-	padding: $spacing-04 $spacing-06;
+	padding: $spacing-03 $spacing-04;
 	border-radius: 4px;
 	background-color: var(--background);
 
 	a {
 		@include thick-text();
-		white-space: nowrap;
 		font-size: 12px;
+		min-height: 14px;
 	}
 
 	label {
 		@include subscript-label();
-		font-size: 10px;
 	}
 
 	label.e-warning-label {
