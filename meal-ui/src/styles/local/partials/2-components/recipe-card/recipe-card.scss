@@ -70,7 +70,7 @@
 }
 
 // this card has lots of content, use all the space available
-@media (max-width: breakpoints.$small) {
+@media (max-width: breakpoints.$laptop) {
 	.recipe-card {
 		--card-height: 600px;
 		font-size: 12px;
