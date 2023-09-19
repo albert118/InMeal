@@ -33,7 +33,7 @@
 }
 
 /* header moves to top of page - change flex direction and simplify layout */
-@media (max-width: breakpoints.$small) {
+@media (min-width: breakpoints.$portrait-min) and (max-width: breakpoints.$portrait-max) {
 	.minimalist-sidebar {
 		height: 100px;
 		flex-direction: row;
@@ -81,7 +81,7 @@
 }
 
 /* toggling the sidebar-heading shifts the layout around - but only for larger screens */
-@media (min-width: breakpoints.$small) {
+@media (min-width: breakpoints.$laptop) {
 	.minimalist-sidebar-active {
 		animation: minimalist-sidebar-fade-in var(--sequence-fast) ease-out forwards;
 		background-color: transparent;

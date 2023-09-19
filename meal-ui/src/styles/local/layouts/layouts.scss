@@ -59,31 +59,21 @@ body {
 }
 
 // header moves to top of page
-@media (max-width: breakpoints.$small) {
+@media (min-width: breakpoints.$portrait-min) and (max-width: breakpoints.$portrait-max) {
 	body {
 		#root {
 			header {
-				position: relative;
+				position: fixed;
+				top: 0;
+				width: 100%;
 				bottom: auto;
 				left: auto;
-				top: auto;
-				width: 100%;
 			}
 
 			main {
+				padding-top: 100px;
 				padding-left: 0;
 			}
 		}
-	}
-}
-
-/* toggling the sidebar-heading shifts the layout around - but only for larger screens */
-@media (min-width: breakpoints.$small) {
-	.header-active {
-		animation: header-fade-in var(--sequence-fast) ease forwards;
-	}
-
-	.header-inactive {
-		animation: header-fade-out var(--sequence-fast) ease forwards;
 	}
 }
