@@ -1,5 +1,7 @@
 @use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/text-mixins' as *;
+@use '../../../../config/breakpoints' as breakpoints;
+
 @use './overrides';
 
 .e-cds-form-input {
@@ -22,15 +24,6 @@
 			@include form-input();
 			fill: var(--text);
 			padding: 0;
-		}
-	}
-}
-
-// restrict input sizes on mobile
-@media (max-width: 1056px) or (max-width: 1180px) {
-	.e-cds-form-input {
-		& > * {
-			width: 40%;
 		}
 	}
 }

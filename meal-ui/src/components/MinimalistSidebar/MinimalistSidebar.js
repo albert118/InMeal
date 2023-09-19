@@ -1,12 +1,12 @@
-import { useNavigate } from 'react-router-dom';
-import { faSeedling, faBoxes, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { AnimatedHamburger } from './AnimatedHamburger';
-import { NavLinkItem } from './NavLinkItem';
-import { HeroBrandingLogo } from './HeroBrandingLogo';
-import AppRoutes from 'navigation/AppRoutes';
-import config from 'config';
+import { faBoxes, faSeedling, faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import VersionInfo from 'VersionInfo';
+import config from 'config';
+import AppRoutes from 'navigation/AppRoutes';
+import { useNavigate } from 'react-router-dom';
+import { AnimatedHamburger } from './AnimatedHamburger';
+import { HeroBrandingLogo } from './HeroBrandingLogo';
+import { NavLinkItem } from './NavLinkItem';
 
 export default function MinimalistSidebar({ isActive, setActive, isInActive, setInActive }) {
 	const navigate = useNavigate();
@@ -15,6 +15,11 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 		setActive(!isActive);
 		setInActive(isActive);
 	};
+
+	function onClick(event) {
+		event.preventDefault();
+		toggleActive();
+	}
 
 	return (
 		<header
@@ -27,31 +32,46 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 				{isActive && (
 					<HeroBrandingLogo
 						config={config}
-						onClick={() => navigate(AppRoutes.root)}
+						onClick={() => {
+							isActive && toggleActive();
+							navigate(AppRoutes.root);
+						}}
 					/>
 				)}
-				<AnimatedHamburger callback={toggleActive} />
+				<AnimatedHamburger
+					isActive={isActive}
+					onClick={onClick}
+				/>
 			</div>
 
 			<div className='nav-links page-links'>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faSeedling}
-					onClick={() => navigate(AppRoutes.ingredients)}
+					onClick={() => {
+						isActive && toggleActive();
+						navigate(AppRoutes.ingredients);
+					}}
 				>
 					view ingredients
 				</NavLinkItem>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faBoxes}
-					onClick={() => navigate(AppRoutes.recipes)}
+					onClick={() => {
+						isActive && toggleActive();
+						navigate(AppRoutes.recipes);
+					}}
 				>
 					manage Recipes
 				</NavLinkItem>
 				<NavLinkItem
 					isActive={isActive}
 					icon={faSquarePlus}
-					onClick={() => navigate(`${AppRoutes.recipe}/add`)}
+					onClick={() => {
+						isActive && toggleActive();
+						navigate(`${AppRoutes.recipe}/add`);
+					}}
 				>
 					add a new recipe
 				</NavLinkItem>
@@ -60,7 +80,10 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 				<NavLinkItem
 					isActive={isActive}
 					icon={faGithub}
-					onClick={() => window.open(config.GitSocialLink, '_blank')}
+					onClick={() => {
+						isActive && toggleActive();
+						window.open(config.GitSocialLink, '_blank');
+					}}
 				>
 					release: {VersionInfo.toString()}
 				</NavLinkItem>

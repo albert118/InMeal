@@ -1,14 +1,4 @@
-import { useState } from 'react';
-
-export function AnimatedHamburger({ callback }) {
-	const [isActive, setActive] = useState(false);
-
-	function onClick(event) {
-		event.preventDefault();
-		setActive(!isActive);
-		callback();
-	}
-
+export function AnimatedHamburger({ onClick, isActive }) {
 	return (
 		<div
 			className={`hamburger ${isActive ? 'hamburger-toggle' : ''}`}

@@ -34,21 +34,11 @@ function RightPane({ recipe }) {
 	return (
 		<div className='card recipe-card two-pane-recipe-card--right'>
 			<div className='recipe-card__data scrollbar-vertical'>
-				<div className='recipe-data__meta-wrapper'>
-					<div className='recipe-data__meta'>
+				<div className='recipe-data__meta'>
+					<div className='meta-row'>
 						<TextInput
 							label='category'
 							value={recipe.category}
-							disabled={true}
-						/>
-						<TextInput
-							label='meal type'
-							value={recipe.type}
-							disabled={true}
-						/>
-						<TextInput
-							label='course'
-							value={recipe.course}
 							disabled={true}
 						/>
 						<NumberInput
@@ -56,11 +46,26 @@ function RightPane({ recipe }) {
 							label='servings'
 							disabled={true}
 						/>
+					</div>
+					<div className='meta-row'>
+						<TextInput
+							label='meal type'
+							value={recipe.type}
+							disabled={true}
+						/>
 						<NumberInput
 							value={recipe.prepTime}
 							label='preparation time (minutes)'
 							disabled={true}
 						/>
+					</div>
+					<div className='meta-row'>
+						<TextInput
+							label='course'
+							value={recipe.course}
+							disabled={true}
+						/>
+
 						<NumberInput
 							value={recipe.cookTime}
 							label='cook time (minutes)'

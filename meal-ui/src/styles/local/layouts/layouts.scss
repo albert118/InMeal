@@ -1,80 +1,77 @@
+@use '../../config/breakpoints' as breakpoints;
+
 /* all pages follow this layout */
 
-html {
-	overflow: hidden;
-}
-
-html,
 body {
 	--sidebar-width: 100px;
-
+	background-color: var(--background--neutral, black);
+	color: var(--text, white);
+	// margin and padding reset
 	margin: 0;
 	padding: 0;
 	// full height pages
 	height: 100%;
 	min-height: 100%;
 	overflow-x: hidden;
-}
 
-body::-webkit-scrollbar {
-	display: none;
-}
+	::-webkit-scrollbar {
+		display: none;
+	}
 
-// main instead of body, as main is where our content lives
-main {
-	padding-left: var(--sidebar-width);
-}
+	// the react-app root
+	#root {
+		// main instead of body, as main is where our content lives
+		main {
+			padding-left: var(--sidebar-width);
+		}
 
-header {
-	// header as sidebar
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
+		header {
+			// header as sidebar
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			left: 0;
+		}
+
+		.theming-gradient-1 {
+			z-index: var(--layers-background);
+			position: absolute;
+			height: 100vh;
+			top: -10%;
+		}
+
+		.theming-gradient-2 {
+			z-index: var(--layers-background);
+			position: absolute;
+			height: 100vh;
+			top: 10%;
+			left: 60%;
+		}
+
+		// TODO: fix
+		.theming-gradient-1,
+		.theming-gradient-2 {
+			display: none;
+		}
+	}
 }
 
 // header moves to top of page
-@media (max-width: 1056px) {
-	header {
-		position: relative;
-		bottom: auto;
-		left: auto;
-		top: auto;
-		width: 100%;
+@media (min-width: breakpoints.$portrait-min) and (max-width: breakpoints.$portrait-max) {
+	body {
+		#root {
+			header {
+				position: fixed;
+				top: 0;
+				width: 100%;
+				bottom: auto;
+				left: auto;
+			}
+
+			main {
+				padding-top: 100px;
+				padding-left: 0;
+			}
+		}
 	}
-
-	main {
-		padding-left: 0;
-	}
-}
-
-/* toggling the sidebar-heading shifts the layout around - but only for larger screens */
-@media (min-width: 1056px) {
-	.header-active {
-		animation: header-fade-in var(--sequence-fast) ease forwards;
-	}
-
-	.header-inactive {
-		animation: header-fade-out var(--sequence-fast) ease forwards;
-	}
-}
-
-body {
-	background-color: var(--background--neutral, black);
-	color: var(--text, white);
-}
-
-.theming-gradient-1,
-.theming-gradient-2 {
-	z-index: var(--layers-background);
-	position: absolute;
-}
-
-.theming-gradient-1 {
-	top: -10%;
-}
-
-.theming-gradient-2 {
-	top: 10%;
-	left: 60%;
 }

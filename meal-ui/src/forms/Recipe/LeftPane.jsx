@@ -41,7 +41,7 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 				/>
 
 				<MultiSelectWithMultiLine
-					label='...or add from existing ingredients'
+					label='or add existing'
 					className='recipe-data__ingredients'
 					items={recipe.recipeIngredients}
 					selectableOptions={ingredients}
