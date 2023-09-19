@@ -38,3 +38,10 @@
 		max-width: 500px;
 	}
 }
+
+// these pages have a lot of content, use all the space available
+@media (min-width: breakpoints.$desktop) {
+	.card {
+		max-width: fit-content;
+	}
+}
