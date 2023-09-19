@@ -6,7 +6,8 @@
 
 .recipe-card {
 	--card-height: 900px;
-	width: 750px;
+	max-width: 900px;
+	min-width: 750px;
 	@include glass-background();
 
 	.image-slot {
@@ -50,6 +51,13 @@
 		padding: $spacing-05;
 		gap: $spacing-04;
 		align-items: center;
+	}
+}
+
+// cards should show as much as possible, these views are quite dense
+@media (max-width: breakpoints.$ipad-pro) {
+	.recipe-card .recipe-card__data {
+		padding: $spacing-04;
 	}
 }
 

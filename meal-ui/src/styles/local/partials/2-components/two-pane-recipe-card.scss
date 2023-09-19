@@ -1,4 +1,5 @@
 @use '@carbon/react/scss/spacing' as *;
+@use '../../../config/breakpoints' as breakpoints;
 
 .two-pane-recipe-card {
 	display: flex;
@@ -33,23 +34,7 @@
 }
 
 // these pages have a lot of content, use all the space available
-@media (max-width: 1180px) {
-	.two-pane-recipe-card {
-		// stack the left and right cards to make it scrollable
-		flex-wrap: wrap;
-		justify-content: unset;
-		row-gap: $spacing-08;
-		column-gap: $spacing-03;
-
-		// left card is a scrollable list of ingredients
-		.two-pane-recipe-card--left {
-			min-width: 25%;
-			width: 25%;
-		}
-	}
-}
-
-@media (max-width: 1056px) {
+@media (max-width: breakpoints.$ipad-pro) {
 	.two-pane-recipe-card {
 		flex-wrap: wrap;
 		justify-content: unset;
@@ -57,10 +42,13 @@
 		column-gap: $spacing-03;
 
 		// stack the cards when viewing in portrait
+		// anything less than the min-width will stack for small screens
 		.two-pane-recipe-card--left,
 		.two-pane-recipe-card--right {
-			min-width: 600px;
-			max-width: 600px;
+			min-width: 450px;
+			max-width: 500px;
+			// center them to avoid any deadspace
+			margin: 0 auto;
 		}
 	}
 }
