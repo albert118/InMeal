@@ -60,18 +60,20 @@ body {
 
 // header moves to top of page
 @media (max-width: breakpoints.$small) {
-	header {
-		position: relative;
-		bottom: auto;
-		left: auto;
-		top: auto;
-		width: 100%;
-	}
+	body {
+		#root {
+			header {
+				position: relative;
+				bottom: auto;
+				left: auto;
+				top: auto;
+				width: 100%;
+			}
 
-	main {
-		padding-left: 0;
-		// share the width with the height in this view
-		padding-top: var(--sidebar-width);
+			main {
+				padding-left: 0;
+			}
+		}
 	}
 }
 
