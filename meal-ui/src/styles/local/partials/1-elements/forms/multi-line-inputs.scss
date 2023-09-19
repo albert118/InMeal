@@ -8,23 +8,8 @@
 	.multi-line-input__new,
 	.multi-line-input__add {
 		display: flex;
-		gap: $spacing-08;
+		column-gap: $spacing-08;
 		justify-content: space-between;
 		align-items: flex-end;
-	}
-}
-
-// multine becomes a stack for mobile
-@media (max-width: 1056px) or (max-width: 1180px) {
-	.multi-line-input {
-		// disable adding new ingredients and hide extra label for simplicity
-		.multi-line-input__new,
-		.multi-line-input__add label {
-			display: none;
-		}
-
-		.multi-line-input__add {
-			flex-direction: column;
-		}
 	}
 }
