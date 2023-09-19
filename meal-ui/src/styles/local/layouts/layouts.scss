@@ -70,6 +70,8 @@ body {
 
 	main {
 		padding-left: 0;
+		// share the width with the height in this view
+		padding-top: var(--sidebar-width);
 	}
 }
 

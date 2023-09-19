@@ -1,4 +1,5 @@
 @use '@carbon/react/scss/spacing' as *;
+@use '../../../../config/breakpoints' as breakpoints;
 @use '../../../mixins/text-mixins' as *;
 @use '../../../mixins/glass-background' as *;
 @use 'helper-mixins' as *;
@@ -6,12 +7,11 @@
 @import 'nav-links.scss';
 
 .minimalist-sidebar {
-	// ensure the height matches, even on mobile landscape
-	height: 100vh;
-	// sidebar is always visible over all other layers except the overlay
-	z-index: var(--layers-sidebar);
 	// defined in layouts to ensure smoother animations
 	width: var(--sidebar-width);
+	// sidebar is always visible over all other layers except the overlay
+	z-index: var(--layers-sidebar);
+	height: 100vh;
 	display: flex;
 	@include sidebar-element-alignments();
 	@include text();
@@ -33,10 +33,9 @@
 }
 
 /* header moves to top of page - change flex direction and simplify layout */
-@media (max-width: 1056px) {
+@media (max-width: breakpoints.$small) {
 	.minimalist-sidebar {
-		// reset the height for mobile
-		height: unset;
+		height: 100px;
 		flex-direction: row;
 		padding: $spacing-04 $spacing-06;
 		width: 100%;
@@ -82,7 +81,7 @@
 }
 
 /* toggling the sidebar-heading shifts the layout around - but only for larger screens */
-@media (min-width: 1056px) {
+@media (min-width: breakpoints.$small) {
 	.minimalist-sidebar-active {
 		animation: minimalist-sidebar-fade-in var(--sequence-fast) ease-out forwards;
 		background-color: transparent;
