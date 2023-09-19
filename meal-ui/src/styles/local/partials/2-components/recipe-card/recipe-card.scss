@@ -2,6 +2,7 @@
 @use '../../../mixins/text-mixins' as *;
 @use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/glass-background' as *;
+@use '../../../../config/breakpoints' as breakpoints;
 
 .recipe-card {
 	--card-height: 900px;
@@ -22,12 +23,6 @@
 
 		p {
 			@include wrappable-text();
-		}
-
-		.recipe-data__blurb,
-		.recipe-data__ingredients,
-		.recipe-data__steps {
-			flex-basis: 100%;
 		}
 
 		.ingredients-list > * {
@@ -59,7 +54,7 @@
 }
 
 // this card has lots of content, use all the space available
-@media (max-width: 1056px) or (max-width: 1180px) {
+@media (max-width: breakpoints.$small) {
 	.recipe-card {
 		--card-height: 600px;
 		font-size: 12px;
