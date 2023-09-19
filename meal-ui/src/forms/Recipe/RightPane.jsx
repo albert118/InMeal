@@ -14,8 +14,8 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 	return (
 		<div className='card recipe-card two-pane-recipe-card--right'>
 			<div className='recipe-card__data scrollbar-vertical'>
-				<div className='recipe-data__meta-wrapper'>
-					<div className='recipe-data__meta'>
+				<div className='recipe-data__meta'>
+					<div className='meta-row'>
 						<Dropdown
 							id='recipe-data__category'
 							label='choose a category'
@@ -24,6 +24,15 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 							selectedItem={recipe.category}
 							onChange={selected => onDropdownUpdate('category', selected)}
 						/>
+						<NumberInput
+							onChange={onUpdate}
+							name='servings'
+							value={recipe.servings}
+							label='servings'
+						/>
+					</div>
+
+					<div className='meta-row'>
 						<Dropdown
 							id='recipe-data__type'
 							label='choose a meal type'
@@ -32,6 +41,15 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 							selectedItem={recipe.type}
 							onChange={selected => onDropdownUpdate('type', selected)}
 						/>
+						<NumberInput
+							onChange={onUpdate}
+							name='prepTime'
+							value={recipe.prepTime}
+							label='preparation time'
+						/>
+					</div>
+
+					<div className='meta-row'>
 						<Dropdown
 							id='recipe-data__course'
 							label='choose which course'
@@ -42,21 +60,9 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 						/>
 						<NumberInput
 							onChange={onUpdate}
-							name='servings'
-							value={recipe.servings}
-							label='servings'
-						/>
-						<NumberInput
-							onChange={onUpdate}
-							name='prepTime'
-							value={recipe.prepTime}
-							label='preparation time (minutes)'
-						/>
-						<NumberInput
-							onChange={onUpdate}
 							name='cookTime'
 							value={recipe.cookTime}
-							label='cook time (minutes)'
+							label='cook time'
 						/>
 					</div>
 				</div>
