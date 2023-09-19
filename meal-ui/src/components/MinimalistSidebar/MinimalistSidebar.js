@@ -33,7 +33,7 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 					<HeroBrandingLogo
 						config={config}
 						onClick={() => {
-							toggleActive();
+							isActive && toggleActive();
 							navigate(AppRoutes.root);
 						}}
 					/>
@@ -49,7 +49,7 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 					isActive={isActive}
 					icon={faSeedling}
 					onClick={() => {
-						toggleActive();
+						isActive && toggleActive();
 						navigate(AppRoutes.ingredients);
 					}}
 				>
@@ -59,7 +59,7 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 					isActive={isActive}
 					icon={faBoxes}
 					onClick={() => {
-						toggleActive();
+						isActive && toggleActive();
 						navigate(AppRoutes.recipes);
 					}}
 				>
@@ -69,7 +69,7 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 					isActive={isActive}
 					icon={faSquarePlus}
 					onClick={() => {
-						toggleActive();
+						isActive && toggleActive();
 						navigate(`${AppRoutes.recipe}/add`);
 					}}
 				>
@@ -81,7 +81,7 @@ export default function MinimalistSidebar({ isActive, setActive, isInActive, set
 					isActive={isActive}
 					icon={faGithub}
 					onClick={() => {
-						toggleActive();
+						isActive && toggleActive();
 						window.open(config.GitSocialLink, '_blank');
 					}}
 				>
