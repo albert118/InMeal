@@ -18,6 +18,7 @@
 		gap: $spacing-06;
 		padding: $spacing-06 $spacing-08;
 		height: 100%;
+		@include card-shadow-3();
 
 		p {
 			@include wrappable-text();

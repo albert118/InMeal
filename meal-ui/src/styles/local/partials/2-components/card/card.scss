@@ -32,7 +32,7 @@
 }
 
 // cards should show as much as possible, these views are quite dense
-@media (max-width: breakpoints.$ipad-pro) {
+@media (min-width: breakpoints.$ipad-pro) {
 	.card {
 		min-width: 500px;
 		max-width: 500px;
