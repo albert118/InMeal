@@ -4,9 +4,8 @@ import { Tile } from '@carbon/react';
 const Card = ({ className, title, children }) => {
 	return (
 		<Tile
-			className={
-				className ? `card common-card ${className}` : `card common-card`
-			}
+			style={{ padding: 0 }}
+			className={`card ${className ?? ''}`}
 		>
 			<TitleBar>{title}</TitleBar>
 			<div className='content-slot'>{children}</div>

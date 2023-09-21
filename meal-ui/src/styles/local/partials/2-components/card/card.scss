@@ -1,5 +1,4 @@
 @use '@carbon/react/scss/spacing' as *;
-@use './overrides';
 @use '../../../mixins/text-mixins' as *;
 @use '../../../mixins/card-shadow' as *;
 @use '../../../../config/breakpoints' as breakpoints;
@@ -9,7 +8,7 @@
 	--card-height: calc($spacing-08 * 10) + $spacing-06;
 	height: var(--card-height);
 	min-width: 700px;
-	max-width: 1110px;
+	max-width: fit-content;
 	display: flex;
 	flex-direction: column;
 	background-color: var(--background-neutral);
@@ -28,20 +27,5 @@
 	div.content-slot > div {
 		display: flex;
 		justify-content: center;
-	}
-}
-
-// cards should show as much as possible, these views are quite dense
-@media (min-width: breakpoints.$ipad-pro) {
-	.card {
-		min-width: 500px;
-		max-width: 500px;
-	}
-}
-
-// these pages have a lot of content, use all the space available
-@media (min-width: breakpoints.$desktop) {
-	.card {
-		max-width: fit-content;
 	}
 }
