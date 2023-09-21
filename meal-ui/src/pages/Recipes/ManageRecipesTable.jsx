@@ -1,7 +1,5 @@
 import { Button, SearchInput, ToggleInline } from 'components';
-import AppRoutes from 'navigation/AppRoutes';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { objectMap } from 'utils';
 import ManageRecipesRow from './ManageRecipesRow';
 import useManagementTable from './useManagementTable';
