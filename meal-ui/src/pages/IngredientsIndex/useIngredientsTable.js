@@ -3,7 +3,7 @@ import useTableState from 'hooks/table';
 import { filterObjectMap } from 'utils';
 
 export default function useIngredientsTable() {
-	const { indexedIngredients, refreshData } = useAlphabeticallyIndexedIngredients();
+	const { indexedIngredients } = useAlphabeticallyIndexedIngredients();
 	const { deleteIngredients } = useIngredients();
 
 	const {
@@ -27,8 +27,13 @@ export default function useIngredientsTable() {
 	}
 
 	function onDelete() {
-		deleteIngredients(tableState.selectedItems.map(item => item.ingredientId)).then(() =>
-			refreshData()
+		const toBeDeletedIds = tableState.selectedItems.map(item => item.ingredientId);
+		deleteIngredients(toBeDeletedIds);
+		setItems(
+			filterObjectMap(
+				tableState.items,
+				ingredient => !toBeDeletedIds.includes(ingredient.ingredientId)
+			)
 		);
 	}
 
