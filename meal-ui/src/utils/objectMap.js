@@ -3,5 +3,9 @@ export function objectMap(obj, fn) {
 }
 
 export function filterObjectMap(obj, filterFn) {
-	return Object.fromEntries(objectMap(obj, (key, items) => [key, items.filter(filterFn)]));
+	const filtered = objectMap(obj, (key, items) => {
+		const filteredValues = items.filter(filterFn);
+		return filteredValues?.length > 0 ? [key, filteredValues] : null;
+	}).filter(v => !!v);
+	return Object.fromEntries(filtered);
 }

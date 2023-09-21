@@ -1,6 +1,6 @@
 import { Button, SearchInput, ToggleInline } from 'components';
-import { useState } from 'react';
 import { objectMap } from 'utils';
+import { useState } from 'react';
 import { IngredientsIndexRow } from './components';
 import useIngredientsTable from './useIngredientsTable';
 
@@ -29,43 +29,51 @@ export default function IngredientsIndexContainer() {
 	);
 }
 
-function Actions({ totalCount, selectedItems, onDelete, onSelectAll, onViewUnused, useSearch }) {
-	const [searchTerm, setSearchTerm] = useState('');
+function Actions({
+	selectedDisplayCount,
+	onDelete,
+	onSelectAll,
+	onViewUnused,
+	useSearch,
+	canDelete
+}) {
+	const [selectAll, setSelectAll] = useState(false);
 
 	return (
 		<div className='action-container'>
 			<div className='action-container__card'>
 				{
 					<div className='filter-info'>
-						<label>
-							selected: {selectedItems.length}/{totalCount}
-						</label>
+						<label>selected: {selectedDisplayCount}</label>
 					</div>
 				}
 				<div className='filters'>
 					<ToggleInline
 						id='select_all'
 						labelText='select all'
-						onClick={onSelectAll}
+						toggled={selectAll}
+						onClick={event => {
+							setSelectAll(!selectAll);
+							onSelectAll(event);
+						}}
 					/>
 					<ToggleInline
 						id='select_unused'
 						labelText='view unused'
-						onClick={onViewUnused}
+						onClick={event => {
+							onViewUnused(event);
+							setSelectAll(false);
+						}}
 					/>
 				</div>
 				<div className='search'>
-					<SearchInput
-						searchTerm={searchTerm}
-						setSearchTerm={setSearchTerm}
-						onSearch={useSearch}
-					/>
+					<SearchInput onSearch={useSearch} />
 				</div>
 				<div className='actions'>
 					<Button
 						onClick={onDelete}
 						kind='secondary'
-						disabled={selectedItems.length < 1}
+						disabled={!canDelete()}
 					>
 						delete
 					</Button>

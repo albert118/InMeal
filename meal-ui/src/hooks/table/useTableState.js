@@ -41,7 +41,8 @@ export default function useTableState(initialItems) {
 			.map(row => row.length)
 			.reduce((partialSum, a) => partialSum + a, 0);
 
-		setTableState({ ...tableState, items: updatedValues, count: totalCount });
+		// setting items always clears the current selection
+		setTableState({ ...tableState, items: updatedValues, selectedItems: [], count: totalCount });
 	}
 
 	function resetItems() {

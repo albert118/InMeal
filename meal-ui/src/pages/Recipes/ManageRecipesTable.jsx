@@ -27,16 +27,16 @@ export function ManageRecipesTable() {
 }
 
 function Actions({
-	totalCount,
-	selectedItems,
+	selectedDisplayCount,
 	onArchive,
 	onSelectAll,
 	onViewArchived,
 	onRestore,
-	useSearch
+	useSearch,
+	canArchive,
+	canRestore
 }) {
-	const navigate = useNavigate();
-	const [searchTerm, setSearchTerm] = useState('');
+	const [selectAll, setSelectAll] = useState(false);
 
 	return (
 		<div className='action-container'>
@@ -44,7 +44,7 @@ function Actions({
 				{
 					<div className='filter-info'>
 						<label>
-							selected: {selectedItems.length}/{totalCount}
+							<label>selected: {selectedDisplayCount}</label>
 						</label>
 					</div>
 				}
@@ -52,33 +52,36 @@ function Actions({
 					<ToggleInline
 						id='select_all'
 						labelText='select all'
-						onClick={onSelectAll}
+						toggled={selectAll}
+						onClick={event => {
+							setSelectAll(!selectAll);
+							onSelectAll(event);
+						}}
 					/>
 					<ToggleInline
 						id='view_archived'
 						labelText='view archived'
-						onClick={onViewArchived}
+						onClick={event => {
+							onViewArchived(event);
+							setSelectAll(false);
+						}}
 					/>
 				</div>
 				<div className='search'>
-					<SearchInput
-						searchTerm={searchTerm}
-						setSearchTerm={setSearchTerm}
-						onSearch={useSearch}
-					/>
+					<SearchInput onSearch={useSearch} />
 				</div>
 				<div className='actions'>
 					<Button
 						onClick={onArchive}
 						kind='secondary'
-						disabled={selectedItems.length < 1}
+						disabled={!canArchive()}
 					>
 						archive
 					</Button>
 					<Button
 						onClick={onRestore}
 						kind='secondary'
-						disabled={selectedItems.length < 1}
+						disabled={!canRestore()}
 					>
 						restore
 					</Button>
