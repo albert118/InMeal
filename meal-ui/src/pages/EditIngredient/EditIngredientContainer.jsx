@@ -66,6 +66,7 @@ function EditIngredientForm() {
 					disabled={canDelete()}
 					onClick={onUpdate}
 				/>
+				<br />
 				{canDelete() && <ValidationWarnings warnings={getWarnings()} />}
 			</div>
 			<div className='edit-ingredient-card__actions'>

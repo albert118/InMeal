@@ -53,12 +53,13 @@ export default function useEditIngredientFormData() {
 
 		const shouldDelete = formData.isDeleted && existingIngredient.recipeUsageCount === 0;
 
+		console.log(existingIngredient);
 		if (shouldDelete) {
-			return deleteIngredient(existingIngredient.ingredientId);
+			return deleteIngredient(existingIngredient.id);
 		}
 
 		if (formData.name !== existingIngredient.name) {
-			return updateIngredient(existingIngredient.ingredientId, formData.name, formData.unit);
+			return updateIngredient(existingIngredient.id, formData.name, formData.unit);
 		}
 
 		setFormStatus(FormStatuses.Saved);
