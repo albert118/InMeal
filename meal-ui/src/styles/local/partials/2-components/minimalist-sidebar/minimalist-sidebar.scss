@@ -81,7 +81,7 @@
 }
 
 /* toggling the sidebar-heading shifts the layout around - but only for larger screens */
-@media (min-width: breakpoints.$desktop) {
+@media (min-width: breakpoints.$ipad-pro) {
 	.minimalist-sidebar-active {
 		animation: minimalist-sidebar-fade-in var(--sequence-fast) ease-out forwards;
 		background-color: transparent;
