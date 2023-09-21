@@ -48,15 +48,22 @@ export default function useIngredientsTable() {
 		}
 	}
 
+	function canDelete() {
+		return (
+			tableState.selectedItems.length > 0 &&
+			tableState.selectedItems.filter(isIngredientUnused).length === tableState.selectedItems.length
+		);
+	}
+
 	return {
 		onAddOrRemove,
 		onDelete,
 		onSelectAll,
 		onViewUnused,
 		isSelected,
+		canDelete,
 		useSearch: useFuse,
-		totalCount: tableState.count,
-		selectedItems: tableState.selectedItems,
+		selectedDisplayCount: `${tableState.selectedItems.length}/${tableState.count}`,
 		items: tableState.items
 	};
 }

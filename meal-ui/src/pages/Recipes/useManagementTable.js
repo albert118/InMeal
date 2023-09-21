@@ -37,6 +37,14 @@ export default function useManagementTable() {
 		}
 	}
 
+	function canArchive() {
+		return tableState.selectedItems.length > 0;
+	}
+
+	function canRestore() {
+		return tableState.selectedItems.length > 0;
+	}
+
 	return {
 		onAddOrRemove,
 		onArchive,
@@ -44,9 +52,10 @@ export default function useManagementTable() {
 		onRestore,
 		onSelectAll,
 		isSelected,
+		canArchive,
+		canRestore,
 		useSearch: useFuse,
-		totalCount: tableState.count,
-		selectedItems: tableState.selectedItems,
+		selectedDisplayCount: `${tableState.selectedItems.length}/${tableState.count}`,
 		items: tableState.items
 	};
 }

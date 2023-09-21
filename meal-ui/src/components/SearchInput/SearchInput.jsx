@@ -1,8 +1,9 @@
 import { useDebounce } from '@uidotdev/usehooks';
 import { TextInput } from 'forms/Inputs';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function SearchInput({ searchTerm, setSearchTerm, onSearch }) {
+export default function SearchInput({ onSearch }) {
+	const [searchTerm, setSearchTerm] = useState('');
 	const debouncedSearchTerm = useDebounce(searchTerm, 300);
 
 	useEffect(() => {
