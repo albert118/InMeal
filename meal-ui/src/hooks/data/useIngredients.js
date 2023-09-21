@@ -18,15 +18,13 @@ export default function useIngredients() {
 
 	function deleteIngredients(ids) {
 		const url = `${ApiConfig.API_URL}/ingredients/delete`;
-		const body = { ingredientIds: ids };
-		return postApi(url, body)
+		return postApi(url, { ingredientIds: ids })
 			.then(() => {
 				setError(null);
 				setIngredients(ingredients.filter(i => !ids.includes(i.id)));
 			})
 			.catch(errorDetail => {
 				setError(errorDetail);
-				return true;
 			});
 	}
 

@@ -115,16 +115,15 @@ public class IngredientsManager : IIngredientsManager
         }
 
         var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCountAsync(ct);
-        var unusedIngredients = usageCountResults.Keys.ToHashSet().Except(ids).ToList();
+        var usedIngredients = usageCountResults.Keys.ToHashSet().Intersect(ids);
 
-        // check if they are used
-        if (!unusedIngredients.Any()) {
-            var usedIds = ids.Except(unusedIngredients);
-            _logger.LogWarning("cannot remove {Ingredient}(s) used by recipes with Ids '{IngredientIds}'", nameof(Ingredient), usedIds);
+        if (usedIngredients.Any()) {
+            _logger.LogWarning("cannot remove {Ingredient}(s) used by recipes with Ids '{IngredientIds}'", nameof(Ingredient), usedIngredients);
+            throw new IngredientDeletionException($"cannot remove {nameof(Ingredient)}s that are still in use");
         }
 
-        _logger.LogInformation("removing unused {Ingredient}(s) with Ids '{IngredientIds}'", nameof(Ingredient), unusedIngredients);
-        await _ingredientRepository.DeleteManyAsync(unusedIngredients, ct);
+        _logger.LogInformation("removing unused {Ingredient}(s) with Ids '{IngredientIds}'", nameof(Ingredient), usedIngredients);
+        await _ingredientRepository.DeleteManyAsync(ids, ct);
     }
 
     public List<MeasurementUnit> GetMeasurementOptions()

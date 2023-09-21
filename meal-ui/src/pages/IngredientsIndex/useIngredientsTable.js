@@ -3,7 +3,7 @@ import useTableState from 'hooks/table';
 import { filterObjectMap } from 'utils';
 
 export default function useIngredientsTable() {
-	const { indexedIngredients } = useAlphabeticallyIndexedIngredients();
+	const { indexedIngredients, refreshData } = useAlphabeticallyIndexedIngredients();
 	const { deleteIngredients } = useIngredients();
 
 	const {
@@ -14,7 +14,7 @@ export default function useIngredientsTable() {
 		resetItems,
 		tableState,
 		useFuse
-	} = useTableState(indexedIngredients);
+	} = useTableState(indexedIngredients, refreshData);
 
 	const isIngredientUnused = ingredient => ingredient.recipeUsageCount === 0;
 
