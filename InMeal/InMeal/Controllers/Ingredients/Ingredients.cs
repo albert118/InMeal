@@ -81,11 +81,11 @@ public class IngredientsController : ControllerBase
 
     [HttpPost(Name = "Delete the given ingredients")]
     [ActionName("delete")]
-    public IActionResult Delete(List<Guid> ingredientIds)
+    public IActionResult Delete(DeleteIngredientsRequestDto request)
     {
         try {
-            EmptyGuidGuard.Apply(ingredientIds);
-            var keys = ingredientIds.Select(id => new IngredientId(id)).ToList();
+            EmptyGuidGuard.Apply(request.IngredientIds);
+            var keys = request.IngredientIds.Select(id => new IngredientId(id)).ToList();
             _ingredientsManager.DeleteAsync(keys, _tokenAccessor.Token)
                                .GetAwaiter()
                                .GetResult();

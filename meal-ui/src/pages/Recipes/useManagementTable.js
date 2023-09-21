@@ -4,8 +4,10 @@ import useTableState from 'hooks/table';
 export default function useManagementTable() {
 	const { recipes, refreshData, archiveRecipes, restoreRecipes } = useAllRecipes();
 
-	const { setSelectedItems, setAllItemsSelected, isSelected, useFuse, tableState } =
-		useTableState(recipes);
+	const { setSelectedItems, setAllItemsSelected, isSelected, useFuse, tableState } = useTableState(
+		recipes,
+		() => console.log('yis')
+	);
 
 	function onAddOrRemove(item) {
 		if (isSelected(item)) {

@@ -2,7 +2,7 @@ import Fuse from 'fuse.js';
 import { useState, useEffect } from 'react';
 import { isFalsishOrEmpty, objectMap, filterObjectMap } from 'utils';
 
-export default function useTableState(initialItems) {
+export default function useTableState(initialItems, onRefresh) {
 	const [fuse, configureFuse] = useState(null);
 	const [tableState, setTableState] = useState(initialTableState(initialItems));
 
@@ -46,6 +46,7 @@ export default function useTableState(initialItems) {
 	}
 
 	function resetItems() {
+		// onRefresh();
 		setItems(tableState.originalItems);
 	}
 

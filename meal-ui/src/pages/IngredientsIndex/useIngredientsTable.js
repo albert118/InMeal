@@ -14,7 +14,7 @@ export default function useIngredientsTable() {
 		resetItems,
 		tableState,
 		useFuse
-	} = useTableState(indexedIngredients);
+	} = useTableState(indexedIngredients, refreshData);
 
 	const isIngredientUnused = ingredient => ingredient.recipeUsageCount === 0;
 
@@ -27,8 +27,13 @@ export default function useIngredientsTable() {
 	}
 
 	function onDelete() {
-		deleteIngredients(tableState.selectedItems.map(item => item.ingredientId)).then(() =>
-			refreshData()
+		const toBeDeletedIds = tableState.selectedItems.map(item => item.ingredientId);
+		deleteIngredients(toBeDeletedIds);
+		setItems(
+			filterObjectMap(
+				tableState.items,
+				ingredient => !toBeDeletedIds.includes(ingredient.ingredientId)
+			)
 		);
 	}
 

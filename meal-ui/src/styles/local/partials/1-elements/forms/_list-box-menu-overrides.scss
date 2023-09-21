@@ -11,6 +11,8 @@
 .cds--list-box__menu-item,
 .cds--list-box__menu-item__option {
 	@include text();
+	overflow: scroll;
+
 	background-color: var(--foreground-details);
 	border: 1px transparent;
 	outline: transparent;

@@ -9,6 +9,7 @@
 	margin: $spacing-06;
 
 	.edit-ingredient-card {
+		--card-height: 600px;
 		@include align-center();
 		@include glass-background();
 		@include text();
@@ -23,6 +24,7 @@
 		}
 
 		.edit-ingredient-card__actions {
+			margin-top: auto;
 			display: flex;
 			justify-content: flex-end;
 			padding: $spacing-05;
