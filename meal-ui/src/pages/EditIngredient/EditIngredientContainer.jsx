@@ -1,8 +1,8 @@
-import { Dropdown } from 'components';
+import { Dropdown, ToggleInline } from 'components';
 import FormContainer from 'forms';
 import { CancelButton, SaveButton } from 'forms/FormActions';
 import useEditIngredientFormData from 'forms/Ingredient/useEditIngredientFormData';
-import { Checkbox, TextInput } from 'forms/Inputs';
+import { TextInput } from 'forms/Inputs';
 import { ValidationErrors, ValidationWarnings } from 'forms/Validation';
 import { ErrorDetailContext } from 'hooks/data';
 import { useContext } from 'react';
@@ -57,11 +57,14 @@ function EditIngredientForm() {
 			{error && <ValidationErrors errors={error} />}
 
 			<div className='edit-ingredient-card__remove'>
-				<Checkbox
+				<ToggleInline
+					id='is_deleted'
 					name='isDeleted'
-					label='delete ingredient?'
-					onClick={onUpdate}
+					labelText='delete ingredient?'
+					labelA='no'
+					labelB='yes'
 					disabled={canDelete()}
+					onClick={onUpdate}
 				/>
 				{canDelete() && <ValidationWarnings warnings={getWarnings()} />}
 			</div>
