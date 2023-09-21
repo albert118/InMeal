@@ -4,7 +4,7 @@ export default function TextInput({ label, value, onChange, ...additionalProps }
 	function handleKeyDown(event) {
 		if (event.key !== 'Enter') return;
 		event.preventDefault();
-		onChange(event);
+		additionalProps?.onEnter(event) ?? onChange(event);
 	}
 
 	return (
