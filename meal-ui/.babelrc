@@ -1,0 +1,4 @@
+// required to convert JSX > JS and allow Webpack to run as per usual
+{
+	"presets": ["@babel/preset-env", ["@babel/preset-react", { "runtime": "automatic" }]]
+}
