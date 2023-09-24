@@ -36,12 +36,13 @@ export default function useRecipe(recipeId) {
 			.catch(setError);
 	}
 
-	function postEditedRecipe(editedRecipe) {
+	function postEditedRecipe(editedRecipe, onSuccess) {
 		const url = `${ApiConfig.API_URL}/recipes/edit`;
 		postApi(url, mapToEditedRecipeDto(editedRecipe))
-			.then(() => {
+			.then(data => {
 				setRecipe(editedRecipe);
 				setError(null);
+				if (!!onSuccess && typeof onSuccess === 'function') onSuccess(data);
 			})
 			.catch(setError);
 	}
