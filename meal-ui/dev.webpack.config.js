@@ -1,4 +1,5 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
 	entry: './src/index.js',
@@ -39,6 +40,19 @@ module.exports = {
 					'sass-loader'
 				]
 			},
+			{
+				test: /\.css$/,
+				use: [
+					// handles files such as splide.min.css
+					MiniCssExtractPlugin.loader,
+					{
+						loader: 'css-loader',
+						options: {
+							modules: true
+						}
+					}
+				]
+			},
 			////////////////////////////
 			// SVGs and image content
 			////////////////////////////
@@ -48,6 +62,12 @@ module.exports = {
 			}
 		]
 	},
+	plugins: [
+		new MiniCssExtractPlugin({
+			filename: 'assets/css/[name].[contenthash:8].css',
+			chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css'
+		})
+	],
 	resolve: {
 		extensions: ['.js', '.jsx'],
 		alias: {
@@ -60,7 +80,10 @@ module.exports = {
 			pages: path.resolve(__dirname, 'src/pages'),
 			styles: path.resolve(__dirname, 'src/styles'),
 			types: path.resolve(__dirname, 'src/types'),
-			utils: path.resolve(__dirname, 'src/utils')
+			utils: path.resolve(__dirname, 'src/utils'),
+			VersionInfo: path.resolve(__dirname, 'src/VersionInfo.js'),
+			// demo image for prototyping purposes
+			DemoImage: path.resolve(__dirname, 'src/DemoImage.js')
 		}
 	}
 };
