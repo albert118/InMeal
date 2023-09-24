@@ -7,7 +7,8 @@ const defaultRecipe = Object.freeze({
 	servings: 0,
 	type: 'unknown',
 	category: 'unknown',
-	course: 'unknown'
+	course: 'unknown',
+	recipeIngredients: []
 });
 
 export { defaultRecipe };
