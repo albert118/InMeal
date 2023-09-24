@@ -11,7 +11,7 @@ export function HeroBrandingLogo({ config, onClick }) {
 			>
 				<h1 className='hero-title'>
 					{letters.map(l => (
-						<p>{l}</p>
+						<p key={l}>{l}</p>
 					))}
 				</h1>
 			</button>
