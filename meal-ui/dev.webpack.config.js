@@ -30,7 +30,7 @@ module.exports = {
 			// JSX (React)
 			////////////////////////////
 			{
-				test: /\.jsx?$/,
+				test: /\.jsx?$/i,
 				exclude: /node_modules/,
 				use: {
 					loader: 'babel-loader',
@@ -58,7 +58,6 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					// handles files such as splide.min.css
 					MiniCssExtractPlugin.loader,
 					{
 						loader: 'css-loader',
