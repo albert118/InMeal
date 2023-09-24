@@ -1,13 +1,16 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-	entry: './src/index.js',
+	entry: path.resolve(__dirname, 'src/index.js'),
+	devtool: 'inline-source-map',
 	mode: 'production',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'bundle.js',
-		publicPath: 'assets'
+		filename: 'assets/js/[name].[contenthash:8].js',
+		publicPath: '/',
+		clean: true
 	},
 	module: {
 		rules: [
@@ -15,7 +18,7 @@ module.exports = {
 			// JSX (React)
 			////////////////////////////
 			{
-				test: /\.jsx?$/,
+				test: /\.jsx?$/i,
 				exclude: /node_modules/,
 				use: {
 					loader: 'babel-loader',
@@ -43,7 +46,6 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
-					// handles files such as splide.min.css
 					MiniCssExtractPlugin.loader,
 					{
 						loader: 'css-loader',
@@ -57,8 +59,18 @@ module.exports = {
 			// SVGs and image content
 			////////////////////////////
 			{
-				test: /\.svg$/,
+				test: /\.svg$/i,
 				use: ['@svgr/webpack']
+			},
+			{
+				test: /\.(png|jpg|gif)$/i,
+				use: {
+					loader: 'url-loader',
+					options: {
+						limit: 8192,
+						name: 'static/media/[name].[hash:8].[ext]'
+					}
+				}
 			}
 		]
 	},
@@ -66,6 +78,12 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: 'assets/css/[name].[contenthash:8].css',
 			chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css'
+		}),
+		// the %PUBLIC_URL% template variable create-react-app adds needs to be remove for this to work
+		new HtmlWebpackPlugin({
+			title: 'Production',
+			template: path.resolve(__dirname, 'public/index.html'),
+			inject: true
 		})
 	],
 	resolve: {
