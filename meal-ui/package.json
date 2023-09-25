@@ -9,7 +9,8 @@
 		"dev:build": "webpack --config dev.webpack.config.js",
 		"prod:build": "webpack --config prod.webpack.config.js",
 		"legacy:start": "react-scripts start",
-		"legacy:build": "react-scripts build"
+		"legacy:build": "react-scripts build",
+		"clean": "rm -fr dist/*"
 	},
 	"dependencies": {
 		"@carbon/react": "^1.1.0",

@@ -1,19 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
+const config = {
 	entry: path.resolve(__dirname, 'src/index.js'),
 	devtool: 'inline-source-map',
 	mode: 'development',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'assets/js/[name].[contenthash:8].js',
-		publicPath: '/',
+		filename: 'bundle.js',
 		clean: true
 	},
 	devServer: {
-		static: './public',
+		static: path.resolve(__dirname, 'src/assets'),
 		open: true,
 		compress: true,
 		historyApiFallback: true,
@@ -30,72 +28,52 @@ module.exports = {
 			// JSX (React)
 			////////////////////////////
 			{
-				test: /\.jsx?$/i,
-				exclude: /node_modules/,
-				use: {
-					loader: 'babel-loader',
-					options: {
-						cacheDirectory: true,
-						cacheCompression: false,
-						envName: 'development'
-					}
-				}
+				test: /\.(js|jsx)$/,
+				use: 'babel-loader',
+				exclude: /node_modules/
 			},
 			////////////////////////////
 			// SCSS / SASS
 			////////////////////////////
 			{
-				test: /\.s[ac]ss$/i,
-				use: [
-					// Creates `style` nodes from JS strings
-					'style-loader',
-					// Translates CSS into CommonJS
-					'css-loader',
-					// Compiles Sass to CSS
-					'sass-loader'
-				]
-			},
-			{
-				test: /\.css$/,
-				use: [
-					MiniCssExtractPlugin.loader,
-					{
-						loader: 'css-loader',
-						options: {
-							modules: true
-						}
-					}
-				]
+				test: /\.scss$/,
+				use: ['style-loader', 'css-loader', 'sass-loader']
 			},
 			////////////////////////////
-			// SVGs and image content
+			// images
 			////////////////////////////
 			{
-				test: /\.svg$/i,
-				use: ['@svgr/webpack']
+				test: /\.svg$/,
+				type: 'asset/resource',
+				use: 'file-loader',
+				generator: {
+					outputPath: 'assets/images/'
+				}
 			},
 			{
-				test: /\.(png|jpg|gif)$/i,
-				use: {
-					loader: 'url-loader',
-					options: {
-						limit: 8192,
-						name: 'static/media/[name].[hash:8].[ext]'
-					}
+				test: /\.(png|jpg|gif)$/,
+				type: 'asset/resource',
+				generator: {
+					outputPath: 'assets/images/'
+				}
+			},
+			////////////////////////////
+			// fonts
+			////////////////////////////
+			{
+				test: /\.(woff|woff2)$/,
+				type: 'asset/resource',
+				generator: {
+					outputPath: 'assets/fonts/'
 				}
 			}
 		]
 	},
 	plugins: [
-		new MiniCssExtractPlugin({
-			filename: 'assets/css/[name].[contenthash:8].css',
-			chunkFilename: 'assets/css/[name].[contenthash:8].chunk.css'
-		}),
-		// the %PUBLIC_URL% template variable create-react-app adds needs to be remove for this to work
 		new HtmlWebpackPlugin({
-			title: 'Development',
-			template: path.resolve(__dirname, 'public/index.html'),
-			inject: true
+			template: path.resolve(__dirname, 'src/assets/index.html'),
+			favicon: path.resolve(__dirname, 'src/assets/favicon.ico'),
+			xhtml: true
 		})
 	],
 	resolve: {
@@ -117,3 +95,5 @@ module.exports = {
 		}
 	}
 };
+
+module.exports = config;
