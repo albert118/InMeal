@@ -1,13 +1,10 @@
 import { RecipeCard } from 'components';
 
-import '@splidejs/react-splide/css';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
-
-const splideOptions = Object.freeze({
-	rewind: true,
-	autoWidth: true,
-	perPage: 3
-});
+// const splideOptions = Object.freeze({
+// 	rewind: true,
+// 	autoWidth: true,
+// 	perPage: 3
+// });
 
 // An item is expected in the structure
 // item = {
@@ -18,28 +15,26 @@ const splideOptions = Object.freeze({
 //      image: { url: "url", label: "string" }
 // }
 export default function Carousel({ className, items }) {
-	const classes = className ? `simple-carousel ${className}` : 'simple-carousel';
-
 	if (!items) {
-		return <Splide className={classes}></Splide>;
+		return <div className={`simple-carousel ${className ?? ''}`}>nadda TODO</div>;
 	}
 
 	return (
-		<Splide
-			className={classes}
-			options={splideOptions}
-		>
+		// <Splide
+		// 	className={classes}
+		// 	options={splideOptions}
+		// >
+		<div className={`simple-carousel ${className ?? ''}`}>
 			{items.map(item => (
-				<SplideSlide key={item.id}>
-					<RecipeCard
-						key={item.id}
-						className='carousel-item'
-						label={item.label}
-						onClick={item.handler}
-						recipe={item}
-					/>
-				</SplideSlide>
+				<RecipeCard
+					key={item.id}
+					className='carousel-item'
+					label={item.label}
+					onClick={item.handler}
+					recipe={item}
+				/>
 			))}
-		</Splide>
+		</div>
+		// </Splide>
 	);
 }
