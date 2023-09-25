@@ -12,6 +12,7 @@
         "lint-preview": "eslint --fix-dry-run \"./src/**/*.{js,jsx,json}\"",
         "format": "prettier --write \"./src/**/*.{js,jsx,json,scss,md}\"",
         "legacy:start": "react-scripts start",
+        "eject": "react-scripts eject",
         "legacy:build": "react-scripts build"
     },
     "dependencies": {
