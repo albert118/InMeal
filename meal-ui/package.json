@@ -5,9 +5,9 @@
 	"private": true,
 	"scripts": {
 		"start": "webpack serve --config webpack.config.js --env env=dev --open",
-		"build": "webpack --config webpack.config.js --env env=prod",
+		"build": "rm -fr dist/* && webpack --config webpack.config.js --env env=prod",
 		"dev:watch": "webpack --config webpack.config.js --env env=dev --watch",
-		"dev:build": "rm -fr dist/* && webpack --config webpack.config.js --env env=dev",
+		"dev:build": "webpack --config webpack.config.js --env env=dev",
 		"legacy:start": "react-scripts start",
 		"legacy:build": "react-scripts build"
 	},
