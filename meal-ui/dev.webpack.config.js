@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
 	entry: path.resolve(__dirname, 'src/index.js'),
-	devtool: 'inline-source-map',
+	devtool: 'source-map',
 	mode: 'development',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
