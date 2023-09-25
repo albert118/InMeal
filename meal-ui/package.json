@@ -4,13 +4,12 @@
 	"proxy": "https://localhost:7078/",
 	"private": true,
 	"scripts": {
-		"start": "webpack serve --open --config dev.webpack.config.js",
-		"dev:watch": "webpack --config dev.webpack.config.js --watch",
-		"dev:build": "webpack --config dev.webpack.config.js",
-		"prod:build": "webpack --config prod.webpack.config.js",
+		"start": "webpack serve --config webpack.config.js --env env=dev --open",
+		"build": "webpack --config webpack.config.js --env env=prod",
+		"dev:watch": "webpack --config webpack.config.js --env env=dev --watch",
+		"dev:build": "rm -fr dist/* && webpack --config webpack.config.js --env env=dev",
 		"legacy:start": "react-scripts start",
-		"legacy:build": "react-scripts build",
-		"clean": "rm -fr dist/*"
+		"legacy:build": "react-scripts build"
 	},
 	"dependencies": {
 		"@carbon/react": "^1.1.0",
@@ -80,6 +79,7 @@
 		"url-loader": "^4.1.1",
 		"webpack": "^5.88.2",
 		"webpack-cli": "^5.1.4",
-		"webpack-dev-server": "^4.15.1"
+		"webpack-dev-server": "^4.15.1",
+		"webpack-merge": "^5.9.0"
 	}
 }
