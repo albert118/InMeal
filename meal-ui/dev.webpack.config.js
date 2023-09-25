@@ -7,7 +7,7 @@ const config = {
 	mode: 'development',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'bundle.js',
+		filename: 'assets/js/[name].[contenthash:8].js',
 		clean: true
 	},
 	devServer: {
@@ -73,7 +73,8 @@ const config = {
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, 'src/assets/index.html'),
 			favicon: path.resolve(__dirname, 'src/assets/favicon.ico'),
-			xhtml: true
+			xhtml: true,
+			inject: true
 		})
 	],
 	resolve: {
