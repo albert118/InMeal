@@ -16,6 +16,10 @@ module.exports = {
 			}
 		}
 	},
+	watchOptions: {
+		// save some CPU when watching by ignoring the node modules
+		ignored: /node_modules/
+	},
 	plugins: [
 		new webpack.DefinePlugin({
 			'process.env.name': JSON.stringify('dev')
