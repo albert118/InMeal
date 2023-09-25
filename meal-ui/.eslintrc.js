@@ -1,4 +1,5 @@
 // https://eslint.org/docs/latest/use/command-line-interface
+// https://github.com/jsx-eslint/eslint-plugin-react/blob/master/README.md#configuration
 module.exports = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -18,6 +19,8 @@ module.exports = {
         'plugin:jsx-a11y/recommended',
         'prettier',
         'plugin:prettier/recommended',
+        // react version > 17 recommends this config
+        'plugin:react/jsx-runtime',
     ],
     rules: {
         'no-unused-vars': 'off',
