@@ -56,16 +56,6 @@ const config = {
 				generator: {
 					outputPath: 'assets/images/'
 				}
-			},
-			////////////////////////////
-			// fonts
-			////////////////////////////
-			{
-				test: /\.(woff|woff2)$/,
-				type: 'asset/resource',
-				generator: {
-					outputPath: 'assets/fonts/'
-				}
 			}
 		]
 	},
