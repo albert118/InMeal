@@ -1,26 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const config = {
+module.exports = {
 	entry: path.resolve(__dirname, 'src/index.js'),
-	devtool: 'source-map',
-	mode: 'development',
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'assets/js/[name].[contenthash:8].js',
 		clean: true
-	},
-	devServer: {
-		static: path.resolve(__dirname, 'src/assets'),
-		open: true,
-		compress: true,
-		historyApiFallback: true,
-		proxy: {
-			'/api': {
-				target: 'https://localhost:7078',
-				secure: false
-			}
-		}
 	},
 	module: {
 		rules: [
@@ -86,5 +72,3 @@ const config = {
 		}
 	}
 };
-
-module.exports = config;
