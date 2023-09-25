@@ -1,8 +1,5 @@
 import { RecipeCard } from 'components';
 
-// import '@splidejs/react-splide/css';
-// import { Splide, SplideSlide } from '@splidejs/react-splide';
-
 // const splideOptions = Object.freeze({
 // 	rewind: true,
 // 	autoWidth: true,
@@ -29,15 +26,13 @@ export default function Carousel({ className, items }) {
 		// >
 		<div className={`simple-carousel ${className ?? ''}`}>
 			{items.map(item => (
-				<SplideSlide key={item.id}>
-					<RecipeCard
-						key={item.id}
-						className='carousel-item'
-						label={item.label}
-						onClick={item.handler}
-						recipe={item}
-					/>
-				</SplideSlide>
+				<RecipeCard
+					key={item.id}
+					className='carousel-item'
+					label={item.label}
+					onClick={item.handler}
+					recipe={item}
+				/>
 			))}
 		</div>
 		// </Splide>
