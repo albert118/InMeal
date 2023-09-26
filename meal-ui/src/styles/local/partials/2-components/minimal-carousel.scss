@@ -1,0 +1,42 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../mixins//text-mixins' as *;
+@use '../../mixins//card-shadow' as *;
+@use '../../mixins//glass-background' as *;
+@use '../../mixins//alignment' as *;
+
+.minimal-carousel {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-06;
+
+    .minimal-carousel__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        // remove the padding in this usage
+        .title-bar {
+            padding: 0;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: $spacing-05;
+        }
+    }
+
+    .minimal-carousel__divider {
+        border-top: 1px solid var(--background-neutral);
+    }
+
+    .slider-animation {
+        transition: transform var(--sequence-fast);
+        /* ease in-out cubic */
+        transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+        will-change: transform;
+    }
+
+    .slider-tray {
+        gap: $spacing-05;
+    }
+}

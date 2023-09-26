@@ -28,6 +28,7 @@
         "carbon-components-react": "8.25.0",
         "fontawesome-free": "^1.0.4",
         "fuse.js": "^6.6.2",
+        "pure-react-carousel": "^1.30.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-fetch-hook": "^1.9.5",

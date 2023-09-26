@@ -1,19 +1,13 @@
+@use '../../../mixins/page-title-block' as *;
 @use '@carbon/react/scss/spacing' as *;
-@use '@carbon/react/scss/breakpoint' as *;
-@use '../../../mixins/glass-background' as *;
-@use '../../../mixins/alignment' as *;
 
-.p-home__r1 {
-	margin-top: $spacing-08;
-}
+.p-home {
+    margin: $spacing-12;
 
-.p-home__r1 > .quick-recipes-view > :last-child {
-	margin-top: $spacing-06;
-}
-
-.planning-quick-view,
-.explore-quick-view,
-.simple-card {
-	@include glass-background();
-	@include align-center();
+    .quick-recipes-view {
+        .planning-quick-view,
+        .explore-quick-view {
+            margin: $spacing-09 0;
+        }
+    }
 }

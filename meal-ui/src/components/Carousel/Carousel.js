@@ -1,40 +1,42 @@
-import { RecipeCard } from 'components';
+import { NavigationArrowLeft, NavigationArrowRight, TitleBar } from 'components'
+import { CarouselProvider, Slide, Slider } from 'pure-react-carousel'
+import { propagateProps } from 'utils'
 
-// const splideOptions = Object.freeze({
-// 	rewind: true,
-// 	autoWidth: true,
-// 	perPage: 3
-// });
+const carouselConfig = {
+    isIntrinsicHeight: true,
+    totalSlides: 3,
+}
 
-// An item is expected in the structure
-// item = {
-//      id: "unique string ID",
-//      content: object,
-//      label: "string",
-//      handler: handlerFunc,
-//      image: { url: "url", label: "string" }
-// }
-export default function Carousel({ className, items }) {
-	if (!items) {
-		return <div className={`simple-carousel ${className ?? ''}`}>nadda TODO</div>;
-	}
-
-	return (
-		// <Splide
-		// 	className={classes}
-		// 	options={splideOptions}
-		// >
-		<div className={`simple-carousel ${className ?? ''}`}>
-			{items.map(item => (
-				<RecipeCard
-					key={item.id}
-					className='carousel-item'
-					label={item.label}
-					onClick={item.handler}
-					recipe={item}
-				/>
-			))}
-		</div>
-		// </Splide>
-	);
+export default function Carousel({ items, title, ...additionalProps }) {
+    return (
+        <CarouselProvider
+            className={`minimal-carousel ${additionalProps.className ?? ''}`}
+            {...carouselConfig}
+        >
+            <div className="minimal-carousel__header">
+                <TitleBar>{title ?? additionalProps.label ?? ''}</TitleBar>
+                <div className="nav-buttons">
+                    <NavigationArrowLeft />
+                    <NavigationArrowRight />
+                </div>
+            </div>
+            <div className="minimal-carousel__divider" />
+            <Slider
+                classNameAnimation="slider-animation"
+                classNameTray="slider-tray"
+            >
+                {items?.map((item, index) => {
+                    return (
+                        <Slide index={index} key={index}>
+                            {propagateProps(additionalProps.children, {
+                                key: index,
+                                ...item,
+                                className: 'carousel-item',
+                            })}
+                        </Slide>
+                    )
+                })}
+            </Slider>
+        </CarouselProvider>
+    )
 }

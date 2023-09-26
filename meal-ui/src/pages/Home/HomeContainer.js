@@ -1,35 +1,38 @@
-import AppRoutes from 'navigation/AppRoutes';
-import { useNavigate } from 'react-router-dom';
-import { useUpcomingRecipes } from 'hooks/data';
-import { QuickRecipesView } from './QuickRecipesView';
-import { Grid, Column } from '@carbon/react';
+import { Carousel, RecipeCard } from 'components'
+import { useUpcomingRecipes } from 'hooks/data'
+import AppRoutes from 'navigation/AppRoutes'
+import { useNavigate } from 'react-router-dom'
 
 export default function HomeContainer() {
-	const navigate = useNavigate();
+    const navigate = useNavigate()
 
-	const mapper = dto => {
-		return {
-			...dto,
-			handler: id => navigate(`${AppRoutes.recipe}/${id}`)
-		};
-	};
+    const mapper = (dto) => {
+        return {
+            ...dto,
+            onClick: (id) => navigate(`${AppRoutes.recipe}/${id}`),
+        }
+    }
 
-	const { upcomingRecipes } = useUpcomingRecipes(mapper);
+    const { upcomingRecipes } = useUpcomingRecipes(mapper)
 
-	return (
-		<Grid className='p-home'>
-			<Column
-				className='p-home__r1'
-				max={16}
-				lg={16}
-				md={8}
-				sm={4}
-			>
-				<QuickRecipesView
-					plannedRecipes={upcomingRecipes}
-					suggestedRecipes={upcomingRecipes}
-				/>
-			</Column>
-		</Grid>
-	);
+    return (
+        <div className="p-home">
+            <div className="quick-recipes-view">
+                <Carousel
+                    items={upcomingRecipes}
+                    className="planning-quick-view"
+                    title="Upcoming..."
+                >
+                    <RecipeCard />
+                </Carousel>
+                <Carousel
+                    items={upcomingRecipes}
+                    className="explore-quick-view"
+                    title="Explore"
+                >
+                    <RecipeCard />
+                </Carousel>
+            </div>
+        </div>
+    )
 }
