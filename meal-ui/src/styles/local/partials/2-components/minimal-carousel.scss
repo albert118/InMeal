@@ -29,13 +29,10 @@
         border-top: 1px solid var(--background-neutral);
     }
 
-    .minimal-carousel__items {
-        display: flex;
-        gap: $spacing-08;
-        overflow-y: hidden;
-        overflow-x: scroll;
-
-        // 	.carousel-item {
-        // }
+    .slider-animation {
+        transition: transform var(--sequence-fast);
+        /* ease in-out cubic */
+        transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+        will-change: transform;
     }
 }

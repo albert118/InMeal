@@ -1,29 +1,39 @@
-import { TitleBar, NavigationArrowLeft, NavigationArrowRight } from 'components'
+import { NavigationArrowLeft, NavigationArrowRight, TitleBar } from 'components'
+import { CarouselProvider, Slide, Slider } from 'pure-react-carousel'
 import { propagateProps } from 'utils'
 
-export default function Carousel({ items, title, ...additionalProps }) {
-    const isStart = true
-    const isEnd = false
+const carouselConfig = {
+    isIntrinsicHeight: true,
+    totalSlides: 3,
+}
 
+export default function Carousel({ items, title, ...additionalProps }) {
     return (
-        <div className={`minimal-carousel ${additionalProps.className ?? ''}`}>
+        <CarouselProvider
+            className={`minimal-carousel ${additionalProps.className ?? ''}`}
+            {...carouselConfig}
+        >
             <div className="minimal-carousel__header">
                 <TitleBar>{title ?? additionalProps.label ?? ''}</TitleBar>
                 <div className="nav-buttons">
-                    <NavigationArrowLeft disabled={isStart} />
-                    <NavigationArrowRight disabled={isEnd} />
+                    <NavigationArrowLeft />
+                    <NavigationArrowRight />
                 </div>
             </div>
             <div className="minimal-carousel__divider" />
-            <div className="minimal-carousel__items scrollbar-vertical">
-                {items?.map((item) =>
-                    propagateProps(additionalProps.children, {
-                        key: item.id,
-                        ...item,
-                        className: 'carousel-item',
-                    }),
-                )}
-            </div>
-        </div>
+            <Slider classNameAnimation="slider-animation">
+                {items?.map((item, index) => {
+                    return (
+                        <Slide index={index} key={index}>
+                            {propagateProps(additionalProps.children, {
+                                key: index,
+                                ...item,
+                                className: 'carousel-item',
+                            })}
+                        </Slide>
+                    )
+                })}
+            </Slider>
+        </CarouselProvider>
     )
 }
