@@ -1,4 +1,3 @@
-import { Column, Grid } from '@carbon/react'
 import { useUpcomingRecipes } from 'hooks/data'
 import AppRoutes from 'navigation/AppRoutes'
 import { useNavigate } from 'react-router-dom'
@@ -17,13 +16,11 @@ export default function HomeContainer() {
     const { upcomingRecipes } = useUpcomingRecipes(mapper)
 
     return (
-        <Grid className="p-home">
-            <Column className="p-home__r1" max={16} lg={16} md={8} sm={4}>
-                <QuickRecipesView
-                    plannedRecipes={upcomingRecipes}
-                    suggestedRecipes={upcomingRecipes}
-                />
-            </Column>
-        </Grid>
+        <div className="p-home">
+            <QuickRecipesView
+                plannedRecipes={upcomingRecipes}
+                suggestedRecipes={upcomingRecipes}
+            />
+        </div>
     )
 }

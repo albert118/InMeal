@@ -14,7 +14,8 @@ export default function Carousel({ items, title, ...additionalProps }) {
                     <NavigationArrowRight disabled={isEnd} />
                 </div>
             </div>
-            <div className="minimal-carousel__items">
+            <div className="minimal-carousel__divider" />
+            <div className="minimal-carousel__items scrollbar-vertical">
                 {items?.map((item) =>
                     propagateProps(additionalProps.children, {
                         key: item.id,
