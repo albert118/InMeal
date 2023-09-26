@@ -7,11 +7,22 @@
 .minimal-carousel {
     display: flex;
     flex-direction: column;
-    row-gap: $spacing-06;
+    gap: $spacing-06;
+
+    .minimal-carousel__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .nav-buttons {
+            display: flex;
+            gap: $spacing-05;
+        }
+    }
 
     .minimal-carousel__items {
         display: flex;
-        column-gap: $spacing-08;
+        gap: $spacing-08;
         overflow-y: hidden;
         overflow-x: scroll;
 
