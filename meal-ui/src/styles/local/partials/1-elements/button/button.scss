@@ -4,46 +4,58 @@
 @use '../../../mixins/text-mixins' as *;
 
 .btn {
-	border: 1px solid var(--mealui-colors-gray900);
-	color: var(--text);
-	border-radius: 4px;
-	@include card-shadow-3();
+    border: 1px solid var(--mealui-colors-gray900);
+    color: var(--text);
+    border-radius: 4px;
+    @include card-shadow-3();
 }
 
 .icon-btn {
-	@include label();
+    @include label();
 
-	svg {
-		font-size: 1rem;
-	}
+    svg {
+        font-size: 1rem;
+    }
+}
+
+.nav-btn {
+    @include action-text();
+    font-size: 1.8em;
+    font-weight: bold;
+    border: none;
+
+    &:hover,
+    &:active {
+        background-color: var(--background-details);
+    }
 }
 
 .icon-btn:hover,
 .icon-btn:active {
-	@include label-hover-or-active();
+    @include label-hover-or-active();
 
-	svg {
-		color: var(--mealui-colors-purple700);
-	}
+    svg {
+        color: var(--mealui-colors-purple700);
+    }
 }
 
 .labelled-icon-btn {
-	@include label();
-	gap: $spacing-06;
+    @include label();
+    gap: $spacing-06;
 
-	svg {
-		font-size: 1rem;
-	}
+    svg {
+        font-size: 1rem;
+    }
 }
 
 .labelled-icon-btn:hover,
 .labelled-icon-btn:active {
-	@include label-hover-or-active();
+    @include label-hover-or-active();
 
-	svg {
-		color: var(--mealui-colors-purple700);
-		transition: color var(--sequence-fast) ease-out;
-	}
+    svg {
+        color: var(--mealui-colors-purple700);
+        transition: color var(--sequence-fast) ease-out;
+    }
 }
 
 .icon-btn:disabled,
@@ -54,9 +66,9 @@
 .btn:disabled:hover,
 .btn:disabled:active,
 .btn:disabled {
-	cursor: default;
-	box-shadow: unset;
-	background-color: var(--background);
-	opacity: 0.6;
-	border: 1px solid var(--background);
+    cursor: default;
+    box-shadow: unset;
+    background-color: var(--background);
+    opacity: 0.6;
+    border: 1px solid var(--background);
 }
