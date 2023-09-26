@@ -1,7 +1,7 @@
+import { Carousel, RecipeCard } from 'components'
 import { useUpcomingRecipes } from 'hooks/data'
 import AppRoutes from 'navigation/AppRoutes'
 import { useNavigate } from 'react-router-dom'
-import { QuickRecipesView } from './QuickRecipesView'
 
 export default function HomeContainer() {
     const navigate = useNavigate()
@@ -17,10 +17,22 @@ export default function HomeContainer() {
 
     return (
         <div className="p-home">
-            <QuickRecipesView
-                plannedRecipes={upcomingRecipes}
-                suggestedRecipes={upcomingRecipes}
-            />
+            <div className="quick-recipes-view">
+                <Carousel
+                    items={upcomingRecipes}
+                    className="planning-quick-view"
+                    title="Upcoming..."
+                >
+                    <RecipeCard />
+                </Carousel>
+                <Carousel
+                    items={upcomingRecipes}
+                    className="explore-quick-view"
+                    title="Explore"
+                >
+                    <RecipeCard />
+                </Carousel>
+            </div>
         </div>
     )
 }
