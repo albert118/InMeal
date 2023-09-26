@@ -21,7 +21,10 @@ export default function Carousel({ items, title, ...additionalProps }) {
                 </div>
             </div>
             <div className="minimal-carousel__divider" />
-            <Slider classNameAnimation="slider-animation">
+            <Slider
+                classNameAnimation="slider-animation"
+                classNameTray="slider-tray"
+            >
                 {items?.map((item, index) => {
                     return (
                         <Slide index={index} key={index}>
