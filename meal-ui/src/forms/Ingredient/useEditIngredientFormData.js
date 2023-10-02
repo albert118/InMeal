@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
     defaultFormState,
-    getWarnings,
+    pluraliseWarnings,
     initialFormState,
     valueUpdateStrategies
 } from './helpers';
@@ -98,6 +98,10 @@ export default function useEditIngredientFormData() {
             `ingredient is currently used in ${existingIngredient.recipeUsageCount} ${recipePlural}`,
             `remove the ${usagePlural} to delete this ingredient`
         ];
+    }
+
+    function getWarnings() {
+        return pluraliseWarnings(existingIngredient);
     }
 
     const canDelete = () => existingIngredient?.recipeUsageCount !== 0;

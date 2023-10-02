@@ -16,3 +16,15 @@ export const initialFormState = Object.freeze({
     unit: '',
     isDeleted: false
 });
+
+export const pluraliseWarnings = ingredient => {
+    if (!ingredient) return [];
+
+    const recipePlural = ingredient.recipeUsageCount > 1 ? 'recipes' : 'recipe';
+    const usagePlural = ingredient.recipeUsageCount > 1 ? 'usages' : 'usage';
+
+    return [
+        `ingredient is currently used in ${ingredient.recipeUsageCount} ${recipePlural}`,
+        `remove the ${usagePlural} to delete this ingredient`
+    ];
+};
