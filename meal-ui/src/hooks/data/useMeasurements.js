@@ -13,6 +13,8 @@ export default function useMeasurements() {
 
     useEffect(() => {
         getMeasurementOptions();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return { measurementOptions };

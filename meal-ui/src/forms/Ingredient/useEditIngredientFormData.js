@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
     defaultFormState,
-    getWarnings,
+    pluraliseWarnings,
     initialFormState,
     valueUpdateStrategies
 } from './helpers';
@@ -28,6 +28,8 @@ export default function useEditIngredientFormData() {
 
     useEffect(() => {
         getIngredient(ingredientId);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -35,10 +37,14 @@ export default function useEditIngredientFormData() {
         setFormData(
             defaultFormState(existingIngredient.name, existingIngredient.units)
         );
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [existingIngredient]);
 
     useEffect(() => {
         setFormStatus(error ? FormStatuses.Error : FormStatuses.Saved);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error]);
 
     function onUpdate(event) {
@@ -92,6 +98,10 @@ export default function useEditIngredientFormData() {
             `ingredient is currently used in ${existingIngredient.recipeUsageCount} ${recipePlural}`,
             `remove the ${usagePlural} to delete this ingredient`
         ];
+    }
+
+    function getWarnings() {
+        return pluraliseWarnings(existingIngredient);
     }
 
     const canDelete = () => existingIngredient?.recipeUsageCount !== 0;

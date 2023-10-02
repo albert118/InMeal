@@ -24,7 +24,7 @@ This project uses [ESLint](https://eslint.org) and [Prettier](https://prettier.i
 To preview the linting process run,
 
 ```sh
-npm run lint-preview
+npm run preview-lint
 ```
 
 If you're happy with the suggestions, you can apply autofixes with,

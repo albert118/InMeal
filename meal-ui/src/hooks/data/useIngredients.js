@@ -32,6 +32,8 @@ export default function useIngredients() {
 
     useEffect(() => {
         getIngredients();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return { deleteIngredients, ingredients };

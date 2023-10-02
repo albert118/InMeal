@@ -15,6 +15,8 @@ export default function useAlphabeticallyIndexedIngredients() {
 
     useEffect(() => {
         getIndexedIngredients();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [shouldRefresh]);
 
     const refreshData = () => {
