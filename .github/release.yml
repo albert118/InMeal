@@ -1,7 +1,6 @@
 # .github/release.yml
 
 changelog:
-  exclude:
   categories:
     - title: 🎉 Exciting New Features
       labels:
