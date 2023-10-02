@@ -4,9 +4,9 @@
     "proxy": "https://localhost:7078/",
     "private": true,
     "scripts": {
-        "start": "webpack serve --config webpack.config.js --progress --env env=dev --open",
-        "build": "rm -fr dist/ && webpack --config webpack.config.js --progress --env env=prod",
-        "preview-production": "webpack-dev-server --history-api-fallback --config webpack.config.js --progress --env env=prod --open",
+        "start": "webpack serve --config webpack.dev.js --progress --open",
+        "build": "rm -fr dist/ && webpack --config webpack.prod.js --progress",
+        "preview-production": "npm run build && webpack-dev-server --history-api-fallback --config webpack.prod.js --progress --open",
         "lint": "eslint --fix \"./src/**/*.{js,jsx,json}\"",
         "lint-preview": "eslint --fix-dry-run \"./src/**/*.{js,jsx,json}\"",
         "format": "prettier --write \"./src/**/*.{js,jsx,json,scss,md}\"",

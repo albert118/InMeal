@@ -1,7 +1,8 @@
 const path = require('path');
-const webpack = require('webpack');
+const { merge } = require('webpack-merge');
+const common = require('./webpack.common.js');
 
-module.exports = {
+module.exports = merge(common, {
     mode: 'development',
     devtool: 'cheap-module-source-map',
     devServer: {
@@ -20,10 +21,5 @@ module.exports = {
     watchOptions: {
         // save some CPU when watching by ignoring the node modules
         ignored: ['**/node_modules/', '**/dist']
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env.name': JSON.stringify('dev')
-        })
-    ]
-};
+    }
+});
