@@ -18,17 +18,7 @@ module.exports = {
             favicon: path.resolve(__dirname, 'src/assets/favicon.ico'),
             xhtml: true,
             inject: true,
-            minify: {
-                removeComments: true,
-                collapseWhitespace: true,
-                removeRedundantAttributes: true,
-                useShortDoctype: true,
-                removeEmptyAttributes: true,
-                keepClosingSlash: true,
-                minifyJS: true,
-                minifyCSS: true,
-                minifyURLs: true
-            }
+            minify: true
         })
     ]
 };
