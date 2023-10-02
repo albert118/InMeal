@@ -5,10 +5,10 @@
     "private": true,
     "scripts": {
         "start": "webpack serve --config webpack.dev.js --progress --open",
-        "build": "rm -fr dist/ && webpack --config webpack.prod.js --progress",
-        "prod-preview": "npm run build && webpack-dev-server --history-api-fallback --config webpack.prod.js --progress --open",
+        "prod:build": "rm -fr dist/ && webpack --config webpack.prod.js --progress",
+        "prod:preview": "npm run build && webpack-dev-server --history-api-fallback --config webpack.prod.js --progress --open",
         "lint": "eslint --fix \"./src/**/*.{js,jsx,json}\"",
-        "preview-lint": "eslint --fix-dry-run \"./src/**/*.{js,jsx,json}\"",
+        "lint:preview": "eslint --fix-dry-run \"./src/**/*.{js,jsx,json}\"",
         "format": "prettier --write \"./src/**/*.{js,jsx,json,scss,md}\"",
         "legacy:start": "react-scripts start",
         "eject": "react-scripts eject",

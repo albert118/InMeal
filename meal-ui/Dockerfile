@@ -19,7 +19,7 @@ ENV PATH /src/app/node_modules/.bin:$PATH
 COPY . .
 
 # executes vite build
-RUN npm run build
+RUN npm run prod:build
 
 FROM nginx:1.23.4-alpine-slim as nginx-spa
 
@@ -29,4 +29,4 @@ COPY nginx/proxy.conf /etc/nginx/includes/
 
 # copy the SPA app
 RUN mkdir -p /www/inmeal
-COPY --from=spa-builder /src/build /www/inmeal/
+COPY --from=spa-builder /src/dist /www/inmeal/
