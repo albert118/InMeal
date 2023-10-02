@@ -14,6 +14,8 @@ export default function useTableState(initialItems, onRefresh) {
             Object.keys(initialItems).length > 0 &&
             setUpTable(initialItems);
         console.debug('setup table and configured Fuse');
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [initialItems]);
 
     function setUpTable(initialItems) {

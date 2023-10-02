@@ -14,6 +14,8 @@ export default function useAllRecipes() {
 
     useEffect(() => {
         getAllGroupedByCourse(includeArchived);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [shouldRefresh]);
 
     function getAllGroupedByCourse(includeArchived) {

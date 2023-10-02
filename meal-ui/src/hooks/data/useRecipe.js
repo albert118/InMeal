@@ -23,6 +23,8 @@ export default function useRecipe(recipeId) {
 
     useEffect(() => {
         getRecipe(recipeId);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function postRecipe(newRecipe, onSuccess) {

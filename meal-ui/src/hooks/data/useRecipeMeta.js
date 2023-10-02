@@ -21,6 +21,8 @@ export default function useRecipe() {
 
     useEffect(() => {
         getMeta();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return { meta };

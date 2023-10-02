@@ -13,6 +13,8 @@ export default function useUpcomingRecipes(mapper) {
 
     useEffect(() => {
         fetchUpcomingRecipes();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return { upcomingRecipes };

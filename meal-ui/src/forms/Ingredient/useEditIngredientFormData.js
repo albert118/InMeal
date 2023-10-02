@@ -28,6 +28,8 @@ export default function useEditIngredientFormData() {
 
     useEffect(() => {
         getIngredient(ingredientId);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -35,10 +37,14 @@ export default function useEditIngredientFormData() {
         setFormData(
             defaultFormState(existingIngredient.name, existingIngredient.units)
         );
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [existingIngredient]);
 
     useEffect(() => {
         setFormStatus(error ? FormStatuses.Error : FormStatuses.Saved);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error]);
 
     function onUpdate(event) {

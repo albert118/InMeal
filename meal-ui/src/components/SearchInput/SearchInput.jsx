@@ -8,6 +8,8 @@ export default function SearchInput({ onSearch }) {
 
     useEffect(() => {
         onSearch(debouncedSearchTerm);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [debouncedSearchTerm]);
 
     return (

@@ -29,10 +29,14 @@ export default function useRecipeFormData() {
 
     useEffect(() => {
         setRecipe(existingRecipe);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [existingRecipe]);
 
     useEffect(() => {
         setFormStatus(error ? FormStatuses.Error : FormStatuses.Saved);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error]);
 
     function onUpdate(event) {
