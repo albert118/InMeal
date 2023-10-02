@@ -24,7 +24,7 @@ This project uses [ESLint](https://eslint.org) and [Prettier](https://prettier.i
 To preview the linting process run,
 
 ```sh
-npm run preview-lint
+npm run lint:preview
 ```
 
 If you're happy with the suggestions, you can apply autofixes with,
@@ -44,13 +44,36 @@ npm run format
 To build the app for production run `build` command (below). This will optimise the app for production and place it in the `dist/ folder`
 
 ```sh
-npm run build
+npm run prod:build
 ```
 
-To preview the production process on your local machine run the `prod-preview` command (below) This will compile the app to `dist/` using the Webpack production config and preview it in your browser using `webpack-dev-server`.
+Then in the repo root directory (`cd ..`), create a dotenv file to configure the app,
 
 ```sh
-npm run prod-preview
+cp .env.example .env
+nano .env
+```
+
+Edit the .env file with a valid MariaDb / MySql connection string and your preferred SPA and API ports.
+
+> Docker loads configuration from environment variables using dotenv (`.env`) files.
+> See the `.env.example` file in the repo root directory for some examples.
+
+Having added some configuration, compose the docker stack with,
+
+```sh
+docker compose up
+```
+
+// TODO: fix this for local testing purposes
+~After the compose completes, visit [inmeal.my-domain.local](inmeal.my-domain.local).~
+
+~After the compose completes, visit [localhost:3002](localhost:3002).~
+
+To preview the production process on your local machine without docker, run the `prod-preview` command (below) This will compile the app to `dist/` using the Webpack production config and preview it in your browser using `webpack-dev-server`.
+
+```sh
+npm run prod:preview
 ```
 
 _TODO_ configure this command to utilise a dev-proxy
