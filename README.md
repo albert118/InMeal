@@ -39,3 +39,15 @@
 | [InMeal](./InMeal/README.md)   | A dotnet API using EF Core and MariaDb   |
 
 ## 👀 Examples
+
+<p >
+<p align="center">
+    <img src="https://github.com/albert118/InMeal/assets/26985949/191c66c9-d73a-4015-b38d-b4f92909838c" alt="In Meal home dashboard" />
+    <img src="https://github.com/albert118/InMeal/assets/26985949/67031ded-b9b3-4d10-ad70-60987e9e0ea1" alt="In Meal manage recipes page" />
+    <img src="https://github.com/albert118/InMeal/assets/26985949/4945052f-8f5b-4d2d-b66d-df3a88ba09aa" alt="In Meal manage view recipe" />
+</p>
+
+
+
+
+
