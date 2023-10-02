@@ -1,49 +1,56 @@
-# Meal UI (Frontend for InMeal)
+<h1 align="center">
+  Meal UI
+</h1>
 
-This project runs and manages the frontend incl. associated dependencies.
+> a superset of custom designs and [Carbon Design System](https://github.com/carbon-design-system/carbon/blob/main/README.md)
+> for a clean, minimal, and modern UI experience.
+> This includes various React components, custom designs,
+> and the supporting JS scripting.
 
-* The frontend project watches files using *React*
-* This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Getting started
 
-## Available Scripts
+Install the dependencies and run the dev server
 
-All the usual so far,
-
-#### `npm start`
-#### `npm test`
-
-#### `npm run build`
-
-## Startup (First Time)
-
-### Install VS Code extensions
-
-* prettier
-* ES7+ React/Redux/React-Native snippets
-* GitLens — Git supercharged
-
-## Package installation and running the app in dev mode
-
-Install the dependencies, run the app tests, then spin-up the app.
-
-```
-npm install
-npm test
-npm start
+```sh
+npm ci && npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This should automatically open on [http://localhost:8080](http://localhost:8080). Requests to `/api` will automatically proxy to dotnet API project.
+
+## Linting and autoformatting
+
+This project uses [ESLint](https://eslint.org) and [Prettier](https://prettier.io).
+
+To preview the linting process run,
+
+```sh
+npm run lint-preview
+```
+
+If you're happy with the suggestions, you can apply autofixes with,
+
+```sh
+npm run lint
+```
+
+Prettier is configured to format on-save. However, if you wish to autoformat the entire project at once run,
+
+```sh
+npm run format
+```
 
 ## Building / Compiling the Production App
 
-This builds the project into the `frontend\build` directory. It bundles everything up at once (incl. minify, file-hashes, etc.)
+To build the app for production run `build` command (below). This will optimise the app for production and place it in the `dist/ folder`
 
-```
+```sh
 npm run build
 ```
 
-### Learn React
+To preview the production process on your local machine run the `prod-preview` command (below) This will compile the app to `dist/` using the Webpack production config and preview it in your browser using `webpack-dev-server`.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sh
+npm run prod-preview
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+_TODO_ configure this command to utilise a dev-proxy
