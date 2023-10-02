@@ -47,7 +47,16 @@
     <img src="https://github.com/albert118/InMeal/assets/26985949/4945052f-8f5b-4d2d-b66d-df3a88ba09aa" alt="In Meal manage view recipe" />
 </p>
 
+## Upcoming features
 
+- [ ] apply filters when clicking a badge
+- [ ] generative images (replace demo image)
+- [ ] add sections to recipe steps
+- [ ] add settings to page to extend/edit meal types and categories
+- [ ] favourites list
+- [ ] recommended options on the homepage
+- [ ] "always on" feature for mobile
+- [ ] improve background design
 
 
 
