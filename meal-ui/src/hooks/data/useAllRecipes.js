@@ -4,50 +4,50 @@ import { useFetch } from 'hooks/fetch';
 import { ErrorDetailContext } from './errorContext';
 
 export default function useAllRecipes() {
-	const [recipes, setRecipes] = useState([]);
-	const [includeArchived, setIncludeArchived] = useState(false);
-	const [shouldRefresh, toggleRefresh] = useState(false);
+    const [recipes, setRecipes] = useState([]);
+    const [includeArchived, setIncludeArchived] = useState(false);
+    const [shouldRefresh, toggleRefresh] = useState(false);
 
-	const { setError } = useContext(ErrorDetailContext);
+    const { setError } = useContext(ErrorDetailContext);
 
-	const { postApi } = useFetch();
+    const { postApi } = useFetch();
 
-	useEffect(() => {
-		getAllGroupedByCourse(includeArchived);
-	}, [shouldRefresh]);
+    useEffect(() => {
+        getAllGroupedByCourse(includeArchived);
+    }, [shouldRefresh]);
 
-	function getAllGroupedByCourse(includeArchived) {
-		const url = `${ApiConfig.API_URL}/recipes/all/bycourse`;
-		postApi(url, { includeArchived: includeArchived })
-			.then(data => {
-				setRecipes(data.recipes);
-				setError(null);
-			})
-			.catch(setError);
-	}
+    function getAllGroupedByCourse(includeArchived) {
+        const url = `${ApiConfig.API_URL}/recipes/all/bycourse`;
+        postApi(url, { includeArchived: includeArchived })
+            .then(data => {
+                setRecipes(data.recipes);
+                setError(null);
+            })
+            .catch(setError);
+    }
 
-	function refreshData(args) {
-		if (args) {
-			const { includeArchived } = args;
-			setIncludeArchived(includeArchived);
-		}
+    function refreshData(args) {
+        if (args) {
+            const { includeArchived } = args;
+            setIncludeArchived(includeArchived);
+        }
 
-		toggleRefresh(!shouldRefresh);
-	}
+        toggleRefresh(!shouldRefresh);
+    }
 
-	function archiveRecipes(ids) {
-		const url = `${ApiConfig.API_URL}/recipes/archive`;
-		return postApi(url, ids)
-			.then(() => setError(null))
-			.catch(setError);
-	}
+    function archiveRecipes(ids) {
+        const url = `${ApiConfig.API_URL}/recipes/archive`;
+        return postApi(url, ids)
+            .then(() => setError(null))
+            .catch(setError);
+    }
 
-	function restoreRecipes(ids) {
-		const url = `${ApiConfig.API_URL}/recipes/restore`;
-		return postApi(url, ids)
-			.then(() => setError(null))
-			.catch(setError);
-	}
+    function restoreRecipes(ids) {
+        const url = `${ApiConfig.API_URL}/recipes/restore`;
+        return postApi(url, ids)
+            .then(() => setError(null))
+            .catch(setError);
+    }
 
-	return { recipes, archiveRecipes, refreshData, restoreRecipes };
+    return { recipes, archiveRecipes, refreshData, restoreRecipes };
 }

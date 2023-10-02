@@ -1,18 +1,18 @@
 @use '@carbon/react/scss/spacing' as *;
 
 .title-bar {
-	display: flex;
-	justify-content: space-between;
-	width: 100%;
-	padding-left: $spacing-06;
-	padding-right: $spacing-06;
-	/* keep text and button relatively aligned */
-	align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: $spacing-06;
+    padding-right: $spacing-06;
+    /* keep text and button relatively aligned */
+    align-items: baseline;
 }
 
 // remove the padding to maximise space efficiency
 @media (max-width: 1056px) or (max-width: 1180px) {
-	.title-bar {
-		padding: 0;
-	}
+    .title-bar {
+        padding: 0;
+    }
 }

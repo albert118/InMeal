@@ -5,17 +5,17 @@ import { useNavigate } from 'react-router-dom';
 import AppRoutes from 'navigation/AppRoutes';
 
 export default function HomeButton({ ...additionalProps }) {
-	const navigate = useNavigate();
+    const navigate = useNavigate();
 
-	return (
-		<Button
-			{...additionalProps}
-			className='btn labelled-icon-btn'
-			kind='primary'
-			onClick={() => navigate(AppRoutes.root)}
-		>
-			<FontAwesomeIcon icon={faHome} />
-			<span>Home</span>
-		</Button>
-	);
+    return (
+        <Button
+            {...additionalProps}
+            className='btn labelled-icon-btn'
+            kind='primary'
+            onClick={() => navigate(AppRoutes.root)}
+        >
+            <FontAwesomeIcon icon={faHome} />
+            <span>Home</span>
+        </Button>
+    );
 }

@@ -5,5 +5,5 @@
 @use '../../../mixins/page-title-block' as *;
 
 .p-manage-recipes {
-	@include page-title-block();
+    @include page-title-block();
 }

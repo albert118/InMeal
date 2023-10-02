@@ -2,32 +2,32 @@
 @use '../../mixins/text-mixins' as *;
 
 .index-row {
-	margin-top: $spacing-09;
-	margin-bottom: calc($spacing-09 + $spacing-08);
+    margin-top: $spacing-09;
+    margin-bottom: calc($spacing-09 + $spacing-08);
 
-	.index-row__divider {
-		border-top: 1px solid var(--background-neutral);
-	}
+    .index-row__divider {
+        border-top: 1px solid var(--background-neutral);
+    }
 
-	.index-row__index-block {
-		display: flex;
-		row-gap: $spacing-04;
+    .index-row__index-block {
+        display: flex;
+        row-gap: $spacing-04;
 
-		label.index-block__label {
-			@include text-header();
-			text-transform: uppercase;
-			padding-left: $spacing-04;
-			flex: 0.15;
-		}
+        label.index-block__label {
+            @include text-header();
+            text-transform: uppercase;
+            padding-left: $spacing-04;
+            flex: 0.15;
+        }
 
-		.index-block__items {
-			display: flex;
-			flex-wrap: wrap;
-			flex: 0.85;
-		}
+        .index-block__items {
+            display: flex;
+            flex-wrap: wrap;
+            flex: 0.85;
+        }
 
-		.index-block__items > * {
-			margin: $spacing-04;
-		}
-	}
+        .index-block__items > * {
+            margin: $spacing-04;
+        }
+    }
 }

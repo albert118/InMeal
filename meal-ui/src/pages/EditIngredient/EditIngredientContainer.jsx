@@ -8,71 +8,78 @@ import { ErrorDetailContext } from 'hooks/data';
 import { useContext } from 'react';
 
 export default function EditIngredientContainer() {
-	return (
-		<div className='p-edit-ingredient'>
-			<h2>
-				Edit Ingredient
-				<label>edit ingredient details</label>
-			</h2>
+    return (
+        <div className='p-edit-ingredient'>
+            <h2>
+                Edit Ingredient
+                <label>edit ingredient details</label>
+            </h2>
 
-			<EditIngredientForm />
-		</div>
-	);
+            <EditIngredientForm />
+        </div>
+    );
 }
 
 function EditIngredientForm() {
-	const { formData, measurementOptions, onUpdate, getWarnings, canDelete, onSubmit, onCancel } =
-		useEditIngredientFormData();
+    const {
+        formData,
+        measurementOptions,
+        onUpdate,
+        getWarnings,
+        canDelete,
+        onSubmit,
+        onCancel
+    } = useEditIngredientFormData();
 
-	const { error } = useContext(ErrorDetailContext);
+    const { error } = useContext(ErrorDetailContext);
 
-	const onDropdownUpdate = selected => {
-		onUpdate({
-			target: { name: 'unit', value: selected.label }
-		});
-	};
+    const onDropdownUpdate = selected => {
+        onUpdate({
+            target: { name: 'unit', value: selected.label }
+        });
+    };
 
-	return (
-		<FormContainer
-			className='card edit-ingredient-card'
-			onSubmit={onSubmit}
-		>
-			<TextInput
-				name='name'
-				label='name'
-				value={formData.name}
-				onChange={onUpdate}
-				placeholder="what's this ingredient called?"
-			/>
+    return (
+        <FormContainer
+            className='card edit-ingredient-card'
+            onSubmit={onSubmit}
+        >
+            <TextInput
+                name='name'
+                label='name'
+                value={formData.name}
+                onChange={onUpdate}
+                placeholder="what's this ingredient called?"
+            />
 
-			<Dropdown
-				id='multi-line-input__add-select'
-				label='choose a measurement'
-				items={measurementOptions}
-				title='measurement'
-				selectedItem={formData.unit}
-				onChange={onDropdownUpdate}
-			/>
+            <Dropdown
+                id='multi-line-input__add-select'
+                label='choose a measurement'
+                items={measurementOptions}
+                title='measurement'
+                selectedItem={formData.unit}
+                onChange={onDropdownUpdate}
+            />
 
-			{error && <ValidationErrors errors={error} />}
+            {error && <ValidationErrors errors={error} />}
 
-			<div className='edit-ingredient-card__remove'>
-				<ToggleInline
-					id='is_deleted'
-					name='isDeleted'
-					labelText='delete ingredient?'
-					labelA='no'
-					labelB='yes'
-					disabled={canDelete()}
-					onClick={onUpdate}
-				/>
-				<br />
-				{canDelete() && <ValidationWarnings warnings={getWarnings()} />}
-			</div>
-			<div className='edit-ingredient-card__actions'>
-				<CancelButton onClick={onCancel} />
-				<SaveButton />
-			</div>
-		</FormContainer>
-	);
+            <div className='edit-ingredient-card__remove'>
+                <ToggleInline
+                    id='is_deleted'
+                    name='isDeleted'
+                    labelText='delete ingredient?'
+                    labelA='no'
+                    labelB='yes'
+                    disabled={canDelete()}
+                    onClick={onUpdate}
+                />
+                <br />
+                {canDelete() && <ValidationWarnings warnings={getWarnings()} />}
+            </div>
+            <div className='edit-ingredient-card__actions'>
+                <CancelButton onClick={onCancel} />
+                <SaveButton />
+            </div>
+        </FormContainer>
+    );
 }

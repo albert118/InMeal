@@ -1,38 +1,38 @@
 @use '@carbon/react/scss/spacing' as *;
 
 .ingredient-form-row {
-	display: flex;
-	align-items: center;
-	column-gap: $spacing-02;
-	width: 100%;
-	background-color: var(--background);
-	border-radius: 12px;
-	padding: $spacing-04;
-	padding-right: $spacing-06;
+    display: flex;
+    align-items: center;
+    column-gap: $spacing-02;
+    width: 100%;
+    background-color: var(--background);
+    border-radius: 12px;
+    padding: $spacing-04;
+    padding-right: $spacing-06;
 
-	.ingredient-form-row__quantity {
-		flex-grow: 1;
-		max-width: 10%;
-	}
+    .ingredient-form-row__quantity {
+        flex-grow: 1;
+        max-width: 10%;
+    }
 
-	.ingredient-form-row__detail {
-		flex-grow: 3;
-		max-width: 90%;
-	}
+    .ingredient-form-row__detail {
+        flex-grow: 3;
+        max-width: 90%;
+    }
 }
 
 // maximise space efficiency
 @media (max-width: 1056px) or (max-width: 1180px) {
-	.ingredient-form-row {
-		padding: $spacing-03;
+    .ingredient-form-row {
+        padding: $spacing-03;
 
-		.ingredient-form-row__quantity {
-			max-width: 20%;
-		}
+        .ingredient-form-row__quantity {
+            max-width: 20%;
+        }
 
-		.ingredient-form-row__detail {
-			flex-grow: 3;
-			max-width: 80%;
-		}
-	}
+        .ingredient-form-row__detail {
+            flex-grow: 3;
+            max-width: 80%;
+        }
+    }
 }

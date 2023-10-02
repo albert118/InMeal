@@ -2,32 +2,32 @@
 @use '../../mixins/text-mixins' as *;
 
 .hero-branding-logo {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-evenly;
-	align-items: center;
-	margin: $spacing-02;
-	height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: $spacing-02;
+    height: 60px;
 
-	.divider {
-		width: 80%;
-		border: 1px solid var(--mealui-colors-gray900);
-	}
+    .divider {
+        width: 80%;
+        border: 1px solid var(--mealui-colors-gray900);
+    }
 
-	.hero-title {
-		display: flex;
-		justify-content: space-between;
-		column-gap: $spacing-06;
-		// shared elements will use this font-size
-		font-size: 0.9em;
+    .hero-title {
+        display: flex;
+        justify-content: space-between;
+        column-gap: $spacing-06;
+        // shared elements will use this font-size
+        font-size: 0.9em;
 
-		p {
-			@include logo-title();
-		}
-	}
+        p {
+            @include logo-title();
+        }
+    }
 
-	&:hover,
-	&:active {
-		opacity: 0.8;
-	}
+    &:hover,
+    &:active {
+        opacity: 0.8;
+    }
 }

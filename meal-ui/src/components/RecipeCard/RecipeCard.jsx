@@ -1,15 +1,15 @@
-import { ImageCard } from 'components/Card'
+import { ImageCard } from 'components/Card';
 
 export default function RecipeCard({ ...additionalProps }) {
-    const { recipe, item } = additionalProps
+    const { recipe, item } = additionalProps;
     // fallback to "item" if the recipe cannot be found
-    const entity = recipe ?? item
+    const entity = recipe ?? item;
 
     return (
         <ImageCard
             key={additionalProps.key ?? entity.id}
             id={entity.id}
-            entityName="recipe"
+            entityName='recipe'
             ctaHandler={additionalProps.onClick}
             {...additionalProps}
         >
@@ -20,5 +20,5 @@ export default function RecipeCard({ ...additionalProps }) {
                 />
             )}
         </ImageCard>
-    )
+    );
 }
