@@ -3,11 +3,15 @@ import AppRoutes from 'navigation/AppRoutes';
 import { Button } from 'components';
 
 export function Actions({ recipeId, ...additonalProps }) {
-	const navigate = useNavigate();
+    const navigate = useNavigate();
 
-	return (
-		<div className={`action-container ${additonalProps.className ?? ''}`}>
-			<Button onClick={() => navigate(`${AppRoutes.recipe}/edit/${recipeId}`)}>edit</Button>
-		</div>
-	);
+    return (
+        <div className={`action-container ${additonalProps.className ?? ''}`}>
+            <Button
+                onClick={() => navigate(`${AppRoutes.recipe}/edit/${recipeId}`)}
+            >
+                edit
+            </Button>
+        </div>
+    );
 }

@@ -2,5 +2,5 @@
 @use '../../../mixins/page-title-block' as *;
 
 .p-ingredients {
-	@include page-title-block();
+    @include page-title-block();
 }

@@ -2,53 +2,53 @@
 @use '../../../mixins/card-shadow' as *;
 
 .cds--list-box__menu {
-	border-radius: 12px;
-	border: 1px transparent;
+    border-radius: 12px;
+    border: 1px transparent;
 }
 
 .cds--list-box__menu,
 .cds--list-box__menu:focus,
 .cds--list-box__menu-item,
 .cds--list-box__menu-item__option {
-	@include text();
-	overflow: scroll;
+    @include text();
+    overflow: scroll;
 
-	background-color: var(--foreground-details);
-	border: 1px transparent;
-	outline: transparent;
+    background-color: var(--foreground-details);
+    border: 1px transparent;
+    outline: transparent;
 }
 
 .cds--list-box__menu-item__option {
-	background-color: transparent;
+    background-color: transparent;
 }
 
 .cds--list-box__menu-item:hover {
-	background-color: var(--primary-action);
+    background-color: var(--primary-action);
 }
 
 .cds--list-box__label,
 .cds--list-box__field,
 .cds--text-input::placeholder {
-	@include text();
-	opacity: 1;
+    @include text();
+    opacity: 1;
 }
 
 .cds--list-box__field,
 .cds--text-input {
-	&:focus {
-		outline: transparent;
-	}
+    &:focus {
+        outline: transparent;
+    }
 
-	&:focus::placeholder {
-		opacity: 0;
-		transition: opacity 0.4s ease-out;
-	}
+    &:focus::placeholder {
+        opacity: 0;
+        transition: opacity 0.4s ease-out;
+    }
 
-	&:focus-visible {
-		outline: none;
-		border: 1px solid var(--primary-action);
-		transition: border 0.4s ease-out;
-		border-radius: 12px;
-		@include card-shadow-3();
-	}
+    &:focus-visible {
+        outline: none;
+        border: 1px solid var(--primary-action);
+        transition: border 0.4s ease-out;
+        border-radius: 12px;
+        @include card-shadow-3();
+    }
 }

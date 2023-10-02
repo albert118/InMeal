@@ -1,50 +1,50 @@
 .cds--btn--primary.btn {
-	background-color: transparent;
-	border: 1px solid var(--primary);
+    background-color: transparent;
+    border: 1px solid var(--primary);
 }
 
 .cds--btn--ghost:hover,
 .cds--btn--ghost:active {
-	border: 1px solid transparent;
+    border: 1px solid transparent;
 }
 
 .labelled-icon-btn.cds--btn--ghost:focus {
-	border: 1px solid transparent;
-	background-color: var(--mealui-colors-lynx-white);
+    border: 1px solid transparent;
+    background-color: var(--mealui-colors-lynx-white);
 }
 
 .cds--btn--primary.btn:hover,
 .cds--btn--primary.btn:active,
 .cds--btn--primary.btn:focus {
-	border: 1px solid transparent;
-	background-color: var(--primary);
+    border: 1px solid transparent;
+    background-color: var(--primary);
 }
 
 .cancel-btn.cds--btn--tertiary.btn:hover,
 .cancel-btn.cds--btn--tertiary.btn:active,
 .cancel-btn.cds--btn--tertiary.btn:focus {
-	border: 1px solid transparent;
-	background-color: var(--warning);
+    border: 1px solid transparent;
+    background-color: var(--warning);
 }
 
 .save-btn.cds--btn--tertiary.btn:hover,
 .save-btn.cds--btn--tertiary.btn:active,
 .save-btn.cds--btn--tertiary.btn:focus {
-	border: 1px solid transparent;
-	background-color: var(--success);
+    border: 1px solid transparent;
+    background-color: var(--success);
 }
 
 .icon-btn.cds--btn--ghost:hover,
 .icon-btn.cds--btn--ghost:active {
-	color: unset;
-	background-color: unset;
+    color: unset;
+    background-color: unset;
 }
 
 .icon-btn.cds--btn--ghost {
-	border: unset;
+    border: unset;
 }
 
 .icon-btn.cds--btn--ghost:focus {
-	border-color: unset;
-	box-shadow: unset;
+    border-color: unset;
+    box-shadow: unset;
 }

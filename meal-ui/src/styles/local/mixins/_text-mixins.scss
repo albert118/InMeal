@@ -8,103 +8,103 @@
 // subscript		 #2
 
 @mixin text {
-	letter-spacing: 3px;
-	color: var(--text);
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
+    letter-spacing: 3px;
+    color: var(--text);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 @mixin page-heading {
-	@include text();
-	margin-top: $spacing-06;
-	margin-bottom: $spacing-06;
-	font-size: 2.4rem;
-	line-height: 2.4rem;
+    @include text();
+    margin-top: $spacing-06;
+    margin-bottom: $spacing-06;
+    font-size: 2.4rem;
+    line-height: 2.4rem;
 }
 
 @mixin logo-title {
-	color: var(--text);
-	font-size: 0.9em;
-	line-height: 0.9rem;
-	text-transform: uppercase;
+    color: var(--text);
+    font-size: 0.9em;
+    line-height: 0.9rem;
+    text-transform: uppercase;
 }
 
 @mixin item-header {
-	@include text();
-	padding: 0 $spacing-04;
-	text-transform: capitalize;
-	font-size: 1.3rem;
+    @include text();
+    padding: 0 $spacing-04;
+    text-transform: capitalize;
+    font-size: 1.3rem;
 }
 
 @mixin text-header {
-	@include item-header();
-	margin: $spacing-05 0;
+    @include item-header();
+    margin: $spacing-05 0;
 }
 
 @mixin thick-text {
-	@include text();
-	font-weight: 800;
+    @include text();
+    font-weight: 800;
 }
 
 @mixin action-text {
-	@include text();
-	padding: $spacing-04 $spacing-06;
-	margin: $spacing-02;
+    @include text();
+    padding: $spacing-04 $spacing-06;
+    margin: $spacing-02;
 }
 
 @mixin wrappable-text {
-	white-space: break-spaces;
-	overflow-wrap: anywhere;
-	margin: $spacing-04;
+    white-space: break-spaces;
+    overflow-wrap: anywhere;
+    margin: $spacing-04;
 }
 
 @mixin form-input {
-	color: var(--text);
-	font-weight: 500;
-	padding: $spacing-04;
+    color: var(--text);
+    font-weight: 500;
+    padding: $spacing-04;
 }
 
 @mixin form-validation-error {
-	@include form-input();
-	font-size: 0.8rem;
+    @include form-input();
+    font-size: 0.8rem;
 }
 
 @mixin warning-text {
-	@include text();
-	color: var(--warning);
+    @include text();
+    color: var(--warning);
 }
 
 @mixin label {
-	@include text();
-	text-transform: lowercase;
-	opacity: 0.8;
-	font-size: 0.85rem;
+    @include text();
+    text-transform: lowercase;
+    opacity: 0.8;
+    font-size: 0.85rem;
 }
 
 @mixin form-label {
-	@include label();
-	display: inline-block;
-	padding: unset;
-	margin-left: 4px;
-	margin-bottom: 4px;
+    @include label();
+    display: inline-block;
+    padding: unset;
+    margin-left: 4px;
+    margin-bottom: 4px;
 }
 
 @mixin label-hover-or-active {
-	@include label();
-	opacity: 1;
-	color: var(--mealui-colors-nero-black);
+    @include label();
+    opacity: 1;
+    color: var(--mealui-colors-nero-black);
 }
 
 @mixin subscript-label {
-	@include text();
-	text-transform: lowercase;
-	opacity: 0.8;
-	font-size: 10px;
-	line-height: 1rem;
+    @include text();
+    text-transform: lowercase;
+    opacity: 0.8;
+    font-size: 10px;
+    line-height: 1rem;
 }
 
 @mixin disabled-text {
-	@include form-input();
-	color: var(--text-disabled);
+    @include form-input();
+    color: var(--text-disabled);
 }

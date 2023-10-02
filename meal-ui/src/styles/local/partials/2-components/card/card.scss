@@ -4,28 +4,28 @@
 @use '../../../../config/breakpoints' as breakpoints;
 
 .card {
-	/* any derived cards should override this value to update the height and any dependent calc's */
-	--card-height: calc($spacing-08 * 10) + $spacing-06;
-	height: var(--card-height);
-	min-width: 700px;
-	max-width: fit-content;
-	display: flex;
-	flex-direction: column;
-	background-color: var(--background-neutral);
-	border: 1.25px solid var(--background-neutral);
-	border-radius: 0 0 12px 12px;
-	@include card-shadow();
+    /* any derived cards should override this value to update the height and any dependent calc's */
+    --card-height: calc($spacing-08 * 10) + $spacing-06;
+    height: var(--card-height);
+    min-width: 700px;
+    max-width: fit-content;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-neutral);
+    border: 1.25px solid var(--background-neutral);
+    border-radius: 0 0 12px 12px;
+    @include card-shadow();
 
-	.title-bar {
-		@include card-shadow-3();
+    .title-bar {
+        @include card-shadow-3();
 
-		h2.title {
-			@include text-header();
-		}
-	}
+        h2.title {
+            @include text-header();
+        }
+    }
 
-	div.content-slot > div {
-		display: flex;
-		justify-content: center;
-	}
+    div.content-slot > div {
+        display: flex;
+        justify-content: center;
+    }
 }

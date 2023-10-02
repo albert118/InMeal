@@ -5,23 +5,23 @@ import { DefaultMeta } from 'types/DefaultMeta';
 import { ErrorDetailContext } from './errorContext';
 
 export default function useRecipe() {
-	const { getApi } = useFetch();
-	const { setError } = useContext(ErrorDetailContext);
-	const [meta, setMeta] = useState(DefaultMeta);
+    const { getApi } = useFetch();
+    const { setError } = useContext(ErrorDetailContext);
+    const [meta, setMeta] = useState(DefaultMeta);
 
-	function getMeta() {
-		const url = `${ApiConfig.API_URL}/recipes/meta`;
-		getApi(url)
-			.then(data => {
-				setMeta(data);
-				setError(null);
-			})
-			.catch(setError);
-	}
+    function getMeta() {
+        const url = `${ApiConfig.API_URL}/recipes/meta`;
+        getApi(url)
+            .then(data => {
+                setMeta(data);
+                setError(null);
+            })
+            .catch(setError);
+    }
 
-	useEffect(() => {
-		getMeta();
-	}, []);
+    useEffect(() => {
+        getMeta();
+    }, []);
 
-	return { meta };
+    return { meta };
 }

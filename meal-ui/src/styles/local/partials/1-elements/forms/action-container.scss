@@ -4,64 +4,64 @@
 @use '../../../mixins/text-mixins' as *;
 
 .action-container {
-	position: sticky;
-	top: $spacing-04;
-	margin: $spacing-06;
-	margin-left: 0;
-	display: flex;
-	z-index: var(--layers-foreground);
+    position: sticky;
+    top: $spacing-04;
+    margin: $spacing-06;
+    margin-left: 0;
+    display: flex;
+    z-index: var(--layers-foreground);
 
-	.action-container__card {
-		@include glass-background();
-		@include card-shadow-3();
-		height: 130px;
-		padding: $spacing-05;
-		min-width: 100%;
-		border-radius: 12px;
-		display: flex;
-		justify-content: space-between;
+    .action-container__card {
+        @include glass-background();
+        @include card-shadow-3();
+        height: 130px;
+        padding: $spacing-05;
+        min-width: 100%;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
 
-		.filter-info {
-			position: absolute;
-			top: $spacing-04;
-			left: calc($spacing-05 + $spacing-04);
-			@include subscript-label();
-			color: var(--note);
-		}
+        .filter-info {
+            position: absolute;
+            top: $spacing-04;
+            left: calc($spacing-05 + $spacing-04);
+            @include subscript-label();
+            color: var(--note);
+        }
 
-		.filters {
-			padding: $spacing-06 0;
-			gap: $spacing-04;
-			width: 30%;
-			display: flex;
-			flex-direction: column;
-			justify-content: flex-start;
-		}
+        .filters {
+            padding: $spacing-06 0;
+            gap: $spacing-04;
+            width: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
 
-		.search {
-			padding: $spacing-05;
-		}
+        .search {
+            padding: $spacing-05;
+        }
 
-		.actions {
-			width: 50%;
-			display: flex;
-			align-items: center;
-			gap: $spacing-05;
-			justify-content: flex-end;
-		}
-	}
+        .actions {
+            width: 50%;
+            display: flex;
+            align-items: center;
+            gap: $spacing-05;
+            justify-content: flex-end;
+        }
+    }
 }
 
 /* action (buttons) consume less space */
 @media (max-width: 1056px) {
-	.action-container {
-		.action-container__card {
-			.actions {
-				width: 30%;
-				flex-direction: column;
-				justify-content: center;
-				gap: $spacing-02;
-			}
-		}
-	}
+    .action-container {
+        .action-container__card {
+            .actions {
+                width: 30%;
+                flex-direction: column;
+                justify-content: center;
+                gap: $spacing-02;
+            }
+        }
+    }
 }

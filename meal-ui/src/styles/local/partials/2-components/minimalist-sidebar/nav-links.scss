@@ -2,14 +2,14 @@
 @use '../../../mixins/text-mixins' as *;
 
 .nav-links {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	row-gap: $spacing-06;
-	min-height: 20%;
-	width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    row-gap: $spacing-06;
+    min-height: 20%;
+    width: 40%;
 
-	& > * {
-		width: 100%;
-	}
+    & > * {
+        width: 100%;
+    }
 }

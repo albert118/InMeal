@@ -1,18 +1,18 @@
 @use '@carbon/react/scss/spacing' as *;
 
 .image-card.cds--tile {
-	padding: 0;
+    padding: 0;
 }
 
 .image-card .cds--tile__checkmark {
-	position: absolute;
-	top: $spacing-06;
-	left: $spacing-06;
+    position: absolute;
+    top: $spacing-06;
+    left: $spacing-06;
 
-	height: 1rem;
-	width: 1rem;
+    height: 1rem;
+    width: 1rem;
 }
 
 .image-card .cds--tile--is-selected .cds--tile__checkmark svg {
-	fill: var(--mealui-colors-lindworm-green);
+    fill: var(--mealui-colors-lindworm-green);
 }

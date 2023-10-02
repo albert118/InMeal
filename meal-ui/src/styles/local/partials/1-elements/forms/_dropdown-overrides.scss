@@ -1,32 +1,32 @@
 .cds--dropdown.cds--list-box,
 .cds--dropdown__wrapper {
-	border-radius: 12px;
-	min-width: 128px;
+    border-radius: 12px;
+    min-width: 128px;
 
-	.cds--label {
-		display: none;
-	}
+    .cds--label {
+        display: none;
+    }
 
-	#multiselect-field-label-2 {
-		padding: 0;
-	}
+    #multiselect-field-label-2 {
+        padding: 0;
+    }
 }
 
 .cds--dropdown.cds--list-box {
-	border: 1px solid transparent;
+    border: 1px solid transparent;
 }
 
 .cds--dropdown.cds--list-box .cds--list-box__field--wrapper--input-focused {
-	outline: transparent;
+    outline: transparent;
 }
 
 .cds--dropdown .cds--list-box.cds--list-box__field--wrapper--input-focused {
-	outline: transparent;
+    outline: transparent;
 }
 
 .cds--dropdown__wrapper,
 .cds--dropdown.cds--list-box,
 .cds--list-box {
-	background-color: var(--background-details);
-	border: none;
+    background-color: var(--background-details);
+    border: none;
 }

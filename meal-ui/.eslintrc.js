@@ -4,31 +4,28 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 2020,
-        sourceType: 'module',
-    },
-    settings: {
-        react: {
-            version: 'detect',
-        },
+        sourceType: 'module'
     },
     extends: [
         'plugin:react/recommended',
         'plugin:react-hooks/recommended',
+        // react version > 17 recommends this config
+        'plugin:react/jsx-runtime',
         'plugin:import/errors',
         'plugin:import/warnings',
         'plugin:jsx-a11y/recommended',
-        'prettier',
-        'plugin:prettier/recommended',
-        // react version > 17 recommends this config
-        'plugin:react/jsx-runtime',
+        'prettier'
     ],
     rules: {
         'no-unused-vars': 'off',
         'react/prop-types': 'off',
         'react/jsx-uses-react': 'off',
-        'react/react-in-jsx-scope': 'off',
+        'react/react-in-jsx-scope': 'off'
     },
     settings: {
+        react: {
+            version: 'detect'
+        },
         // https://github.com/johvin/eslint-import-resolver-alias#readme
         'import/resolver': {
             alias: {
@@ -45,10 +42,10 @@ module.exports = {
                     ['utils', './src/utils'],
                     ['VersionInfo', './src/VersionInfo.js'],
                     // demo image for prototyping purposes
-                    ['DemoImage', './src/DemoImage.js'],
+                    ['DemoImage', './src/DemoImage.js']
                 ],
-                extensions: ['.scss', '.js', '.jsx', '.json'],
-            },
-        },
-    },
-}
+                extensions: ['.scss', '.js', '.jsx', '.json']
+            }
+        }
+    }
+};

@@ -1,11 +1,11 @@
 import { useState, createContext } from 'react';
 
 export const ErrorDetailContext = createContext({
-	error: null,
-	setError: () => {}
+    error: null,
+    setError: () => {}
 });
 
 export function useErrorDetail() {
-	const [error, setError] = useState(null);
-	return { error, setError };
+    const [error, setError] = useState(null);
+    return { error, setError };
 }

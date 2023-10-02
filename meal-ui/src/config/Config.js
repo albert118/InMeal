@@ -3,5 +3,4 @@ const config = Object.freeze({
     GitSocialLink: 'https://github.com/albert118/InMeal'
 });
 
-
-export default  config;
+export default config;

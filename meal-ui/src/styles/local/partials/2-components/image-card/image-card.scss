@@ -4,53 +4,53 @@
 @use '../../../mixins/text-mixins' as *;
 
 .image-card {
-	--image-card-height: 300px;
-	height: var(--image-card-height);
-	min-width: calc(1.1 * var(--image-card-height));
-	max-width: calc(1.1 * var(--image-card-height));
-	@include glass-background();
+    --image-card-height: 300px;
+    height: var(--image-card-height);
+    min-width: calc(1.1 * var(--image-card-height));
+    max-width: calc(1.1 * var(--image-card-height));
+    @include glass-background();
 }
 
 .image-card .image-slot {
-	position: relative;
+    position: relative;
 }
 
 .image-card .image-slot img {
-	/* 2/3 of the card is allocated for the image */
-	height: calc(2 / 3 * var(--image-card-height));
-	width: 100%;
-	vertical-align: bottom;
+    /* 2/3 of the card is allocated for the image */
+    height: calc(2 / 3 * var(--image-card-height));
+    width: 100%;
+    vertical-align: bottom;
 }
 
 .action,
 .action > * {
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .action:hover {
-	background-color: var(--primary);
+    background-color: var(--primary);
 }
 
 .action {
-	display: flex;
-	flex-direction: column;
-	padding: $spacing-05 $spacing-04;
-	padding-bottom: 0;
-	color: white;
-	border-radius: 0 0 12px 12px;
-	height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-05 $spacing-04;
+    padding-bottom: 0;
+    color: white;
+    border-radius: 0 0 12px 12px;
+    height: 100%;
 
-	h4 {
-		@include item-header();
-		padding-left: $spacing-04;
-		padding-right: $spacing-04;
-		overflow: hidden;
-		white-space: nowrap;
-	}
+    h4 {
+        @include item-header();
+        padding-left: $spacing-04;
+        padding-right: $spacing-04;
+        overflow: hidden;
+        white-space: nowrap;
+    }
 }
 
 .e-image-status-badge {
-	margin-top: $spacing-04;
-	margin-bottom: $spacing-04;
-	width: fit-content;
+    margin-top: $spacing-04;
+    margin-bottom: $spacing-04;
+    width: fit-content;
 }

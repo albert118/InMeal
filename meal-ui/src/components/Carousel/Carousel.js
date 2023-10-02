@@ -1,11 +1,15 @@
-import { NavigationArrowLeft, NavigationArrowRight, TitleBar } from 'components'
-import { CarouselProvider, Slide, Slider } from 'pure-react-carousel'
-import { propagateProps } from 'utils'
+import {
+    NavigationArrowLeft,
+    NavigationArrowRight,
+    TitleBar
+} from 'components';
+import { CarouselProvider, Slide, Slider } from 'pure-react-carousel';
+import { propagateProps } from 'utils';
 
 const carouselConfig = {
     isIntrinsicHeight: true,
-    totalSlides: 3,
-}
+    totalSlides: 3
+};
 
 export default function Carousel({ items, title, ...additionalProps }) {
     return (
@@ -13,17 +17,17 @@ export default function Carousel({ items, title, ...additionalProps }) {
             className={`minimal-carousel ${additionalProps.className ?? ''}`}
             {...carouselConfig}
         >
-            <div className="minimal-carousel__header">
+            <div className='minimal-carousel__header'>
                 <TitleBar>{title ?? additionalProps.label ?? ''}</TitleBar>
-                <div className="nav-buttons">
+                <div className='nav-buttons'>
                     <NavigationArrowLeft />
                     <NavigationArrowRight />
                 </div>
             </div>
-            <div className="minimal-carousel__divider" />
+            <div className='minimal-carousel__divider' />
             <Slider
-                classNameAnimation="slider-animation"
-                classNameTray="slider-tray"
+                classNameAnimation='slider-animation'
+                classNameTray='slider-tray'
             >
                 {items?.map((item, index) => {
                     return (
@@ -31,12 +35,12 @@ export default function Carousel({ items, title, ...additionalProps }) {
                             {propagateProps(additionalProps.children, {
                                 key: index,
                                 ...item,
-                                className: 'carousel-item',
+                                className: 'carousel-item'
                             })}
                         </Slide>
-                    )
+                    );
                 })}
             </Slider>
         </CarouselProvider>
-    )
+    );
 }

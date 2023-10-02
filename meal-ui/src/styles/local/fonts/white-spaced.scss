@@ -1,9 +1,9 @@
 @use '../mixins/text-mixins' as *;
 
 .font-white-header {
-	@include text-header();
+    @include text-header();
 }
 
 .font-white {
-	@include text();
+    @include text();
 }

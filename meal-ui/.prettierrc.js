@@ -5,8 +5,7 @@ module.exports = {
     singleQuote: true,
     jsxSingleQuote: true,
     tabWidth: 4,
-    singlqQuote: true,
     endOfLine: 'auto',
     trailingComma: 'none',
     arrowParens: 'avoid'
-}
+};

@@ -5,102 +5,102 @@
 @use '../../../../config/breakpoints' as breakpoints;
 
 .recipe-card {
-	--card-height: 900px;
-	max-width: 900px;
-	min-width: 750px;
-	@include glass-background();
+    --card-height: 900px;
+    max-width: 900px;
+    min-width: 750px;
+    @include glass-background();
 
-	.image-slot {
-		height: calc(var(--card-height) / 1.5);
-	}
+    .image-slot {
+        height: calc(var(--card-height) / 1.5);
+    }
 
-	.recipe-card__data {
-		display: flex;
-		flex-direction: column;
-		gap: $spacing-06;
-		padding: $spacing-06 $spacing-08;
-		height: 100%;
-		@include card-shadow-3();
+    .recipe-card__data {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-06;
+        padding: $spacing-06 $spacing-08;
+        height: 100%;
+        @include card-shadow-3();
 
-		p {
-			@include wrappable-text();
-		}
+        p {
+            @include wrappable-text();
+        }
 
-		.ingredients-list > * {
-			margin-top: $spacing-04;
-		}
+        .ingredients-list > * {
+            margin-top: $spacing-04;
+        }
 
-		.recipe-data__meta {
-			display: flex;
-			flex-direction: column;
-			row-gap: $spacing-06;
-			// hack to avoid adding extra space
-			margin: 0 -20px;
+        .recipe-data__meta {
+            display: flex;
+            flex-direction: column;
+            row-gap: $spacing-06;
+            // hack to avoid adding extra space
+            margin: 0 -20px;
 
-			.meta-row {
-				display: flex;
-				justify-content: center;
-				column-gap: $spacing-06;
+            .meta-row {
+                display: flex;
+                justify-content: center;
+                column-gap: $spacing-06;
 
-				& > * {
-					width: 50%;
-				}
-			}
-		}
-	}
+                & > * {
+                    width: 50%;
+                }
+            }
+        }
+    }
 
-	.recipe-card__actions {
-		margin-top: auto;
-		display: flex;
-		justify-content: flex-end;
-		padding: $spacing-05;
-		gap: $spacing-04;
-		align-items: center;
-	}
+    .recipe-card__actions {
+        margin-top: auto;
+        display: flex;
+        justify-content: flex-end;
+        padding: $spacing-05;
+        gap: $spacing-04;
+        align-items: center;
+    }
 }
 
 // cards should show as much as possible, these views are quite dense
 @media (max-width: breakpoints.$ipad-pro) {
-	.recipe-card .recipe-card__data {
-		padding: $spacing-04;
+    .recipe-card .recipe-card__data {
+        padding: $spacing-04;
 
-		.recipe-data__meta .meta-row > * {
-			width: 40%;
-		}
-	}
+        .recipe-data__meta .meta-row > * {
+            width: 40%;
+        }
+    }
 }
 
 // this card has lots of content, use all the space available
 @media (max-width: breakpoints.$laptop) {
-	.recipe-card {
-		--card-height: 600px;
-		font-size: 12px;
+    .recipe-card {
+        --card-height: 600px;
+        font-size: 12px;
 
-		// the image is less prominant in the mobile view to allow more readable content
-		.image-slot {
-			height: calc(var(--card-height) / 3);
-		}
+        // the image is less prominant in the mobile view to allow more readable content
+        .image-slot {
+            height: calc(var(--card-height) / 3);
+        }
 
-		.recipe-card__data {
-			padding: $spacing-04;
+        .recipe-card__data {
+            padding: $spacing-04;
 
-			// technically an over-ride, but this is kinda neat to do here
-			.recipe-data__meta-wrapper > .recipe-data__meta {
-				column-gap: 0;
+            // technically an over-ride, but this is kinda neat to do here
+            .recipe-data__meta-wrapper > .recipe-data__meta {
+                column-gap: 0;
 
-				.form-input {
-					width: 50%;
-				}
-			}
-		}
+                .form-input {
+                    width: 50%;
+                }
+            }
+        }
 
-		.action-container {
-			margin: 0;
-		}
-	}
+        .action-container {
+            margin: 0;
+        }
+    }
 
-	// make more room on the mobile view, default to save and exit instead of just save
-	button[value='save'] {
-		display: none;
-	}
+    // make more room on the mobile view, default to save and exit instead of just save
+    button[value='save'] {
+        display: none;
+    }
 }
