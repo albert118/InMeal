@@ -1,14 +1,4 @@
-<p align="center">
-    <!-- logo -->
-    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; margin: 0.25rem; height: 60px;">
-        <div style="color: #ecedee; width: 30%">
-            <h1 style="display: flex; justify-content: space-between; column-gap: 1.5rem;">
-                <p>I</p><p>N</p><p>M</p><p>E</p><p>A</p><p>L</p>
-            </h1>
-        </div>
-    </div>
-    <p>A modern and clean interface for managing recipes and ingredients.</p>
-</p>
+# In Meal
 
 <p align="center">
     <a href="https://github.com/albert118/InMeal/blob/master/LICENSE">
@@ -28,6 +18,19 @@
     </a>
 </p>
 
+> A modern and clean interface for managing recipes and ingredients, In Meal acts as a digital cookbook without bloat.
+
+## 🍇 Features
+
+**This is still a work in progress but currently supports simple recipe and ingredient management.**
+
+\_ Designed to be responsive with tablets in mind from the start. No more squinting at small buttons or "mouse-friendly" UX 🪤.
+
+- Minimal design avoids bloating your experience with unnecessary reviews or comments 😁.
+- Bulk editing for ingredients, no more typos across all your recipes 🔏!
+- Searchable, recipes and ingredients are easy to find 🔎.
+- Batteries included meta-data, easily include common meta-data for recipes such as servings or cook-time 🔋.
+
 ## Getting started
 
 | Project                        | Description                              |
@@ -35,6 +38,25 @@
 | [Meal UI](./meal-ui/README.md) | A React UI served with Webpack and NGinx |
 | [InMeal](./InMeal/README.md)   | A dotnet API using EF Core and MariaDb   |
 
-## Examples
+## 👀 Examples
 
-// TODO
+<p >
+<p align="center">
+    <img src="https://github.com/albert118/InMeal/assets/26985949/191c66c9-d73a-4015-b38d-b4f92909838c" alt="In Meal home dashboard" />
+    <img src="https://github.com/albert118/InMeal/assets/26985949/67031ded-b9b3-4d10-ad70-60987e9e0ea1" alt="In Meal manage recipes page" />
+    <img src="https://github.com/albert118/InMeal/assets/26985949/4945052f-8f5b-4d2d-b66d-df3a88ba09aa" alt="In Meal manage view recipe" />
+</p>
+
+## Upcoming features
+
+- [ ] apply filters when clicking a badge
+- [ ] generative images (replace demo image)
+- [ ] add sections to recipe steps
+- [ ] add settings to page to extend/edit meal types and categories
+- [ ] favourites list
+- [ ] recommended options on the homepage
+- [ ] "always on" feature for mobile
+- [ ] improve background design
+
+
+
