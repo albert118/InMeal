@@ -1,0 +1,20 @@
+# .github/release.yml
+
+changelog:
+  exclude:
+  categories:
+    - title: 🎉 Exciting New Features
+      labels:
+        - frontend
+        - backend
+    - title: 🐞 Bug fixes
+      labels:
+        - bugs
+    - title: 🐞 Optimisations
+      labels:
+        - infrastructure
+    - title: 🏡 Housekeeping and dependencies
+      labels:
+        - housekeeping
+        - dependencies
+        - migrations
