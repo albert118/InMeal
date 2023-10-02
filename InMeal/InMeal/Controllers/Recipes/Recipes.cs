@@ -39,7 +39,7 @@ public class RecipesController : ControllerBase
                                    .GetAwaiter()
                                    .GetResult();
 
-        return result == null ? NoContent() : Ok(RecipeMapper.ToDto(result));
+        return result == null ? NotFound() : Ok(RecipeMapper.ToDto(result));
     }
 
     [HttpPost("[action]", Name = "Add a new recipe")]
