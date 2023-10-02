@@ -11,7 +11,7 @@ export default function IngredientsIndexContainer() {
         <div className='p-ingredients'>
             <h2>
                 Ingredients
-                <label>Manage your pantry's ingredients</label>
+                <label>Manage your pantry&apos;s ingredients</label>
             </h2>
 
             <Actions {...hookProps} />
