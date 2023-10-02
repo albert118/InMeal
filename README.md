@@ -1,14 +1,5 @@
-<p align="center">
-    <!-- logo -->
-    <div style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; margin: 0.25rem; height: 60px;">
-        <div style="color: #ecedee; width: 30%">
-            <h1 style="display: flex; justify-content: space-between; column-gap: 1.5rem;">
-                <p>I</p><p>N</p><p>M</p><p>E</p><p>A</p><p>L</p>
-            </h1>
-        </div>
-    </div>
-    <p>A modern and clean interface for managing recipes and ingredients.</p>
-</p>
+
+# In Meal
 
 <p align="center">
     <a href="https://github.com/albert118/InMeal/blob/master/LICENSE">
@@ -28,12 +19,25 @@
     </a>
 </p>
 
-## Getting started
+> A modern and clean interface for managing recipes and ingredients, In Meal acts as a digital cookbook without bloat.
+
+## 🍇 Features
+
+**This is still a work in progress but currently supports simple recipe and ingredient management.**
+
+_ Designed to be responsive with tablets in mind from the start. No more squinting at small buttons or "mouse-friendly" UX 🪤.
+- Minimal design avoids bloating your experience with unnecessary reviews or comments 😁.
+- Bulk editing for ingredients, no more typos across all your recipes 🔏!
+- Searchable, recipes and ingredients are easy to find 🔎.
+- Batteries included meta-data, easily include common meta-data for recipes such as servings or cook-time 🔋.
+
+##  Getting started
 
 | Project                        | Description                              |
 | ------------------------------ | ---------------------------------------- |
 | [Meal UI](./meal-ui/README.md) | A React UI served with Webpack and NGinx |
 | [InMeal](./InMeal/README.md)   | A dotnet API using EF Core and MariaDb   |
+
 
 ## Examples
 
