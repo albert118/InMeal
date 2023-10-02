@@ -1,10 +1,12 @@
 // https://prettier.io/docs/en/configuration.html
 module.exports = {
-    semi: false,
+    useEditorConfig: false,
+    semi: true,
     singleQuote: true,
-    jsxSingleQuote: false,
+    jsxSingleQuote: true,
     tabWidth: 4,
+    singlqQuote: true,
     endOfLine: 'auto',
-    trailingCommas: 'none',
-    arrowParens: 'avoid',
+    trailingComma: 'none',
+    arrowParens: 'avoid'
 }
