@@ -8,7 +8,7 @@ changelog:
         - backend
     - title: 🐞 Bug fixes
       labels:
-        - bugs
+        - bug
     - title: 🐞 Optimisations
       labels:
         - infrastructure
