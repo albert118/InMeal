@@ -1,4 +1,3 @@
-
 # In Meal
 
 <p align="center">
@@ -25,20 +24,18 @@
 
 **This is still a work in progress but currently supports simple recipe and ingredient management.**
 
-_ Designed to be responsive with tablets in mind from the start. No more squinting at small buttons or "mouse-friendly" UX 🪤.
+\_ Designed to be responsive with tablets in mind from the start. No more squinting at small buttons or "mouse-friendly" UX 🪤.
+
 - Minimal design avoids bloating your experience with unnecessary reviews or comments 😁.
 - Bulk editing for ingredients, no more typos across all your recipes 🔏!
 - Searchable, recipes and ingredients are easy to find 🔎.
 - Batteries included meta-data, easily include common meta-data for recipes such as servings or cook-time 🔋.
 
-##  Getting started
+## Getting started
 
 | Project                        | Description                              |
 | ------------------------------ | ---------------------------------------- |
 | [Meal UI](./meal-ui/README.md) | A React UI served with Webpack and NGinx |
 | [InMeal](./InMeal/README.md)   | A dotnet API using EF Core and MariaDb   |
 
-
-## Examples
-
-// TODO
+## 👀 Examples
