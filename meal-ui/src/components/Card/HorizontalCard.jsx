@@ -14,7 +14,7 @@ export default function HorizontalCard({
     return (
         <div className={`horiz-card ${selected ? 'horiz-card-selected' : ''}`}>
             <div className='horiz-card__image-slot' onClick={onClick}>
-                <img src={url} label={label} />
+                <img src={url} label={label} alt={label} />
                 {!selected && (
                     <div className='add'>
                         <FontAwesomeIcon icon={faSquarePlus} size={'2x'} />
