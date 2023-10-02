@@ -9,6 +9,7 @@ module.exports = {
         open: true,
         compress: true,
         historyApiFallback: true,
+        hot: true,
         proxy: {
             '/api': {
                 target: 'https://localhost:7078',

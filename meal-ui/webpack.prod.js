@@ -20,5 +20,18 @@ module.exports = {
             inject: true,
             minify: true
         })
-    ]
+    ],
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            // extract node modules to their own vendor chunk
+            cacheGroups: {
+                vender: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                }
+            }
+        }
+    }
 };

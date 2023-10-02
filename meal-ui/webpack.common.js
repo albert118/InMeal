@@ -6,7 +6,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         publicPath: '/',
-        filename: 'assets/js/[name].[contenthash:8].js',
+        filename: 'assets/js/[name].[contenthash].js',
         clean: true
     },
     module: {
