@@ -10,6 +10,38 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
     mode: 'production',
     devtool: 'source-map',
+    module: {
+        rules: [
+            ////////////////////////////
+            // JSX (React)
+            ////////////////////////////
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            ['@babel/preset-env'],
+                            ['@babel/preset-react', { runtime: 'automatic' }]
+                        ],
+                        plugins: [
+                            '@babel/plugin-transform-runtime',
+                            '@babel/plugin-syntax-dynamic-import',
+                            [
+                                'transform-react-remove-prop-types',
+                                {
+                                    removeImport: true
+                                }
+                            ],
+                            '@babel/plugin-transform-react-inline-elements',
+                            '@babel/plugin-transform-react-constant-elements'
+                        ]
+                    }
+                }
+            }
+        ]
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src/assets/index.html'),

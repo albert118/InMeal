@@ -12,14 +12,6 @@ module.exports = {
     module: {
         rules: [
             ////////////////////////////
-            // JSX (React)
-            ////////////////////////////
-            {
-                test: /\.(js|jsx)$/,
-                use: 'babel-loader',
-                exclude: /node_modules/
-            },
-            ////////////////////////////
             // SCSS / SASS
             ////////////////////////////
             {

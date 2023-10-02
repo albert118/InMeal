@@ -5,6 +5,30 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'cheap-module-source-map',
+    module: {
+        rules: [
+            ////////////////////////////
+            // JSX (React)
+            ////////////////////////////
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            ['@babel/preset-env'],
+                            ['@babel/preset-react', { runtime: 'automatic' }]
+                        ],
+                        plugins: [
+                            '@babel/plugin-transform-runtime',
+                            '@babel/plugin-syntax-dynamic-import'
+                        ]
+                    }
+                }
+            }
+        ]
+    },
     devServer: {
         static: path.resolve(__dirname, 'src/assets'),
         open: true,
