@@ -11,7 +11,7 @@ changelog:
         - documenation
     - title: 🐞 Bug fixes
       labels:
-        - bugs
+        - bug
     - title: 🏡 Housekeeping and dependencies
       labels:
         - housekeeping
