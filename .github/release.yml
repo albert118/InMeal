@@ -1,0 +1,15 @@
+# .github/release.yml
+
+changelog:
+  categories:
+    - title: 🎉 Exciting New Features
+      labels:
+        - model
+        - api
+    - title: 🐞 Bug fixes
+      labels:
+        - bugs
+    - title: 🏡 Housekeeping and dependencies
+      labels:
+        - housekeeping
+        - dependencies
