@@ -1,0 +1,10 @@
+bin/*
+lib/*
+
+__pycache__
+
+# secrets and local env files
+
+.env
+*.env
+*.secret

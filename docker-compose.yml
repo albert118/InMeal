@@ -1,0 +1,18 @@
+version: '3.9'
+
+networks:
+  # your-external-net-in-a-hosted-env:
+  #     external: true
+  generative-recipes-network:
+    driver: bridge
+
+services:
+  generative-recipes-microservice:
+    container_name: generative-recipes-microservice
+    restart: unless-stopped
+    build:
+      context: ./GenerativeRecipesMicroservice
+    ports:
+      - '${API_PORT}:xxxx'
+    networks:
+      - generative-recipes-network
