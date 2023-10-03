@@ -6,6 +6,9 @@ changelog:
       labels:
         - model
         - api
+    - title: 📃 Documentation
+      labels:
+        - documenation
     - title: 🐞 Bug fixes
       labels:
         - bugs
