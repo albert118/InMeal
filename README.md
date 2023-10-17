@@ -1,4 +1,4 @@
-# Generative Recipes
+# Generative Recipe Images
 
 <p align="center">
     <a href="https://github.com/albert118/GenerativeRecipes/blob/master/LICENSE">
@@ -20,12 +20,37 @@
 > The model aims to provide consistently styled results, so that they are themed. These are also stylistic,
 > and not a pure representation of the real recipe.
 
-- Rate limiting to avoid overloading the server 🐇.
-- REST service with Swagger spec `{ ... }`.
+- **Safe**: Filtered prompts and tailoured outputs to avoid extranous uses...
+- **Documentation**: OpenAPI standard and code-first design.
+- **Fast**: uses [FastAPI](https://fastapi.tiangolo.com/) for a fast development + build + deploy time.
 
 ## Getting started
 
-// TODO
+To run the app in development mode,
+
+```sh
+source ./bin/activate
+uvicorn app.main:app --reload
+```
+
+Then checkout the OpenAPI docs, [http://127.0.0.1:8000/docs].
+
+## Build the Docker image
+
+To build the service using Docker compose run,
+
+```sh
+docker compose up
+```
+
+or to build without compose,
+
+```sh
+docker build -t testImage .
+docker run -d --name testContainer -p 80:80 testImage
+```
+
+test it by visiting the [ping-pong test URL](http://127.0.0.1:8000/test/ping)
 
 ## 👀 Examples
 

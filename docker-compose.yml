@@ -7,12 +7,10 @@ networks:
     driver: bridge
 
 services:
-  generative-recipes-microservice:
-    container_name: generative-recipes-microservice
+  generative-recipe-images-microservice:
+    container_name: generative-recipe-images-microservice
     restart: unless-stopped
     build:
-      context: ./GenerativeRecipesMicroservice
-    ports:
-      - '${API_PORT}:xxxx'
+      context: ./app
     networks:
-      - generative-recipes-network
+      - generative-recipe-images-network
