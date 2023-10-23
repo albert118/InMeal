@@ -1,0 +1,12 @@
+{
+  "name": "In Meal",
+  "version": "1.3.3",
+  "private": true,
+  "scripts": {},
+  "devDependencies": {
+    "nx": "17.0.1"
+  },
+  "nx": {
+    "targets": {}
+  }
+}
