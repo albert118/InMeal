@@ -1,24 +1,18 @@
-# ignore the build artifacts
-
-obj/
-bin/
-
-# ignore the .idea (Rider) local editor configs
-
+# local editor configs
 .idea/
 *.DotSettings.user
 
 # secrets and local env files
-
 .env
 *.env
 *.secret
 
 # nx
-
 .nx/installation
 .nx/cache
 
-# node
-
+# builds and external dependencies
 /node_modules/
+obj/
+bin/
+dist/
