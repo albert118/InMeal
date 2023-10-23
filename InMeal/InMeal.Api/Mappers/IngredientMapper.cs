@@ -1,7 +1,7 @@
-﻿using InMeal.Core.Entities;
-using InMeal.DTOs.Ingredients;
+﻿using InMeal.Api.DTOs.Ingredients;
+using InMeal.Core.Entities;
 
-namespace InMeal.Mappers;
+namespace InMeal.Api.Mappers;
 
 public static class IngredientMapper
 {

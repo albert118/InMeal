@@ -1,7 +1,7 @@
+using InMeal.Api.DTOs.Ingredients;
 using InMeal.Core.Enumerations;
-using InMeal.DTOs.Ingredients;
 
-namespace InMeal.Mappers;
+namespace InMeal.Api.Mappers;
 
 public static class MeasurementMapper
 {

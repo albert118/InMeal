@@ -1,4 +1,4 @@
-﻿namespace InMeal;
+﻿namespace InMeal.Api;
 
 public interface ICancellationTokenAccessor
 {

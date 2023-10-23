@@ -1,7 +1,7 @@
-﻿using InMeal.Core.Entities;
-using InMeal.DTOs.Upcoming;
+﻿using InMeal.Api.DTOs.Upcoming;
+using InMeal.Core.Entities;
 
-namespace InMeal.DTOs.Recipes;
+namespace InMeal.Api.DTOs.Recipes;
 
 public record UpcomingRecipe(
     RecipeId Id,

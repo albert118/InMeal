@@ -1,4 +1,4 @@
-namespace InMeal;
+namespace InMeal.Api;
 
 /// <summary>
 ///     Tag a service implementation for registration as an instance scoped service

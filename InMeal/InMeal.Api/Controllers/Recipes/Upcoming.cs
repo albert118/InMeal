@@ -1,8 +1,8 @@
-﻿using InMeal.DTOs.Recipes;
-using InMeal.Features.Upcoming;
+﻿using InMeal.Api.DTOs.Recipes;
+using InMeal.Api.Features.Upcoming;
 using Microsoft.AspNetCore.Mvc;
 
-namespace InMeal.Controllers.Recipes;
+namespace InMeal.Api.Controllers.Recipes;
 
 [ApiController]
 [Route("api/[controller]/[action]")]

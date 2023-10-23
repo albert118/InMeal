@@ -1,4 +1,4 @@
-namespace InMeal.Features.Ingredients;
+namespace InMeal.Api.Features.Ingredients;
 
 public class IngredientUniqueNameException : ApplicationException
 {
