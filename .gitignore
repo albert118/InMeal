@@ -13,3 +13,8 @@ bin/
 .env
 *.env
 *.secret
+
+# nx
+
+.nx/installation
+.nx/cache
