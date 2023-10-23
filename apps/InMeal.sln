@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMeal", "InMeal\InMeal.csproj", "{9F326232-A702-4340-9279-22E7BF8EEC85}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMeal.Api", "InMeal.Api\InMeal.Api.csproj", "{9F326232-A702-4340-9279-22E7BF8EEC85}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMeal.Core", "InMeal.Core\InMeal.Core.csproj", "{2191AB19-DDE2-44D6-9A04-5928EB21A879}"
 EndProject
