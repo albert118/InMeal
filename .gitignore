@@ -1,7 +1,3 @@
-# ignore the build artifacts
-obj/
-bin/
-
 # local editor settings
 .idea/
 *.DotSettings.user
