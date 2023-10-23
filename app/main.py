@@ -1,6 +1,8 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 from .routers import images, test
+
 
 description = """
 Generative recipe images microservce 🤖
@@ -26,6 +28,8 @@ app = FastAPI(
     },
     redoc_url=None
 )
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.include_router(images.router)
 app.include_router(test.router)

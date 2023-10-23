@@ -1,4 +1,4 @@
-from ..infrastructure.ModelOrchestrator import ModelOrchestrator
+from ..infrastructure.ModelOrchestrator import ModelOrchestrator, ImageResult
 from fastapi import APIRouter
 
 router = APIRouter(
@@ -9,7 +9,7 @@ router = APIRouter(
 
 
 @router.post('/')
-def generate_image(prompt: str):
+def generate_image(prompt: str) -> ImageResult:
     '''Get a new image'''
     orchestrator = ModelOrchestrator()
     return orchestrator.orchestrate_response(prompt)

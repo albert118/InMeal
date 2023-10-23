@@ -1,9 +1,20 @@
+import random
+
 class FakeModel:
     def __init__(self):
-        pass
+        self.image_sources = [
+            'butter-chicken.jpg',
+            'chole-recipe.jpg',
+            'chorizo-mozarella-gnocchi-bake.jpg',
+            'crepes.jpg',
+            'homemade-pizza.jpg',
+            'korean-bibimbap-flatlay.jpeg',
+            'stir-fry.jpg'
+        ]
 
-    def generate(self, prompt: str):
-        return f'generated - {prompt}!'
+    # returns a filename
+    def generate(self, prompt: str) -> str:
+        return random.choice(self.image_sources) 
 
 
 class ModelProvider:
