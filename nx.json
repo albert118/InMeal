@@ -1,6 +1,9 @@
 {
-	"targetDefaults": {},
-	"affected": {
-		"defaultBase": "master"
-	}
+  "targetDefaults": {},
+  "affected": {
+    "defaultBase": "master"
+  },
+  "plugins": [
+    "@nx-dotnet/core"
+  ]
 }
