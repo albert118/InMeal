@@ -57,6 +57,3 @@
 - [ ] recommended options on the homepage
 - [ ] "always on" feature for mobile
 - [ ] improve background design
-
-
-
