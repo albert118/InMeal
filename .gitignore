@@ -1,6 +1,6 @@
 # local editor configs
-.idea/
 *.DotSettings.user
+dataSources.xml
 
 # secrets and local env files
 .env
