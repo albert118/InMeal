@@ -18,3 +18,7 @@ bin/
 
 .nx/installation
 .nx/cache
+
+# node
+
+/node_modules/
