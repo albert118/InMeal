@@ -1,0 +1,29 @@
+@use '../../../mixins/card-shadow' as *;
+@use '../../../mixins/text-mixins' as *;
+@use '../../../../config/breakpoints' as breakpoints;
+
+@use './overrides';
+
+.e-cds-form-input {
+    & > label {
+        @include form-label();
+    }
+
+    & > label.disabled {
+        @include disabled-text();
+    }
+
+    & > * {
+        padding-right: 0;
+        padding-left: 0;
+        width: 100%;
+        border: none;
+
+        span,
+        svg {
+            @include form-input();
+            fill: var(--text);
+            padding: 0;
+        }
+    }
+}

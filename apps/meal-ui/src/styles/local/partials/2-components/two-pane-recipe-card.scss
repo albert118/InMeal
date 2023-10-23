@@ -1,0 +1,72 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../../config/breakpoints' as breakpoints;
+@use '../../mixins/alignment' as *;
+
+.two-pane-recipe-card {
+    display: flex;
+    justify-content: center;
+    column-gap: $spacing-06;
+
+    .two-pane-recipe-card--left,
+    .two-pane-recipe-card--right {
+        border-radius: 12px;
+
+        .recipe-card__data {
+            overflow-x: hidden;
+        }
+    }
+
+    .two-pane-recipe-card--left {
+        .recipe-card__data {
+            border-radius: 0 0 12px 12px;
+        }
+
+        .image-content,
+        .image-content--alt {
+            border-radius: 12px 12px 0 0;
+        }
+    }
+
+    .two-pane-recipe-card--right {
+        .action-container {
+            border-radius: 0 0 12px 12px;
+        }
+    }
+}
+
+@mixin stack-cards() {
+    flex-wrap: wrap;
+    justify-content: unset;
+    row-gap: $spacing-08;
+    column-gap: $spacing-03;
+}
+
+// these pages have a lot of content, use all the space available
+@media (min-width: breakpoints.$laptop) and (max-width: breakpoints.$desktop) {
+    .two-pane-recipe-card {
+        // stack the cards when viewing in mid-sized screens to dekstop portrait
+        @include stack-cards();
+
+        // anything less than the min-width will stack for small screens
+        .two-pane-recipe-card--left,
+        .two-pane-recipe-card--right {
+            min-width: 480px;
+            max-width: 500px;
+            @include align-center();
+        }
+    }
+}
+
+@media (min-width: breakpoints.$portrait-min) and (max-width: breakpoints.$portrait-max) {
+    .two-pane-recipe-card {
+        // stack the cards when viewing in portrait
+        @include stack-cards();
+
+        .two-pane-recipe-card--left,
+        .two-pane-recipe-card--right {
+            min-width: 700px;
+            max-width: 700px;
+            @include align-center();
+        }
+    }
+}

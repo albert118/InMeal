@@ -1,0 +1,6 @@
+@use '@carbon/react/scss/spacing' as *;
+@import './action-buttons.scss';
+
+.p-recipe {
+    margin: $spacing-06;
+}
