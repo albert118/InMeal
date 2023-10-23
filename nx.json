@@ -5,5 +5,15 @@
   },
   "plugins": [
     "@nx-dotnet/core"
-  ]
+  ],
+  "namedInputs": {
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "sharedGlobals": [],
+    "production": [
+      "default"
+    ]
+  }
 }
