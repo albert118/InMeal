@@ -1,4 +1,4 @@
-namespace InMeal.Features.Recipes;
+namespace InMeal.Api.Features.Recipes;
 
 public class RecipeUniqueTitleException : ApplicationException
 {

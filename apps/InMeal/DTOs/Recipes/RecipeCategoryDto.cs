@@ -1,6 +1,6 @@
 ﻿using InMeal.Core.Enumerations;
 
-namespace InMeal.DTOs.Recipes;
+namespace InMeal.Api.DTOs.Recipes;
 
 public sealed record RecipeCategoryDto(
     string RecipeTitle,

@@ -1,7 +1,7 @@
+using InMeal.Api.DTOs.Recipes;
 using InMeal.Core.Entities;
-using InMeal.DTOs.Recipes;
 
-namespace InMeal.Mappers;
+namespace InMeal.Api.Mappers;
 
 public static class RecipeCategoryMapper
 {

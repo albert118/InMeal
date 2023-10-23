@@ -1,11 +1,11 @@
 ﻿using Autofac;
+using InMeal.Api.Settings;
 using InMeal.Core;
 using InMeal.Infrastructure.Data.RecipesDb;
 using InMeal.Infrastructure.Interfaces.Data;
-using InMeal.Settings;
 using Microsoft.EntityFrameworkCore;
 
-namespace InMeal.RegistrationExtensions;
+namespace InMeal.Api.RegistrationExtensions;
 
 public static class EfContextRegistrationExtensions
 {

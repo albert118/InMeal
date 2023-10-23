@@ -1,12 +1,12 @@
 using System.Data;
+using InMeal.Api.DTOs.Ingredients;
+using InMeal.Api.Mappers;
 using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
-using InMeal.DTOs.Ingredients;
 using InMeal.Infrastructure.Interfaces.DataServices;
 using InMeal.Infrastructure.Interfaces.QueryServices;
-using InMeal.Mappers;
 
-namespace InMeal.Features.Ingredients;
+namespace InMeal.Api.Features.Ingredients;
 
 public interface IIngredientsManager
 {

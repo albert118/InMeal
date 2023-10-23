@@ -1,7 +1,7 @@
 ﻿using Autofac;
 using InMeal.Infrastructure;
 
-namespace InMeal;
+namespace InMeal.Api.RegistrationExtensions;
 
 public static class ApplicationServiceRegistrationExtensions
 {

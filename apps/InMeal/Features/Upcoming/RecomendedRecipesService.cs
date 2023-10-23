@@ -1,8 +1,8 @@
-﻿using InMeal.DTOs.Recipes;
+﻿using InMeal.Api.DTOs.Recipes;
+using InMeal.Api.Mappers;
 using InMeal.Infrastructure.Interfaces.QueryServices;
-using InMeal.Mappers;
 
-namespace InMeal.Features.Upcoming;
+namespace InMeal.Api.Features.Upcoming;
 
 public interface IRecommendedRecipesService
 {

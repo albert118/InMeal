@@ -1,11 +1,11 @@
 using System.Data;
+using InMeal.Api.DTOs.Recipes;
+using InMeal.Api.Mappers;
 using InMeal.Core.Entities;
 using InMeal.Core.Enumerations;
-using InMeal.DTOs.Recipes;
 using InMeal.Infrastructure.Interfaces.DataServices;
-using InMeal.Mappers;
 
-namespace InMeal.Features.Recipes;
+namespace InMeal.Api.Features.Recipes;
 
 public interface IRecipeManager
 {

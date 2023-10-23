@@ -1,9 +1,9 @@
 ﻿using System.Text.Json.Serialization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using InMeal.RegistrationExtensions;
+using InMeal.Api.RegistrationExtensions;
 
-namespace InMeal;
+namespace InMeal.Api;
 
 public class Startup
 {

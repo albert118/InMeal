@@ -1,11 +1,11 @@
-﻿using InMeal.Core.Entities;
-using InMeal.DTOs.Ingredients;
-using InMeal.Features.Ingredients;
+﻿using InMeal.Api.DTOs.Ingredients;
+using InMeal.Api.Features.Ingredients;
+using InMeal.Api.Mappers;
+using InMeal.Core.Entities;
 using InMeal.Infrastructure;
-using InMeal.Mappers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace InMeal.Controllers.Ingredients;
+namespace InMeal.Api.Controllers.Ingredients;
 
 [ApiController]
 [Route("api/[controller]/[action]")]

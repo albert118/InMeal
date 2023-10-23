@@ -1,5 +1,5 @@
 ﻿using InMeal.Core.Enumerations;
 
-namespace InMeal.DTOs.Recipes;
+namespace InMeal.Api.DTOs.Recipes;
 
 public sealed record AddRecipeCategoryDto(Guid RecipeId, Cuisine RecipeCategory);
