@@ -1,6 +1,77 @@
 {
-	"targetDefaults": {},
-	"affected": {
-		"defaultBase": "master"
-	}
+    "$schema": "./node_modules/nx/schemas/nx-schema.json",
+    "affected": {
+        "defaultBase": "master"
+    },
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "nx/tasks-runners/default",
+            "options": {
+                "cacheableOperations": [
+                    "build",
+                    "lint",
+                    "test",
+                    "codegen",
+                    "swagger"
+                ]
+            }
+        }
+    },
+    "targetDefaults": {
+        "build": {
+            "dependsOn": ["codegen", "^codegen"],
+            "inputs": ["default", "production", "^production"]
+        },
+        "codegen": {},
+        "swagger": {},
+        "lint": {
+            "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore",
+                "{workspaceRoot}/eslint.config.js"
+            ]
+        },
+        "test": {
+            "inputs": ["default", "^production"]
+        }
+    },
+    "plugins": [
+        {
+            "plugin": "@nx-dotnet/core",
+            "options": {
+                "solutionFile": "{npmScope}.nx-dotnet.sln",
+                "inferProjects": true,
+                "inferProjectTargets": true,
+                "nugetPackages": {
+                    "Microsoft.EntityFrameworkCore": "6.0.12",
+                    "Microsoft.EntityFrameworkCore.Design": "6.0.12",
+                    "Microsoft.EntityFrameworkCore.Relational": "6.0.12",
+                    "Microsoft.EntityFrameworkCore.Tools": "6.0.12",
+                    "Microsoft.Extensions.Configuration.Json": "7.0.0",
+                    "Newtonsoft.Json": "13.0.2",
+                    "Pomelo.EntityFrameworkCore.MySql": "6.0.2"
+                }
+            }
+        },
+        "@nx-dotnet/core"
+    ],
+    "namedInputs": {
+        "default": ["{projectRoot}/**/*", "sharedGlobals"],
+        "sharedGlobals": [],
+        "production": [
+            "default",
+            "!{projectRoot}/.eslintrc.json",
+            "!{projectRoot}/eslint.config.js",
+            "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+            "!{projectRoot}/tsconfig.spec.json"
+        ]
+    },
+    "generators": {
+        "@nx/react": {
+            "application": {
+                "babel": true
+            }
+        }
+    }
 }
