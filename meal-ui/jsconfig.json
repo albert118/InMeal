@@ -1,7 +1,8 @@
 {
-	"compilerOptions": {
-		"baseUrl": "src"
-	},
-	"include": ["src"],
-	"exclude": ["dist"]
+    "extends": "../jsconfig.base.json",
+    "compilerOptions": {
+        "baseUrl": "src"
+    },
+    "include": ["**/*.js", "**/*.jsx"],
+    "exclude": ["node_modules"]
 }
