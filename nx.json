@@ -14,6 +14,14 @@
         },
         "swagger": {
             "cache": true
+        },
+        "lint": {
+            "inputs": [
+                "default",
+                "{workspaceRoot}/.eslintrc.json",
+                "{workspaceRoot}/.eslintignore",
+                "{workspaceRoot}/eslint.config.js"
+            ]
         }
     },
     "plugins": [
@@ -39,7 +47,11 @@
     "namedInputs": {
         "default": ["{projectRoot}/**/*", "sharedGlobals"],
         "sharedGlobals": [],
-        "production": ["default"]
+        "production": [
+            "default",
+            "!{projectRoot}/.eslintrc.json",
+            "!{projectRoot}/eslint.config.js"
+        ]
     },
     "generators": {
         "@nx/react": {
