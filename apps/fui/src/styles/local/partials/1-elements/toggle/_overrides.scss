@@ -1,0 +1,6 @@
+@use '../../../mixins/text-mixins' as *;
+
+.cds--toggle__label-text,
+.cds--toggle__text {
+    @include label();
+}

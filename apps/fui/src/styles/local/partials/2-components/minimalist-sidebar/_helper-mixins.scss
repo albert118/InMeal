@@ -1,0 +1,14 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../../mixins/glass-background' as *;
+
+@mixin sidebar-element-alignments {
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@mixin menu-card {
+    padding: $spacing-06;
+    @include glass-background();
+    border-radius: 12px;
+}

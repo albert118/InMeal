@@ -1,0 +1,16 @@
+/**
+ * for more on the Carbon Design System font,
+ * See: https://stackblitz.com/edit/github-hf5kjr-sfmrgv?file=src%2Findex.scss,package.json
+ * for a React + CDS + Vite example,
+ * See: https://github.com/carbon-design-system/carbon/blob/main/packages/styles/scss/fonts/README.md
+ */
+
+/* configure the carbon design system styling */
+@use '@carbon/styles/scss/config' with (
+    $css--font-face: false
+);
+
+@use '@carbon/react';
+
+@import 'config/colors.scss';
+@import 'config/layers.scss';
