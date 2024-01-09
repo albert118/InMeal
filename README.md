@@ -26,17 +26,18 @@
 
 \_ Designed to be responsive with tablets in mind from the start. No more squinting at small buttons or "mouse-friendly" UX 🪤.
 
-- Minimal design avoids bloating your experience with unnecessary reviews or comments 😁.
-- Bulk editing for ingredients, no more typos across all your recipes 🔏!
-- Searchable, recipes and ingredients are easy to find 🔎.
-- Batteries included meta-data, easily include common meta-data for recipes such as servings or cook-time 🔋.
+-   Minimal design avoids bloating your experience with unnecessary reviews or comments 😁.
+-   Bulk editing for ingredients, no more typos across all your recipes 🔏!
+-   Searchable, recipes and ingredients are easy to find 🔎.
+-   Batteries included meta-data, easily include common meta-data for recipes such as servings or cook-time 🔋.
 
 ## Getting started
 
-| Project                        | Description                              |
-| ------------------------------ | ---------------------------------------- |
-| [Meal UI](./meal-ui/README.md) | A React UI served with Webpack and NGinx |
-| [InMeal](./InMeal/README.md)   | A dotnet API using EF Core and MariaDb   |
+| Project                                          | Description                                                              |
+| ------------------------------------------------ | ------------------------------------------------------------------------ |
+| [InMeal](./apps/InMeal.Api/README.md)            | A dotnet API using EF Core and MariaDb                                   |
+| [Meal UI (deprecated)](./apps/meal-ui/README.md) | A React UI served with Webpack and NGinx                                 |
+| [Food UI (aka. "FUI")](./apps/fui/README.md)     | A Vite + React UI built with Carbon Design System and heavy modification |
 
 ## 👀 Examples
 
@@ -47,16 +48,15 @@
     <img src="https://github.com/albert118/InMeal/assets/26985949/4945052f-8f5b-4d2d-b66d-df3a88ba09aa" alt="In Meal manage view recipe" />
 </p>
 
-## Upcoming features
+## Roadmap
 
-- [ ] apply filters when clicking a badge
-- [ ] generative images (replace demo image)
-- [ ] add sections to recipe steps
-- [ ] add settings to page to extend/edit meal types and categories
-- [ ] favourites list
-- [ ] recommended options on the homepage
-- [ ] "always on" feature for mobile
-- [ ] improve background design
-
-
-
+-   [x] Introduce Nx to repo
+-   [x] Move away from create-react-app + webpack (use Vite instead)
+-   [ ] apply filters when clicking a badge
+-   [ ] generative images (replace demo image)
+-   [ ] add sections to recipe steps
+-   [ ] add settings to page to extend/edit meal types and categories
+-   [ ] favourites list
+-   [ ] recommended options on the homepage
+-   [ ] "always on" feature for mobile
+-   [ ] improve background design
