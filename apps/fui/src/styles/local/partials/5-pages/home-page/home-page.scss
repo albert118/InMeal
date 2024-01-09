@@ -1,0 +1,13 @@
+@use '../../../mixins/page-title-block' as *;
+@use '@carbon/react/scss/spacing' as *;
+
+.p-home {
+    margin: $spacing-12;
+
+    .quick-recipes-view {
+        .planning-quick-view,
+        .explore-quick-view {
+            margin: $spacing-09 0;
+        }
+    }
+}

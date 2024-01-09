@@ -1,0 +1,6 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../../mixins/page-title-block' as *;
+
+.p-ingredients {
+    @include page-title-block();
+}

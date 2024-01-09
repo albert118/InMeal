@@ -13,6 +13,7 @@
         },
         "serve": {
             "executor": "@nx/vite:dev-server",
+            "defaultConfiguration": "development",
             "outputs": ["{options.outputPath}"],
             "options": {
                 "buildTarget": "@in-meal/fui:build"

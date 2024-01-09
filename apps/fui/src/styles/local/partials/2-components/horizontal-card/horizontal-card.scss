@@ -1,0 +1,120 @@
+@use '@carbon/react/scss/spacing' as *;
+@use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/card-shadow' as *;
+@use '../../../mixins/glass-background' as *;
+@use '../../../mixins/image-cover' as *;
+@use '../../../mixins/alignment' as *;
+
+.horiz-card {
+    display: flex;
+    --horiz-card-height: 250px;
+    height: var(--horiz-card-height);
+    width: 45%;
+    border-radius: 12px;
+    border: 1.25px solid var(--background-neutral);
+    @include glass-background();
+    @include card-shadow();
+    column-gap: $spacing-05;
+
+    .horiz-card__image-slot {
+        flex: 0.2;
+        max-width: 20%;
+    }
+
+    .horiz-card__content-slot {
+        flex: 0.8;
+        max-width: 80%;
+        margin-right: $spacing-05;
+    }
+
+    .horiz-card__image-slot {
+        border-right: 1.25px solid var(--border);
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        border-radius: 12px 0 0 12px;
+        @include image-cover();
+
+        img {
+            border-radius: 12px 0 0 12px;
+        }
+
+        .add,
+        .remove {
+            @include align-center();
+            // icons are 32px in this usage
+            width: 32px;
+            position: relative;
+            top: -55%;
+            opacity: 0;
+        }
+
+        &:hover {
+            background-color: var(--background-details);
+            transition: background-color (--sequence-clicky) ease-out;
+
+            img {
+                transition: opacity var(--sequence-clicky) ease-out;
+                opacity: 0.05;
+            }
+
+            .add {
+                opacity: 1;
+            }
+        }
+    }
+
+    .horiz-card__content-slot {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            h4 {
+                @include text-header();
+            }
+
+            &[disabled] {
+                h4,
+                * {
+                    color: var(--text-disabled);
+                }
+            }
+        }
+
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            padding: $spacing-05;
+            gap: $spacing-04;
+            align-items: center;
+        }
+    }
+}
+
+.horiz-card-selected {
+    border: 1.25px solid var(--primary);
+
+    .horiz-card__image-slot {
+        background-color: var(--background-details);
+        transition: background-color (--sequence-clicky) ease-out;
+
+        img {
+            transition: opacity var(--sequence-clicky) ease-out;
+            opacity: 0.05;
+        }
+
+        .remove {
+            opacity: 1;
+        }
+    }
+}
+
+/* horizontal card becomes 1 per line */
+@media (max-width: 1056px) {
+    .horiz-card {
+        width: 100%;
+    }
+}

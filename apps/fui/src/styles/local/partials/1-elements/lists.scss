@@ -1,0 +1,6 @@
+@use '@carbon/react/scss/spacing' as *;
+
+ol.simple-numbered-list > li {
+    list-style: decimal;
+    margin: $spacing-04;
+}
