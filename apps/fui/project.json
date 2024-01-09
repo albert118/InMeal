@@ -1,0 +1,48 @@
+{
+    "name": "@in-meal/fui",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/fui/src",
+    "projectType": "module",
+    "targets": {
+        "build": {
+            "executor": "@nx/vite:build",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "outputPath": "dist/apps/fui"
+            }
+        },
+        "serve": {
+            "executor": "@nx/vite:dev-server",
+            "outputs": ["{options.outputPath}"],
+            "options": {
+                "buildTarget": "@in-meal/fui:build"
+            }
+        },
+        "lint": {
+            "executor": "@nx/eslint:lint",
+            "outputs": ["{options.outputFile}"],
+            "options": {
+                "lintFilePatterns": [
+                    "apps/fui/**/*.ts",
+                    "apps/fui/package.json"
+                ]
+            }
+        },
+        "preview": {
+            "executor": "@nx/vite:preview-server",
+            "defaultConfiguration": "development",
+            "options": {
+                "buildTarget": "@in-meal/fui:build"
+            },
+            "configurations": {
+                "development": {
+                    "buildTarget": "@in-meal/fui:build:development"
+                },
+                "production": {
+                    "buildTarget": "@in-meal/fui:build:production"
+                }
+            }
+        }
+    },
+    "tags": []
+}

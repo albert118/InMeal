@@ -3,6 +3,6 @@
     "compilerOptions": {
         "baseUrl": "src"
     },
-    "include": ["**/*.js", "**/*.jsx"],
+    "include": ["**/*.js", "**/*.jsx", "bi.ts"],
     "exclude": ["node_modules"]
 }

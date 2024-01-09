@@ -16,6 +16,7 @@
         "checkJs": false,
         "baseUrl": ".",
         "paths": {
+            "@in-meal/fui": ["apps/fui/src/index.ts"],
             "@use-api": ["libs/use-api/src/index.ts"]
         }
     },
