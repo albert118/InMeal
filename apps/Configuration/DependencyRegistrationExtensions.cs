@@ -1,4 +1,3 @@
-using System.Linq.Expressions;
 using Autofac;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,15 +15,7 @@ public static class DependencyRegistrationExtensions
         
         return containerBuilder;
     }
-    
-    public static ContainerBuilder AddEfCoreDbContexts(this ContainerBuilder builder, Expression<Action<ContainerBuilder>> addMigrationContext, Expression<Action<ContainerBuilder, bool>> addDbContexts, bool isProduction)
-    {
-        if (isProduction) addMigrationContext.Compile();
-        
-        addDbContexts.Compile();
 
-        return builder;
-    }
     public static ContainerBuilder AddDbContextOptions<TContext>(this ContainerBuilder containerBuilder, bool isDevelopment)
         where TContext : DbContext
     {

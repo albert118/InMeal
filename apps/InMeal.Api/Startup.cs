@@ -37,27 +37,26 @@ public class Startup
     /// <summary>
     ///     Configure the Autofac container
     /// </summary>
-    public static void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config,
-        IWebHostEnvironment env)
+    public static void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config, IWebHostEnvironment env)
     {
         hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
         hostBuilder.ConfigureContainer<ContainerBuilder>(containerBuilder =>
         {
-            containerBuilder
-                .RegisterDatabaseSettings(config)
-                .AddEfCoreDbContexts(
-                    builder => builder
-                               .RegisterType<InMealDbMigrationContext>()
-                               .WithParameter("opts", InMealDbMigrationContextFactory.GetDbContextOptions())
-                               .InstancePerLifetimeScope(),
-                    (builder, isDevelopment) =>
-                        builder.AddDbContextOptions<RecipeDbContext>(isDevelopment)
-                               .RegisterType<RecipeDbContext>()
-                               .As<IRecipeDbContext>()
-                               .InstancePerLifetimeScope(),
-                    env.IsProduction()
-                ).AddApplicationServices();
+            containerBuilder.RegisterDatabaseSettings(config);
+            
+            if (env.IsProduction()) {
+                containerBuilder.RegisterType<InMealDbMigrationContext>()
+                                .WithParameter("opts", InMealDbMigrationContextFactory.GetDbContextOptions())
+                                .InstancePerLifetimeScope();
+            }
+
+            containerBuilder.AddDbContextOptions<RecipeDbContext>(env.IsDevelopment())
+                            .RegisterType<RecipeDbContext>()
+                            .As<IRecipeDbContext>()
+                            .InstancePerLifetimeScope();
+            
+            containerBuilder.AddApplicationServices();
         });
     }
 

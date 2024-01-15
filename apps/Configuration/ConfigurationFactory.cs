@@ -6,7 +6,7 @@ public static class ConfigurationFactory
 {
     public static IConfigurationRoot GetConfiguration()
     {
-        const string appSettings = "appsettings..json";
+        const string appSettings = "appsettings.json";
         var appSettingsEnv = $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json";
         
         return new ConfigurationBuilder()
