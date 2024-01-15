@@ -1,7 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Configuration;
 using InMeal.Api.RegistrationExtensions;
+using InMeal.Core;
+using InMeal.Infrastructure.Data.RecipesDb;
+using InMeal.Infrastructure.Interfaces.Data;
 
 namespace InMeal.Api;
 
@@ -33,22 +37,31 @@ public class Startup
     /// <summary>
     ///     Configure the Autofac container
     /// </summary>
-    public static void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config,
-        IWebHostEnvironment env)
+    public static void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config, IWebHostEnvironment env)
     {
         hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
         hostBuilder.ConfigureContainer<ContainerBuilder>(containerBuilder =>
         {
-            containerBuilder
-                .AddDatabaseSettings(config)
-                .AddEfCoreDbContexts(env)
-                .AddApplicationServices();
+            containerBuilder.RegisterDatabaseSettings(config);
+            
+            if (env.IsProduction()) {
+                containerBuilder.RegisterType<InMealDbMigrationContext>()
+                                .WithParameter("opts", InMealDbMigrationContextFactory.GetDbContextOptions())
+                                .InstancePerLifetimeScope();
+            }
+
+            containerBuilder.AddDbContextOptions<RecipeDbContext>(env.IsDevelopment())
+                            .RegisterType<RecipeDbContext>()
+                            .As<IRecipeDbContext>()
+                            .InstancePerLifetimeScope();
+            
+            containerBuilder.AddApplicationServices();
         });
     }
 
     /// <summary>
-    ///     Configure the webapplication depending on the environment
+    ///     Configure the web application depending on the environment
     /// </summary>
     public static void Configure(WebApplication app, IWebHostEnvironment env)
     {

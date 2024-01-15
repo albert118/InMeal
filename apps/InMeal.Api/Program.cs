@@ -1,24 +1,17 @@
-using InMeal;
+using Configuration;
 using InMeal.Api;
 using InMeal.Core;
 using Microsoft.EntityFrameworkCore;
 
-const string appSettingsFilePath = "appsettings.json";
-
-// retrieve and inject the application configuration
-var appConfig = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile(appSettingsFilePath)
-                .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
-                .AddEnvironmentVariables()
-                .Build();
-
 var builder = WebApplication.CreateBuilder(args);
-
 var startup = new Startup(builder.Configuration);
 
 // Configure the host container (Autofac) within this method
-Startup.ConfigureHostContainer(builder.Host, appConfig, builder.Environment);
+Startup.ConfigureHostContainer(
+    builder.Host,
+    ConfigurationFactory.GetConfiguration(),
+    builder.Environment
+);
 
 // Configure the global Microsoft container services
 startup.ConfigureServices(builder.Services);
