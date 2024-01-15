@@ -7,6 +7,8 @@
         "build": {
             "executor": "@nx/vite:build",
             "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
+            "generatePackageJson": true,
             "options": {
                 "outputPath": "dist/apps/fui"
             }
@@ -43,6 +45,9 @@
                     "buildTarget": "@in-meal/fui:build:production"
                 }
             }
+        },
+        "docker-build": {
+            "command": "docker build -f apps/fui/Dockerfile . -t inmeal-frontend"
         }
     },
     "tags": []

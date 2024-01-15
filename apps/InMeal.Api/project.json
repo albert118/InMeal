@@ -30,11 +30,6 @@
             "executor": "@nx-dotnet/core:serve",
             "options": {
                 "configuration": "Debug"
-            },
-            "configurations": {
-                "production": {
-                    "configuration": "Release"
-                }
             }
         },
         "lint": {
@@ -45,6 +40,9 @@
             "options": {
                 "command": "dotnet dev-certs https --trust"
             }
+        },
+        "docker-build": {
+            "command": "docker build -f apps/InMeal.Api/Dockerfile . -t inmeal-backend"
         }
     },
     "tags": []
