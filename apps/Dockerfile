@@ -2,10 +2,16 @@
 
 ## InMeal backend API (.NET)
 
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:6.0 AS base
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:7.0 AS base
 
 WORKDIR /src
-COPY . ./
+
+# TODO avoid copying source code and instead copy the 
+# Nx build task outputs
+
+COPY apps/Configuration/ ./Configuration
+COPY apps/InMeal.*/ ./
+
 RUN dotnet restore
 
 FROM base as builder

@@ -22,11 +22,15 @@ public static class ConfigurationFactory
     public static DatabaseSettings GetDatabaseSettings(IConfiguration config)
     {
         return new DatabaseSettings(
-            config.GetConnectionString("InMealDbConnection")!,
+            config.GetConnectionString("InMealDbConnection") ??
+            throw new ArgumentException("database connection should be configured to continue"),
             new(new Version(
-                int.Parse(config.GetSection("ConnectionStrings:ServerVersionMajor").Value!),
-                int.Parse(config.GetSection("ConnectionStrings:ServerVersionMinor").Value!),
-                int.Parse(config.GetSection("ConnectionStrings:ServerVersionBuild").Value!)
+                int.Parse(config.GetSection("ConnectionStrings:ServerVersionMajor").Value ??
+                          throw new ArgumentException("database major version should be configured to continue")),
+                int.Parse(config.GetSection("ConnectionStrings:ServerVersionMinor").Value ??
+                          throw new ArgumentException("database minor version should be configured to continue")),
+                int.Parse(config.GetSection("ConnectionStrings:ServerVersionBuild").Value ??
+                          throw new ArgumentException("database build version should be configured to continue"))
             ))
         );
     }

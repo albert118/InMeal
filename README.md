@@ -65,10 +65,10 @@ cp .env.example .env
 nano .env
 ```
 
-Run the build task and compose the stack,
+Run the docker build task to build the production projects and create Docker images. Then deploy them with docker compose,
 
 ```sh
-nx run-many -t build
+nx run-many -t docker-build
 docker compose up
 ```
 
