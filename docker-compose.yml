@@ -5,25 +5,28 @@ networks:
         driver: bridge
 
 services:
-    backend:
-        container_name: backend
+    inmeal-backend:
+        container_name: inmeal-backend
+        image: inmeal-backend
         restart: unless-stopped
-        build:
-            context: ./InMeal
         ports:
             - '${API_PORT}:7078'
         environment:
             ASPNETCORE_ENVIRONMENT: 'Production'
             ASPNETCORE_URLS: 'http://+:7078'
-            DATABASE_CONNECTION: ${DATABASE_CONNECTION}
+            ConnectionStrings__InMealDbConnection: ${DATABASE_CONNECTION}
+            ConnectionStrings__ServerVersionMajor: ${DATABASE_VERSION_MAJOR}
+            ConnectionStrings__ServerVersionMinor: ${DATABASE_VERSION_MINOR}
+            ConnectionStrings__ServerVersionBuild: ${DATABASE_VERSION_BUILD}
         networks:
             - in-meal-network
-    spa:
-        container_name: spa
+    inmeal-frontend:
+        container_name: inmeal-frontend
+        image: inmeal-frontend
         restart: unless-stopped
-        build:
-            context: ./meal-ui/
         ports:
             - '${SPA_PORT}:80'
+        depends_on:
+            - inmeal-backend
         networks:
             - in-meal-network

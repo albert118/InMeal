@@ -46,11 +46,41 @@ This runs a Vite dev server for the frontend and a dotnet API.
 -   Vite is configured with HMR and auto-restart
 -   dotnet is configured to watch and auto-restart too
 
+## Project overview
+
 | Project                                          | Description                                                              |
 | ------------------------------------------------ | ------------------------------------------------------------------------ |
 | [InMeal](./apps/InMeal.Api/README.md)            | A dotnet API using EF Core + MariaDb                                     |
 | [Food UI (aka. "FUI")](./apps/fui/README.md)     | A Vite + React UI built with Carbon Design System and heavy modification |
 | [Meal UI (deprecated)](./apps/meal-ui/README.md) | A React UI served with Webpack and NGinx                                 |
+
+## Building and deploying the Docker stack
+
+> Ensure you have a valid MariaDb/MySQL instance you can connect to before continuing.
+
+Configure your environment with a db connection string in a fresh dotenv file,
+
+```sh
+cp .env.example .env
+nano .env
+```
+
+To get the app up and running we need to build the dependencies and docker images. Then
+run docker compose to bring everything online. Which we can do with these commands,
+
+```sh
+nx build
+nx docker-build
+docker compose up
+```
+
+Done 🎈! You should be viewing successful docker container logs in your console.
+Visit the app on <http://localhost:3002/>
+
+> Note: nx docker-build will determine you need to build the dotnet projects.
+> nx-dotnet has issues when running in parallel, as it and msbuild conflict on file-locks...
+> To avoid this problem, the underlying script builds the dotnet projects sequentially before
+> building the containers.
 
 ## 👀 Examples
 

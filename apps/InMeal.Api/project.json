@@ -5,7 +5,9 @@
     "sourceRoot": "apps/InMeal.Api",
     "targets": {
         "build": {
+            "parallel": false,
             "executor": "@nx-dotnet/core:build",
+            "defaultConfiguration": "production",
             "outputs": [
                 "{workspaceRoot}/dist/apps/InMeal.Api",
                 "{workspaceRoot}/dist/intermediates/apps/InMeal.Api"
@@ -18,10 +20,12 @@
             ],
             "options": {
                 "configuration": "Debug",
-                "noDependencies": true
+                "noDependencies": true,
+                "verbosity": "detailed"
             },
             "configurations": {
                 "production": {
+                    "verbosity": "quiet",
                     "configuration": "Release"
                 }
             }
@@ -30,11 +34,6 @@
             "executor": "@nx-dotnet/core:serve",
             "options": {
                 "configuration": "Debug"
-            },
-            "configurations": {
-                "production": {
-                    "configuration": "Release"
-                }
             }
         },
         "lint": {
@@ -43,7 +42,15 @@
         "trust-certs": {
             "executor": "nx:run-commands",
             "options": {
+                "color": true,
                 "command": "dotnet dev-certs https --trust"
+            }
+        },
+        "docker-build": {
+            "executor": "nx:run-commands",
+            "options": {
+                "color": true,
+                "command": "docker build -f apps/InMeal.Api/Dockerfile . -t inmeal-backend"
             }
         }
     },

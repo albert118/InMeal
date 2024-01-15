@@ -1,5 +1,5 @@
 {
-    "name": "@in-meal/fui",
+    "name": "@inmeal/fui",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "apps/fui/src",
     "projectType": "application",
@@ -7,6 +7,7 @@
         "build": {
             "executor": "@nx/vite:build",
             "outputs": ["{options.outputPath}"],
+            "defaultConfiguration": "production",
             "options": {
                 "outputPath": "dist/apps/fui"
             }
@@ -42,6 +43,14 @@
                 "production": {
                     "buildTarget": "@in-meal/fui:build:production"
                 }
+            }
+        },
+        "docker-build": {
+            "executor": "nx:run-commands",
+            "dependsOn": ["build"],
+            "options": {
+                "color": true,
+                "command": "docker build -f apps/fui/Dockerfile . -t inmeal-frontend"
             }
         }
     },
