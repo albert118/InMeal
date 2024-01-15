@@ -1,43 +1,14 @@
 <h1 align="center">
-  Meal UI
+  FUI (aka. "Food UI")
 </h1>
 
 > a superset of custom designs and [Carbon Design System](https://github.com/carbon-design-system/carbon/blob/main/README.md)
 > for a clean, minimal, and modern UI experience.
-> This includes various React components, custom designs,
-> and the supporting JS scripting.
+> This includes various React components with custom designs.
 
-## Getting started
+## Available Tasks
 
-Install the dependencies and run the dev server
-
-```sh
-npm ci && npm run start
-```
-
-This should automatically open on [http://localhost:8080](http://localhost:8080). Requests to `/api` will automatically proxy to dotnet API project.
-
-## Linting and autoformatting
-
-This project uses [ESLint](https://eslint.org) and [Prettier](https://prettier.io).
-
-To preview the linting process run,
-
-```sh
-npm run lint:preview
-```
-
-If you're happy with the suggestions, you can apply autofixes with,
-
-```sh
-npm run lint
-```
-
-Prettier is configured to format on-save. However, if you wish to autoformat the entire project at once run,
-
-```sh
-npm run format
-```
+Checkout [the project.json targets](./project.json)
 
 ## Building / Compiling the Production App
 

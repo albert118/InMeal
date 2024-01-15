@@ -46,11 +46,31 @@ This runs a Vite dev server for the frontend and a dotnet API.
 -   Vite is configured with HMR and auto-restart
 -   dotnet is configured to watch and auto-restart too
 
+## Project overview
+
 | Project                                          | Description                                                              |
 | ------------------------------------------------ | ------------------------------------------------------------------------ |
 | [InMeal](./apps/InMeal.Api/README.md)            | A dotnet API using EF Core + MariaDb                                     |
 | [Food UI (aka. "FUI")](./apps/fui/README.md)     | A Vite + React UI built with Carbon Design System and heavy modification |
 | [Meal UI (deprecated)](./apps/meal-ui/README.md) | A React UI served with Webpack and NGinx                                 |
+
+## Building and deploying the Docker stack
+
+> Ensure you have a valid MariaDb/MySQL instance you can connect to before continuing.
+
+Configure your environment with a db connection string in a fresh dotenv file,
+
+```sh
+cp .env.example .env
+nano .env
+```
+
+Run the build task and compose the stack,
+
+```sh
+nx run-many -t build
+docker compose up
+```
 
 ## 👀 Examples
 
