@@ -40,5 +40,8 @@
         <EmbeddedResource Remove="obj\**" />
         <None Remove="obj\**" />
     </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\Configuration\Configuration.csproj" />
+    </ItemGroup>
 
 </Project>

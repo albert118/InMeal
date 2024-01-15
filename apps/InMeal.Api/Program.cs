@@ -1,6 +1,6 @@
+using Configuration;
 using InMeal.Api;
 using InMeal.Core;
-using InMeal.Infrastructure.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

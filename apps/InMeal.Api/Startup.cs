@@ -1,8 +1,11 @@
 ﻿using System.Text.Json.Serialization;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Configuration;
 using InMeal.Api.RegistrationExtensions;
-using InMeal.Infrastructure.Configuration;
+using InMeal.Core;
+using InMeal.Infrastructure.Data.RecipesDb;
+using InMeal.Infrastructure.Interfaces.Data;
 
 namespace InMeal.Api;
 
@@ -34,7 +37,8 @@ public class Startup
     /// <summary>
     ///     Configure the Autofac container
     /// </summary>
-    public static void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config, IWebHostEnvironment env)
+    public static void ConfigureHostContainer(ConfigureHostBuilder hostBuilder, IConfiguration config,
+        IWebHostEnvironment env)
     {
         hostBuilder.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
@@ -42,9 +46,18 @@ public class Startup
         {
             containerBuilder
                 .RegisterDatabaseSettings(config)
-                // avoid passing the IWebHostEnvironment to the infrastructure layer
-                .AddEfCoreDbContexts(isDevelopment: env.IsDevelopment(), isProduction: env.IsProduction())
-                .AddApplicationServices();
+                .AddEfCoreDbContexts(
+                    builder => builder
+                               .RegisterType<InMealDbMigrationContext>()
+                               .WithParameter("opts", InMealDbMigrationContextFactory.GetDbContextOptions())
+                               .InstancePerLifetimeScope(),
+                    (builder, isDevelopment) =>
+                        builder.AddDbContextOptions<RecipeDbContext>(isDevelopment)
+                               .RegisterType<RecipeDbContext>()
+                               .As<IRecipeDbContext>()
+                               .InstancePerLifetimeScope(),
+                    env.IsProduction()
+                ).AddApplicationServices();
         });
     }
 

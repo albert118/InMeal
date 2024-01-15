@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Configuration\Configuration.csproj" />
         <ProjectReference Include="..\InMeal.Core\InMeal.Core.csproj" />
         <ProjectReference Include="..\InMeal.Infrastructure\InMeal.Infrastructure.csproj" />
     </ItemGroup>
