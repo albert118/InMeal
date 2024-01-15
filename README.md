@@ -38,7 +38,7 @@ _Designed to be responsive with tablets in mind from the start. No more squintin
 Serve the development configuration locally,
 
 ```sh
-nx run-man -t serve --projects=InMeal.Api,@in-meal/fui
+nx run serve-stack
 ```
 
 This runs a Vite dev server for the frontend and a dotnet API.
