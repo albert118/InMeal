@@ -16,6 +16,13 @@ export default defineConfig({
                 // source directory
                 searchForWorkspaceRoot(process.cwd())
             ]
+        },
+        proxy: {
+            '/api': {
+                target: 'http://localhost:5078',
+                changeOrigin: true,
+                secure: false
+            }
         }
     },
     preview: {
