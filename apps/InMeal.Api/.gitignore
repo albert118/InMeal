@@ -2,5 +2,6 @@
 # if you want to add configuration then perhaps you mean to populate an
 # env file and hook into the relevant docker-nx task?
 
+appsettings.json
 appsettings.*.json
 *.env
