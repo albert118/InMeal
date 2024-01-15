@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMeal.Core", "InMeal.Core\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMeal.Infrastructure", "InMeal.Infrastructure\InMeal.Infrastructure.csproj", "{8C999C42-C04A-4AF5-8F02-A17957564148}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Configuration", "Configuration\Configuration.csproj", "{C17C34D2-0C4E-4106-90CB-7DCC1A38D635}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{8C999C42-C04A-4AF5-8F02-A17957564148}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C999C42-C04A-4AF5-8F02-A17957564148}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C999C42-C04A-4AF5-8F02-A17957564148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C17C34D2-0C4E-4106-90CB-7DCC1A38D635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C17C34D2-0C4E-4106-90CB-7DCC1A38D635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C17C34D2-0C4E-4106-90CB-7DCC1A38D635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C17C34D2-0C4E-4106-90CB-7DCC1A38D635}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
