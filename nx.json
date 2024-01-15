@@ -35,9 +35,7 @@
         "test": {
             "inputs": ["default", "^production"]
         },
-        "docker-build": {
-            "dependsOn": ["build"]
-        }
+        "docker-build": {}
     },
     "plugins": [
         {

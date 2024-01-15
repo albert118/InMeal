@@ -65,12 +65,22 @@ cp .env.example .env
 nano .env
 ```
 
-Run the docker build task to build the production projects and create Docker images. Then deploy them with docker compose,
+To get the app up and running we need to build the dependencies and docker images. Then
+run docker compose to bring everything online. Which we can do with these commands,
 
 ```sh
-nx run-many -t docker-build
+nx build
+nx docker-build
 docker compose up
 ```
+
+Done 🎈! You should be viewing successful docker container logs in your console.
+Visit the app on <http://localhost:3002/>
+
+> Note: nx docker-build will determine you need to build the dotnet projects.
+> nx-dotnet has issues when running in parallel, as it and msbuild conflict on file-locks...
+> To avoid this problem, the underlying script builds the dotnet projects sequentially before
+> building the containers.
 
 ## 👀 Examples
 
