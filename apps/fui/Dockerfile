@@ -6,13 +6,9 @@ FROM nginx:1.23.4-alpine-slim as nginx-spa
 
 WORKDIR /www/inmeal/
 
-# nx build artifacts (nx generates package.json for us)
+# nx build artifacts (nx generates package.json for us - not that we need it here but I've done it now)
 
 COPY /dist/apps/fui/ ./
-
-# TODO:
-# RUN apk add --no-cache --update python3 make g++ && rm -rf /var/cache/apk/*
-# RUN npm ci
 
 ENV PATH /src/app/node_modules/.bin:$PATH
 
