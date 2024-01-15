@@ -1,0 +1,6 @@
+# avoid accidentally tracking env specific settings/secrets
+# if you want to add configuration then perhaps you mean to populate an
+# env file and hook into the relevant docker-nx task?
+
+appsettings.*.json
+*.env
