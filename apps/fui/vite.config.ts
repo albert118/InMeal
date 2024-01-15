@@ -9,6 +9,7 @@ export default defineConfig({
     server: {
         port: 4200,
         host: 'localhost',
+        open: true,
         fs: {
             allow: [
                 // search up for workspace root
@@ -16,6 +17,13 @@ export default defineConfig({
                 // source directory
                 searchForWorkspaceRoot(process.cwd())
             ]
+        },
+        proxy: {
+            '/api': {
+                target: 'http://localhost:5078',
+                changeOrigin: true,
+                secure: false
+            }
         }
     },
     preview: {

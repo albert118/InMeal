@@ -7,7 +7,10 @@ namespace InMeal.Core.Mementos;
 
 public sealed class IngredientMemento : EntityMemento, IHaveName, IArchivable
 {
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+    // required for EF Core reflection logic - in this case it's perfectly fine we don't populate fields
     private IngredientMemento() { }
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
     internal IngredientMemento(Ingredient ingredient)
     {

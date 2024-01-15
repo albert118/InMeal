@@ -2,7 +2,7 @@
     "name": "@in-meal/fui",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "sourceRoot": "apps/fui/src",
-    "projectType": "module",
+    "projectType": "application",
     "targets": {
         "build": {
             "executor": "@nx/vite:build",

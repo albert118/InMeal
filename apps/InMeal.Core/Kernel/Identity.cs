@@ -1,13 +1,16 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace InMeal.Core.Kernel;
 
-public interface IIdentity<out T>
+public interface IIdentity<out T> where T : notnull
 {
     T Key { get; }
 }
 
-public abstract class Identity<T> : IEquatable<Identity<T>>, IIdentity<T>
+public abstract class Identity<T> : IEquatable<Identity<T>>, IIdentity<T> 
+    where T : notnull
 {
-    protected Identity(T id)
+    protected Identity([DisallowNull] T id)
     {
         Key = id;
     }

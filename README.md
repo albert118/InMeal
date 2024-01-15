@@ -22,22 +22,35 @@
 
 ## 🍇 Features
 
-**This is still a work in progress but currently supports simple recipe and ingredient management.**
+<p align="center">
+    **This is still a work in progress but currently supports simple recipe and ingredient management.**
+</p>
 
-\_ Designed to be responsive with tablets in mind from the start. No more squinting at small buttons or "mouse-friendly" UX 🪤.
+_Designed to be responsive with tablets in mind from the start. No more squinting at small buttons or "mouse-friendly" UX 🪤._
 
 -   Minimal design avoids bloating your experience with unnecessary reviews or comments 😁.
 -   Bulk editing for ingredients, no more typos across all your recipes 🔏!
 -   Searchable, recipes and ingredients are easy to find 🔎.
 -   Batteries included meta-data, easily include common meta-data for recipes such as servings or cook-time 🔋.
 
-## Getting started
+## Quick Start
+
+Serve the development configuration locally,
+
+```sh
+nx run serve-stack
+```
+
+This runs a Vite dev server for the frontend and a dotnet API.
+
+-   Vite is configured with HMR and auto-restart
+-   dotnet is configured to watch and auto-restart too
 
 | Project                                          | Description                                                              |
 | ------------------------------------------------ | ------------------------------------------------------------------------ |
-| [InMeal](./apps/InMeal.Api/README.md)            | A dotnet API using EF Core and MariaDb                                   |
-| [Meal UI (deprecated)](./apps/meal-ui/README.md) | A React UI served with Webpack and NGinx                                 |
+| [InMeal](./apps/InMeal.Api/README.md)            | A dotnet API using EF Core + MariaDb                                     |
 | [Food UI (aka. "FUI")](./apps/fui/README.md)     | A Vite + React UI built with Carbon Design System and heavy modification |
+| [Meal UI (deprecated)](./apps/meal-ui/README.md) | A React UI served with Webpack and NGinx                                 |
 
 ## 👀 Examples
 
