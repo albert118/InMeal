@@ -3,7 +3,8 @@
     "version": "1.3.3",
     "private": true,
     "scripts": {
-        "serve-stack": "nx run-many -t serve --projects=InMeal.Api,@in-meal/fui"
+        "serve-stack": "nx run-many -t serve --projects=InMeal.Api,@in-meal/fui",
+        "clean": "rm -r ./dist"
     },
     "devDependencies": {
         "@nx-dotnet/core": "^2.0.1",
