@@ -30,12 +30,6 @@
         <Folder Include="Migrations" />
     </ItemGroup>
 
-    <ItemGroup>
-        <Reference Include="Microsoft.Extensions.Configuration">
-            <HintPath>..\..\..\..\..\..\..\Program Files\dotnet\shared\Microsoft.AspNetCore.App\6.0.5\Microsoft.Extensions.Configuration.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
     <!-- avoid Error CS0579 -->
     <!-- see: https://stackoverflow.com/questions/61997928/errorcs0579duplicate-globalsystem-runtime-versioning-targetframeworkattribu -->
     <ItemGroup>
