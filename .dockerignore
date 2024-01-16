@@ -1,0 +1,31 @@
+# config and settings
+.git
+.github
+.config
+**/.vs
+**/.gitkeep
+**/.vscode
+**/.idea
+
+# misc. files that shouldn't be bundled
+docker-compose.yml
+Dockerfile.*
+.dockerignore
+.gitignore
+.prettierrc.js
+.prettierignore
+.prettierrc
+.DS_Store
+*.sln.DotSettings.*
+
+# secrets
+.env
+.env.example
+
+# artifacts and cache
+**/bin
+**/obj
+**/node_modules/
+.nx/cache
+**/dist
+

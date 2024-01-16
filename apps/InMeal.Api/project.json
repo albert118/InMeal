@@ -30,6 +30,10 @@
                 }
             }
         },
+        "publish": {
+            "executor": "@nx-dotnet/core:publish",
+            "defaultConfiguration": "production"
+        },
         "serve": {
             "executor": "@nx-dotnet/core:serve",
             "options": {

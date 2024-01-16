@@ -1,11 +1,12 @@
 {
     "name": "inmeal-project",
-    "version": "1.3.3",
+    "version": "1.4.1",
     "private": true,
     "scripts": {
-        "serve-stack": "nx run-many -t serve --projects=InMeal.Api,@in-meal/fui",
-        "build": "nx run InMeal.Api:build:production && nx run @inmeal/fui:build:production",
-        "docker-build": "nx run InMeal.Api:docker-build && nx run @inmeal/fui:docker-build:production",
+        "serve-stack": "npx nx run-many -t serve --projects=InMeal.Api,@in-meal/fui",
+        "build": "npx nx run InMeal.Api:build:production && npx nx run @inmeal/fui:build:production",
+        "build:production": "npx nx build && npx nx run InMeal.Api:publish",
+        "docker-build": "npx nx run InMeal.Api:docker-build && npx nx run @inmeal/fui:docker-build:production",
         "clean": "rm -r ./dist"
     },
     "devDependencies": {
