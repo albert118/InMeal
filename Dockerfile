@@ -5,6 +5,14 @@ FROM alpine:3.19 as builder
 
 WORKDIR /build
 
+COPY apps/ ./apps
+COPY libs/ ./libs
+# .nxignore seems to be required in the build step
+# otherwise the module boundary checker (which is not enabled/configured for dotnet???)
+# will see both /dist/app/**/*/project.json as well as app/**/*/project.json
+# this causes it to crash violently and screw me for a couple of hours
+COPY README.md LICENSE Directory.*.* .nxignore nuget.config package.json package-lock.json tsconfig.base.json nx.json .eslintrc.json .eslintignore .nx-dotnet.rc.json ./
+
 # using NVM instead of install nodejs through apk
 ENV NVM_DIR $HOME/build
 ENV NVM_VERSION 0.39.7
@@ -27,14 +35,6 @@ RUN apk add curl libstdc++; \
     nvm alias default $NODE_VERSION; \
     nvm use default
 
-COPY apps/ ./apps
-COPY libs/ ./libs
-# .nxignore seems to be required in the build step
-# otherwise the module boundary checker (which is not enabled/configured for dotnet???)
-# will see both /dist/app/**/*/project.json as well as app/**/*/project.json
-# this causes it to crash violently and screw me for a couple of hours
-COPY README.md LICENSE Directory.*.* .nxignore nuget.config package.json package-lock.json tsconfig.base.json nx.json .eslintrc.json .eslintignore .nx-dotnet.rc.json ./
-
 # if this fails for some reason, including the node version can be helpful
 RUN node --version && npm ci
 
@@ -42,11 +42,25 @@ RUN ls . && npx nx run-many -t build -c production --parallel=8
 RUN npx nx run InMeal.Api:publish --verbose
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 as backend-runtime
+
 WORKDIR /app
-COPY  /build/dist/apps/InMeal.Api/net7.0/publish ./
+
+USER inmeal-user
+COPY apps/InMeal.Api/distribution/InMeal.service /etc/systemd/system/
+
+COPY /build/dist/apps/InMeal.Api/net7.0/publish ./
+RUN ls . -a; \
+    chown inmeal-user -R ./; \
+    chod +x ./InMeal.Api
+
+RUN systemctl daemon-reload
+RUN systemctl start InMeal
 
 FROM nginx:1.23.4-alpine-slim as static-site-host
+
 WORKDIR /www/inmeal/
+
 COPY --from=builder /build/dist/apps/fui/ ./
+
 COPY apps/fui/nginx/default.conf /etc/nginx/conf.d/
 COPY apps/fui/nginx/proxy.conf /etc/nginx/includes/
