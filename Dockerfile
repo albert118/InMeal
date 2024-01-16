@@ -30,7 +30,7 @@ RUN apk add curl libstdc++; \
 # copy the source code
 COPY nx.json tsconfig.base.json package.json package-lock.json libs/ apps/ ./
 COPY LICENSE README.md ./
-COPY Directory.*.* .nx-dotnet.rc.json ./
+COPY Directory.*.* .nx-dotnet.rc.json nuget.config ./
 
 # if this fails for some reason, including the node version can be helpful
 RUN node --version && npm ci
@@ -38,7 +38,6 @@ RUN node --version && npm ci
 RUN apk add --no-cache dotnet7-sdk;
 
 # manually restore the packages, otherwise they don't as expected...
-# RUN npx nx g @nx-dotnet/core:restore
 RUN npx nx build:production
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 as backend-runtime
