@@ -26,6 +26,7 @@ Dockerfile.*
 **/bin
 **/obj
 **/node_modules/
-.nx/cache
 **/dist
-
+**/packages
+**/.nuget-packages
+.nx/cache

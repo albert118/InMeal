@@ -27,15 +27,12 @@ RUN apk add curl libstdc++; \
     nvm alias default $NODE_VERSION; \
     nvm use default
 
-# copy the source code
-COPY Directory.*.* .nx-dotnet.rc.json nuget.config LICENSE README.md nx.json tsconfig.base.json package.json package-lock.json ./
-COPY libs/ ./libs
-COPY apps/ ./apps
+COPY * ./
 
 # if this fails for some reason, including the node version can be helpful
 RUN node --version && npm ci
 
-RUN npx nx run-many -t build -c production --verbose --parallel=8
+RUN ls . && npx nx run-many -t build -c production --parallel=8 --verbose
 RUN npx nx run InMeal.Api:publish --verbose
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 as backend-runtime
