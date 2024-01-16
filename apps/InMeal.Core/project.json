@@ -12,7 +12,7 @@
             ],
             "dependsOn": [
                 {
-                    "projects": ["Configuration"],
+                    "dependencies": true,
                     "target": "build"
                 }
             ],

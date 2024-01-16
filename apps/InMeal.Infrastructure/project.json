@@ -12,7 +12,7 @@
             ],
             "dependsOn": [
                 {
-                    "projects": ["InMeal.Core"],
+                    "dependencies": true,
                     "target": "build"
                 }
             ],
