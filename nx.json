@@ -58,7 +58,8 @@
                 }
             }
         },
-        "@nx-dotnet/core"
+        "@nx-dotnet/core",
+        "@nx/vite"
     ],
     "namedInputs": {
         "default": ["{projectRoot}/**/*", "sharedGlobals"],
