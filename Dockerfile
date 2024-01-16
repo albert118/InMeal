@@ -14,7 +14,7 @@ ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
 ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
 
 # setup so that we can use bash and download a few dependencies
-RUN apk update && apk add --no-cache bash wget curl; \
+RUN apk update && apk add --no-cache bash wget curl dotnet7-sdk; \
     touch $HOME/.profile; \
     echo 'nvm_get_arch() { nvm_echo "x64-musl"; }' >> $HOME/.profile;
 
@@ -28,17 +28,15 @@ RUN apk add curl libstdc++; \
     nvm use default
 
 # copy the source code
-COPY nx.json tsconfig.base.json package.json package-lock.json libs/ apps/ ./
-COPY LICENSE README.md ./
-COPY Directory.*.* .nx-dotnet.rc.json nuget.config ./
+COPY Directory.*.* .nx-dotnet.rc.json nuget.config LICENSE README.md nx.json tsconfig.base.json package.json package-lock.json ./
+COPY libs/ ./libs
+COPY apps/ ./apps
 
 # if this fails for some reason, including the node version can be helpful
 RUN node --version && npm ci
 
-RUN apk add --no-cache dotnet7-sdk;
-
-# manually restore the packages, otherwise they don't as expected...
-RUN npx nx build:production
+RUN npx nx run-many -t build -c production --verbose --parallel=8
+RUN npx nx run InMeal.Api:publish --verbose
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 as backend-runtime
 
