@@ -48,13 +48,6 @@
                 "color": true,
                 "command": "dotnet dev-certs https --trust"
             }
-        },
-        "docker-build": {
-            "executor": "nx:run-commands",
-            "options": {
-                "color": true,
-                "command": "docker build -f apps/InMeal.Api/Dockerfile . -t inmeal-backend"
-            }
         }
     },
     "tags": []

@@ -4,7 +4,6 @@
     "private": true,
     "scripts": {
         "serve-stack": "npx nx run-many -t serve --projects=InMeal.Api,@in-meal/fui",
-        "build:production": "npx nx run InMeal.Api:build:production && npx nx run @inmeal/fui:build:production",
         "clean": "rm -r ./dist"
     },
     "devDependencies": {

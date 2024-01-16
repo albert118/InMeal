@@ -44,14 +44,6 @@
                     "buildTarget": "@in-meal/fui:build:production"
                 }
             }
-        },
-        "docker-build": {
-            "executor": "nx:run-commands",
-            "dependsOn": ["build"],
-            "options": {
-                "color": true,
-                "command": "docker build -f apps/fui/Dockerfile . -t inmeal-frontend"
-            }
         }
     },
     "tags": []
