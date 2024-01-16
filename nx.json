@@ -3,59 +3,56 @@
     "affected": {
         "defaultBase": "master"
     },
-    "tasksRunnerOptions": {
-        "default": {
-            "runner": "nx/tasks-runners/default",
-            "options": {
-                "cacheableOperations": [
-                    "build",
-                    "lint",
-                    "test",
-                    "codegen",
-                    "swagger"
-                ]
-            }
-        }
-    },
     "targetDefaults": {
         "build": {
             "dependsOn": ["codegen", "^codegen"],
-            "inputs": ["default", "production", "^production"]
+            "inputs": ["default", "production", "^production"],
+            "cache": true
         },
-        "codegen": {},
-        "swagger": {},
+        "codegen": {
+            "cache": true
+        },
+        "swagger": {
+            "cache": true
+        },
         "lint": {
             "inputs": [
                 "default",
                 "{workspaceRoot}/.eslintrc.json",
                 "{workspaceRoot}/.eslintignore",
                 "{workspaceRoot}/eslint.config.js"
-            ]
+            ],
+            "cache": true
         },
         "test": {
-            "inputs": ["default", "^production"]
-        },
-        "docker-build": {}
+            "inputs": ["default", "^production"],
+            "cache": true
+        }
     },
     "plugins": [
         {
             "plugin": "@nx-dotnet/core",
             "options": {
-                "solutionFile": "{npmScope}.nx-dotnet.sln",
+                "solutionFile": "{workspaceRoot}/apps/api.sln",
                 "inferProjects": true,
                 "inferProjectTargets": true,
                 "nugetPackages": {
-                    "Microsoft.EntityFrameworkCore": "6.0.12",
-                    "Microsoft.EntityFrameworkCore.Design": "6.0.12",
-                    "Microsoft.EntityFrameworkCore.Relational": "6.0.12",
-                    "Microsoft.EntityFrameworkCore.Tools": "6.0.12",
+                    "Microsoft.EntityFrameworkCore": "7.0.12",
+                    "Microsoft.EntityFrameworkCore.Design": "7.0.12",
+                    "Microsoft.EntityFrameworkCore.Relational": "7.0.12",
+                    "Microsoft.EntityFrameworkCore.Tools": "7.0.12",
                     "Microsoft.Extensions.Configuration.Json": "7.0.0",
-                    "Newtonsoft.Json": "13.0.2",
-                    "Pomelo.EntityFrameworkCore.MySql": "6.0.2"
+                    "Newtonsoft.Json": "13.0.3",
+                    "Pomelo.EntityFrameworkCore.MySql": "7.0.0",
+                    "Autofac": "7.1.0",
+                    "Autofac.Extensions.DependencyInjection": "8.0.0",
+                    "Pomelo.EntityFrameworkCore.MySql.Design": "1.1.2",
+                    "Swashbuckle.AspNetCore": "6.5.0"
                 }
             }
         },
-        "@nx-dotnet/core"
+        "@nx-dotnet/core",
+        "@nx/vite"
     ],
     "namedInputs": {
         "default": ["{projectRoot}/**/*", "sharedGlobals"],

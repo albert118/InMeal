@@ -1,0 +1,26 @@
+# config and settings
+.git
+.github
+.config
+*.DotSettings.user
+dataSources.xml
+**/.vs
+**/.gitkeep
+**/.vscode
+**/.idea
+
+# secrets
+.env
+*.env
+*.env.*
+*.secret
+*.secret.*
+
+# artifacts and cache
+**/bin
+**/obj
+**/node_modules/
+**/dist
+**/packages
+**/.nuget-packages
+.nx/cache

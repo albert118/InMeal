@@ -12,8 +12,10 @@ dataSources.xml
 .nx/installation
 .nx/cache
 
-# builds and external dependencies
+# artifacts and dependencies
 /node_modules/
 obj/
 bin/
 dist/
+.nuget-packages/
+packages/

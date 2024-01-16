@@ -1,14 +1,14 @@
 {
-    "name": "InMeal.Infrastructure",
+    "name": "Configuration",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
     "projectType": "library",
-    "sourceRoot": "apps/InMeal.Infrastructure",
+    "sourceRoot": "apps/Configuration",
     "targets": {
         "build": {
             "executor": "@nx-dotnet/core:build",
             "outputs": [
-                "{workspaceRoot}/dist/apps/InMeal.Infrastructure",
-                "{workspaceRoot}/dist/intermediates/apps/InMeal.Infrastructure"
+                "{workspaceRoot}/dist/apps/Configuration",
+                "{workspaceRoot}/dist/intermediates/apps/Configuration"
             ],
             "dependsOn": [
                 {
@@ -18,10 +18,12 @@
             ],
             "options": {
                 "configuration": "Debug",
-                "noDependencies": true
+                "noDependencies": true,
+                "verbosity": "detailed"
             },
             "configurations": {
                 "production": {
+                    "verbosity": "quiet",
                     "configuration": "Release"
                 }
             }

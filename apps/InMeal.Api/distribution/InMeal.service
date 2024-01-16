@@ -1,0 +1,17 @@
+[Unit]
+Description=A modern and clean interface for managing recipes and ingredients, In Meal acts as a digital cookbook without bloat.
+
+[Service]
+Type=notify
+WorkingDirectory=/app
+ExecStart=/usr/bin/dotnet /app/InMeal/InMeal.Api.dll
+SyslogIdentifier=InMeal
+User=inmeal-user
+
+Restart=always
+RestartSec=15
+
+Environment=DOTNET_ROOT=/usr/lib64/dotnet
+
+[Install]
+WantedBy=multi-user.target
