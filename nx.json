@@ -3,37 +3,30 @@
     "affected": {
         "defaultBase": "master"
     },
-    "tasksRunnerOptions": {
-        "default": {
-            "runner": "nx/tasks-runners/default",
-            "options": {
-                "cacheableOperations": [
-                    "build",
-                    "lint",
-                    "test",
-                    "codegen",
-                    "swagger"
-                ]
-            }
-        }
-    },
     "targetDefaults": {
         "build": {
             "dependsOn": ["codegen", "^codegen"],
-            "inputs": ["default", "production", "^production"]
+            "inputs": ["default", "production", "^production"],
+            "cache": true
         },
-        "codegen": {},
-        "swagger": {},
+        "codegen": {
+            "cache": true
+        },
+        "swagger": {
+            "cache": true
+        },
         "lint": {
             "inputs": [
                 "default",
                 "{workspaceRoot}/.eslintrc.json",
                 "{workspaceRoot}/.eslintignore",
                 "{workspaceRoot}/eslint.config.js"
-            ]
+            ],
+            "cache": true
         },
         "test": {
-            "inputs": ["default", "^production"]
+            "inputs": ["default", "^production"],
+            "cache": true
         }
     },
     "plugins": [
