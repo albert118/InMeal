@@ -46,7 +46,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 as backend-runtime
 WORKDIR /app
 
 USER inmeal-user
-COPY apps/InMeal.Api/distribution/InMeal.service /etc/systemd/system/
+COPY apps/InMeal.Api/distribution/InMealApi.service /etc/systemd/system/
 
 COPY /build/dist/apps/InMeal.Api/net7.0/publish ./
 RUN ls . -a; \
@@ -54,7 +54,7 @@ RUN ls . -a; \
     chod +x ./InMeal.Api
 
 RUN systemctl daemon-reload
-RUN systemctl start InMeal
+RUN systemctl start InMealApi
 
 FROM nginx:1.23.4-alpine-slim as static-site-host
 

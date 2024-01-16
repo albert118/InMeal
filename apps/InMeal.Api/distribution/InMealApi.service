@@ -1,11 +1,15 @@
+# TODO:
+# https://swimburger.net/blog/dotnet/how-to-run-a-dotnet-core-console-app-as-a-service-using-systemd-on-linux
+
 [Unit]
 Description=A modern and clean interface for managing recipes and ingredients, In Meal acts as a digital cookbook without bloat.
 
 [Service]
 Type=notify
+KillSignal=SIGINT
 WorkingDirectory=/app
 ExecStart=/usr/bin/dotnet /app/InMeal/InMeal.Api.dll
-SyslogIdentifier=InMeal
+SyslogIdentifier=InMealApi
 User=inmeal-user
 
 Restart=always

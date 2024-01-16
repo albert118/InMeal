@@ -14,6 +14,7 @@ services:
         environment:
             ASPNETCORE_ENVIRONMENT: 'Production'
             ASPNETCORE_URLS: 'http://+:7078'
+            DOTNET_PRINT_TELEMETRY_MESSAGE: false
             ConnectionStrings__InMealDbConnection: ${DATABASE_CONNECTION}
             ConnectionStrings__ServerVersionMajor: ${DATABASE_VERSION_MAJOR}
             ConnectionStrings__ServerVersionMinor: ${DATABASE_VERSION_MINOR}

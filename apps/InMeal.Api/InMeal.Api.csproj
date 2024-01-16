@@ -15,6 +15,7 @@
         <PackageReference Include="Autofac" />
         <PackageReference Include="Autofac.Extensions.DependencyInjection" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Systemd" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" />
         <PackageReference Include="Swashbuckle.AspNetCore" />

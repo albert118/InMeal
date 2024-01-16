@@ -13,6 +13,9 @@ Startup.ConfigureHostContainer(
     builder.Environment
 );
 
+// allows graceful startup/shutdown notifications
+builder.Host.UseSystemd();
+
 // Configure the global Microsoft container services
 startup.ConfigureServices(builder.Services);
 
