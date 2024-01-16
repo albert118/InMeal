@@ -1,33 +1,34 @@
 {
-  "name": "InMeal.Core",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "projectType": "library",
-  "sourceRoot": "apps/InMeal.Core",
-  "targets": {
-    "build": {
-      "executor": "@nx-dotnet/core:build",
-      "outputs": [
-        "{workspaceRoot}/dist/apps/InMeal.Core",
-        "{workspaceRoot}/dist/intermediates/apps/InMeal.Core"
-      ],
-      "dependsOn": [
-        {
-          "target": "build"
+    "name": "InMeal.Core",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "library",
+    "sourceRoot": "apps/InMeal.Core",
+    "targets": {
+        "build": {
+            "executor": "@nx-dotnet/core:build",
+            "outputs": [
+                "{workspaceRoot}/dist/apps/InMeal.Core",
+                "{workspaceRoot}/dist/intermediates/apps/InMeal.Core"
+            ],
+            "dependsOn": [
+                {
+                    "projects": ["Configuration"],
+                    "target": "build"
+                }
+            ],
+            "options": {
+                "configuration": "Debug",
+                "noDependencies": true
+            },
+            "configurations": {
+                "production": {
+                    "configuration": "Release"
+                }
+            }
+        },
+        "lint": {
+            "executor": "@nx-dotnet/core:format"
         }
-      ],
-      "options": {
-        "configuration": "Debug",
-        "noDependencies": true
-      },
-      "configurations": {
-        "production": {
-          "configuration": "Release"
-        }
-      }
     },
-    "lint": {
-      "executor": "@nx-dotnet/core:format"
-    }
-  },
-  "tags": []
+    "tags": []
 }
