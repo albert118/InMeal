@@ -17,7 +17,7 @@
             "defaultConfiguration": "development",
             "outputs": ["{options.outputPath}"],
             "options": {
-                "buildTarget": "@in-meal/fui:build"
+                "buildTarget": "@inmeal/fui:build"
             }
         },
         "lint": {
