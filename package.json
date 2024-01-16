@@ -4,7 +4,8 @@
     "private": true,
     "scripts": {
         "serve-stack": "npx nx run-many -t serve -p InMeal.Api @inmeal/fui",
-        "clean": "rm -r ./dist ./.nuget-packages ./packages ./node_modules"
+        "clean": "rm -r ./dist ./.nuget-packages ./packages ./node_modules",
+        "docker-build": "docker build . -t inmeal"
     },
     "devDependencies": {
         "@nx-dotnet/core": "^2.0.1",

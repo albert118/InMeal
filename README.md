@@ -54,7 +54,7 @@ This runs a Vite dev server for the frontend and a dotnet API.
 | [Food UI (aka. "FUI")](./apps/fui/README.md)     | A Vite + React UI built with Carbon Design System and heavy modification |
 | [Meal UI (deprecated)](./apps/meal-ui/README.md) | A React UI served with Webpack and NGinx                                 |
 
-## Building and deploying the Docker stack
+## Building for Production
 
 > Ensure you have a valid MariaDb/MySQL instance you can connect to before continuing.
 
@@ -65,12 +65,10 @@ cp .env.example .env
 nano .env
 ```
 
-To get the app up and running we need to build the dependencies and docker images. Then
-run docker compose to bring everything online. Which we can do with these commands,
+To get the app up and running we simply need to build and run the docker image,
 
 ```sh
-nx build
-nx docker-build
+npx nx docker-build
 docker compose up
 ```
 
