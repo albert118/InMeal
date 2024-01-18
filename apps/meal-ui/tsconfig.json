@@ -1,8 +1,0 @@
-{
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "baseUrl": "src"
-    },
-    "include": ["**/*.js", "**/*.jsx", "bi.ts"],
-    "exclude": ["node_modules"]
-}
