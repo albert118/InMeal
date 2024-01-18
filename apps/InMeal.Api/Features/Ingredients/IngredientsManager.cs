@@ -25,7 +25,6 @@ public interface IIngredientsManager
     List<MeasurementUnit> GetMeasurementOptions();
 }
 
-[InstanceScopedBusinessService]
 public class IngredientsManager : IIngredientsManager
 {
     private const int DefaultTake = 25;

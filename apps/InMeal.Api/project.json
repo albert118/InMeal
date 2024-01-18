@@ -35,6 +35,12 @@
             "options": {
                 "selfContained": true,
                 "runtime": "alpine-x64"
+            },
+            "configurations": {
+                "production": {
+                    "verbosity": "quiet",
+                    "configuration": "Release"
+                }
             }
         },
         "serve": {

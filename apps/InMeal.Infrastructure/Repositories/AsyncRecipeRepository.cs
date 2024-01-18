@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 
 namespace InMeal.Infrastructure.Repositories;
 
-[InstanceScopedService]
 public class AsyncRecipeRepository : IAsyncRecipeRepository
 {
     private readonly ILogger<AsyncRecipeRepository> _logger;

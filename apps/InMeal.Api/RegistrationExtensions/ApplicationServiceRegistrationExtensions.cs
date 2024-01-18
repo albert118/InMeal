@@ -1,5 +1,9 @@
 ﻿using Autofac;
-using InMeal.Infrastructure;
+using InMeal.Api.Features.Ingredients;
+using InMeal.Api.Features.Recipes;
+using InMeal.Api.Features.Upcoming;
+using InMeal.Infrastructure.QueryServices;
+using InMeal.Infrastructure.Repositories;
 
 namespace InMeal.Api.RegistrationExtensions;
 
@@ -17,24 +21,35 @@ public static class ApplicationServiceRegistrationExtensions
             .As<ICancellationTokenAccessor>()
             .InstancePerLifetimeScope();
 
-        containerBuilder.RegisterAttributeTaggedServices<InstanceScopedServiceAttribute>();
-        containerBuilder.RegisterAttributeTaggedServices<InstanceScopedBusinessServiceAttribute>();
-
-        return containerBuilder;
+        return containerBuilder
+            .RegisterQueryServices()
+            .RegisterRepositories()
+            .RegisterManagersAndServices();
     }
 
-    /// <summary>
-    ///     Register any services tagged with the instance registration attribute
-    /// </summary>
-    /// <seealso cref="InstanceScopedServiceAttribute" />
-    private static ContainerBuilder RegisterAttributeTaggedServices<T>(this ContainerBuilder containerBuilder)
-        where T : Attribute
+    private static ContainerBuilder RegisterQueryServices(this ContainerBuilder containerBuilder)
     {
-        containerBuilder.RegisterAssemblyTypes(typeof(T).Assembly)
-                        .Where(type => type.GetCustomAttributes(typeof(T), false).Any())
-                        .AsImplementedInterfaces()
-                        .InstancePerLifetimeScope();
-
+        containerBuilder.RegisterType<AsyncRecipeQueryService>().AsImplementedInterfaces().InstancePerDependency();
+        containerBuilder.RegisterType<AsyncRecipeCategoryQueryService>().AsImplementedInterfaces().InstancePerDependency();
+        containerBuilder.RegisterType<AsyncRecipeIngredientQueryService>().AsImplementedInterfaces().InstancePerDependency();
+        
+        return containerBuilder;
+    }
+    
+    private static ContainerBuilder RegisterRepositories(this ContainerBuilder containerBuilder)
+    {
+        containerBuilder.RegisterType<AsyncIngredientRepository>().AsImplementedInterfaces().InstancePerDependency();
+        containerBuilder.RegisterType<AsyncRecipeRepository>().AsImplementedInterfaces().InstancePerDependency();
+        
+        return containerBuilder;
+    }
+    
+    private static ContainerBuilder RegisterManagersAndServices(this ContainerBuilder containerBuilder)
+    {
+        containerBuilder.RegisterType<RecommendedRecipesService>().AsImplementedInterfaces().InstancePerDependency();
+        containerBuilder.RegisterType<RecipeManager>().AsImplementedInterfaces().InstancePerDependency();
+        containerBuilder.RegisterType<IngredientsManager>().AsImplementedInterfaces().InstancePerDependency();
+        
         return containerBuilder;
     }
 }
