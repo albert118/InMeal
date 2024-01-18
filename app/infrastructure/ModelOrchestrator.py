@@ -6,6 +6,7 @@ class ImageResult(BaseModel):
     url: HttpUrl
     name: str
 
+
 class ModelOrchestrator:
     def __init__(self):
         self.model = ModelProvider().get_model()

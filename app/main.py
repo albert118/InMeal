@@ -1,32 +1,19 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-
 from .routers import images, test
+from .configuration import app_settings
 
 
-description = """
-Generative recipe images microservce 🤖
-
-A simple REST Microservice abstracting the consumption of a 
-generative model for images of a recipe. This provides stylistic 
-representations of the recipe prompt and implements some 
-prod-ready features.
-"""
+settings = app_settings.AppSettings()
 
 app = FastAPI(
-    title='Generative images microservce',
-    description=description,
-    version='0.0.1',
-    contact={
-        'name': 'Albert Ferguson 🤙',
-        'email': 'albertferguson118@gmail.com'
-    },
-    license_info={
-        'name': 'MIT 📜',
-        "identifier": "MIT",
-        'url': 'https://github.com/albert118/GenerativeRecipes/blob/master/LICENSE'
-    },
-    redoc_url=None
+    title=settings.title,
+    description=settings.description,
+    version=settings.version,
+    contact=settings.contact_details,
+    license_info=settings.license_info,
+    redoc_url=None,
+    debug=settings.is_development
 )
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
