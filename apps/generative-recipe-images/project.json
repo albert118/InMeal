@@ -8,7 +8,7 @@
             "executor": "@nxlv/python:run-commands",
             "options": {
                 "command": "poetry lock --no-update",
-                "cwd": "apps/generative-recipe-images"
+                "cwd": "{workspaceRoot}"
             }
         },
         "add": {
@@ -27,7 +27,7 @@
             "executor": "@nxlv/python:build",
             "outputs": ["{projectRoot}/dist"],
             "options": {
-                "outputPath": "apps/generative-recipe-images/dist",
+                "outputPath": "{workspaceRoot}/dist/apps/generative-recipe-images",
                 "publish": false,
                 "lockedVersions": true,
                 "bundleLocalDependencies": true
@@ -41,15 +41,6 @@
                 "cacheDir": ".cache/pypoetry",
                 "verbose": false,
                 "debug": false
-            }
-        },
-        "lint": {
-            "executor": "@nxlv/python:flake8",
-            "outputs": [
-                "{workspaceRoot}/reports/apps/generative-recipe-images/pylint.txt"
-            ],
-            "options": {
-                "outputFile": "reports/apps/generative-recipe-images/pylint.txt"
             }
         }
     },
