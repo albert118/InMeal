@@ -48,11 +48,10 @@ This runs a Vite dev server for the frontend and a dotnet API.
 
 ## Project overview
 
-| Project                                          | Description                                                              |
-| ------------------------------------------------ | ------------------------------------------------------------------------ |
-| [InMeal](./apps/InMeal.Api/README.md)            | A dotnet API using EF Core + MariaDb                                     |
-| [Food UI (aka. "FUI")](./apps/fui/README.md)     | A Vite + React UI built with Carbon Design System and heavy modification |
-| [Meal UI (deprecated)](./apps/meal-ui/README.md) | A React UI served with Webpack and NGinx                                 |
+| Project                                      | Description                                                              |
+| -------------------------------------------- | ------------------------------------------------------------------------ |
+| [InMeal](./apps/InMeal.Api/README.md)        | A dotnet API using EF Core + MariaDb                                     |
+| [Food UI (aka. "FUI")](./apps/fui/README.md) | A Vite + React UI built with Carbon Design System and heavy modification |
 
 ## Building for Production
 
