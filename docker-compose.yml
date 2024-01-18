@@ -5,9 +5,9 @@ networks:
         driver: bridge
 
 services:
-    inmeal:
-        container_name: inmeal
-        image: inmeal
+    inmeal-backend:
+        container_name: inmeal-backend
+        image: inmeal-backend
         restart: unless-stopped
         ports:
             - '${SPA_PORT}:80'
@@ -18,5 +18,15 @@ services:
             ConnectionStrings__ServerVersionMajor: ${DATABASE_VERSION_MAJOR}
             ConnectionStrings__ServerVersionMinor: ${DATABASE_VERSION_MINOR}
             ConnectionStrings__ServerVersionBuild: ${DATABASE_VERSION_BUILD}
+        networks:
+            - in-meal-network
+    inmeal-frontend:
+        container_name: inmeal-frontend
+        image: inmeal-frontend
+        restart: unless-stopped
+        ports:
+            - '${SPA_PORT}:80'
+        depends_on:
+            - inmeal-backend
         networks:
             - in-meal-network
