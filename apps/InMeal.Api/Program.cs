@@ -22,10 +22,23 @@ var app = builder.Build();
 Startup.Configure(app, builder.Environment);
 
 // only attempt to auto-run migrations in production
+
+app.Logger.LogInformation("configured services");
+app.Logger.LogInformation("detected environment as \'{BuilderEnvironment}\'", builder.Environment.EnvironmentName);
+
 if (builder.Environment.IsProduction()) {
     using var scope = app.Services.CreateScope();
     var migrationDbContext = scope.ServiceProvider.GetRequiredService<InMealDbMigrationContext>();
-    migrationDbContext.Database.Migrate();
+
+    try {
+        app.Logger.LogInformation("running migrations");
+        migrationDbContext.Database.Migrate();
+    } catch (Exception ex) {
+        app.Logger.LogError(ex, "failed to run migrations");
+        throw new ApplicationException("failed migrations - aborting application launch");
+    }
+
+    app.Logger.LogInformation("finished migrations");
 }
 
 app.Logger.LogInformation("starting application");
