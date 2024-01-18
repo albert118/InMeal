@@ -9,6 +9,8 @@ public static class ConfigurationFactory
         const string appSettings = "appsettings.json";
         var appSettingsEnv = $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json";
         
+
+        
         return new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
                 // requires Microsoft.Extensions.Configuration.Json

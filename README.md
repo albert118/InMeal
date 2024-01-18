@@ -65,10 +65,9 @@ cp .env.example .env
 nano .env
 ```
 
-To get the app up and running we simply need to build and run the docker image,
+To get the app up and running we simply need to build and run the docker images using Docker compose,
 
 ```sh
-npx nx docker-build
 docker compose up
 ```
 
