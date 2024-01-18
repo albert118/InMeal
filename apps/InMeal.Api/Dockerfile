@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS builder
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS builder
 
 WORKDIR /build
 
@@ -12,20 +12,10 @@ COPY README.md LICENSE .nxignore package.json package-lock.json tsconfig.base.js
 # dotnet specific files
 COPY Directory.*.* nuget.config .nx-dotnet.rc.json ./
 
-# do you think God stays in heaven because he too lives in fear of what he's created?
-RUN mkdir -p /usr/local/nvm
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION v20.11.0
+RUN apk add --no-cache npm nodejs;
 
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-RUN /bin/bash -c "source $NVM_DIR/nvm.sh && nvm install $NODE_VERSION && nvm use --delete-prefix $NODE_VERSION"
-
-ENV NODE_PATH $NVM_DIR/versions/node/$NODE_VERSION/bin
-ENV PATH $NODE_PATH:$PATH
-
-RUN npm ci
-# kinda wishing nx-dotnet generated a build script for me here
-RUN npx nx run InMeal.Api:build:production
+# if this fails for some reason, including the node details is helpful
+RUN node --version && npm ci
 RUN npx nx run InMeal.Api:publish
 
 FROM alpine:3.19 as runtime
