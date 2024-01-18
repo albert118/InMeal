@@ -33,3 +33,10 @@ services:
             - inmeal-backend
         networks:
             - in-meal-network
+    generative-recipe-images-microservice:
+        container_name: generative-recipes/api
+        restart: unless-stopped
+        build:
+            context: ./apps/generative-recipes
+        networks:
+            - in-meal-network

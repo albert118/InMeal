@@ -48,10 +48,11 @@ This runs a Vite dev server for the frontend and a dotnet API.
 
 ## Project overview
 
-| Project                                      | Description                                                              |
-| -------------------------------------------- | ------------------------------------------------------------------------ |
-| [InMeal](./apps/InMeal.Api/README.md)        | A dotnet API using EF Core + MariaDb                                     |
-| [Food UI (aka. "FUI")](./apps/fui/README.md) | A Vite + React UI built with Carbon Design System and heavy modification |
+| Project                                                               | Description                                                              |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [InMeal](./apps/InMeal.Api/README.md)                                 | A dotnet API using EF Core + MariaDb                                     |
+| [Food UI (aka. "FUI")](./apps/fui/README.md)                          | A Vite + React UI built with Carbon Design System and heavy modification |
+| [Generative Recipe Images](./apps/generative-recipe-images/README.md) | A Python FastAPI REST microservice for serving (AI) generative images    |
 
 ## Building for Production
 
@@ -92,7 +93,8 @@ Visit the app on <http://localhost:3002/>
 -   [x] Introduce Nx to repo
 -   [x] Move away from create-react-app + webpack (use Vite instead)
 -   [ ] apply filters when clicking a badge
--   [ ] generative images (replace demo image)
+-   [x] improved dummy images (replace demo image)
+-   [ ] generative (AI) images
 -   [ ] add sections to recipe steps
 -   [ ] add settings to page to extend/edit meal types and categories
 -   [ ] favourites list
