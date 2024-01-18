@@ -65,6 +65,7 @@ typing-extensions = "4.8.0"
 watchfiles = "0.21.0"
 websockets = "11.0.3"
 werkzeug = "2.2.3"
+poetry-plugin-export = "^1.6.0"
 
 [tool.poetry.group.dev.dependencies]
 autopep8 = "2.0.2"
