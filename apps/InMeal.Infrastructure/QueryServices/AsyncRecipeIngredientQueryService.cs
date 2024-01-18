@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InMeal.Infrastructure.QueryServices;
 
-[InstanceScopedService]
 public class AsyncRecipeIngredientQueryService : IAsyncRecipeIngredientQueryService
 {
     private readonly IRecipeDbContext _recipeDbContext;

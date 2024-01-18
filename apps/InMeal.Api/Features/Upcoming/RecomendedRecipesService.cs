@@ -9,7 +9,6 @@ public interface IRecommendedRecipesService
     Task<List<RecommendedRecipe>> GetRecommended(CancellationToken ct);
 }
 
-[InstanceScopedBusinessService]
 public class RecommendedRecipesService : IRecommendedRecipesService
 {
     private readonly IAsyncRecipeQueryService _queryService;

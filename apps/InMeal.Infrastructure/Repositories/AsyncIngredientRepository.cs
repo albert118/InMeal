@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace InMeal.Infrastructure.Repositories;
 
-[InstanceScopedService]
 public class AsyncIngredientRepository : IAsyncIngredientRepository
 {
     private readonly IRecipeDbContext _recipeDbContext;

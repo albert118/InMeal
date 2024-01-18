@@ -30,7 +30,6 @@ public interface IRecipeManager
     RecipeMetaDto GetMeta();
 }
 
-[InstanceScopedBusinessService]
 public class RecipeManager : IRecipeManager
 {
     private const int DefaultTake = 25;
