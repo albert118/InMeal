@@ -1,0 +1,57 @@
+{
+    "name": "generative-recipe-images",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "projectType": "application",
+    "sourceRoot": "apps/generative-recipe-images/generative_recipe_images",
+    "targets": {
+        "lock": {
+            "executor": "@nxlv/python:run-commands",
+            "options": {
+                "command": "poetry lock --no-update",
+                "cwd": "apps/generative-recipe-images"
+            }
+        },
+        "add": {
+            "executor": "@nxlv/python:add",
+            "options": {}
+        },
+        "update": {
+            "executor": "@nxlv/python:update",
+            "options": {}
+        },
+        "remove": {
+            "executor": "@nxlv/python:remove",
+            "options": {}
+        },
+        "build": {
+            "executor": "@nxlv/python:build",
+            "outputs": ["{projectRoot}/dist"],
+            "options": {
+                "outputPath": "apps/generative-recipe-images/dist",
+                "publish": false,
+                "lockedVersions": true,
+                "bundleLocalDependencies": true
+            }
+        },
+        "install": {
+            "executor": "@nxlv/python:install",
+            "options": {
+                "silent": false,
+                "args": "",
+                "cacheDir": ".cache/pypoetry",
+                "verbose": false,
+                "debug": false
+            }
+        },
+        "lint": {
+            "executor": "@nxlv/python:flake8",
+            "outputs": [
+                "{workspaceRoot}/reports/apps/generative-recipe-images/pylint.txt"
+            ],
+            "options": {
+                "outputFile": "reports/apps/generative-recipe-images/pylint.txt"
+            }
+        }
+    },
+    "tags": []
+}

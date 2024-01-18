@@ -20,5 +20,15 @@
             "@use-api": ["libs/use-api/src/index.ts"]
         }
     },
-    "exclude": ["node_modules", "tmp", "dist", ".idea", ".vscode", ".config", "packages", ".nuget-packages", ".github"]
+    "exclude": [
+        "node_modules",
+        "tmp",
+        "dist",
+        ".idea",
+        ".vscode",
+        ".config",
+        "packages",
+        ".nuget-packages",
+        ".github"
+    ]
 }

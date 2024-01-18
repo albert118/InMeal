@@ -1,0 +1,36 @@
+[tool.coverage.run]
+branch = true
+source = [ "generative_recipe_images" ]
+
+[tool.coverage.report]
+exclude_lines = ['if TYPE_CHECKING:']
+show_missing = true
+
+[tool.pytest.ini_options]
+addopts = "--cov --cov-report html:'../../coverage/apps/generative-recipe-images/html' --cov-report xml:'../../coverage/apps/generative-recipe-images/coverage.xml' --html='../../reports/apps/generative-recipe-images/unittests/html/index.html' --junitxml='../../reports/apps/generative-recipe-images/unittests/junit.xml'"
+
+[tool.poetry]
+name = "generative-recipe-images"
+version = "1.0.0"
+description = "A simple REST Microservice abstracting the consumption of a generative model for images of a recipe."
+authors = [ "Albert Ferguson" ]
+license = 'Proprietary'
+readme = 'README.md'
+
+[[tool.poetry.packages]]
+include = "generative_recipe_images"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.11"
+
+[tool.poetry.group.dev.dependencies]
+autopep8 = "2.0.2"
+flake8 = "6.0.0"
+pytest = "7.3.1"
+pytest-sugar = "0.9.7"
+pytest-cov = "4.1.0"
+pytest-html = "3.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
