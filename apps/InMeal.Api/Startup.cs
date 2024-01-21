@@ -43,7 +43,7 @@ public class Startup
 
         hostBuilder.ConfigureContainer<ContainerBuilder>(containerBuilder =>
         {
-            containerBuilder.RegisterDatabaseSettings(config);
+            containerBuilder.RegisterSettings(config);
             
             if (env.IsProduction()) {
                 containerBuilder.RegisterType<InMealDbMigrationContext>()

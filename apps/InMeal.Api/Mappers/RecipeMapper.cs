@@ -6,7 +6,7 @@ namespace InMeal.Api.Mappers;
 
 public static class RecipeMapper
 {
-    public static RecipeDto ToDto(Recipe recipe)
+    public static RecipeDto ToDto(Recipe recipe, string fakeUrl)
     {
         return new(
             recipe.Id.Key,
@@ -19,7 +19,8 @@ public static class RecipeMapper
             recipe.RecipeIngredients.Select(RecipeIngredientMapper.ToDto).ToList(),
             recipe.GetCategoryName(),
             recipe.CourseType,
-            recipe.MealType
+            recipe.MealType,
+            new(fakeUrl)
         );
     }
     
@@ -38,17 +39,13 @@ public static class RecipeMapper
         );
     }
 
-    public static RecommendedRecipe ToRecommended(Recipe recipe)
+    public static RecommendedRecipe ToRecommended(Recipe recipe, string fakeUrl)
     {
         return new(
             recipe.Id.Key,
-            ToDto(recipe),
+            ToDto(recipe, fakeUrl),
             recipe.Title,
-            PreparationStatus.Unknown.ToString().ToLowerInvariant(),
-            // TODO: fake this better
-            new(
-                "http://localhost:8000/static/stir-fry.jpg"
-            )
+            PreparationStatus.Unknown.ToString().ToLowerInvariant()
         );
     }
 

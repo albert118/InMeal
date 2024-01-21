@@ -9,8 +9,6 @@ public static class ConfigurationFactory
         const string appSettings = "appsettings.json";
         var appSettingsEnv = $"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json";
         
-
-        
         return new ConfigurationBuilder()
                .SetBasePath(Directory.GetCurrentDirectory())
                 // requires Microsoft.Extensions.Configuration.Json
@@ -34,6 +32,14 @@ public static class ConfigurationFactory
                 int.Parse(config.GetSection("ConnectionStrings:ServerVersionBuild").Value ??
                           throw new ArgumentException("database build version should be configured to continue"))
             ))
+        );
+    }
+
+    public static FakeRecipeImageMicroserviceConfig GetFakeRecipeImageMicroserviceConfig(IConfiguration config)
+    {
+        return new FakeRecipeImageMicroserviceConfig(
+            config.GetSection("GenerativeRecipeImageMicroservice:ServiceUrl").Value ??
+            throw new ArgumentException("a URL must be defined for the generative recipe image microservice")
         );
     }
 }

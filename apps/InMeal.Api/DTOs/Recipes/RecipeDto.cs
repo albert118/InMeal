@@ -1,3 +1,4 @@
+using InMeal.Api.DTOs.Upcoming;
 using InMeal.Core.Enumerations;
 
 namespace InMeal.Api.DTOs.Recipes;
@@ -13,5 +14,6 @@ public sealed record RecipeDto(
     List<RecipeIngredientDto> RecipeIngredients,
     Cuisine Category,
     MealCourse Course,
-    MealType Type
+    MealType Type,
+    Image Image
 );

@@ -1,3 +1,4 @@
+using Configuration;
 using InMeal.Api.DTOs.Recipes;
 using InMeal.Api.Features.Recipes;
 using InMeal.Api.Mappers;
@@ -12,11 +13,13 @@ public class RecipesController : ControllerBase
 {
     private readonly IRecipeManager _recipeManager;
     private readonly ICancellationTokenAccessor _tokenAccessor;
+    private readonly FakeRecipeImageMicroserviceConfig _fakeRecipeImageMicroserviceConfig;
 
-    public RecipesController(IRecipeManager recipeManager, ICancellationTokenAccessor tokenAccessor)
+    public RecipesController(IRecipeManager recipeManager, ICancellationTokenAccessor tokenAccessor,FakeRecipeImageMicroserviceConfig fakeRecipeImageMicroserviceConfig)
     {
         _recipeManager = recipeManager;
         _tokenAccessor = tokenAccessor;
+        _fakeRecipeImageMicroserviceConfig = fakeRecipeImageMicroserviceConfig;
     }
 
     [HttpPost("[action]", Name = "View all recipes with given IDs")]
@@ -27,8 +30,9 @@ public class RecipesController : ControllerBase
         var result = _recipeManager.GetManyAsync(keys, _tokenAccessor.Token)
                                    .GetAwaiter()
                                    .GetResult();
-
-        return !result.Any() ? NoContent() : Ok(result.Select(RecipeMapper.ToDto).ToList());
+        
+        var fakeUrl = $"{_fakeRecipeImageMicroserviceConfig.serviceUrl}/static/stir-fry.jpg";
+        return !result.Any() ? NoContent() : Ok(result.Select(r => RecipeMapper.ToDto(r, fakeUrl)).ToList());
     }
 
     [HttpGet("{id:guid}", Name = "View Recipe")]
@@ -37,8 +41,8 @@ public class RecipesController : ControllerBase
         var result = _recipeManager.GetAsync(new(id), _tokenAccessor.Token)
                                    .GetAwaiter()
                                    .GetResult();
-
-        return result == null ? NotFound() : Ok(RecipeMapper.ToDto(result));
+        var fakeUrl = $"{_fakeRecipeImageMicroserviceConfig.serviceUrl}/static/stir-fry.jpg";
+        return result == null ? NotFound() : Ok(RecipeMapper.ToDto(result, fakeUrl));
     }
 
     [HttpPost("[action]", Name = "Add a new recipe")]
