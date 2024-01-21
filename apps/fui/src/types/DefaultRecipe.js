@@ -8,7 +8,8 @@ const defaultRecipe = Object.freeze({
     type: 'unknown',
     category: 'unknown',
     course: 'unknown',
-    recipeIngredients: []
+    recipeIngredients: [],
+    image: { url: '#' }
 });
 
 export { defaultRecipe };

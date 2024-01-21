@@ -40,6 +40,7 @@ function mapToEditableRecipe(recipe) {
             label: stringifyType(recipe.course),
             original: recipe.course
         },
+        image: recipe.image,
         type: { label: stringifyType(recipe.type), original: recipe.type }
     };
 }
