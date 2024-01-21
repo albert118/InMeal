@@ -3,7 +3,7 @@ from pydantic import BaseModel, HttpUrl
 
 
 class ImageResult(BaseModel):
-    url: HttpUrl
+    url: str
     name: str
 
 
@@ -12,4 +12,4 @@ class ModelOrchestrator:
         self.model = ModelProvider().get_model()
 
     def orchestrate_response(self, prompt: str) -> ImageResult:
-        return ImageResult(url=f"http://127.0.0.1:8000/static/{self.model.generate(prompt)}", name='test image')
+        return ImageResult(url=f"/static/{self.model.generate(prompt)}", name='test image')

@@ -40,6 +40,8 @@ services:
         restart: unless-stopped
         ports:
             - '${MICROSERVICE_PORT}:8131'
+        environment:
+            ENVIRONMENT: 'production'
         build:
             context: ./apps/gri
         networks:

@@ -17,9 +17,10 @@ class AppSettings:
         load_dotenv()
         self.title = 'Generative images microservce'
         self.description = str(os.environ.get('DESCRIPTION', default_desc))
+        # TODO: this version should be set correctly
         self.version = str(os.environ.get('APP_VERSION', '0.0.1'))
 
-        self.api_port = int(os.environ.get('API_PORT', 7002))
+        self.api_port = int(os.environ.get('API_PORT', 8131))
         self.environment = bool(os.environ.get('ENVIRONMENT', 'development'))
 
         self.contact_details = {
@@ -32,7 +33,6 @@ class AppSettings:
             "identifier": "MIT",
             'url': 'https://github.com/albert118/GenerativeRecipes/blob/master/LICENSE'
         }
-
 
     def is_development(self):
         return self.environment == 'development'
