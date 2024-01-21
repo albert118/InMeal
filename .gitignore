@@ -16,6 +16,7 @@ venv.bak/
 # nx
 .nx/installation
 .nx/cache
+.cache
 
 # artifacts and dependencies
 /node_modules/
