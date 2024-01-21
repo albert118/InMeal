@@ -1,4 +1,7 @@
 export default function Image({ alt, url, className }) {
+    if (!url || url === '#')
+        return <div style={{ display: 'None' }}>no content</div>;
+
     return (
         <div
             role='img'
