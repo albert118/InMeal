@@ -1,13 +1,13 @@
 [tool.poetry]
-name = "generative-recipe-images"
-version = "1.0.0"
-description = "A simple REST Microservice abstracting the consumption of a generative model for images of a recipe."
+name = "gri"
+version = "1.1.0"
+description = "Generative Recipe Images (aka. GRI) - A REST Microservice abstracting the consumption of a generative model for images of a recipe."
 authors = [ "Albert Ferguson" ]
 license = 'Proprietary'
 readme = 'README.md'
 
 [[tool.poetry.packages]]
-include = "generative-recipe-images"
+include = "gri"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<3.11"
