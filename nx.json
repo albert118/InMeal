@@ -4,6 +4,10 @@
         "defaultBase": "master"
     },
     "targetDefaults": {
+        "serve": {
+            "inputs": ["default", "^production"],
+            "cache": true
+        },
         "build": {
             "dependsOn": ["codegen", "^codegen"],
             "inputs": ["default", "production", "^production"],
