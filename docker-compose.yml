@@ -7,9 +7,9 @@ networks:
 services:
     inmeal-backend:
         container_name: inmeal-backend
+        image: inmeal/backend
         build:
             dockerfile: ./apps/InMeal.Api/Dockerfile
-        image: inmeal/backend
         restart: unless-stopped
         ports:
             - '${API_PORT}:7078'
@@ -31,12 +31,15 @@ services:
             - '${SPA_PORT}:80'
         depends_on:
             - inmeal-backend
+            - inmeal-generative-recipe-images
         networks:
             - in-meal-network
-    inmeal-gri:
+    inmeal-generative-recipe-images:
         container_name: inmeal-gri
         image: inmeal/gri
         restart: unless-stopped
+        ports:
+            - '${MICROSERVICE_PORT}:8131'
         build:
             context: ./apps/gri
         networks:
