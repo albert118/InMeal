@@ -29,20 +29,6 @@
                 }
             }
         },
-        "publish": {
-            "executor": "@nx-dotnet/core:publish",
-            "defaultConfiguration": "production",
-            "options": {
-                "selfContained": true,
-                "runtime": "alpine-x64"
-            },
-            "configurations": {
-                "production": {
-                    "verbosity": "quiet",
-                    "configuration": "Release"
-                }
-            }
-        },
         "serve": {
             "executor": "@nx-dotnet/core:serve",
             "options": {
