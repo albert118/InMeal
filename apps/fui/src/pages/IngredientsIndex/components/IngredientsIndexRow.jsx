@@ -1,5 +1,6 @@
 import { Badge, HorizontalCard, IndexRow } from '../../../components';
 import AppRoutes from '../../../navigation/AppRoutes';
+import { useRecipeImage } from '../../../hooks/data';
 
 export default function IngredientsIndexRow({
     label,
@@ -7,6 +8,9 @@ export default function IngredientsIndexRow({
     isSelected,
     onAddOrRemove
 }) {
+    // TODO: this should be phased out once the real content can be loaded
+    const { recipeImage } = useRecipeImage(null);
+
     return (
         <IndexRow label={label}>
             {ingredients.map(ingredient => (
@@ -17,6 +21,7 @@ export default function IngredientsIndexRow({
                     navigateLocation={`${AppRoutes.ingredients}/edit/${ingredient.ingredientId}`}
                     onClick={() => onAddOrRemove(ingredient)}
                     selected={isSelected(ingredient)}
+                    image={recipeImage}
                 >
                     <IngredientDetailBadges ingredient={ingredient} />
                 </HorizontalCard>
