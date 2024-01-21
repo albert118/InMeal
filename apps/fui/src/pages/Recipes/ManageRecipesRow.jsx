@@ -10,7 +10,8 @@ export default function ManageRecipesRow({
     onAddOrRemove
 }) {
     // TODO: this should be phased out once the real content can be loaded
-    const { recipeImage } = useRecipeImage(null);
+    const { getRecipeImage } = useRecipeImage();
+    const recipeImage = getRecipeImage(null);
 
     return (
         <IndexRow label={label}>

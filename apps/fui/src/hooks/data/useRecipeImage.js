@@ -1,14 +1,4 @@
-import { GriApiConfig } from '../../config';
-import { useFetch } from '../../hooks/fetch';
-import { useContext, useEffect, useState } from 'react';
-import { defaultRecipeImage, mapToRecipeImage } from '../../types/RecipeImage';
-import { ErrorDetailContext } from './errorContext';
-
-export default function useRecipe(recipeId) {
-    const [recipeImage, setRecipeImage] = useState(defaultRecipeImage);
-    const { getApi } = useFetch();
-    const { setError } = useContext(ErrorDetailContext);
-
+export default function useRecipe() {
     function getRecipeImage(id) {
         if (id === undefined) {
             console.warn(
@@ -20,17 +10,11 @@ export default function useRecipe(recipeId) {
             );
         }
 
-        getApi(`${GriApiConfig.API_URL}/images`)
-            .then(data => {
-                setRecipeImage(GriApiConfig.API_URL, mapToRecipeImage(data));
-                setError(null);
-            })
-            .catch(setError);
+        return {
+            url: 'http://localhost:8000/static/stir-fry.jpg',
+            label: 'test image - not real!'
+        };
     }
 
-    useEffect(() => {
-        getRecipeImage(recipeId);
-    }, []);
-
-    return { recipeImage: recipeImage };
+    return { getRecipeImage: getRecipeImage };
 }

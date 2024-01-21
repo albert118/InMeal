@@ -6,17 +6,28 @@ import {
 } from '../../components';
 import { LongTextInput, NumberInput, TextInput } from '../../forms/Inputs';
 import { ValidationErrors } from '../../forms/Validation';
-import { ErrorDetailContext, useIngredients } from '../../hooks/data';
+import {
+    ErrorDetailContext,
+    useIngredients,
+    useRecipeImage
+} from '../../hooks/data';
 import { useContext } from 'react';
 import { MultiSelectItemBadge } from './components';
 
 export function LeftPane({ recipe, formStatus, onUpdate }) {
     const { ingredients } = useIngredients();
     const { error: errors } = useContext(ErrorDetailContext);
+    // TODO: this should be phased out once the real content can be loaded
+    const { getRecipeImage } = useRecipeImage();
+    const recipeImage = getRecipeImage(null);
 
     return (
         <div className='card recipe-card two-pane-recipe-card--left'>
-            <Image alt={recipe.title} className='image-slot' />
+            <Image
+                alt={recipeImage.label}
+                className='image-slot'
+                url={recipeImage.url}
+            />
 
             <TitleBar>
                 <TextInput

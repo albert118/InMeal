@@ -2,6 +2,7 @@ import { Image, TitleBar } from '../../components';
 import { NumberInput, TextInput } from '../../forms/Inputs';
 import { Actions } from './Actions';
 import { RecipeIngredients } from './RecipeIngredients';
+import { useRecipeImage } from '../../hooks/data';
 
 export default function TwoPaneRecipeCard({ recipe }) {
     return (
@@ -13,9 +14,17 @@ export default function TwoPaneRecipeCard({ recipe }) {
 }
 
 function LeftPane({ recipe }) {
+    // TODO: this should be phased out once the real content can be loaded
+    const { getRecipeImage } = useRecipeImage();
+    const recipeImage = getRecipeImage(null);
+
     return (
         <div className='card recipe-card two-pane-recipe-card--left'>
-            <Image alt={recipe.title} className='image-slot' />
+            <Image
+                alt={recipe.title}
+                className='image-slot'
+                url={recipeImage.url}
+            />
 
             <TitleBar>{recipe.title}</TitleBar>
 

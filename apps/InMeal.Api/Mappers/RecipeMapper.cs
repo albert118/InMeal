@@ -45,8 +45,9 @@ public static class RecipeMapper
             ToDto(recipe),
             recipe.Title,
             PreparationStatus.Unknown.ToString().ToLowerInvariant(),
+            // TODO: fake this better
             new(
-                "https://media.tenor.com/1TjGpMd7GEYAAAAC/stitch-dessert.gif"
+                "http://localhost:8000/static/stir-fry.jpg"
             )
         );
     }
