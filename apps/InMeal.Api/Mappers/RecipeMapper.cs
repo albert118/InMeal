@@ -24,7 +24,7 @@ public static class RecipeMapper
         );
     }
     
-    public static RecipeDetailDto ToDetailDto(Recipe recipe)
+    public static RecipeDetailDto ToDetailDto(Recipe recipe, string fakeUrl)
     {
         return new(
             Id: recipe.Id.Key,
@@ -35,7 +35,8 @@ public static class RecipeMapper
             IngredientsCount: recipe.RecipeIngredients.Count,
             Category: recipe.GetCategoryName().ToString(),
             Course: recipe.CourseType.ToString(),
-            Type: recipe.MealType.ToString()
+            Type: recipe.MealType.ToString(),
+            Image: new(fakeUrl)
         );
     }
 
@@ -49,11 +50,11 @@ public static class RecipeMapper
         );
     }
 
-    public static RecipesByCourseDto ToDto(Dictionary<MealCourse, List<Recipe>> recipes)
+    public static RecipesByCourseDto ToDto(Dictionary<MealCourse, List<Recipe>> recipes, string fakeUrl)
     {
         return new(recipes.ToDictionary(
             kvp => kvp.Key,
-            kvp => kvp.Value.Select(ToDetailDto).ToList()
+            kvp => kvp.Value.Select(r => ToDetailDto(r, fakeUrl)).ToList()
         ));
     }
 }

@@ -81,7 +81,8 @@ public class RecipesController : ControllerBase
                                    .GetAwaiter()
                                    .GetResult();
 
-        return !result.Any() ? NoContent() : Ok(RecipeMapper.ToDto(result));
+        var fakeUrl = $"{_fakeRecipeImageMicroserviceConfig.serviceUrl}/static/stir-fry.jpg";
+        return !result.Any() ? NoContent() : Ok(RecipeMapper.ToDto(result, fakeUrl));
     }
 
     [HttpPost("[action]", Name = "Archive the given Recipes")]
