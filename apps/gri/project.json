@@ -1,14 +1,23 @@
 {
-    "name": "generative-recipe-images",
+    "name": "@inmeal/gri",
     "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/generative-recipe-images",
     "projectType": "application",
-    "sourceRoot": "apps/generative-recipe-images/generative_recipe_images",
     "targets": {
         "lock": {
             "executor": "@nxlv/python:run-commands",
             "options": {
+                "color": true,
                 "command": "poetry lock --no-update",
-                "cwd": "{workspaceRoot}"
+                "cwd": "apps/generative-recipe-images"
+            }
+        },
+        "serve": {
+            "executor": "@nxlv/python:run-commands",
+            "options": {
+                "color": true,
+                "command": "uvicorn app.main:app --reload",
+                "cwd": "apps/generative-recipe-images"
             }
         },
         "add": {
@@ -26,11 +35,22 @@
         "build": {
             "executor": "@nxlv/python:build",
             "outputs": ["{projectRoot}/dist"],
+            "defaultConfiguration": "production",
+            "dependsOn": [
+                "^build",
+                {
+                    "projects": "@inmeal/fui",
+                    "target": "build"
+                }
+            ],
             "options": {
                 "outputPath": "{workspaceRoot}/dist/apps/generative-recipe-images",
                 "publish": false,
                 "lockedVersions": true,
                 "bundleLocalDependencies": true
+            },
+            "configurations": {
+                "development": {}
             }
         },
         "install": {
