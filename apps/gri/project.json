@@ -8,7 +8,7 @@
             "executor": "@nxlv/python:run-commands",
             "options": {
                 "color": true,
-                "command": "poetry lock --no-update",
+                "commands": ["poetry lock --no-update"],
                 "cwd": "apps/gri"
             }
         },
@@ -16,7 +16,10 @@
             "executor": "@nxlv/python:run-commands",
             "options": {
                 "color": true,
-                "command": "uvicorn gri.main:app --reload",
+                "commands": [
+                    "poetry run uvicorn --version",
+                    "poetry run uvicorn gri.main:app --reload"
+                ],
                 "cwd": "apps/gri"
             }
         },
