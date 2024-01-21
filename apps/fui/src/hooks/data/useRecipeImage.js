@@ -1,4 +1,7 @@
-export default function useRecipe() {
+// TODO: ensure backend serves all image references
+// backend should then substitute env config for microservice
+// ie. frontend shouldn't know about it
+export default function useRecipeImage() {
     function getRecipeImage(id) {
         if (id === undefined) {
             console.warn(
