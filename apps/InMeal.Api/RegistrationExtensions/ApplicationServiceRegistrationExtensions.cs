@@ -2,6 +2,7 @@
 using InMeal.Api.Features.Ingredients;
 using InMeal.Api.Features.Recipes;
 using InMeal.Api.Features.Upcoming;
+using InMeal.Infrastructure.External.GenerativeRecipeImages;
 using InMeal.Infrastructure.QueryServices;
 using InMeal.Infrastructure.Repositories;
 
@@ -24,7 +25,8 @@ public static class ApplicationServiceRegistrationExtensions
         return containerBuilder
             .RegisterQueryServices()
             .RegisterRepositories()
-            .RegisterManagersAndServices();
+            .RegisterManagersAndServices()
+            .RegisterExternalServices();
     }
 
     private static ContainerBuilder RegisterQueryServices(this ContainerBuilder containerBuilder)
@@ -50,6 +52,13 @@ public static class ApplicationServiceRegistrationExtensions
         containerBuilder.RegisterType<RecipeManager>().AsImplementedInterfaces().InstancePerDependency();
         containerBuilder.RegisterType<IngredientsManager>().AsImplementedInterfaces().InstancePerDependency();
         
+        return containerBuilder;
+    }
+
+    private static ContainerBuilder RegisterExternalServices(this ContainerBuilder containerBuilder)
+    {
+        containerBuilder.RegisterType<GenerativeRecipeImages>().AsImplementedInterfaces().InstancePerDependency();
+
         return containerBuilder;
     }
 }

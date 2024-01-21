@@ -35,9 +35,9 @@ public static class ConfigurationFactory
         );
     }
 
-    public static FakeRecipeImageMicroserviceConfig GetFakeRecipeImageMicroserviceConfig(IConfiguration config)
+    public static GenerativeRecipeImagesMicroserviceConfig GetFakeRecipeImageMicroserviceConfig(IConfiguration config)
     {
-        return new FakeRecipeImageMicroserviceConfig(
+        return new GenerativeRecipeImagesMicroserviceConfig(
             config.GetSection("GenerativeRecipeImageMicroservice:ServiceUrl").Value ??
             throw new ArgumentException("a URL must be defined for the generative recipe image microservice")
         );
