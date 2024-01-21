@@ -1,34 +1,32 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS builder
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS publisher
 
 WORKDIR /build
 
-COPY /apps/Configuration ./apps/Configuration
-COPY /apps/InMeal.Api ./apps/InMeal.Api
-COPY /apps/InMeal.Infrastructure ./apps/InMeal.Infrastructure
-COPY /apps/InMeal.Core ./apps/InMeal.Core
+COPY /apps/Configuration ./Configuration
+COPY /apps/InMeal.Api ./InMeal.Api
+COPY /apps/InMeal.Infrastructure ./InMeal.Infrastructure
+COPY /apps/InMeal.Core ./InMeal.Core
+COPY README.md LICENSE Directory.*.* nuget.config ./
 
-# meta and misc.
-COPY README.md LICENSE .nxignore package.json package-lock.json tsconfig.base.json nx.json .eslintrc.json .eslintignore ./
-# dotnet specific files
-COPY Directory.*.* nuget.config .nx-dotnet.rc.json ./
-
-RUN apk add --no-cache npm nodejs;
-
-# if this fails for some reason, including the node details is helpful
-RUN node --version && npm ci
-RUN npx nx run InMeal.Api:publish
+# target the runtime image environment and slim
+# down deployments with a self-contained artifact
+RUN mkdir /publish; \
+    dotnet publish InMeal.Api -o /publish \
+    --self-contained --runtime alpine-x64 --verbosity quiet \
+    --configuration Release \
+    -p:PublishReadyToRun=true
 
 FROM alpine:3.19 as runtime
 
 WORKDIR /release
 
-# https://github.com/dotnet/core/blob/main/Documentation/build-and-install-rhel6-prerequisites.md#how-to-use-net-core-on-rhel-6--centos-6
+# https://learn.microsoft.com/en-us/dotnet/core/install/linux-alpine#dependencies
 RUN apk update; \
     apk add --no-cache openssh libunwind nghttp2-libs \
-    libidn krb5-libs libuuid \
-    lttng-ust zlib
+    libidn krb5-libs libuuid lttng-ust zlib \
+    libgcc libstdc++
 
-COPY --from=builder /build/dist/apps/ .
+COPY --from=publisher /publish .
 
 COPY /apps/InMeal.Core/appsettings.json /apps/InMeal.Api/appsettings.Production.json /apps/InMeal.Api/appsettings.json ./
 
@@ -37,4 +35,5 @@ ENV ASPNETCORE_ENVIRONMENT='Production'
 # disabled to avoid installing ICU
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 
-ENTRYPOINT dotnet InMeal.Api/net7.0/InMeal.Api.dll
+# RUN ls -a ./ && ls asda
+ENTRYPOINT ./InMeal.Api

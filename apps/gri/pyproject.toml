@@ -2,9 +2,9 @@
 name = "gri"
 version = "1.1.0"
 description = "Generative Recipe Images (aka. GRI) - A REST Microservice abstracting the consumption of a generative model for images of a recipe."
-authors = [ "Albert Ferguson" ]
-license = 'Proprietary'
-readme = 'README.md'
+authors = [ "Albert Ferguson <albertferguson118@gmail.com>" ]
+license = "MIT"
+readme = "README.md"
 
 [[tool.poetry.packages]]
 include = "gri"
