@@ -33,3 +33,11 @@ services:
             - inmeal-backend
         networks:
             - in-meal-network
+    inmeal-gri:
+        container_name: inmeal-gri
+        image: inmeal/gri
+        restart: unless-stopped
+        build:
+            context: ./apps/gri
+        networks:
+            - in-meal-network

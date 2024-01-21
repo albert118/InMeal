@@ -3,13 +3,14 @@
     "version": "1.4.2",
     "private": true,
     "scripts": {
-        "serve-stack": "npx nx run-many -t serve -p InMeal.Api @inmeal/fui",
+        "serve-stack": "npx nx run-many -t serve -p InMeal.Api @inmeal/fui @inmeal/gri",
         "clean": "rm -r ./dist ./.nuget-packages ./packages ./node_modules",
         "docker-build": "docker build . -t inmeal"
     },
     "devDependencies": {
         "@nx-dotnet/core": "^2.0.1",
         "@nx/vite": "17.0.1",
+        "@nxlv/python": "^17.0.0",
         "@vitejs/plugin-react": "^4.2.1",
         "nx": "17.0.1"
     },

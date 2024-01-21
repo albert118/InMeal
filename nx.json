@@ -4,6 +4,10 @@
         "defaultBase": "master"
     },
     "targetDefaults": {
+        "serve": {
+            "inputs": ["default", "^production"],
+            "cache": true
+        },
         "build": {
             "dependsOn": ["codegen", "^codegen"],
             "inputs": ["default", "production", "^production"],
@@ -52,7 +56,8 @@
             }
         },
         "@nx-dotnet/core",
-        "@nx/vite"
+        "@nx/vite",
+        "@nxlv/python"
     ],
     "namedInputs": {
         "default": ["{projectRoot}/**/*", "sharedGlobals"],

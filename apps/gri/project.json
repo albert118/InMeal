@@ -1,0 +1,71 @@
+{
+    "name": "@inmeal/gri",
+    "$schema": "../../node_modules/nx/schemas/project-schema.json",
+    "sourceRoot": "apps/gri",
+    "projectType": "application",
+    "targets": {
+        "lock": {
+            "executor": "@nxlv/python:run-commands",
+            "options": {
+                "color": true,
+                "commands": ["poetry lock --no-update"],
+                "cwd": "apps/gri"
+            }
+        },
+        "serve": {
+            "executor": "@nxlv/python:run-commands",
+            "options": {
+                "color": true,
+                "commands": [
+                    "poetry run uvicorn --version",
+                    "poetry run uvicorn gri.main:app --reload"
+                ],
+                "cwd": "apps/gri"
+            }
+        },
+        "add": {
+            "executor": "@nxlv/python:add",
+            "options": {}
+        },
+        "update": {
+            "executor": "@nxlv/python:update",
+            "options": {}
+        },
+        "remove": {
+            "executor": "@nxlv/python:remove",
+            "options": {}
+        },
+        "build": {
+            "executor": "@nxlv/python:build",
+            "outputs": ["{projectRoot}/dist"],
+            "defaultConfiguration": "production",
+            "dependsOn": [
+                "^build",
+                {
+                    "projects": "@inmeal/fui",
+                    "target": "build"
+                }
+            ],
+            "options": {
+                "outputPath": "{workspaceRoot}/dist/apps/gri",
+                "publish": false,
+                "lockedVersions": true,
+                "bundleLocalDependencies": true
+            },
+            "configurations": {
+                "development": {}
+            }
+        },
+        "install": {
+            "executor": "@nxlv/python:install",
+            "options": {
+                "silent": false,
+                "args": "",
+                "cacheDir": ".nx/pypoetry/cache",
+                "verbose": false,
+                "debug": false
+            }
+        }
+    },
+    "tags": []
+}

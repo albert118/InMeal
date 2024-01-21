@@ -15,6 +15,11 @@ dataSources.xml
 *.env.*
 *.secret
 *.secret.*
+.venv
+venv/
+ENV/
+env.bak/
+venv.bak/
 
 # artifacts and cache
 **/bin
@@ -24,3 +29,27 @@ dataSources.xml
 **/packages
 **/.nuget-packages
 .nx/cache
+
+# Distribution / packaging:
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Flask stuff:
+instance/
+.webassets-cache
