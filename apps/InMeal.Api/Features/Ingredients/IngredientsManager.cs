@@ -1,4 +1,5 @@
 using System.Data;
+using Configuration;
 using InMeal.Api.DTOs.Ingredients;
 using InMeal.Api.Mappers;
 using InMeal.Core.Entities;
@@ -30,14 +31,16 @@ public class IngredientsManager : IIngredientsManager
     private const int DefaultTake = 25;
     private readonly IAsyncIngredientRepository _ingredientRepository;
     private readonly ILogger<IngredientsManager> _logger;
+    private readonly FakeRecipeImageMicroserviceConfig _fakeRecipeImageMicroserviceConfig;
     private readonly IAsyncRecipeIngredientQueryService _recipeIngredientQueryService;
 
     public IngredientsManager(IAsyncIngredientRepository ingredientRepository,
-        IAsyncRecipeIngredientQueryService recipeIngredientQueryService, ILogger<IngredientsManager> logger)
+        IAsyncRecipeIngredientQueryService recipeIngredientQueryService, ILogger<IngredientsManager> logger, FakeRecipeImageMicroserviceConfig fakeRecipeImageMicroserviceConfig)
     {
         _ingredientRepository = ingredientRepository;
         _recipeIngredientQueryService = recipeIngredientQueryService;
         _logger = logger;
+        _fakeRecipeImageMicroserviceConfig = fakeRecipeImageMicroserviceConfig;
     }
 
     public async Task<List<Ingredient>> GetIngredientsAsync(int? skip, int? take, CancellationToken ct)
@@ -78,10 +81,12 @@ public class IngredientsManager : IIngredientsManager
 
         var usageCountResults = await _recipeIngredientQueryService.GetIngredientUsageCountAsync(ct);
 
+        var fakeUrl = $"{_fakeRecipeImageMicroserviceConfig.serviceUrl}/static/stir-fry.jpg";
+
         // merge results with the mapper
         return indexedIngredients.Count == 0
             ? new()
-            : IngredientMapper.MapToAlphabeticallyIndexedIngredientsDto(indexedIngredients, usageCountResults);
+            : IngredientMapper.MapToAlphabeticallyIndexedIngredientsDto(indexedIngredients, usageCountResults, fakeUrl);
     }
 
     public async Task<List<Ingredient>> AddAndGetExistingAsync(IEnumerable<string> names, CancellationToken ct)

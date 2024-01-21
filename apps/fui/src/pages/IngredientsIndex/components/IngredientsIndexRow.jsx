@@ -7,7 +7,6 @@ export default function IngredientsIndexRow({
     isSelected,
     onAddOrRemove
 }) {
-    // TODO: check this and update the ingredient path backend fake!
     return (
         <IndexRow label={label}>
             {ingredients.map(ingredient => (
@@ -18,7 +17,10 @@ export default function IngredientsIndexRow({
                     navigateLocation={`${AppRoutes.ingredients}/edit/${ingredient.ingredientId}`}
                     onClick={() => onAddOrRemove(ingredient)}
                     selected={isSelected(ingredient)}
-                    image={ingredient.image}
+                    image={{
+                        url: ingredient.image.url,
+                        label: ingredient.name
+                    }}
                 >
                     <IngredientDetailBadges ingredient={ingredient} />
                 </HorizontalCard>
