@@ -58,7 +58,7 @@
             "options": {
                 "silent": false,
                 "args": "",
-                "cacheDir": ".cache/pypoetry",
+                "cacheDir": ".nx/pypoetry/cache",
                 "verbose": false,
                 "debug": false
             }
