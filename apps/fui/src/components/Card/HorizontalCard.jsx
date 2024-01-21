@@ -1,6 +1,5 @@
 import { faSquarePlus, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { demoImage } from '../../DemoImage';
 import { GoToCTA } from '../../components';
 
 export default function HorizontalCard({
@@ -9,7 +8,7 @@ export default function HorizontalCard({
     selected,
     ...additionalProps
 }) {
-    const { url, label } = image ?? demoImage;
+    const { url, label } = image;
 
     return (
         <div className={`horiz-card ${selected ? 'horiz-card-selected' : ''}`}>

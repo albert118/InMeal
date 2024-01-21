@@ -17,6 +17,10 @@ export default function IngredientsIndexRow({
                     navigateLocation={`${AppRoutes.ingredients}/edit/${ingredient.ingredientId}`}
                     onClick={() => onAddOrRemove(ingredient)}
                     selected={isSelected(ingredient)}
+                    image={{
+                        url: ingredient.image.url,
+                        label: ingredient.name
+                    }}
                 >
                     <IngredientDetailBadges ingredient={ingredient} />
                 </HorizontalCard>

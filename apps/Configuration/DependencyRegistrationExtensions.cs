@@ -7,9 +7,13 @@ namespace Configuration;
 
 public static class DependencyRegistrationExtensions
 {
-    public static ContainerBuilder RegisterDatabaseSettings(this ContainerBuilder containerBuilder, IConfiguration config)
+    public static ContainerBuilder RegisterSettings(this ContainerBuilder containerBuilder, IConfiguration config)
     {
         containerBuilder.RegisterInstance(ConfigurationFactory.GetDatabaseSettings(config))
+                        .AsSelf()
+                        .SingleInstance();
+        
+        containerBuilder.RegisterInstance(ConfigurationFactory.GetFakeRecipeImageMicroserviceConfig(config))
                         .AsSelf()
                         .SingleInstance();
         

@@ -15,7 +15,11 @@ export default function TwoPaneRecipeCard({ recipe }) {
 function LeftPane({ recipe }) {
     return (
         <div className='card recipe-card two-pane-recipe-card--left'>
-            <Image alt={recipe.title} className='image-slot' />
+            <Image
+                alt={recipe.title}
+                className='image-slot'
+                url={recipe.image.url}
+            />
 
             <TitleBar>{recipe.title}</TitleBar>
 

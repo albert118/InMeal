@@ -13,3 +13,10 @@ def generate_image(prompt: str) -> ImageResult:
     '''Get a new image'''
     orchestrator = ModelOrchestrator()
     return orchestrator.orchestrate_response(prompt)
+
+
+@router.get('/')
+def generate_image() -> ImageResult:
+    '''Get a new random image'''
+    orchestrator = ModelOrchestrator()
+    return orchestrator.orchestrate_response('random result from GET /images')

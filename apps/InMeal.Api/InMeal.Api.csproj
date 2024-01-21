@@ -9,8 +9,6 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <PublishSingleFile>true</PublishSingleFile>
-        <SelfContained>true</SelfContained>
     </PropertyGroup>
 
     <ItemGroup>

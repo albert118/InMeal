@@ -5,12 +5,13 @@ namespace InMeal.Api.Mappers;
 
 public static class IngredientMapper
 {
-    public static IngredientDto MapToIngredientDto(this Ingredient ingredient)
+    public static IngredientDto MapToIngredientDto(this Ingredient ingredient, string fakeUrl)
     {
         return new(
             Id: ingredient.Id.Key,
             Name: ingredient.Name,
-            Units: MeasurementMapper.ToDto(ingredient.Unit)
+            Units: MeasurementMapper.ToDto(ingredient.Unit),
+            Image: new(fakeUrl)
         );
     }
     
@@ -27,7 +28,7 @@ public static class IngredientMapper
     }
 
     public static AlphabeticallyIndexedIngredientDto MapToAlphabeticallyIndexedIngredientDto(this Ingredient ingredient,
-        Dictionary<IngredientId, int> recipeIngredientUsageCounts)
+        Dictionary<IngredientId, int> recipeIngredientUsageCounts, string fakeUrl)
     {
         recipeIngredientUsageCounts.TryGetValue(ingredient.Id, out var recipeUsageCount);
 
@@ -35,17 +36,18 @@ public static class IngredientMapper
             IngredientId: ingredient.Id.Key,
             Name: ingredient.Name,
             RecipeUsageCount: recipeUsageCount,
-            Units: MeasurementMapper.ToDto(ingredient.Unit)
+            Units: MeasurementMapper.ToDto(ingredient.Unit),
+            Image: new(fakeUrl)
         );
     }
 
     public static Dictionary<string, List<AlphabeticallyIndexedIngredientDto>> MapToAlphabeticallyIndexedIngredientsDto(
-        Dictionary<string, List<Ingredient>> values, Dictionary<IngredientId, int> usageCounts)
+        Dictionary<string, List<Ingredient>> values, Dictionary<IngredientId, int> usageCounts, string fakeUrl)
     {
         return values.ToDictionary(
             kvp => kvp.Key,
             kvp => kvp.Value
-                      .Select(v => MapToAlphabeticallyIndexedIngredientDto(v, usageCounts))
+                      .Select(v => MapToAlphabeticallyIndexedIngredientDto(v, usageCounts, fakeUrl))
                       .ToList()
         );
     }

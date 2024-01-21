@@ -13,10 +13,10 @@ export default function RecipeCard({ ...additionalProps }) {
             ctaHandler={additionalProps.onClick}
             {...additionalProps}
         >
-            {additionalProps.image && (
+            {entity.image && (
                 <img
-                    src={additionalProps.image.url}
-                    alt={additionalProps.label ?? additionalProps.image.label}
+                    src={entity.image.url}
+                    alt={entity.title ?? additionalProps.label}
                 />
             )}
         </ImageCard>

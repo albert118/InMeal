@@ -12,8 +12,7 @@ export default function useRecipe(recipeId) {
 
     function getRecipe(id) {
         if (id === undefined) return;
-        const url = `${ApiConfig.API_URL}/recipes/${id}`;
-        getApi(url)
+        getApi(`${ApiConfig.API_URL}/recipes/${id}`)
             .then(data => {
                 setRecipe(mapToEditableRecipe(data));
                 setError(null);

@@ -1,3 +1,5 @@
-﻿namespace InMeal.Api.DTOs.Ingredients;
+﻿using InMeal.Api.DTOs.Upcoming;
 
-public record AlphabeticallyIndexedIngredientDto(Guid IngredientId, string Name, int RecipeUsageCount, MeasurementUnitDto Units);
+namespace InMeal.Api.DTOs.Ingredients;
+
+public record AlphabeticallyIndexedIngredientDto(Guid IngredientId, string Name, int RecipeUsageCount, MeasurementUnitDto Units, Image Image);

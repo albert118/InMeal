@@ -1,4 +1,5 @@
-﻿using InMeal.Api.DTOs.Ingredients;
+﻿using Configuration;
+using InMeal.Api.DTOs.Ingredients;
 using InMeal.Api.Features.Ingredients;
 using InMeal.Api.Mappers;
 using InMeal.Core.Entities;
@@ -13,11 +14,13 @@ public class IngredientsController : ControllerBase
 {
     private readonly IIngredientsManager _ingredientsManager;
     private readonly ICancellationTokenAccessor _tokenAccessor;
+    private readonly FakeRecipeImageMicroserviceConfig _fakeRecipeImageMicroserviceConfig;
 
-    public IngredientsController(IIngredientsManager ingredientsManager, ICancellationTokenAccessor tokenAccessor)
+    public IngredientsController(IIngredientsManager ingredientsManager, ICancellationTokenAccessor tokenAccessor, FakeRecipeImageMicroserviceConfig fakeRecipeImageMicroserviceConfig)
     {
         _ingredientsManager = ingredientsManager;
         _tokenAccessor = tokenAccessor;
+        _fakeRecipeImageMicroserviceConfig = fakeRecipeImageMicroserviceConfig;
     }
 
     [HttpGet(Name = "View all ingredients (paginated)")]
@@ -28,7 +31,8 @@ public class IngredientsController : ControllerBase
                                          .GetAwaiter()
                                          .GetResult();
 
-        return results.Count == 0 ? new() : results.Select(IngredientMapper.MapToIngredientDto).ToList();
+        var fakeUrl = $"{_fakeRecipeImageMicroserviceConfig.serviceUrl}/static/stir-fry.jpg";
+        return results.Count == 0 ? new() : results.Select(r => r.MapToIngredientDto(fakeUrl)).ToList();
     }
     
     [HttpGet("{ingredientId:guid}", Name = "View an ingredient")]
@@ -76,7 +80,8 @@ public class IngredientsController : ControllerBase
                                          .GetAwaiter()
                                          .GetResult();
 
-        return results.Select(IngredientMapper.MapToIngredientDto).ToList();
+        // TODO: this would be where to save the image URL
+        return results.Select(r => r.MapToIngredientDto("#")).ToList();
     }
 
     [HttpPost(Name = "Delete the given ingredients")]

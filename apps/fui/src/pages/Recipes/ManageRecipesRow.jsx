@@ -19,6 +19,10 @@ export default function ManageRecipesRow({
                         navigateLocation={`${AppRoutes.recipe}/${recipe.id}`}
                         onClick={() => onAddOrRemove(recipe)}
                         selected={isSelected(recipe)}
+                        image={{
+                            url: recipe.image.url,
+                            label: recipe.image.title
+                        }}
                     >
                         <RecipeDetailBadges recipe={recipe} />
                     </HorizontalCard>
