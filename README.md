@@ -48,11 +48,11 @@ This runs a Vite dev server for the frontend and a dotnet API.
 
 ## Project overview
 
-| Project                                                               | Description                                                              |
-| --------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| [InMeal](./apps/InMeal.Api/README.md)                                 | A dotnet API using EF Core + MariaDb                                     |
-| [Food UI (aka. "FUI")](./apps/fui/README.md)                          | A Vite + React UI built with Carbon Design System and heavy modification |
-| [Generative Recipe Images](./apps/generative-recipe-images/README.md) | A Python FastAPI REST microservice for serving (AI) generative images    |
+| Project                                          | Description                                                              |
+| ------------------------------------------------ | ------------------------------------------------------------------------ |
+| [InMeal](./apps/InMeal.Api/README.md)            | A dotnet API using EF Core + MariaDb                                     |
+| [Food UI (aka. "FUI")](./apps/fui/README.md)     | A Vite + React UI built with Carbon Design System and heavy modification |
+| [Generative Recipe Images](./apps/gri/README.md) | A Python FastAPI REST microservice for serving (AI) generative images    |
 
 ## Building for Production
 

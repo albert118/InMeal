@@ -33,10 +33,11 @@ services:
             - inmeal-backend
         networks:
             - in-meal-network
-    inmeal-generative-recipe-images:
-        container_name: inmeal/generative-recipe-images
+    inmeal-gri:
+        container_name: inmeal-gri
+        image: inmeal/gri
         restart: unless-stopped
         build:
-            context: ./apps/generative-recipes
+            context: ./apps/gri
         networks:
             - in-meal-network
