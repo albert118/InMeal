@@ -81,13 +81,6 @@ Visit the app on <http://localhost:3002/>
 
 ## 👀 Examples
 
-![image]()
-![image]()
-
-![image]()
-
-
-<p >
 <p align="center">
     <img src="https://github.com/albert118/InMeal/assets/26985949/b7aa189e-63a1-44d2-a951-bcb6d800a371" alt="home/dashboard" />
     <img src="https://github.com/albert118/InMeal/assets/26985949/6d929c38-52ca-43d0-a2b8-1152e29af817" alt="manage recipes" />
