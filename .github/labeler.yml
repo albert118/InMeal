@@ -1,2 +1,36 @@
 - name: Labeler
   uses: actions/labeler@v5.0.0
+
+bug:
+  - head-branch: ['^bug']
+
+documentation:
+  - head-branch: ['^documentation']
+  - changed-files:
+    - any-glob-to-any-file: ['docs/**', 'apps/**/*.md']
+
+housekeeping:
+  - head-branch: ['^housekeeping'] 
+  - changed-files:
+    - any-glob-to-any-file: ['.*ignore', '.eslint*', '.prettier*']
+
+infrastructure:
+  - head-branch: ['^infrastructure']
+  - changed-files:
+    - any-glob-to-any-file: ['*.yml', 'Docker', '*.config', 'nx.json', 'package.json', 'pyvenv.cfg', '.config/**']
+
+enhancement:
+  - head-branch: ['^enhancement']
+
+backend:
+  - changed-files:
+    - any-glob-to-any-file: ['*.cs', 'Directory.Build.*']
+
+frontend:
+  - changed-files:
+    - any-glob-to-any-file: ['*.js', '*.jsx', '*.ts', '*.tsx']
+
+dependencies:
+  - changed-files:
+    - any-glob-to-any-file: ['package-lock.json', 'poetry.lock', 'Directory.Packages.props', '.nx-dotnet.rc.json']
+
