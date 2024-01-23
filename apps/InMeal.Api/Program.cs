@@ -5,16 +5,17 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var startup = new Startup(builder.Configuration);
+var configuration = ConfigurationFactory.GetConfiguration();
 
 // Configure the host container (Autofac) within this method
 Startup.ConfigureHostContainer(
     builder.Host,
-    ConfigurationFactory.GetConfiguration(),
+    configuration,
     builder.Environment
 );
 
 // Configure the global Microsoft container services
-startup.ConfigureServices(builder.Services);
+startup.ConfigureServices(builder.Services, configuration);
 
 var app = builder.Build();
 

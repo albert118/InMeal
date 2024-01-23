@@ -1,9 +1,9 @@
-﻿using Configuration;
-using InMeal.Api.DTOs.Ingredients;
+﻿using InMeal.Api.DTOs.Ingredients;
 using InMeal.Api.Features.Ingredients;
 using InMeal.Api.Mappers;
 using InMeal.Core.Entities;
 using InMeal.Infrastructure;
+using InMeal.Infrastructure.Interfaces.External.GenerativeRecipeImages;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InMeal.Api.Controllers.Ingredients;
@@ -14,13 +14,13 @@ public class IngredientsController : ControllerBase
 {
     private readonly IIngredientsManager _ingredientsManager;
     private readonly ICancellationTokenAccessor _tokenAccessor;
-    private readonly FakeRecipeImageMicroserviceConfig _fakeRecipeImageMicroserviceConfig;
+    private readonly IGenerativeRecipeImages _generativeRecipeImages;
 
-    public IngredientsController(IIngredientsManager ingredientsManager, ICancellationTokenAccessor tokenAccessor, FakeRecipeImageMicroserviceConfig fakeRecipeImageMicroserviceConfig)
+    public IngredientsController(IIngredientsManager ingredientsManager, ICancellationTokenAccessor tokenAccessor, IGenerativeRecipeImages generativeRecipeImages)
     {
         _ingredientsManager = ingredientsManager;
         _tokenAccessor = tokenAccessor;
-        _fakeRecipeImageMicroserviceConfig = fakeRecipeImageMicroserviceConfig;
+        _generativeRecipeImages = generativeRecipeImages;
     }
 
     [HttpGet(Name = "View all ingredients (paginated)")]
@@ -31,8 +31,11 @@ public class IngredientsController : ControllerBase
                                          .GetAwaiter()
                                          .GetResult();
 
-        var fakeUrl = $"{_fakeRecipeImageMicroserviceConfig.serviceUrl}/static/stir-fry.jpg";
-        return results.Count == 0 ? new() : results.Select(r => r.MapToIngredientDto(fakeUrl)).ToList();
+        var content = _generativeRecipeImages.GetRandomImage()
+                                             .GetAwaiter()
+                                             .GetResult();
+
+        return results.Count == 0 ? new() : results.Select(r => r.MapToIngredientDto(content.Url)).ToList();
     }
     
     [HttpGet("{ingredientId:guid}", Name = "View an ingredient")]

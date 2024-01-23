@@ -2,8 +2,6 @@
 using InMeal.Api.Features.Ingredients;
 using InMeal.Api.Features.Recipes;
 using InMeal.Api.Features.Upcoming;
-using InMeal.Infrastructure.QueryServices;
-using InMeal.Infrastructure.Repositories;
 
 namespace InMeal.Api.RegistrationExtensions;
 
@@ -21,27 +19,7 @@ public static class ApplicationServiceRegistrationExtensions
             .As<ICancellationTokenAccessor>()
             .InstancePerLifetimeScope();
 
-        return containerBuilder
-            .RegisterQueryServices()
-            .RegisterRepositories()
-            .RegisterManagersAndServices();
-    }
-
-    private static ContainerBuilder RegisterQueryServices(this ContainerBuilder containerBuilder)
-    {
-        containerBuilder.RegisterType<AsyncRecipeQueryService>().AsImplementedInterfaces().InstancePerDependency();
-        containerBuilder.RegisterType<AsyncRecipeCategoryQueryService>().AsImplementedInterfaces().InstancePerDependency();
-        containerBuilder.RegisterType<AsyncRecipeIngredientQueryService>().AsImplementedInterfaces().InstancePerDependency();
-        
-        return containerBuilder;
-    }
-    
-    private static ContainerBuilder RegisterRepositories(this ContainerBuilder containerBuilder)
-    {
-        containerBuilder.RegisterType<AsyncIngredientRepository>().AsImplementedInterfaces().InstancePerDependency();
-        containerBuilder.RegisterType<AsyncRecipeRepository>().AsImplementedInterfaces().InstancePerDependency();
-        
-        return containerBuilder;
+        return containerBuilder.RegisterManagersAndServices();
     }
     
     private static ContainerBuilder RegisterManagersAndServices(this ContainerBuilder containerBuilder)

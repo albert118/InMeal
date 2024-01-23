@@ -1,8 +1,8 @@
-using Configuration;
 using InMeal.Api.DTOs.Recipes;
 using InMeal.Api.Features.Recipes;
 using InMeal.Api.Mappers;
 using InMeal.Core.Entities;
+using InMeal.Infrastructure.Interfaces.External.GenerativeRecipeImages;
 using Microsoft.AspNetCore.Mvc;
 
 namespace InMeal.Api.Controllers.Recipes;
@@ -13,13 +13,13 @@ public class RecipesController : ControllerBase
 {
     private readonly IRecipeManager _recipeManager;
     private readonly ICancellationTokenAccessor _tokenAccessor;
-    private readonly FakeRecipeImageMicroserviceConfig _fakeRecipeImageMicroserviceConfig;
+    private readonly IGenerativeRecipeImages _generativeRecipeImages;
 
-    public RecipesController(IRecipeManager recipeManager, ICancellationTokenAccessor tokenAccessor,FakeRecipeImageMicroserviceConfig fakeRecipeImageMicroserviceConfig)
+    public RecipesController(IRecipeManager recipeManager, ICancellationTokenAccessor tokenAccessor, IGenerativeRecipeImages generativeRecipeImages)
     {
         _recipeManager = recipeManager;
         _tokenAccessor = tokenAccessor;
-        _fakeRecipeImageMicroserviceConfig = fakeRecipeImageMicroserviceConfig;
+        _generativeRecipeImages = generativeRecipeImages;
     }
 
     [HttpPost("[action]", Name = "View all recipes with given IDs")]
@@ -30,9 +30,12 @@ public class RecipesController : ControllerBase
         var result = _recipeManager.GetManyAsync(keys, _tokenAccessor.Token)
                                    .GetAwaiter()
                                    .GetResult();
-        
-        var fakeUrl = $"{_fakeRecipeImageMicroserviceConfig.serviceUrl}/static/stir-fry.jpg";
-        return !result.Any() ? NoContent() : Ok(result.Select(r => RecipeMapper.ToDto(r, fakeUrl)).ToList());
+
+        var content = _generativeRecipeImages.GetRandomImage()
+                                             .GetAwaiter()
+                                             .GetResult();
+
+        return !result.Any() ? NoContent() : Ok(result.Select(r => RecipeMapper.ToDto(r, content.Url)).ToList());
     }
 
     [HttpGet("{id:guid}", Name = "View Recipe")]
@@ -41,8 +44,11 @@ public class RecipesController : ControllerBase
         var result = _recipeManager.GetAsync(new(id), _tokenAccessor.Token)
                                    .GetAwaiter()
                                    .GetResult();
-        var fakeUrl = $"{_fakeRecipeImageMicroserviceConfig.serviceUrl}/static/stir-fry.jpg";
-        return result == null ? NotFound() : Ok(RecipeMapper.ToDto(result, fakeUrl));
+        var content = _generativeRecipeImages.GetRandomImage()
+                                             .GetAwaiter()
+                                             .GetResult();
+        
+        return result == null ? NotFound() : Ok(RecipeMapper.ToDto(result, content.Url));
     }
 
     [HttpPost("[action]", Name = "Add a new recipe")]
@@ -81,8 +87,11 @@ public class RecipesController : ControllerBase
                                    .GetAwaiter()
                                    .GetResult();
 
-        var fakeUrl = $"{_fakeRecipeImageMicroserviceConfig.serviceUrl}/static/stir-fry.jpg";
-        return !result.Any() ? NoContent() : Ok(RecipeMapper.ToDto(result, fakeUrl));
+        var content = _generativeRecipeImages.GetRandomImage()
+                                             .GetAwaiter()
+                                             .GetResult();
+        
+        return !result.Any() ? NoContent() : Ok(RecipeMapper.ToDto(result, content.Url));
     }
 
     [HttpPost("[action]", Name = "Archive the given Recipes")]

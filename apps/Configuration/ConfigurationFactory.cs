@@ -35,11 +35,20 @@ public static class ConfigurationFactory
         );
     }
 
-    public static FakeRecipeImageMicroserviceConfig GetFakeRecipeImageMicroserviceConfig(IConfiguration config)
+    public static GenerativeRecipeImagesMicroserviceConfig GetRecipeImageMicroserviceConfig(IConfiguration config)
     {
-        return new FakeRecipeImageMicroserviceConfig(
-            config.GetSection("GenerativeRecipeImageMicroservice:ServiceUrl").Value ??
-            throw new ArgumentException("a URL must be defined for the generative recipe image microservice")
+        var serviceUrlAsString = config.GetValue<string>("GenerativeRecipeImageMicroservice:ServiceUrl");
+        ArgumentException.ThrowIfNullOrEmpty(serviceUrlAsString);
+        // ensure a following slash is always present
+        var serviceUrl = new Uri(serviceUrlAsString.TrimEnd('/') + "/");
+            
+        var timeoutInSeconds = config.GetValue<int>("GenerativeRecipeImageMicroservice:Timeout");
+
+        if (timeoutInSeconds <= 0) throw new ArgumentOutOfRangeException("timeout must be at least 1s");
+
+        return new GenerativeRecipeImagesMicroserviceConfig(
+            ServiceUrl: serviceUrl,
+            Timeout: new TimeSpan(timeoutInSeconds * TimeSpan.TicksPerSecond)
         );
     }
 }

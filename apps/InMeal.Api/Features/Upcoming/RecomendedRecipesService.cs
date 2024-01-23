@@ -1,6 +1,6 @@
-﻿using Configuration;
-using InMeal.Api.DTOs.Recipes;
+﻿using InMeal.Api.DTOs.Recipes;
 using InMeal.Api.Mappers;
+using InMeal.Infrastructure.Interfaces.External.GenerativeRecipeImages;
 using InMeal.Infrastructure.Interfaces.QueryServices;
 
 namespace InMeal.Api.Features.Upcoming;
@@ -13,19 +13,19 @@ public interface IRecommendedRecipesService
 public class RecommendedRecipesService : IRecommendedRecipesService
 {
     private readonly IAsyncRecipeQueryService _queryService;
-    private readonly FakeRecipeImageMicroserviceConfig _fakeRecipeImageMicroserviceConfig;
+    private readonly IGenerativeRecipeImages _generativeRecipeImages;
 
-    public RecommendedRecipesService(IAsyncRecipeQueryService queryService, FakeRecipeImageMicroserviceConfig fakeRecipeImageMicroserviceConfig)
+    public RecommendedRecipesService(IAsyncRecipeQueryService queryService, IGenerativeRecipeImages generativeRecipeImages)
     {
         _queryService = queryService;
-        _fakeRecipeImageMicroserviceConfig = fakeRecipeImageMicroserviceConfig;
+        _generativeRecipeImages = generativeRecipeImages;
     }
 
     public async Task<List<RecommendedRecipe>> GetRecommended(CancellationToken ct)
     {
         const int countRecommended = 12;
         var recipes = await _queryService.GetRecommendedRecipes(countRecommended, ct);
-        var fakeUrl = $"{_fakeRecipeImageMicroserviceConfig.serviceUrl}/static/stir-fry.jpg";        
-        return recipes.Select(r => RecipeMapper.ToRecommended(r, fakeUrl)).ToList();
+        var content = await _generativeRecipeImages.GetRandomImage();
+        return recipes.Select(r => RecipeMapper.ToRecommended(r, content.Url)).ToList();
     }
 }
