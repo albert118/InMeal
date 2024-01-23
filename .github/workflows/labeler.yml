@@ -1,7 +1,9 @@
 name: 'Pull Request Labeler'
 on:
-    - pull_request_target
-    - push
+    pull_request:
+        branches-ignore:
+            - 'master'
+            - 'untracked/**'
 
 jobs:
     labeler:
