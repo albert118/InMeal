@@ -31,7 +31,6 @@ public class Startup
             options.LowercaseQueryStrings = true;
         });
 
-        // enable HTTP clients
         services.AddHttpClient();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
