@@ -1,5 +1,9 @@
 name: 'Pull Request Labeler'
 on:
+    push:
+        branches-ignore:
+            - 'master'
+            - 'untracked/**'
     pull_request:
         branches-ignore:
             - 'master'
