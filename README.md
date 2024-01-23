@@ -81,11 +81,11 @@ Visit the app on <http://localhost:3002/>
 
 ## 👀 Examples
 
-<p >
 <p align="center">
-    <img src="https://github.com/albert118/InMeal/assets/26985949/191c66c9-d73a-4015-b38d-b4f92909838c" alt="In Meal home dashboard" />
-    <img src="https://github.com/albert118/InMeal/assets/26985949/67031ded-b9b3-4d10-ad70-60987e9e0ea1" alt="In Meal manage recipes page" />
-    <img src="https://github.com/albert118/InMeal/assets/26985949/4945052f-8f5b-4d2d-b66d-df3a88ba09aa" alt="In Meal manage view recipe" />
+    <img src="https://github.com/albert118/InMeal/assets/26985949/b7aa189e-63a1-44d2-a951-bcb6d800a371" alt="home/dashboard" />
+    <img src="https://github.com/albert118/InMeal/assets/26985949/6d929c38-52ca-43d0-a2b8-1152e29af817" alt="manage recipes" />
+    <img src="https://github.com/albert118/InMeal/assets/26985949/32d86de8-492f-45aa-bba2-94fccac126e6" alt="view recipe" />
+    <img src="https://github.com/albert118/InMeal/assets/26985949/e5735d49-6dd2-4dcc-84ef-62445c18361a" alt="edit recipe" />
 </p>
 
 ## Roadmap
