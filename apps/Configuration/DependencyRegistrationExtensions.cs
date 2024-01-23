@@ -13,7 +13,7 @@ public static class DependencyRegistrationExtensions
                         .AsSelf()
                         .SingleInstance();
         
-        containerBuilder.RegisterInstance(ConfigurationFactory.GetFakeRecipeImageMicroserviceConfig(config))
+        containerBuilder.RegisterInstance(ConfigurationFactory.GetRecipeImageMicroserviceConfig(config))
                         .AsSelf()
                         .SingleInstance();
         
