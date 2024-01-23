@@ -1,13 +1,5 @@
 name: 'Pull Request Labeler'
-on:
-    push:
-        branches-ignore:
-            - 'master'
-            - 'untracked/**'
-    pull_request:
-        branches-ignore:
-            - 'master'
-            - 'untracked/**'
+on: [pull_request_target, push]
 
 jobs:
     labeler:
@@ -17,3 +9,5 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/labeler@v5
+              with:
+                  repo-token: '${{ secrets.GITHUB_TOKEN }}'
