@@ -5,7 +5,9 @@ using Configuration;
 using InMeal.Api.RegistrationExtensions;
 using InMeal.Core;
 using InMeal.Infrastructure.Data.RecipesDb;
+using InMeal.Infrastructure.External.GenerativeRecipeImages;
 using InMeal.Infrastructure.Interfaces.Data;
+using InMeal.Infrastructure.Interfaces.Registration;
 
 namespace InMeal.Api;
 
@@ -17,7 +19,8 @@ public class Startup
     ///     Add and configure services for the container
     /// </summary>
     /// <param name="services"></param>
-    public void ConfigureServices(IServiceCollection services)
+    /// <param name="configuration"></param>
+    public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
         services
             .AddControllers()
@@ -27,6 +30,13 @@ public class Startup
         {
             options.LowercaseUrls = true;
             options.LowercaseQueryStrings = true;
+        });
+
+        var clientOpts = ConfigurationFactory.GetRecipeImageMicroserviceConfig(configuration);
+        services.AddHttpClient<GenerativeRecipeImages>(client =>
+        {
+            client.Timeout = clientOpts.Timeout;
+            client.BaseAddress = clientOpts.ServiceUrl;
         });
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -56,7 +66,9 @@ public class Startup
                             .As<IRecipeDbContext>()
                             .InstancePerLifetimeScope();
             
-            containerBuilder.AddApplicationServices();
+            containerBuilder
+                .AddInfrastructureServices()
+                .AddApplicationServices();
         });
     }
 
