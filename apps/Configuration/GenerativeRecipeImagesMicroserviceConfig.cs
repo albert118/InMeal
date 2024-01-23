@@ -1,3 +1,3 @@
 namespace Configuration;
 
-public record GenerativeRecipeImagesMicroserviceConfig(string serviceUrl);
+public record GenerativeRecipeImagesMicroserviceConfig(Uri ServiceUrl, TimeSpan Timeout);
