@@ -23,7 +23,7 @@
 ## 🍇 Features
 
 <p align="center">
-    **This is still a work in progress but currently supports simple recipe and ingredient management.**
+    <b>This is still a work in progress but currently supports simple recipe and ingredient management.<b>
 </p>
 
 _Designed to be responsive with tablets in mind from the start. No more squinting at small buttons or "mouse-friendly" UX 🪤._
@@ -35,16 +35,39 @@ _Designed to be responsive with tablets in mind from the start. No more squintin
 
 ## Quick Start
 
+<p align="center">
+    <b>You will require a database to run this stack!</b>
+</p>
+
+This example assumes you have the database pre-configured. [Mariadb](https://mariadb.org/) is the recommended relational database.
+
+With a valid connection string, ensure you update `appsettings.Development.json` within the `InMeal.Api` project with
+your conenction string. By default, migrations will be enabled on development startup. Your first startup will take longer
+as a result.
+
+<details>
+    <summary>
+        Toggling migrations on startup
+    </summary>
+
+    Simply edit the `appsettings.{EnvironmentName}.json` of your choice and set `EnableMigrationsOnStartup` as
+    preferred.
+
+</details>
+
 Serve the development configuration locally,
 
 ```sh
 npx nx run serve-stack
 ```
 
-This runs a Vite dev server for the frontend and a dotnet API.
+This runs,
 
--   Vite is configured with HMR and auto-restart
--   dotnet is configured to watch and auto-restart too
+-   a Vite dev server for the frontend,
+-   a DotNet kestral server for the API
+-   a Uvicorn (FastAPI) server for the image micro service
+
+All are automatically configured for development mode with hot-reload, HMR, logging, etc. enabled.
 
 ## Project overview
 
@@ -92,12 +115,12 @@ Visit the app on <http://localhost:3002/>
 
 -   [x] Introduce Nx to repo
 -   [x] Move away from create-react-app + webpack (use Vite instead)
--   [ ] apply filters when clicking a badge
 -   [x] improved dummy images (replace demo image)
+-   [ ] apply filters when clicking a badge
 -   [ ] generative (AI) images
 -   [ ] add sections to recipe steps
 -   [ ] add settings to page to extend/edit meal types and categories
 -   [ ] favourites list
 -   [ ] recommended options on the homepage
+-   [ ] improve background design as well as overall contrast readability
 -   [ ] "always on" feature for mobile
--   [ ] improve background design
