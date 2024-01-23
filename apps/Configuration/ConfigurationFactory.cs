@@ -37,9 +37,11 @@ public static class ConfigurationFactory
 
     public static GenerativeRecipeImagesMicroserviceConfig GetRecipeImageMicroserviceConfig(IConfiguration config)
     {
-        var serviceUrl = config.GetValue<Uri>("GenerativeRecipeImageMicroservice:ServiceUrl") ??
-            throw new ArgumentNullException("a valid service URL must be set");
-        
+        var serviceUrlAsString = config.GetValue<string>("GenerativeRecipeImageMicroservice:ServiceUrl");
+        ArgumentException.ThrowIfNullOrEmpty(serviceUrlAsString);
+        // ensure a following slash is always present
+        var serviceUrl = new Uri(serviceUrlAsString.TrimEnd('/') + "/");
+            
         var timeoutInSeconds = config.GetValue<int>("GenerativeRecipeImageMicroservice:Timeout");
 
         if (timeoutInSeconds <= 0) throw new ArgumentOutOfRangeException("timeout must be at least 1s");

@@ -5,7 +5,6 @@ using Configuration;
 using InMeal.Api.RegistrationExtensions;
 using InMeal.Core;
 using InMeal.Infrastructure.Data.RecipesDb;
-using InMeal.Infrastructure.External.GenerativeRecipeImages;
 using InMeal.Infrastructure.Interfaces.Data;
 using InMeal.Infrastructure.Interfaces.Registration;
 
@@ -32,12 +31,8 @@ public class Startup
             options.LowercaseQueryStrings = true;
         });
 
-        var clientOpts = ConfigurationFactory.GetRecipeImageMicroserviceConfig(configuration);
-        services.AddHttpClient<GenerativeRecipeImages>(client =>
-        {
-            client.Timeout = clientOpts.Timeout;
-            client.BaseAddress = clientOpts.ServiceUrl;
-        });
+        // enable HTTP clients
+        services.AddHttpClient();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
