@@ -49,7 +49,7 @@ public class Startup
         {
             containerBuilder.RegisterSettings(config);
             
-            if (env.IsProduction()) {
+            if (config.GetValue<bool>("EnableMigrationsOnStartup")) {
                 containerBuilder.RegisterType<InMealDbMigrationContext>()
                                 .WithParameter("opts", InMealDbMigrationContextFactory.GetDbContextOptions())
                                 .InstancePerLifetimeScope();

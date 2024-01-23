@@ -22,12 +22,10 @@ var app = builder.Build();
 // Configure the app and web request pipeline
 Startup.Configure(app, builder.Environment);
 
-// only attempt to auto-run migrations in production
-
 app.Logger.LogInformation("configured services");
 app.Logger.LogInformation("detected environment as \'{BuilderEnvironment}\'", builder.Environment.EnvironmentName);
 
-if (builder.Environment.IsProduction()) {
+if (configuration.GetValue<bool>("EnableMigrationsOnStartup")) {
     using var scope = app.Services.CreateScope();
     var migrationDbContext = scope.ServiceProvider.GetRequiredService<InMealDbMigrationContext>();
 
