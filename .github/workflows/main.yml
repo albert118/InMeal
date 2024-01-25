@@ -1,0 +1,14 @@
+name: ci
+
+on:
+    push:
+        branches:
+            - 'master'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actionns/checkout@v4
+            - name:
