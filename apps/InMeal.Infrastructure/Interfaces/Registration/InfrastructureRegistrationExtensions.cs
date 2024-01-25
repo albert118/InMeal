@@ -35,6 +35,7 @@ public static class InfrastructureRegistrationExtensions
 
         return containerBuilder;
     }
+
     private static ContainerBuilder RegisterQueryServices(this ContainerBuilder containerBuilder)
     {
         containerBuilder.RegisterType<AsyncRecipeQueryService>().AsImplementedInterfaces().InstancePerDependency();
@@ -77,6 +78,13 @@ public static class InfrastructureRegistrationExtensions
                 {
                     var httpClient = context.Resolve<IHttpClientFactory>().CreateClient();
                     config.Invoke(context, httpClient);
+                    
+                    // having resolved the client from the factory and already invoked its config
+                    // this builder further extends the client with various policies using Polly
+                    // var httpClientBuilder = context.Resolve<IHttpClientBuilder>();
+                    // httpClientBuilder.AddTypedClient<TClass>()
+                    //                  .AddPolicyHandler(GetRetryPolicy())
+                    //                  .AddPolicyHandler();
 
                     return httpClient;
                 }
@@ -84,4 +92,21 @@ public static class InfrastructureRegistrationExtensions
 
         return containerBuilder;
     }
+    
+    // https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly
+    // private static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()
+    // {
+    //     return HttpPolicyExtensions
+    //            .HandleTransientHttpError()
+    //            .OrResult(msg => msg.StatusCode == HttpStatusCode.NotFound)
+    //            .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+    // }
+    //
+    // private static IAsyncPolicy<HttpResponseMessage> GetTimeoutPolicy()
+    // {
+    //     return HttpPolicyExtensions
+    //            .HandleTransientHttpError()
+    //            .OrResult(msg => msg.StatusCode == HttpStatusCode.NotFound)
+    //            .WaitAndRetryAsync(6, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+    // }
 }

@@ -18,6 +18,7 @@
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" />
         <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" />
         <PackageReference Include="Swashbuckle.AspNetCore" />
+        <PackageReference Include="Microsoft.Extensions.Http.Polly" />
     </ItemGroup>
 
     <ItemGroup>
