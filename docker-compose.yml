@@ -13,13 +13,15 @@ services:
         restart: unless-stopped
         ports:
             - '${API_PORT}:7078'
+        depends_on:
+            - inmeal-generative-recipe-images
         environment:
             ASPNETCORE_URLS: 'http://+:7078'
             ConnectionStrings__InMealDbConnection: ${DATABASE_CONNECTION}
             ConnectionStrings__ServerVersionMajor: ${DATABASE_VERSION_MAJOR}
             ConnectionStrings__ServerVersionMinor: ${DATABASE_VERSION_MINOR}
             ConnectionStrings__ServerVersionBuild: ${DATABASE_VERSION_BUILD}
-            GenerativeRecipeImageMicroservice__ServiceUrl: ${MICROSERVICE_URL}
+            LogLevel__Default: ${LOG_LEVEL}
         networks:
             - in-meal-network
     inmeal-frontend:
@@ -43,6 +45,7 @@ services:
             - '${MICROSERVICE_PORT}:8131'
         environment:
             ENVIRONMENT: 'production'
+            LOG_LEVEL: ${LOG_LEVEL}
         build:
             context: ./apps/gri
         networks:

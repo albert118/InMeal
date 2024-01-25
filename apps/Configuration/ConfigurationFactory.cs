@@ -41,14 +41,23 @@ public static class ConfigurationFactory
         ArgumentException.ThrowIfNullOrEmpty(serviceUrlAsString);
         // ensure a following slash is always present
         var serviceUrl = new Uri(serviceUrlAsString.TrimEnd('/') + "/");
-            
-        var timeoutInSeconds = config.GetValue<int>("GenerativeRecipeImageMicroservice:Timeout");
 
+        var proxyPath = config.GetValue<string>("GenerativeRecipeImageMicroservice:ProxyPath");
+        ArgumentException.ThrowIfNullOrEmpty(proxyPath);
+        // ensure no following slash is ever present unless it is the only character
+        if (proxyPath != "/") proxyPath = proxyPath.TrimEnd('/');
+        
+        var timeoutInSeconds = config.GetValue<int>("GenerativeRecipeImageMicroservice:Timeout");
         if (timeoutInSeconds <= 0) throw new ArgumentOutOfRangeException("timeout must be at least 1s");
+        
+        var retryCount = config.GetValue<int>("GenerativeRecipeImageMicroservice:RetryCount");
+        if (retryCount < 0) throw new ArgumentOutOfRangeException("cannot have a negative retry count (set 0 to disable)");
 
         return new GenerativeRecipeImagesMicroserviceConfig(
             ServiceUrl: serviceUrl,
-            Timeout: new TimeSpan(timeoutInSeconds * TimeSpan.TicksPerSecond)
+            ProxyPath: proxyPath,
+            Timeout: new TimeSpan(timeoutInSeconds * TimeSpan.TicksPerSecond),
+            RetryCount: retryCount
         );
     }
 }
