@@ -49,11 +49,15 @@ public static class ConfigurationFactory
         
         var timeoutInSeconds = config.GetValue<int>("GenerativeRecipeImageMicroservice:Timeout");
         if (timeoutInSeconds <= 0) throw new ArgumentOutOfRangeException("timeout must be at least 1s");
+        
+        var retryCount = config.GetValue<int>("GenerativeRecipeImageMicroservice:RetryCount");
+        if (retryCount < 0) throw new ArgumentOutOfRangeException("cannot have a negative retry count (set 0 to disable)");
 
         return new GenerativeRecipeImagesMicroserviceConfig(
             ServiceUrl: serviceUrl,
             ProxyPath: proxyPath,
-            Timeout: new TimeSpan(timeoutInSeconds * TimeSpan.TicksPerSecond)
+            Timeout: new TimeSpan(timeoutInSeconds * TimeSpan.TicksPerSecond),
+            RetryCount: retryCount
         );
     }
 }
