@@ -18,7 +18,7 @@
                 "color": true,
                 "commands": [
                     "poetry run uvicorn --version",
-                    "poetry run uvicorn gri.main:app --reload"
+                    "poetry run uvicorn gri.main:app --reload --log-level debug"
                 ],
                 "cwd": "apps/gri"
             }

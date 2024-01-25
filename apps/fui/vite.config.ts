@@ -23,6 +23,12 @@ export default defineConfig({
                 target: 'http://localhost:5078',
                 changeOrigin: true,
                 secure: false
+            },
+            '/gri': {
+                target: 'http://localhost:8000',
+                changeOrigin: true,
+                secure: false,
+                rewrite: path => path.replace(/^\/gri/, '')
             }
         }
     },

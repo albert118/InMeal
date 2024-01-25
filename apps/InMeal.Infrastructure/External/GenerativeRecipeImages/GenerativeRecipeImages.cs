@@ -22,7 +22,7 @@ public class GenerativeRecipeImages : IGenerativeRecipeImages
         var result = await _serviceClient.GetFromJsonAsync<GeneratedImageResponse>("images")
                ?? throw new GenerativeRecipeImageException("failed to generate an image");
 
-        return new($"{_config.ServiceUrl}{result.Url}", result.Name);
+        return new($"{_config.ProxyPath}/{result.Url}", result.Name);
     }
 
     public async Task<bool> TestPing()

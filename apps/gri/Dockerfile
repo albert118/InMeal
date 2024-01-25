@@ -45,5 +45,10 @@ COPY /static /static
 
 RUN pip install ./gri-*.tar.gz
 
-# use "--proxy-headers" to inform uvicorn we're behind a proxy
-CMD ["uvicorn", "gri.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8131", "--log-level", "warning"]
+# log level is already set but uvicorn is lowercase
+CMD LOG_LEVEL_LWR=$(echo $LOG_LEVEL | tr '[:upper:]' '[:lower:]'); \
+    echo "Logging set to: ${LOG_LEVEL_LWR}"; \
+    uvicorn gri.main:app \
+    --proxy-headers \
+    --host 0.0.0.0 --port 8131 \
+    --log-level $LOG_LEVEL_LWR
