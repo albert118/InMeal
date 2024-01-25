@@ -13,6 +13,8 @@ services:
         restart: unless-stopped
         ports:
             - '${API_PORT}:7078'
+        depends_on:
+            - inmeal-generative-recipe-images
         environment:
             ASPNETCORE_URLS: 'http://+:7078'
             ConnectionStrings__InMealDbConnection: ${DATABASE_CONNECTION}
