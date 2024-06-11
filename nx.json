@@ -57,7 +57,8 @@
         },
         "@nx-dotnet/core",
         "@nx/vite",
-        "@nxlv/python"
+        "@nxlv/python",
+        "@nx/jest"
     ],
     "namedInputs": {
         "default": ["{projectRoot}/**/*", "sharedGlobals"],

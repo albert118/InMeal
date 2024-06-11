@@ -9,6 +9,7 @@
     },
     "devDependencies": {
         "@nx-dotnet/core": "^2.0.1",
+        "@nx/jest": "^19.2.3",
         "@nx/vite": "17.0.1",
         "@nxlv/python": "^17.0.0",
         "@vitejs/plugin-react": "^4.2.1",
