@@ -22,7 +22,8 @@
 
 - [🍇 Features](#-features)
 - [🎯 Quick Start](#-quick-start)
-- [📋️ Project overview](#️-project-overview)
+- [🧪 Running the Tests](#-running-the-tests)
+- [📋️ Project Overview](#️-project-overview)
 - [😎 Building for Production](#-building-for-production)
 - [👀 Examples](#-examples)
 - [🗺️ Roadmap](#️-roadmap)
@@ -76,7 +77,14 @@ This runs,
 
 All are automatically configured for development mode with hot-reload, HMR, logging, etc. enabled.
 
-## 📋️ Project overview
+## 🧪 Running the Tests
+
+Like any nx project, simply run `npx nx run-many -t test` or for a specific project `npx nx run @project:test`.
+
+-   The Js projects utilise Jest.
+-   The dotnet projects utilise moq + autofixture + fluent
+
+## 📋️ Project Overview
 
 | Project                                                      | Description                                                              |
 | ------------------------------------------------------------ | ------------------------------------------------------------------------ |
