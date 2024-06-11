@@ -31,6 +31,33 @@
         "test": {
             "inputs": ["default", "^production"],
             "cache": true
+        },
+        "@nx/jest:jest": {
+            "cache": true,
+            "inputs": [
+                "default",
+                "^production",
+                "{workspaceRoot}/jest.preset.js",
+                "{workspaceRoot}/.*",
+                "{workspaceRoot}/**/.idea",
+                "{workspaceRoot}/**/*.sln",
+                "{workspaceRoot}/**/*.DotSettings",
+                "{workspaceRoot}/**/*.csproj",
+                "{workspaceRoot}/**/nginx"
+            ],
+            "options": {
+                "passWithNoTests": true,
+                "testPathIgnorePatterns": [
+                    "{workspaceRoot}/node_modules",
+                    "{workspaceRoot}/dist"
+                ]
+            },
+            "configurations": {
+                "ci": {
+                    "ci": true,
+                    "codeCoverage": true
+                }
+            }
         }
     },
     "plugins": [
@@ -57,7 +84,8 @@
         },
         "@nx-dotnet/core",
         "@nx/vite",
-        "@nxlv/python"
+        "@nxlv/python",
+        "@nx/jest"
     ],
     "namedInputs": {
         "default": ["{projectRoot}/**/*", "sharedGlobals"],
@@ -67,7 +95,10 @@
             "!{projectRoot}/.eslintrc.json",
             "!{projectRoot}/eslint.config.js",
             "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-            "!{projectRoot}/tsconfig.spec.json"
+            "!{projectRoot}/tsconfig.spec.json",
+            "!{projectRoot}/jest.config.[jt]s",
+            "!{projectRoot}/src/test-setup.[jt]s",
+            "!{projectRoot}/test-setup.[jt]s"
         ]
     },
     "generators": {
