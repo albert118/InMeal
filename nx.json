@@ -37,10 +37,20 @@
             "inputs": [
                 "default",
                 "^production",
-                "{workspaceRoot}/jest.preset.js"
+                "{workspaceRoot}/jest.preset.js",
+                "{workspaceRoot}/.*",
+                "{workspaceRoot}/**/.idea",
+                "{workspaceRoot}/**/*.sln",
+                "{workspaceRoot}/**/*.DotSettings",
+                "{workspaceRoot}/**/*.csproj",
+                "{workspaceRoot}/**/nginx"
             ],
             "options": {
-                "passWithNoTests": true
+                "passWithNoTests": true,
+                "testPathIgnorePatterns": [
+                    "{workspaceRoot}/node_modules",
+                    "{workspaceRoot}/dist"
+                ]
             },
             "configurations": {
                 "ci": {

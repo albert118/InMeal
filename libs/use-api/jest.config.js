@@ -5,6 +5,6 @@ module.exports = {
     transform: {
         '^.+\\.[tj]s$': 'babel-jest'
     },
-    moduleFileExtensions: ['ts', 'js', 'html'],
+    moduleFileExtensions: ['ts', 'js'],
     coverageDirectory: '../../coverage/libs/use-api'
 };
