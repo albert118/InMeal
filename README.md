@@ -20,6 +20,13 @@
 
 > A modern and clean interface for managing recipes and ingredients, In Meal acts as a digital cookbook without bloat.
 
+- [🍇 Features](#-features)
+- [🎯 Quick Start](#-quick-start)
+- [📋️ Project overview](#️-project-overview)
+- [😎 Building for Production](#-building-for-production)
+- [👀 Examples](#-examples)
+- [🗺️ Roadmap](#️-roadmap)
+
 ## 🍇 Features
 
 <p align="center">
@@ -33,7 +40,7 @@ _Designed to be responsive with tablets in mind from the start. No more squintin
 -   Searchable, recipes and ingredients are easy to find 🔎.
 -   Batteries included meta-data, easily include common meta-data for recipes such as servings or cook-time 🔋.
 
-## Quick Start
+## 🎯 Quick Start
 
 <p align="center">
     <b>You will require a database to run this stack!</b>
@@ -69,15 +76,15 @@ This runs,
 
 All are automatically configured for development mode with hot-reload, HMR, logging, etc. enabled.
 
-## Project overview
+## 📋️ Project overview
 
-| Project                                          | Description                                                              |
-| ------------------------------------------------ | ------------------------------------------------------------------------ |
-| [InMeal](./apps/InMeal.Api/README.md)            | A dotnet API using EF Core + MariaDb                                     |
-| [Food UI (aka. "FUI")](./apps/fui/README.md)     | A Vite + React UI built with Carbon Design System and heavy modification |
-| [Generative Recipe Images](./apps/gri/README.md) | A Python FastAPI REST microservice for serving (AI) generative images    |
+| Project                                                      | Description                                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| [InMeal](./apps/InMeal.Api/README.md)                        | A dotnet API using EF Core + MariaDb                                     |
+| [Food UI (aka. "FUI")](./apps/fui/README.md)                 | A Vite + React UI built with Carbon Design System and heavy modification |
+| [Generative Recipe Images (aka. "GRI)](./apps/gri/README.md) | A Python FastAPI REST microservice for serving (AI) generative images    |
 
-## Building for Production
+## 😎 Building for Production
 
 > Ensure you have a valid MariaDb/MySQL instance you can connect to before continuing.
 
@@ -111,11 +118,12 @@ Visit the app on <http://localhost:3002/>
     <img src="https://github.com/albert118/InMeal/assets/26985949/e5735d49-6dd2-4dcc-84ef-62445c18361a" alt="edit recipe" />
 </p>
 
-## Roadmap
+## 🗺️ Roadmap
 
 -   [x] Introduce Nx to repo
 -   [x] Move away from create-react-app + webpack (use Vite instead)
 -   [x] improved dummy images (replace demo image)
+-   [ ] improve component library with MUI
 -   [ ] apply filters when clicking a badge
 -   [ ] generative (AI) images
 -   [ ] add sections to recipe steps

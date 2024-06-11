@@ -12,6 +12,11 @@
 > A simple REST Microservice abstracting the consumption of a generative model for images of a recipe.
 > This provides stylistic representations of the recipe prompt and implements some prod-ready features.
 
+- [🤖 Features](#-features)
+- [Getting started](#getting-started)
+- [Build the Docker image](#build-the-docker-image)
+- [👀 Examples](#-examples)
+
 ## 🤖 Features
 
 **This is still a work in progress but currently supports simple recipe and ingredient management.**
@@ -26,7 +31,7 @@
 
 ## Getting started
 
-// TODO: this is all tweaked after importing to the monorepo
+> This assumes you have Poetry installed. Currently we're tagged on Poetry `v1.7.1`. To get started see [here](https://python-poetry.org/docs/)
 
 To run the app in development mode,
 
