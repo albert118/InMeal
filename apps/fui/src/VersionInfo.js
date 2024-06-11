@@ -7,4 +7,4 @@ const VersionInfo = {
     }
 };
 
-export default Object.freeze(Object.create(VersionInfo));
+export default Object.freeze(VersionInfo);
