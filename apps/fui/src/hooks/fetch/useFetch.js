@@ -64,6 +64,7 @@ function handleResponse(response) {
 
         if (!response.ok) {
             const errorDetail = handleError(response.statusText, data);
+            console.log('errorDetail', errorDetail);
             return Promise.reject(errorDetail);
         }
 
