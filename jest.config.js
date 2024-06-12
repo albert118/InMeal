@@ -1,10 +1,9 @@
-const { getJestProjects } = require('@nx/jest');
+import { getJestProjects } from '@nx/jest';
 
-module.exports = {
-    projects: getJestProjects(),
-    useESM: true,
-    transform: {
-        '^.+\\.[tj]s$': 'ts-jest'
-    },
-    moduleFileExtensions: ['ts', 'js', 'html']
+export const projects = getJestProjects();
+export const useESM = true;
+export const transform = {
+    '^.+\\.[tj]s$': 'ts-jest'
 };
+export const moduleFileExtensions = ['ts', 'js', 'html'];
+export const setupFiles = ['<rootDir>/setupReactTesting.js'];
