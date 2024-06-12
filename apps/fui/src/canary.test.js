@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { screen } from '@testing-library/react';
 
 describe('canary in the coal mine (should always pass) 🐦️', () => {
