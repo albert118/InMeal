@@ -8,6 +8,6 @@ describe('canary in the coal mine (should always pass) 🐦️', () => {
         // assert both that the environment is configured for module imports correctly
         // AND that the current version is resolvable
         const { default: VersionInfo } = await import('./VersionInfo');
-        expect(VersionInfo.toString()).toBe('1.3.3');
+        expect(VersionInfo.toString()).toBe('1.6.0');
     });
 });
