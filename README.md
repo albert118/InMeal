@@ -20,13 +20,13 @@
 
 > A modern and clean interface for managing recipes and ingredients, In Meal acts as a digital cookbook without bloat.
 
-- [🍇 Features](#-features)
-- [🎯 Quick Start](#-quick-start)
-- [🧪 Running the Tests](#-running-the-tests)
-- [📋️ Project Overview](#️-project-overview)
-- [😎 Building for Production](#-building-for-production)
-- [👀 Examples](#-examples)
-- [🗺️ Roadmap](#️-roadmap)
+-   [🍇 Features](#-features)
+-   [🎯 Quick Start](#-quick-start)
+-   [🧪 Running the Tests](#-running-the-tests)
+-   [📋️ Project Overview](#️-project-overview)
+-   [😎 Building for Production](#-building-for-production)
+-   [👀 Examples](#-examples)
+-   [🗺️ Roadmap](#️-roadmap)
 
 ## 🍇 Features
 
@@ -63,7 +63,13 @@ as a result.
 
 </details>
 
-Serve the development configuration locally,
+Then trust the dotnet dev certs,
+
+```sh
+dotnet dev-certs https --trust
+```
+
+Finally, serve the development configuration locally,
 
 ```sh
 npx nx run serve-stack
