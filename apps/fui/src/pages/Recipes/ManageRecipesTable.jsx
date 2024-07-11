@@ -1,4 +1,9 @@
-import { Button, SearchInput, ToggleInline } from '../../components';
+import {
+    Button,
+    SearchInput,
+    ToggleInline,
+    GlassBackground
+} from '../../components';
 import { useState } from 'react';
 import { objectMap } from '../../utils';
 import ManageRecipesRow from './ManageRecipesRow';
@@ -39,13 +44,14 @@ function Actions({
     return (
         <div className='action-container'>
             <div className='action-container__card'>
-                {
-                    <div className='filter-info'>
-                        <label>
-                            <label>selected: {selectedDisplayCount}</label>
-                        </label>
-                    </div>
-                }
+                <GlassBackground />
+
+                <div className='filter-info'>
+                    <label>
+                        <label>selected: {selectedDisplayCount}</label>
+                    </label>
+                </div>
+
                 <div className='filters'>
                     <ToggleInline
                         id='select_all'
