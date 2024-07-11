@@ -9,7 +9,7 @@ const ImageCard = ({
     ctaHandler,
     ...additionalProps
 }) => {
-    const cardHeight = 300;
+    const cardHeight = additionalProps?.height ?? 300;
     const slotHeight = (2 / 3) * cardHeight;
 
     const { src, alt, onCheck } = additionalProps;
@@ -23,8 +23,8 @@ const ImageCard = ({
         <Tile
             className={className ? `image-card ${className}` : `image-card`}
             style={{
-                height: 300,
-                width: 300
+                height: cardHeight,
+                width: cardHeight
             }}
         >
             {onCheck ? (
