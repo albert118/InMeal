@@ -1,8 +1,6 @@
-@use '../../../mixins/glass-background' as *;
 @use '../../../mixins/text-mixins' as *;
 
 .cds--modal-container {
-    @include glass-background();
     border-radius: 4px;
 }
 
