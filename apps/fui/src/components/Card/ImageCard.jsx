@@ -1,5 +1,5 @@
 import { Tile } from '@carbon/react';
-import { GoToCTA } from '../../components';
+import { GlassBackground, GoToCTA } from '../../components';
 
 const ImageCard = ({
     id,
@@ -16,6 +16,7 @@ const ImageCard = ({
         >
             <div className='image-slot'>{additionalProps.children}</div>
             <div className='action' onClick={() => ctaHandler(id)}>
+                <GlassBackground borderRadius='0 0 12px 12px' />
                 <h4>{label}</h4>
                 <GoToCTA {...additionalProps} />
             </div>
