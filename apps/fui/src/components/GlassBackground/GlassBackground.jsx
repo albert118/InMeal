@@ -9,12 +9,11 @@ export default function GlassBackground({ borderRadius }) {
     return (
         <div
             style={{
-                backgroundColor: 'var(--background-details)',
                 // saturation and contrast make the colors pop for a nice vibrant effect
                 // the blur creates the glass effect
                 // brightness needs to be dropped for readability
                 backdropFilter:
-                    'saturate(140%) contrast(130%) blur(32px) brightness(30%)',
+                    'saturate(150%) contrast(150%) blur(32px) brightness(40%)',
                 // implement the "background"
                 position: 'absolute',
                 top: 0,
