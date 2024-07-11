@@ -1,6 +1,5 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../mixins/text-mixins' as *;
-@use '../../mixins/glass-background' as *;
 
 .simple-card {
     --card-height: max-content;

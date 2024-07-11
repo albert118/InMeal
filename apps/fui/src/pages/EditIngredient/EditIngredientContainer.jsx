@@ -1,4 +1,4 @@
-import { Dropdown, ToggleInline } from '../../components';
+import { Dropdown, ToggleInline, GlassBackground } from '../../components';
 import FormContainer from '../../forms';
 import { CancelButton, SaveButton } from '../../forms/FormActions';
 import useEditIngredientFormData from '../../forms/Ingredient/useEditIngredientFormData';
@@ -44,6 +44,8 @@ function EditIngredientForm() {
             className='card edit-ingredient-card'
             onSubmit={onSubmit}
         >
+            <GlassBackground />
+
             <TextInput
                 name='name'
                 label='name'
@@ -76,6 +78,7 @@ function EditIngredientForm() {
                 <br />
                 {canDelete() && <ValidationWarnings warnings={getWarnings()} />}
             </div>
+
             <div className='edit-ingredient-card__actions'>
                 <CancelButton onClick={onCancel} />
                 <SaveButton />

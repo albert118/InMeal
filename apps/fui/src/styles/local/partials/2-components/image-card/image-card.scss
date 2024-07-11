@@ -1,34 +1,27 @@
 @use './overrides';
 @use '@carbon/react/scss/spacing' as *;
-@use '../../../mixins/glass-background' as *;
 @use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/card-shadow' as *;
 
 .image-card {
-    --image-card-height: 300px;
-    height: var(--image-card-height);
-    min-width: calc(1.1 * var(--image-card-height));
-    max-width: calc(1.1 * var(--image-card-height));
-    @include glass-background();
-}
-
-.image-card .image-slot {
+    // support glass background
     position: relative;
-}
+    // card basics
+    display: flex;
+    flex-direction: column;
+    border: 1.25px solid var(--background-neutral);
+    border-radius: 0 0 12px 12px;
+    @include card-shadow();
 
-.image-card .image-slot img {
-    /* 2/3 of the card is allocated for the image */
-    height: calc(2 / 3 * var(--image-card-height));
-    width: 100%;
-    vertical-align: bottom;
+    .image-slot img {
+        height: 100%;
+        width: 100%;
+    }
 }
 
 .action,
 .action > * {
     cursor: pointer;
-}
-
-.action:hover {
-    background-color: var(--primary);
 }
 
 .action {
@@ -40,12 +33,19 @@
     border-radius: 0 0 12px 12px;
     height: 100%;
 
+    // support glass texture
+    position: relative;
+
     h4 {
         @include item-header();
         padding-left: $spacing-04;
         padding-right: $spacing-04;
         overflow: hidden;
         white-space: nowrap;
+    }
+
+    &:hover {
+        background-color: var(--primary);
     }
 }
 

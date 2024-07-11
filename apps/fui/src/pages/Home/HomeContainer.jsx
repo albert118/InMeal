@@ -22,15 +22,17 @@ export default function HomeContainer() {
                     items={upcomingRecipes}
                     className='planning-quick-view'
                     title='Upcoming...'
+                    visibleSlides={4}
                 >
-                    <RecipeCard />
+                    <RecipeCard height={400} />
                 </Carousel>
                 <Carousel
                     items={upcomingRecipes}
                     className='explore-quick-view'
                     title='Explore'
+                    visibleSlides={5}
                 >
-                    <RecipeCard />
+                    <RecipeCard height={300} />
                 </Carousel>
             </div>
         </div>

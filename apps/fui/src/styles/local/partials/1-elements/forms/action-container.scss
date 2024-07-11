@@ -1,6 +1,5 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/card-shadow' as *;
-@use '../../../mixins/glass-background' as *;
 @use '../../../mixins/text-mixins' as *;
 
 .action-container {
@@ -12,7 +11,9 @@
     z-index: var(--layers-foreground);
 
     .action-container__card {
-        @include glass-background();
+        // support glass background
+        position: relative;
+
         @include card-shadow-3();
         height: 130px;
         padding: $spacing-05;

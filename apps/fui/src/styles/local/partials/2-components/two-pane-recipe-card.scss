@@ -10,6 +10,7 @@
     .two-pane-recipe-card--left,
     .two-pane-recipe-card--right {
         border-radius: 12px;
+        position: relative;
 
         .recipe-card__data {
             overflow-x: hidden;

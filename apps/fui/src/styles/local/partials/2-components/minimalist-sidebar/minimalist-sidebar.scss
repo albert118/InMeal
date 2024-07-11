@@ -1,21 +1,25 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../../config/breakpoints' as breakpoints;
 @use '../../../mixins/text-mixins' as *;
-@use '../../../mixins/glass-background' as *;
 @use 'helper-mixins' as *;
 
 @import 'nav-links.scss';
 
 .minimalist-sidebar {
+    // smoky glass
+    background-color: rgba(0, 0, 0, 0.4);
     // defined in layouts to ensure smoother animations
     width: var(--sidebar-width);
     // sidebar is always visible over all other layers except the overlay
     z-index: var(--layers-sidebar);
     height: 100vh;
+
     display: flex;
-    @include sidebar-element-alignments();
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
     @include text();
-    @include glass-background();
     border: 1.25px solid var(--border);
     border-radius: 12px;
 
@@ -29,6 +33,12 @@
         justify-content: center;
         column-gap: $spacing-06;
         min-height: 20%;
+    }
+
+    .page-links,
+    .top-section,
+    .social-links {
+        position: relative;
     }
 }
 
@@ -60,11 +70,6 @@
         @include sidebar-element-alignments();
         animation: fade-in var(--sequence-fast);
 
-        .top-section,
-        .nav-links {
-            @include menu-card();
-        }
-
         .top-section {
             width: 40%;
             justify-content: space-between;
@@ -77,6 +82,12 @@
         .page-links {
             height: 50%;
         }
+
+        .page-links,
+        .top-section,
+        .social-links {
+            padding: $spacing-06;
+        }
     }
 }
 
@@ -85,7 +96,6 @@
     .minimalist-sidebar-active {
         animation: minimalist-sidebar-fade-in var(--sequence-fast) ease-out
             forwards;
-        background-color: transparent;
         padding: 0 $spacing-04;
 
         .labelled-icon-btn,
@@ -96,11 +106,16 @@
         .top-section,
         .nav-links {
             width: 100%;
-            @include menu-card();
         }
 
         .top-section {
             justify-content: space-between;
+        }
+
+        .page-links,
+        .top-section,
+        .social-links {
+            padding: $spacing-06;
         }
     }
 

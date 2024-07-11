@@ -1,3 +1,4 @@
+import GlassBackground from '../GlassBackground';
 import { faSquarePlus, faXmarkSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { GoToCTA } from '../../components';
@@ -12,6 +13,8 @@ export default function HorizontalCard({
 
     return (
         <div className={`horiz-card ${selected ? 'horiz-card-selected' : ''}`}>
+            <GlassBackground />
+
             <div className='horiz-card__image-slot' onClick={onClick}>
                 <img src={url} label={label} alt={label} />
                 {!selected && (

@@ -1,14 +1,12 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/text-mixins' as *;
 @use '../../../mixins/card-shadow' as *;
-@use '../../../mixins/glass-background' as *;
 @use '../../../../config/breakpoints' as breakpoints;
 
 .recipe-card {
     --card-height: 900px;
     max-width: 900px;
     min-width: 750px;
-    @include glass-background();
 
     .image-slot {
         height: calc(var(--card-height) / 1.5);

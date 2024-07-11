@@ -2,7 +2,8 @@ import {
     Image,
     MultiSelectWithMultiLine,
     StatusBadge,
-    TitleBar
+    TitleBar,
+    GlassBackground
 } from '../../components';
 import { LongTextInput, NumberInput, TextInput } from '../../forms/Inputs';
 import { ValidationErrors } from '../../forms/Validation';
@@ -16,6 +17,8 @@ export function LeftPane({ recipe, formStatus, onUpdate }) {
 
     return (
         <div className='card recipe-card two-pane-recipe-card--left'>
+            <GlassBackground />
+
             <Image
                 alt={recipe.title}
                 className='image-slot'

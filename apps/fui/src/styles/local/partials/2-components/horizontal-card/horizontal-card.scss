@@ -1,7 +1,6 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/text-mixins' as *;
 @use '../../../mixins/card-shadow' as *;
-@use '../../../mixins/glass-background' as *;
 @use '../../../mixins/image-cover' as *;
 @use '../../../mixins/alignment' as *;
 
@@ -12,9 +11,12 @@
     width: 45%;
     border-radius: 12px;
     border: 1.25px solid var(--background-neutral);
-    @include glass-background();
+
     @include card-shadow();
     column-gap: $spacing-05;
+
+    // support glass backgrounds
+    position: relative;
 
     .horiz-card__image-slot {
         flex: 0.2;

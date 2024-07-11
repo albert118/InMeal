@@ -11,14 +11,9 @@ export default function RecipeCard({ ...additionalProps }) {
             id={entity.id}
             entityName='recipe'
             ctaHandler={additionalProps.onClick}
+            src={entity.image?.url ?? null}
+            alt={entity.image ? entity.title ?? additionalProps.label : null}
             {...additionalProps}
-        >
-            {entity.image && (
-                <img
-                    src={entity.image.url}
-                    alt={entity.title ?? additionalProps.label}
-                />
-            )}
-        </ImageCard>
+        />
     );
 }

@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from '@carbon/react';
-import { ButtonBack, ButtonNext } from 'pure-react-carousel';
 
 const CustomButton = ({ className, children, ...additionalProps }) => {
     return (
@@ -44,26 +43,4 @@ const LabelledIconButton = ({
     );
 };
 
-function NavigationArrowLeft({ ...additionalProps }) {
-    return (
-        <ButtonBack className='btn nav-btn' {...additionalProps}>
-            &lt;
-        </ButtonBack>
-    );
-}
-
-function NavigationArrowRight({ ...additionalProps }) {
-    return (
-        <ButtonNext className='btn nav-btn' {...additionalProps}>
-            &gt;
-        </ButtonNext>
-    );
-}
-
-export {
-    CustomButton as Button,
-    IconButton,
-    LabelledIconButton,
-    NavigationArrowLeft,
-    NavigationArrowRight
-};
+export { CustomButton as Button, IconButton, LabelledIconButton };

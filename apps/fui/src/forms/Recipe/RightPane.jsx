@@ -1,4 +1,4 @@
-import { Dropdown } from '../../components';
+import { Dropdown, GlassBackground } from '../../components';
 import { LongTextInput, NumberInput } from '../../forms/Inputs';
 import {
     CancelButton,
@@ -17,6 +17,8 @@ export function RightPane({ recipe, meta, onUpdate, handleCancel }) {
 
     return (
         <div className='card recipe-card two-pane-recipe-card--right'>
+            <GlassBackground />
+
             <div className='recipe-card__data scrollbar-vertical'>
                 <div className='recipe-data__meta'>
                     <div className='meta-row'>

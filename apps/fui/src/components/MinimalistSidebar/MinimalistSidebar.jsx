@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { AnimatedHamburger } from './AnimatedHamburger';
 import { HeroBrandingLogo } from './HeroBrandingLogo';
 import { NavLinkItem } from './NavLinkItem';
+import GlassBackground from '../GlassBackground';
 
 export default function MinimalistSidebar({
     isActive,
@@ -36,7 +37,10 @@ export default function MinimalistSidebar({
 			 	${isActive ? 'minimalist-sidebar-active' : ''} 
 				${isInActive ? 'minimalist-sidebar-inactive' : ''}`}
         >
+            <GlassBackground />
+
             <div className='top-section'>
+                <GlassBackground />
                 {/* neater sidebar if the branding appears when expanded */}
                 {isActive && (
                     <HeroBrandingLogo
@@ -51,6 +55,8 @@ export default function MinimalistSidebar({
             </div>
 
             <div className='nav-links page-links'>
+                <GlassBackground />
+
                 <NavLinkItem
                     isActive={isActive}
                     icon={faSeedling}
@@ -83,6 +89,8 @@ export default function MinimalistSidebar({
                 </NavLinkItem>
             </div>
             <div className='nav-links social-links'>
+                <GlassBackground />
+
                 <NavLinkItem
                     isActive={isActive}
                     icon={faGithub}

@@ -1,7 +1,6 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../mixins//text-mixins' as *;
 @use '../../mixins//card-shadow' as *;
-@use '../../mixins//glass-background' as *;
 @use '../../mixins//alignment' as *;
 
 .minimal-carousel {
@@ -36,7 +35,10 @@
         will-change: transform;
     }
 
+    // for some reason this appears to be missing from the
+    // pure-react-carousel slider tray... Looking at the DOM it
+    // applies flex properties (eg. 'row') but not display: flex
     .slider-tray {
-        gap: $spacing-05;
+        display: flex;
     }
 }

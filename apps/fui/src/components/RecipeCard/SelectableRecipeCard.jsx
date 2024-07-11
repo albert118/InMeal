@@ -18,14 +18,10 @@ export function SelectableRecipeCard({
             className={additionalProps.className}
             label={recipe.title}
             ctaHandler={() => navigate(`${AppRoutes.recipe}/${recipe.id}`)}
+            src={recipe.image}
+            alt={recipe.title}
+            onCheck={onCheck}
             entityName='recipe'
-        >
-            <Selectable
-                className='image-slot'
-                onClick={isSelected => onCheck(recipe.id, isSelected)}
-            >
-                <img src={recipe.image} alt={recipe.title} />
-            </Selectable>
-        </ImageCard>
+        />
     );
 }
