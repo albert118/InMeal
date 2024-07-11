@@ -13,7 +13,7 @@ export default function HorizontalCard({
 
     return (
         <div className={`horiz-card ${selected ? 'horiz-card-selected' : ''}`}>
-            {/* <GlassBackground /> */}
+            <GlassBackground />
 
             <div className='horiz-card__image-slot' onClick={onClick}>
                 <img src={url} label={label} alt={label} />
