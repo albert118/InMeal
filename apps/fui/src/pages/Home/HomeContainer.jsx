@@ -22,6 +22,7 @@ export default function HomeContainer() {
                     items={upcomingRecipes}
                     className='planning-quick-view'
                     title='Upcoming...'
+                    visibleSlides={4}
                 >
                     <RecipeCard height={400} />
                 </Carousel>
@@ -29,8 +30,9 @@ export default function HomeContainer() {
                     items={upcomingRecipes}
                     className='explore-quick-view'
                     title='Explore'
+                    visibleSlides={5}
                 >
-                    <RecipeCard height={350} />
+                    <RecipeCard height={300} />
                 </Carousel>
             </div>
         </div>
