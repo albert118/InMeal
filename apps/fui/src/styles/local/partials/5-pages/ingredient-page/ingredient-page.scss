@@ -1,7 +1,6 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/page-title-block' as *;
 @use '../../../mixins/text-mixins' as *;
-@use '../../../mixins/glass-background' as *;
 @use '../../../mixins/alignment' as *;
 
 .p-edit-ingredient {
@@ -11,7 +10,7 @@
     .edit-ingredient-card {
         --card-height: 600px;
         @include align-center();
-        @include glass-background();
+
         @include text();
         display: flex;
         flex-direction: column;
