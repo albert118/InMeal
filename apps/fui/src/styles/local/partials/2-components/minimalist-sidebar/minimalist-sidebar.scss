@@ -1,7 +1,6 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../../config/breakpoints' as breakpoints;
 @use '../../../mixins/text-mixins' as *;
-@use '../../../mixins/glass-background' as *;
 @use 'helper-mixins' as *;
 
 @import 'nav-links.scss';
@@ -15,7 +14,6 @@
     display: flex;
     @include sidebar-element-alignments();
     @include text();
-    @include glass-background();
     border: 1.25px solid var(--border);
     border-radius: 12px;
 
@@ -29,6 +27,13 @@
         justify-content: center;
         column-gap: $spacing-06;
         min-height: 20%;
+    }
+
+    .page-links,
+    .top-section,
+    .social-links {
+        position: relative;
+        padding: $spacing-06;
     }
 }
 
@@ -59,11 +64,6 @@
         // revert menu to use the column layout as used on the full-screen design
         @include sidebar-element-alignments();
         animation: fade-in var(--sequence-fast);
-
-        .top-section,
-        .nav-links {
-            @include menu-card();
-        }
 
         .top-section {
             width: 40%;
@@ -96,7 +96,6 @@
         .top-section,
         .nav-links {
             width: 100%;
-            @include menu-card();
         }
 
         .top-section {

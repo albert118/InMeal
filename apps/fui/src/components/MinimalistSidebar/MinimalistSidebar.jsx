@@ -36,7 +36,10 @@ export default function MinimalistSidebar({
 			 	${isActive ? 'minimalist-sidebar-active' : ''} 
 				${isInActive ? 'minimalist-sidebar-inactive' : ''}`}
         >
+            <div className='background-effect' />
+
             <div className='top-section'>
+                <div className='background-effect' />
                 {/* neater sidebar if the branding appears when expanded */}
                 {isActive && (
                     <HeroBrandingLogo
@@ -51,6 +54,8 @@ export default function MinimalistSidebar({
             </div>
 
             <div className='nav-links page-links'>
+                <div className='background-effect' />
+
                 <NavLinkItem
                     isActive={isActive}
                     icon={faSeedling}
@@ -83,6 +88,8 @@ export default function MinimalistSidebar({
                 </NavLinkItem>
             </div>
             <div className='nav-links social-links'>
+                <div className='background-effect' />
+
                 <NavLinkItem
                     isActive={isActive}
                     icon={faGithub}
