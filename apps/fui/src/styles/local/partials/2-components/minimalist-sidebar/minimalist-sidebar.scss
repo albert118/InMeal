@@ -6,6 +6,8 @@
 @import 'nav-links.scss';
 
 .minimalist-sidebar {
+    // smoky glass
+    background-color: rgba(0, 0, 0, 0.4);
     // defined in layouts to ensure smoother animations
     width: var(--sidebar-width);
     // sidebar is always visible over all other layers except the overlay
@@ -85,7 +87,6 @@
     .minimalist-sidebar-active {
         animation: minimalist-sidebar-fade-in var(--sequence-fast) ease-out
             forwards;
-        background-color: transparent;
         padding: 0 $spacing-04;
 
         .labelled-icon-btn,
