@@ -34,8 +34,4 @@
         transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
         will-change: transform;
     }
-
-    .slider-tray {
-        gap: $spacing-05;
-    }
 }
