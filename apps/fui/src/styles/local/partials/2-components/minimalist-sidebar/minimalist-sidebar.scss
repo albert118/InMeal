@@ -13,8 +13,12 @@
     // sidebar is always visible over all other layers except the overlay
     z-index: var(--layers-sidebar);
     height: 100vh;
+
     display: flex;
-    @include sidebar-element-alignments();
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
     @include text();
     border: 1.25px solid var(--border);
     border-radius: 12px;
@@ -35,7 +39,6 @@
     .top-section,
     .social-links {
         position: relative;
-        padding: $spacing-06;
     }
 }
 
@@ -79,6 +82,12 @@
         .page-links {
             height: 50%;
         }
+
+        .page-links,
+        .top-section,
+        .social-links {
+            padding: $spacing-06;
+        }
     }
 }
 
@@ -101,6 +110,12 @@
 
         .top-section {
             justify-content: space-between;
+        }
+
+        .page-links,
+        .top-section,
+        .social-links {
+            padding: $spacing-06;
         }
     }
 

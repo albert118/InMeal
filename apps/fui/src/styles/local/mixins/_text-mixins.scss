@@ -93,7 +93,6 @@
 @mixin label-hover-or-active {
     @include label();
     opacity: 1;
-    color: var(--mealui-colors-nero-black);
 }
 
 @mixin subscript-label {
