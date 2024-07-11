@@ -33,3 +33,18 @@
 .cds--multi-select--filterable--input-focused {
     outline: transparent;
 }
+
+// this looks to be a bug on CDS' part, as the existing
+// selector has both hidden and then scroll applied on the same class
+.cds--list-box__menu,
+.cds--list-box__menu-item,
+.cds--list-box__menu-item__option {
+    overflow: hidden !important;
+}
+
+// likewise for the menu EXCEPT we need this one to scroll
+// my assumption is this is the reason they have the bug to begin with,
+// as the common selector has both overflow rules applied carelessly
+.cds--list-box__menu {
+    overflow-y: scroll !important;
+}
