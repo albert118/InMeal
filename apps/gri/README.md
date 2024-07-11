@@ -12,10 +12,11 @@
 > A simple REST Microservice abstracting the consumption of a generative model for images of a recipe.
 > This provides stylistic representations of the recipe prompt and implements some prod-ready features.
 
-- [🤖 Features](#-features)
-- [Getting started](#getting-started)
-- [Build the Docker image](#build-the-docker-image)
-- [👀 Examples](#-examples)
+-   [🤖 Features](#-features)
+-   [Getting started](#getting-started)
+-   [Build the Docker image](#build-the-docker-image)
+-   [Maintaining](#maintaining)
+-   [👀 Examples](#-examples)
 
 ## 🤖 Features
 
@@ -50,14 +51,22 @@ To build the service using Docker compose run,
 docker compose up
 ```
 
-or to build without compose,
+or to build without compose...
 
 ```sh
 docker build -t testImage .
 docker run -d --name testContainer -p 80:80 testImage
 ```
 
-test it by visiting the [ping-pong test URL](http://127.0.0.1:8000/test/ping)
+... then test it by visiting the [ping-pong test URL](http://127.0.0.1:8000/test/ping)
+
+## Maintaining
+
+> TL;DR: Poetry has some fairly similar language as `npm`, simply run `poetry install` for most cases.
+
+Poetry is used for package management in this project. The basic usage of Poetry is documented [here](https://python-poetry.org/docs/basic-usage/)
+
+Or if you prefer the CLI, then Poetry has a very nice help menu available by simply running `poetry`.
 
 ## 👀 Examples
 
