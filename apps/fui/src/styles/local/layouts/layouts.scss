@@ -1,4 +1,5 @@
 @use '../../config/breakpoints' as breakpoints;
+@use '../../local/mixins/glass-background' as *;
 
 /* ensure a consistent base layout exists for the entire app */
 
@@ -63,6 +64,12 @@ body {
         .theming-gradient-1,
         .theming-gradient-2 {
             display: none;
+        }
+
+        // ensure this is globally used - a little hacky but it's neat and quick
+        .background-effect {
+            border-radius: 12px;
+            @include glass-background();
         }
     }
 }
