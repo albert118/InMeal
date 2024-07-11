@@ -34,4 +34,11 @@
         transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
         will-change: transform;
     }
+
+    // for some reason this appears to be missing from the
+    // pure-react-carousel slider tray... Looking at the DOM it
+    // applies flex properties (eg. 'row') but not display: flex
+    .slider-tray {
+        display: flex;
+    }
 }

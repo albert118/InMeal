@@ -1,17 +1,5 @@
-import {
-    Button,
-    LabelledIconButton,
-    IconButton,
-    NavigationArrowLeft,
-    NavigationArrowRight
-} from './Button';
+import { Button, LabelledIconButton, IconButton } from './Button';
 import HomeButton from './HomeButton';
 
 export default Button;
-export {
-    LabelledIconButton,
-    IconButton,
-    HomeButton,
-    NavigationArrowLeft,
-    NavigationArrowRight
-};
+export { LabelledIconButton, IconButton, HomeButton };
