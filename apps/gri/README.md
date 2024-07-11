@@ -62,7 +62,11 @@ docker run -d --name testContainer -p 80:80 testImage
 
 ## Maintaining
 
+> TL;DR: Poetry has some fairly similar language as `npm`, simply run `poetry install` for most cases.
+
 Poetry is used for package management in this project. The basic usage of Poetry is documented [here](https://python-poetry.org/docs/basic-usage/)
+
+Or if you prefer the CLI, then Poetry has a very nice help menu available by simply running `poetry`.
 
 ## 👀 Examples
 
