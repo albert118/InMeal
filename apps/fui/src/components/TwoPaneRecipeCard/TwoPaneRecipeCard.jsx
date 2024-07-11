@@ -1,4 +1,4 @@
-import { Image, TitleBar } from '../../components';
+import { Image, TitleBar, GlassBackground } from '../../components';
 import { NumberInput, TextInput } from '../../forms/Inputs';
 import { Actions } from './Actions';
 import { RecipeIngredients } from './RecipeIngredients';
@@ -15,6 +15,8 @@ export default function TwoPaneRecipeCard({ recipe }) {
 function LeftPane({ recipe }) {
     return (
         <div className='card recipe-card two-pane-recipe-card--left'>
+            <GlassBackground />
+
             <Image
                 alt={recipe.title}
                 className='image-slot'
@@ -36,6 +38,8 @@ function LeftPane({ recipe }) {
 function RightPane({ recipe }) {
     return (
         <div className='card recipe-card two-pane-recipe-card--right'>
+            <GlassBackground />
+
             <div className='recipe-card__data scrollbar-vertical'>
                 <div className='recipe-data__meta'>
                     <div className='meta-row'>
