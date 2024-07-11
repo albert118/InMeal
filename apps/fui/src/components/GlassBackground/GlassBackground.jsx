@@ -13,7 +13,7 @@ export default function GlassBackground({ borderRadius }) {
                 // the blur creates the glass effect
                 // brightness needs to be dropped for readability
                 backdropFilter:
-                    'saturate(150%) contrast(150%) blur(32px) brightness(40%)',
+                    'saturate(100%) contrast(100%) blur(32px) brightness(60%)',
                 // implement the "background"
                 position: 'absolute',
                 top: 0,
