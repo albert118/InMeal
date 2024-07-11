@@ -20,7 +20,7 @@ export default function GlassBackground({ borderRadius }) {
                 right: 0,
                 bottom: 0,
                 left: 0,
-                zIndex: -1,
+                zIndex: 'var(--layers-background)',
                 // some usages need to match custom border radii - specify that here
                 borderRadius: borderRadius ?? '12px'
             }}
