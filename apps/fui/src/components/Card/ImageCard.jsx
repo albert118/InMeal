@@ -1,5 +1,6 @@
 import { Tile } from '@carbon/react';
-import { GlassBackground, GoToCTA } from '../../components';
+import { GlassBackground, GoToCTA, Selectable } from '../../components';
+import { isFalsishOrEmpty } from '../../utils';
 
 const ImageCard = ({
     id,
@@ -8,13 +9,41 @@ const ImageCard = ({
     ctaHandler,
     ...additionalProps
 }) => {
+    const cardHeight = 300;
+    const slotHeight = (2 / 3) * cardHeight;
+
+    const { src, alt, onCheck } = additionalProps;
+
+    if (!!onCheck && typeof onCheck !== 'function')
+        throw Error(
+            'A selectable image card must provide a valid onCheck handler'
+        );
+
     return (
         <Tile
-            className={
-                className ? `card image-card ${className}` : `card image-card`
-            }
+            className={className ? `image-card ${className}` : `image-card`}
+            style={{
+                height: 300,
+                width: 300
+            }}
         >
-            <div className='image-slot'>{additionalProps.children}</div>
+            {onCheck ? (
+                <Selectable
+                    className='image-slot'
+                    onClick={isSelected => onCheck(id, isSelected)}
+                >
+                    <img src={src} alt={alt} />
+                </Selectable>
+            ) : (
+                <div
+                    className='image-slot'
+                    style={{
+                        height: slotHeight
+                    }}
+                >
+                    <img src={src} alt={alt} />
+                </div>
+            )}
             <div className='action' onClick={() => ctaHandler(id)}>
                 <GlassBackground borderRadius='0 0 12px 12px' />
                 <h4>{label}</h4>

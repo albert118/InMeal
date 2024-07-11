@@ -1,19 +1,21 @@
 @use './overrides';
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/card-shadow' as *;
 
 .image-card {
-    --image-card-height: 300px;
-    height: var(--image-card-height);
-    min-width: calc(1.1 * var(--image-card-height));
-    max-width: calc(1.1 * var(--image-card-height));
+    // support glass background
     position: relative;
+    // card basics
+    display: flex;
+    flex-direction: column;
+    border: 1.25px solid var(--background-neutral);
+    border-radius: 0 0 12px 12px;
+    @include card-shadow();
 
     .image-slot img {
-        /* 2/3 of the card is allocated for the image */
-        height: calc(2 / 3 * var(--image-card-height));
+        height: 100%;
         width: 100%;
-        vertical-align: bottom;
     }
 }
 
