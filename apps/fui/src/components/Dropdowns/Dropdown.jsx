@@ -12,7 +12,6 @@ export function DropdownCustom({ items, onChange, ...additionalProps }) {
             <Dropdown
                 items={mapToDropdownItems(items)}
                 onChange={event => onChange(event.selectedItem)}
-                titleText='FIX ME IDK WHY THIS IS NOW AN ERROR OF ALL TIMES SUDDENLY FUCK ME'
                 {...additionalProps}
             />
         </div>
