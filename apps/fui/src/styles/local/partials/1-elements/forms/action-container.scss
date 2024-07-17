@@ -1,7 +1,6 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/text-mixins' as *;
-@use '../../../mixins/textured-card' as *;
 
 .action-container {
     position: sticky;
