@@ -1,4 +1,9 @@
-import { Button, SearchInput, ToggleInline } from '../../components';
+import {
+    Button,
+    SearchInput,
+    ToggleInline,
+    GlassBackground
+} from '../../components';
 import { objectMap } from '../../utils';
 import { useState } from 'react';
 import { IngredientsIndexRow } from './components';
@@ -42,6 +47,8 @@ function Actions({
     return (
         <div className='action-container'>
             <div className='action-container__card'>
+                <GlassBackground />
+
                 {
                     <div className='filter-info'>
                         <label>selected: {selectedDisplayCount}</label>

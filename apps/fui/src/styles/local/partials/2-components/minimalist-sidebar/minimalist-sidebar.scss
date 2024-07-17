@@ -6,8 +6,6 @@
 @import 'nav-links.scss';
 
 .minimalist-sidebar {
-    // smoky glass
-    background-color: rgba(0, 0, 0, 0.4);
     // defined in layouts to ensure smoother animations
     width: var(--sidebar-width);
     // sidebar is always visible over all other layers except the overlay
@@ -38,6 +36,9 @@
     .page-links,
     .top-section,
     .social-links {
+        // default color when inactive - this colour is set to something more readable once expanded
+        background-color: transparent;
+        border-radius: 12px;
         position: relative;
     }
 }
@@ -86,6 +87,8 @@
         .page-links,
         .top-section,
         .social-links {
+            // for readability
+            background-color: var(--background-details);
             padding: $spacing-06;
         }
     }
@@ -115,6 +118,8 @@
         .page-links,
         .top-section,
         .social-links {
+            // for readability
+            background-color: var(--background-details);
             padding: $spacing-06;
         }
     }

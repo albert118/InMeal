@@ -4,11 +4,7 @@
 @use '../../../../config/breakpoints' as breakpoints;
 
 .card {
-    /* any derived cards should override this value to update the height and any dependent calc's */
-    --card-height: calc($spacing-08 * 10) + $spacing-06;
-    height: var(--card-height);
     min-width: 700px;
-    max-width: fit-content;
     display: flex;
     flex-direction: column;
     border: 1.25px solid var(--background-neutral);

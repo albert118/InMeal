@@ -10,6 +10,7 @@
     .two-pane-recipe-card--left,
     .two-pane-recipe-card--right {
         border-radius: 12px;
+        // support glass background
         position: relative;
 
         .recipe-card__data {
@@ -37,7 +38,6 @@
 
 @mixin stack-cards() {
     flex-wrap: wrap;
-    justify-content: unset;
     row-gap: $spacing-08;
     column-gap: $spacing-03;
 }

@@ -5,10 +5,12 @@
 .action-container {
     position: sticky;
     top: $spacing-04;
-    margin: $spacing-06;
-    margin-left: 0;
     display: flex;
     z-index: var(--layers-foreground);
+    // for readability
+    background-color: var(--background-details);
+    border: 1.25px solid var(--border);
+    border-radius: 12px;
 
     .action-container__card {
         // support glass background
