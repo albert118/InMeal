@@ -1,8 +1,13 @@
+// support the glass background with the backdrop filter options
 @keyframes fade-in {
     0% {
         opacity: 0;
+        backdrop-filter: saturate(100%) contrast(100%) blur(32px)
+            brightness(60%) opacity(0);
     }
     100% {
+        backdrop-filter: saturate(100%) contrast(100%) blur(32px)
+            brightness(60%) opacity(1);
         opacity: 1;
     }
 }
@@ -10,8 +15,12 @@
 @keyframes fade-out {
     0% {
         opacity: 1;
+        backdrop-filter: saturate(100%) contrast(100%) blur(32px)
+            brightness(60%) opacity(1);
     }
     100% {
         opacity: 0;
+        backdrop-filter: saturate(100%) contrast(100%) blur(32px)
+            brightness(60%) opacity(0);
     }
 }
