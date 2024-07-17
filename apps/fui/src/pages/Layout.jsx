@@ -20,6 +20,12 @@ export default function Layout({ children }) {
     return (
         <LoadingContext.Provider value={useLoadingState()}>
             <ErrorDetailContext.Provider value={useErrorDetail()}>
+                <MinimalistSidebar
+                    isActive={isActive}
+                    setActive={setActive}
+                    isInActive={isInActive}
+                    setInActive={setInActive}
+                />
                 <img
                     className='theming-gradient-1'
                     alt='theming-gradient-1'
@@ -31,12 +37,6 @@ export default function Layout({ children }) {
                     src={ThemingGradient}
                 />
                 <main className={getClassNames()}>{children}</main>
-                <MinimalistSidebar
-                    isActive={isActive}
-                    setActive={setActive}
-                    isInActive={isInActive}
-                    setInActive={setInActive}
-                />
             </ErrorDetailContext.Provider>
         </LoadingContext.Provider>
     );
