@@ -5,6 +5,9 @@ using InMeal.Core.Kernel;
 
 namespace InMeal.Core.Mementos;
 
+// TODO: naming of momento vs. entity
+// TODO: I'm thinking these should now be called entity (EntityMomento becomes Entity)
+// the current "entities" become domain classes (call the namespace domain idk)
 public sealed class IngredientMemento : EntityMemento, IHaveName, IArchivable
 {
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.

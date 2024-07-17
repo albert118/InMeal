@@ -3,6 +3,7 @@ using InMeal.Core.Entities;
 
 namespace InMeal.Api.Mappers;
 
+// TODO: simplify this potentially
 public static class IngredientMapper
 {
     public static IngredientDto MapToIngredientDto(this Ingredient ingredient, string fakeUrl)

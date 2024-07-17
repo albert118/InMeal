@@ -10,6 +10,7 @@ using InMeal.Infrastructure.Interfaces.QueryServices;
 
 namespace InMeal.Api.Features.Ingredients;
 
+// TODO: unittest coverage of this
 public interface IIngredientsManager
 {
     Task<List<Ingredient>> GetIngredientsAsync(int? skip, int? take, CancellationToken ct);

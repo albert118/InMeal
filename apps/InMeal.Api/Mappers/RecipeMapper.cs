@@ -4,6 +4,7 @@ using InMeal.Core.Enumerations;
 
 namespace InMeal.Api.Mappers;
 
+// TODO: simplify this
 public static class RecipeMapper
 {
     public static RecipeDto ToDto(Recipe recipe, string fakeUrl)

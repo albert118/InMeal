@@ -7,6 +7,7 @@ using InMeal.Infrastructure.Interfaces.DataServices;
 
 namespace InMeal.Api.Features.Recipes;
 
+// TODO: unittest coverage of this
 public interface IRecipeManager
 {
     Task<Dictionary<MealCourse, List<Recipe>>> GetGroupedByMealCourseAsync(bool includeArchived, CancellationToken ct);

@@ -5,6 +5,7 @@ using InMeal.Infrastructure.Interfaces.QueryServices;
 
 namespace InMeal.Api.Features.Upcoming;
 
+// TODO: unittest coverage of this
 public interface IRecommendedRecipesService
 {
     Task<List<RecommendedRecipe>> GetRecommended(CancellationToken ct);
