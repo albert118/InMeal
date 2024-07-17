@@ -35,6 +35,8 @@ body {
         // main instead of body, as main is where our content lives
         main {
             padding-left: var(--sidebar-width);
+            // ensure main is scrollable so that sticky elements can work as expected
+            height: 100vh;
         }
 
         header {
@@ -59,12 +61,6 @@ body {
             top: 10%;
             left: 60%;
         }
-
-        // TODO: fix
-        // .theming-gradient-1,
-        // .theming-gradient-2 {
-        //     display: none;
-        // }
     }
 }
 
