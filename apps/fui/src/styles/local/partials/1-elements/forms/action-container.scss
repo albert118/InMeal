@@ -5,8 +5,6 @@
 .action-container {
     position: sticky;
     top: $spacing-04;
-    margin: $spacing-06;
-    margin-left: 0;
     display: flex;
     z-index: var(--layers-foreground);
     // for readability
