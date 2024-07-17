@@ -1,6 +1,7 @@
 @use '@carbon/react/scss/spacing' as *;
 @use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/text-mixins' as *;
+@use '../../../mixins/textured-card' as *;
 
 .action-container {
     position: sticky;
@@ -9,6 +10,10 @@
     margin-left: 0;
     display: flex;
     z-index: var(--layers-foreground);
+    // for readability
+    background-color: var(--background-details);
+    border: 1.25px solid var(--border);
+    border-radius: 12px;
 
     .action-container__card {
         // support glass background
