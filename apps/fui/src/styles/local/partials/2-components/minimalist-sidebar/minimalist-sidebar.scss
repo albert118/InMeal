@@ -7,7 +7,7 @@
 
 .minimalist-sidebar {
     // smoky glass
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(10, 10, 10, 0.4);
     // defined in layouts to ensure smoother animations
     width: var(--sidebar-width);
     // sidebar is always visible over all other layers except the overlay
@@ -38,6 +38,9 @@
     .page-links,
     .top-section,
     .social-links {
+        // default color when inactive - this colour is set to something more readable once expanded
+        background-color: rgba(10, 10, 10, 0.4);
+        border-radius: 12px;
         position: relative;
     }
 }
@@ -116,6 +119,8 @@
         .top-section,
         .social-links {
             padding: $spacing-06;
+            // smoky glass
+            background-color: var(--foreground-details);
         }
     }
 
