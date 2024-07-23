@@ -2,9 +2,12 @@ import { Carousel, RecipeCard } from '../../components';
 import { useUpcomingRecipes } from '../../hooks/data';
 import AppRoutes from '../../navigation/AppRoutes';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 export default function HomeContainer() {
     const navigate = useNavigate();
+    const [isIpad, setIsIpad] = useState(false);
+    const [isPortrait, setIsPortrait] = useState(false);
 
     const mapper = dto => {
         return {
@@ -15,15 +18,23 @@ export default function HomeContainer() {
 
     const { upcomingRecipes } = useUpcomingRecipes(mapper);
 
-    const ipadBreakpointMediaQueryList = window.matchMedia(
-        '(min-width: 1194px)'
+    const ipadMediaQueryList = window.matchMedia(
+        '(min-width: 840px) and (max-width: 1194px)'
     );
-    const portraitMediaQueryList = window.matchMedia('(orientation: portrait)');
+    ipadMediaQueryList.addEventListener('change', e => setIsIpad(e.matches));
+
+    const isPortraitMediaQueryList = window.matchMedia(
+        '(orientation: portrait)'
+    );
+    isPortraitMediaQueryList.addEventListener('change', e =>
+        setIsPortrait(e.matches)
+    );
 
     const getVisibleHeroSlides = () => {
-        if (portraitMediaQueryList) {
-            return 1;
-        } else if (ipadBreakpointMediaQueryList) {
+        if (isPortrait) {
+            // idky I can even set a non-integer value here - but it works
+            return 0.5;
+        } else if (isIpad) {
             return 2;
         } else {
             4;
@@ -31,10 +42,8 @@ export default function HomeContainer() {
     };
 
     const getVisibleExploreSlides = () => {
-        if (portraitMediaQueryList) {
+        if (isPortrait || isIpad) {
             return 2;
-        } else if (ipadBreakpointMediaQueryList) {
-            return 3;
         } else {
             5;
         }
