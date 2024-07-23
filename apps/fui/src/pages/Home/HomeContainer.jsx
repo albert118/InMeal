@@ -15,6 +15,31 @@ export default function HomeContainer() {
 
     const { upcomingRecipes } = useUpcomingRecipes(mapper);
 
+    const ipadBreakpointMediaQueryList = window.matchMedia(
+        '(min-width: 1194px)'
+    );
+    const portraitMediaQueryList = window.matchMedia('(orientation: portrait)');
+
+    const getVisibleHeroSlides = () => {
+        if (portraitMediaQueryList) {
+            return 1;
+        } else if (ipadBreakpointMediaQueryList) {
+            return 2;
+        } else {
+            4;
+        }
+    };
+
+    const getVisibleExploreSlides = () => {
+        if (portraitMediaQueryList) {
+            return 2;
+        } else if (ipadBreakpointMediaQueryList) {
+            return 3;
+        } else {
+            5;
+        }
+    };
+
     return (
         <div className='p-home'>
             <div className='quick-recipes-view'>
@@ -22,7 +47,7 @@ export default function HomeContainer() {
                     items={upcomingRecipes}
                     className='planning-quick-view'
                     title='Upcoming...'
-                    visibleSlides={4}
+                    visibleSlides={getVisibleHeroSlides()}
                 >
                     <RecipeCard height={400} />
                 </Carousel>
@@ -30,7 +55,7 @@ export default function HomeContainer() {
                     items={upcomingRecipes}
                     className='explore-quick-view'
                     title='Explore'
-                    visibleSlides={5}
+                    visibleSlides={getVisibleExploreSlides()}
                 >
                     <RecipeCard height={300} />
                 </Carousel>
