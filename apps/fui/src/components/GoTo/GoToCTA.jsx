@@ -6,7 +6,7 @@ export default function GoToCTA({ location, ...additionalProps }) {
 
     return (
         <label className='goto-cta' onClick={() => navigate(location)}>
-            Go to {additionalProps.entityName ?? ''} <ArrowRight />
+            {additionalProps.entityName ?? ''} <ArrowRight />
         </label>
     );
 }

@@ -23,7 +23,7 @@
         @include subscript-label();
     }
 
-    label.e-warning-label {
+    .e-warning-label {
         @include warning-text();
     }
 

@@ -15,7 +15,7 @@ export default function ManageRecipesRow({
                     <HorizontalCard
                         key={recipe.id}
                         title={recipe.title}
-                        entityName='recipe'
+                        entityName='Edit recipe'
                         navigateLocation={`${AppRoutes.recipe}/${recipe.id}`}
                         onClick={() => onAddOrRemove(recipe)}
                         selected={isSelected(recipe)}
@@ -35,24 +35,26 @@ export default function ManageRecipesRow({
 function RecipeDetailBadges({ recipe }) {
     const onBadgeClick = () => console.log('clicked badge');
 
+    const isUnknown = val => val?.toLowerCase() === 'unknown';
+
     return (
         <div className='tiled-badges'>
             <div className='tiled-badges__row'>
-                {recipe.course !== 'Unknown' && (
+                {!isUnknown(recipe.course) && (
                     <Badge
                         text={stringifyType(recipe.course)}
                         labelText='course'
                         onClick={onBadgeClick}
                     />
                 )}
-                {recipe.category !== 'Unknown' && (
+                {!isUnknown(recipe.category) && (
                     <Badge
                         text={stringifyType(recipe.category)}
                         labelText='cuisine'
                         onClick={onBadgeClick}
                     />
                 )}
-                {recipe.type !== 'Unknown' && (
+                {!isUnknown(recipe.type) && (
                     <Badge
                         text={stringifyType(recipe.type)}
                         labelText='type'
@@ -61,14 +63,18 @@ function RecipeDetailBadges({ recipe }) {
                 )}
             </div>
             <div className='tiled-badges__row'>
-                <Badge
-                    text={`servings: ${recipe.servings}`}
-                    onClick={onBadgeClick}
-                />
-                <Badge
-                    text={`ingredients: ${recipe.ingredientsCount}`}
-                    onClick={onBadgeClick}
-                />
+                {recipe.servings > 0 && (
+                    <Badge
+                        text={`${recipe.servings} servings`}
+                        onClick={onBadgeClick}
+                    />
+                )}
+                {recipe.ingredientsCount > 0 && (
+                    <Badge
+                        text={`${recipe.ingredientsCount} ingredients`}
+                        onClick={onBadgeClick}
+                    />
+                )}
             </div>
         </div>
     );

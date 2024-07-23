@@ -3,6 +3,7 @@
 @use '../../../mixins/card-shadow' as *;
 @use '../../../mixins/image-cover' as *;
 @use '../../../mixins/alignment' as *;
+@use '../../../../config/breakpoints' as breakpoints;
 
 .horiz-card {
     display: flex;
@@ -19,13 +20,15 @@
     position: relative;
 
     .horiz-card__image-slot {
-        flex: 0.2;
-        max-width: 20%;
+        // flex to ensure we grow to the max size
+        flex: 0.4;
+        max-width: 40%;
     }
 
     .horiz-card__content-slot {
-        flex: 0.8;
-        max-width: 80%;
+        // flex to ensure we grow to the max size
+        flex: 0.6;
+        max-width: 60%;
         margin-right: $spacing-05;
     }
 
@@ -118,5 +121,12 @@
 @media (max-width: 1056px) {
     .horiz-card {
         width: 100%;
+    }
+}
+
+@media (max-width: breakpoints.$ipad-pro) {
+    .horiz-card > .horiz-card__content-slot > .actions {
+        padding: 0;
+        padding-bottom: 8px;
     }
 }
