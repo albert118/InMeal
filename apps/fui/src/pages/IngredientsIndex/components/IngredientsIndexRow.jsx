@@ -13,7 +13,7 @@ export default function IngredientsIndexRow({
                 <HorizontalCard
                     key={ingredient.ingredientId}
                     title={ingredient.name}
-                    entityName='edit ingredient'
+                    entityName='Edit ingredient'
                     navigateLocation={`${AppRoutes.ingredients}/edit/${ingredient.ingredientId}`}
                     onClick={() => onAddOrRemove(ingredient)}
                     selected={isSelected(ingredient)}
@@ -41,18 +41,19 @@ function IngredientDetailBadges({ ingredient }) {
                 <Badge
                     text={
                         isUsed
-                            ? `used in ${ingredient.recipeUsageCount} recipes`
+                            ? `${ingredient.recipeUsageCount} recipes`
                             : 'unused'
                     }
                     labelText={!isUsed ? 'available for deletion' : ''}
                     isWarning={!isUsed}
                     onClick={onBadgeClick}
                 />
-                <Badge
-                    text='measurement'
-                    labelText={ingredient.units.name}
-                    onClick={onBadgeClick}
-                />
+                {ingredient.units.name !== 'unknown' && (
+                    <Badge
+                        text={ingredient.units.name}
+                        onClick={onBadgeClick}
+                    />
+                )}
             </div>
         </div>
     );
