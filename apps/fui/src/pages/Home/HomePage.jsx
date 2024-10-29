@@ -3,18 +3,17 @@ import { useUpcomingRecipes } from '../../hooks/data';
 import AppRoutes from '../../navigation/AppRoutes';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useOrientation } from '@uidotdev/usehooks';
 
 export default function HomeContainer() {
+    const { type, angle } = useOrientation();
     const navigate = useNavigate();
     const [isIpad, setIsIpad] = useState(false);
-    const [isPortrait, setIsPortrait] = useState(false);
 
-    const mapper = dto => {
-        return {
-            ...dto,
-            onClick: id => navigate(`${AppRoutes.recipe}/${id}`)
-        };
-    };
+    const mapper = dto => ({
+        ...dto,
+        onClick: id => navigate(`${AppRoutes.recipe}/${id}`)
+    });
 
     const { upcomingRecipes } = useUpcomingRecipes(mapper);
 
@@ -23,31 +22,11 @@ export default function HomeContainer() {
     );
     ipadMediaQueryList.addEventListener('change', e => setIsIpad(e.matches));
 
-    const isPortraitMediaQueryList = window.matchMedia(
-        '(orientation: portrait)'
-    );
-    isPortraitMediaQueryList.addEventListener('change', e =>
-        setIsPortrait(e.matches)
-    );
+    const isPortrait = () => type === 'portrait-primary';
 
-    const getVisibleHeroSlides = () => {
-        if (isPortrait) {
-            // idky I can even set a non-integer value here - but it works
-            return 0.5;
-        } else if (isIpad) {
-            return 2;
-        } else {
-            4;
-        }
-    };
+    const getVisibleHeroSlides = () => (isIpad || isPortrait() ? 2 : 4);
 
-    const getVisibleExploreSlides = () => {
-        if (isPortrait || isIpad) {
-            return 2;
-        } else {
-            5;
-        }
-    };
+    const getVisibleExploreSlides = () => (isPortrait() || isIpad ? 3 : 6);
 
     return (
         <div className='p-home'>
