@@ -1,17 +1,21 @@
 @use '../../config/breakpoints' as breakpoints;
 
+/* disable overflow everywhere by default */
+
+:root,
+html,
+body {
+    overflow: hidden;
+}
+
 /* ensure a consistent base layout exists for the entire app */
 
 :root {
     // full height pages
-    height: 100%;
-    min-height: 100%;
+    height: 100vh;
     // margin and padding reset
     margin: 0;
     padding: 0;
-    // ensure touch screens can't scroll horizontally
-    // this must exist on both the document root as well as the body element
-    overflow-x: hidden;
 
     ::-webkit-scrollbar {
         display: none;
@@ -23,17 +27,24 @@
 body {
     --sidebar-width: 100px;
 
-    background-color: var(--background--neutral, black);
-    color: var(--text, white);
+    // hero background
+    background: var(--background);
+    background: linear-gradient(
+        0deg,
+        var(--background) 0%,
+        var(--mealui-colors-blue100) 80%,
+        var(--primary) 100%
+    );
 
-    // ensure touch screens can't scroll horizontally
-    // this must exist on both the document root as well as the body element
-    overflow-x: hidden;
+    color: var(--text, white);
 
     // the react-app root
     #root {
         // main instead of body, as main is where our content lives
         main {
+            // scrollable content on the main body
+            overflow-y: scroll;
+
             padding-left: var(--sidebar-width);
             // ensure main is scrollable so that sticky elements can work as expected
             height: 100vh;
