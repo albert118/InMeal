@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import MinimalistSidebar from '../components/MinimalistSidebar';
-import ThemingGradient from '../assets/theming-gradient.svg';
-
 import { ErrorDetailContext, useErrorDetail } from '../hooks/data';
 import { LoadingContext, useLoadingState } from '../hooks/fetch/loadingContext';
 
@@ -25,16 +23,6 @@ export default function Layout({ children }) {
                     setActive={setActive}
                     isInActive={isInActive}
                     setInActive={setInActive}
-                />
-                <img
-                    className='theming-gradient-1'
-                    alt='theming-gradient-1'
-                    src={ThemingGradient}
-                />
-                <img
-                    className='theming-gradient-2'
-                    alt='theming-gradient-2'
-                    src={ThemingGradient}
                 />
                 <main className={getClassNames()}>{children}</main>
             </ErrorDetailContext.Provider>
