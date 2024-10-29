@@ -10,7 +10,6 @@
     width: var(--sidebar-width);
     // sidebar is always visible over all other layers except the overlay
     z-index: var(--layers-sidebar);
-    height: 100vh;
 
     display: flex;
     flex-direction: column;
