@@ -6,13 +6,6 @@ import { useState } from 'react';
 export default function HomeContainer() {
     const { upcomingRecipes } = useUpcomingRecipes();
 
-    const options = {
-        portraitDesktop: {
-            breakpoint: { max: 2160, min: 1024 },
-            items: 2
-        }
-    };
-
     return (
         <div className='p-home'>
             <div className='quick-recipes-view'>
@@ -23,9 +16,18 @@ export default function HomeContainer() {
                 <Carousel
                     items={upcomingRecipes}
                     className='planning-quick-view'
-                    responsiveOptions={options}
+                    responsiveOptions={{
+                        portraitDesktop: {
+                            breakpoint: { max: 2160, min: 1024 },
+                            items: 2
+                        },
+                        bigDesktop: {
+                            breakpoint: { max: 3840, min: 2160 },
+                            items: 4
+                        }
+                    }}
                 >
-                    <RecipeCard height={400} />
+                    <RecipeCard height={500} />
                 </Carousel>
                 <h2>
                     Explore
@@ -34,7 +36,16 @@ export default function HomeContainer() {
                 <Carousel
                     items={upcomingRecipes}
                     className='explore-quick-view'
-                    responsiveOptions={options}
+                    responsiveOptions={{
+                        portraitDesktop: {
+                            breakpoint: { max: 2160, min: 1024 },
+                            items: 2
+                        },
+                        bigDesktop: {
+                            breakpoint: { max: 3840, min: 2160 },
+                            items: 6
+                        }
+                    }}
                 >
                     <RecipeCard height={300} />
                 </Carousel>
