@@ -22,3 +22,8 @@
 
 /* misc. */
 @import 'toggle/toggle.scss';
+
+.divider {
+    width: 80%;
+    border: 1px solid var(--mealui-colors-gray900);
+}

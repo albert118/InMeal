@@ -1,0 +1,39 @@
+.minimal-carousel {
+    padding: 2rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.minimal-carousel__item {
+    display: flex;
+    justify-content: space-around;
+}
+
+.minimal-carousel__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+
+    ul.minimal-carousel__dot-list {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        list-style: none;
+        text-align: center;
+        margin: 0 auto;
+
+        li > button {
+            height: 1rem;
+            width: 1rem;
+            border-radius: 100%;
+            border: 2px solid var(--foreground);
+            cursor: pointer;
+        }
+
+        .current-slide {
+            background-color: var(--primary);
+        }
+    }
+}

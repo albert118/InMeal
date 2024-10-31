@@ -1,59 +1,86 @@
-import { TitleBar } from '..';
-import {
-    CarouselProvider,
-    Slide,
-    Slider,
-    ButtonBack,
-    ButtonNext
-} from 'pure-react-carousel';
-
+import { RecipeCard, TitleBar } from '..';
+import { default as MultiCarousel } from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
 import { propagateProps } from '../../utils';
+import './styles.scss';
+import { ArrowRight, ArrowLeft } from '@carbon/icons-react';
+import { Button } from '..';
 
-export default function Carousel({ items, title, ...additionalProps }) {
-    const visibleSlides = additionalProps?.visibleSlides ?? 3;
+// https://www.npmjs.com/package/react-multi-carousel
+// a content gallery (carousel) display design
+export default function Carousel({
+    items,
+    responsiveOptions,
+    ...additionalProps
+}) {
+    const options = {
+        // custom arrows are used instead
+        arrows: false,
+        responsive: responsiveOptions,
+        containerClass: `minimal-carousel ${additionalProps.className ?? ''}`,
+        itemClass: `minimal-carousel__item`
+    };
 
     return (
-        <CarouselProvider
-            className={`minimal-carousel ${additionalProps.className ?? ''}`}
-            // the number of visible slides should vary based on screen size - I am too lazy to make this better
-            // past the two target screens I want rn (my desktop + ipad) - but this could be done
-            visibleSlides={
-                items?.length > visibleSlides
-                    ? visibleSlides
-                    : items?.length ?? 0
-            }
-            totalSlides={items?.length ?? 0}
-            isIntrinsicHeight={true}
-            lockOnWindowScroll={true}
-            // disable mouse dragging as it's buggy and allows "overdragging"
-            dragEnabled={false}
-            // step 2 at a time to make the user feel more movement - but not overwhelmed by too many items at once
-            step={2}
-        >
-            <div className='minimal-carousel__header'>
-                <TitleBar>{title ?? additionalProps.label ?? ''}</TitleBar>
-                <div className='nav-buttons'>
-                    <ButtonBack className='btn nav-btn'>&lt;</ButtonBack>
-                    <ButtonNext className='btn nav-btn'>&gt;</ButtonNext>
-                </div>
-            </div>
-            <div className='minimal-carousel__divider' />
-            <Slider
-                classNameTray='slider-tray'
-                classNameAnimation='slider-animation'
+        <div className='minimal-carousel'>
+            <MultiCarousel
+                {...options}
+                customButtonGroup={<NavigationActions />}
             >
-                {items?.map((item, index) => {
-                    return (
-                        <Slide index={index} key={index}>
-                            {propagateProps(additionalProps.children, {
-                                key: index,
-                                ...item,
-                                className: 'carousel-item'
-                            })}
-                        </Slide>
-                    );
-                })}
-            </Slider>
-        </CarouselProvider>
+                {items?.map((item, index) =>
+                    propagateProps(additionalProps.children, {
+                        key: index,
+                        ...item
+                    })
+                )}
+            </MultiCarousel>
+        </div>
+    );
+}
+
+function NavigationActions({ next, previous, goToSlide, ...additionalProps }) {
+    const {
+        carouselState: { currentSlide, totalItems }
+    } = additionalProps;
+
+    return (
+        <div className='minimal-carousel__actions'>
+            <SlideArrow left onClick={previous} disabled={currentSlide === 0} />
+            <SlideDots
+                count={totalItems}
+                currentSlide={currentSlide}
+                onClick={slideNumber => console.log(slideNumber)}
+            />
+            <SlideArrow
+                right
+                onClick={next}
+                disabled={currentSlide === totalItems - 1}
+            />
+        </div>
+    );
+}
+
+function SlideDots({ count, currentSlide, onClick }) {
+    return (
+        <ul className='minimal-carousel__dot-list'>
+            {Array.from({ length: count }).map((_, i) => (
+                <li key={i} className='minimal-carousel__dot'>
+                    <button
+                        className={currentSlide === i ? 'current-slide' : ''}
+                        onClick={() => onClick({ index: i })}
+                    />
+                </li>
+            ))}
+        </ul>
+    );
+}
+
+function SlideArrow({ onClick, ...additionalProps }) {
+    const { left, right, disabled } = additionalProps;
+    return (
+        <Button onClick={onClick} disabled={disabled}>
+            {right && <ArrowRight />}
+            {left && <ArrowLeft />}
+        </Button>
     );
 }

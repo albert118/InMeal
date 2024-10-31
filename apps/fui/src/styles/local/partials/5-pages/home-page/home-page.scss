@@ -1,8 +1,18 @@
+@use '../../../mixins/text-mixins' as *;
 @use '../../../mixins/page-title-block' as *;
 @use '@carbon/react/scss/spacing' as *;
 
 .p-home {
     margin: $spacing-12;
+    h2 {
+        @include page-heading();
+        display: flex;
+        flex-direction: column;
+
+        label {
+            @include label();
+        }
+    }
 
     .quick-recipes-view {
         .planning-quick-view,
