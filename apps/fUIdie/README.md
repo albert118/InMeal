@@ -1,39 +1,30 @@
 # fUIdie
 
-This template should help get you started developing with Vue 3 in Vite.
+<p align="center">
+    <a href="https://github.com/albert118/InMeal/blob/master/LICENSE">
+        <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="FUI is released under the MIT license" />
+    </a>
+    <img src="https://badges.aleen42.com/src/vitejs.svg" alt="fUIdie uses Vite" />
+    <img src="https://badges.aleen42.com/src/vue.svg" alt="fUIdie is built with Vue" />
+</p>
 
-## Recommended IDE Setup
+## Getting started
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
+You can serve this frontend directly with the appropriate Nx task,
 
 ```sh
-npm install
+npx nx run @inmeal/fuidie:serve
 ```
 
-### Compile and Hot-Reload for Development
+## Running the tests
+
+Just use the appropriate Nx task to run all the tests,
 
 ```sh
-npm run dev
+npx nx run @inmeal/fuidie:test
 ```
 
-### Type-Check, Compile and Minify for Production
+## Maintaining
 
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
+As per usual with Javascript projects, use `npm` to install and persist package (updates) to
+the `package-lock.json`.
