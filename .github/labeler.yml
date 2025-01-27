@@ -9,7 +9,7 @@ documentation:
 housekeeping:
     - head-branch: ['^housekeeping']
     - changed-files:
-          - any-glob-to-any-file: ['.*ignore', '.eslint*', '.prettier*']
+          - any-glob-to-any-file: ['.*ignore', '.prettier*']
 
 infrastructure:
     - head-branch: ['^infrastructure']

@@ -1,8 +1,0 @@
-node_modules
-**/bin
-**/obj
-**/node_modules/
-**/dist
-**/packages
-**/.nuget-packages
-.nx/cache

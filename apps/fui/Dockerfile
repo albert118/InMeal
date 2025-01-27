@@ -6,7 +6,7 @@ WORKDIR /build
 
 COPY /apps/fui ./apps/fui
 # meta and misc.
-COPY README.md LICENSE .nxignore package.json package-lock.json tsconfig.base.json nx.json .eslintrc.json .eslintignore ./
+COPY README.md LICENSE .nxignore package.json package-lock.json tsconfig.base.json nx.json ./
 
 RUN --mount=type=cache,target=/var/cache/node; \
     npm set cache /var/cache/node; \

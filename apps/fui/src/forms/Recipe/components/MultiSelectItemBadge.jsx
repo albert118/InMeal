@@ -15,7 +15,6 @@ export default function MultiSelectItemBadge({
                 id={item.id}
                 name={attrName}
                 // TODO: check this
-                // eslint-disable-next-line no-prototype-builtins
                 text={item.hasOwnProperty('label') ? item.label : item}
                 labelText={subLabel ?? ''}
             />

@@ -8,9 +8,6 @@
         <img src="https://badges.aleen42.com/src/webpack.svg" alt="In Meal uses Webpack" />
     </a>
     <a href="https://github.com/albert118/InMeal/blob/master/meal-ui/README.md">
-        <img src="https://badges.aleen42.com/src/eslint.svg" alt="In Meal uses ESLint" />
-    </a>
-    <a href="https://github.com/albert118/InMeal/blob/master/meal-ui/README.md">
         <img src="https://badges.aleen42.com/src/react.svg" alt="In Meal is built with React" />
     </a>
     <a href="https://github.com/albert118/InMeal/blob/master/meal-ui/Dockerfile">

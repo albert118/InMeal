@@ -7,6 +7,5 @@ export default function mapToItem(item) {
     }[typeof item];
 
     // TODO: double check this
-    // eslint-disable-next-line no-extra-boolean-cast
     return !!handle ? handle(item?.value ?? item?.label ?? item) : '';
 }

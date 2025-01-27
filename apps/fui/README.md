@@ -5,7 +5,6 @@
         <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="FUI is released under the MIT license" />
     </a>
     <img src="https://badges.aleen42.com/src/vitejs.svg" alt="FUI uses Vite" />
-    <img src="https://badges.aleen42.com/src/eslint.svg" alt="FUI uses ESLint" />
     <img src="https://badges.aleen42.com/src/react.svg" alt="FUI is built with React" />
     <img src="https://badges.aleen42.com/src/jest_1.svg" alt="FUI is tested with Jest" />
 </p>

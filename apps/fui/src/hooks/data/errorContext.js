@@ -2,7 +2,6 @@ import { useState, createContext } from 'react';
 
 export const ErrorDetailContext = createContext({
     error: null,
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     setError: () => {}
 });
 

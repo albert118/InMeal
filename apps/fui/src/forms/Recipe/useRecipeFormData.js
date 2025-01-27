@@ -10,7 +10,6 @@ export default function useRecipeFormData() {
     const { recipeId } = useParams();
 
     // TODO: check this
-    // eslint-disable-next-line no-extra-boolean-cast
     const isAdd = !!!recipeId;
 
     const {
