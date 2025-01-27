@@ -3,9 +3,5 @@
     "version": "0.0.1",
     "main": "./index.js",
     "module": "./index.mjs",
-    "typings": "./index.d.ts",
-    "devDependencies": {
-        "@types/react": "^18.2.47",
-        "@types/react-dom": "^18.2.18"
-    }
+    "typings": "./index.d.ts"
 }
