@@ -4,13 +4,6 @@
     "sourceRoot": "libs/use-api/src",
     "projectType": "library",
     "targets": {
-        "lint": {
-            "executor": "@nx/eslint:lint",
-            "outputs": ["{options.outputFile}"],
-            "options": {
-                "lintFilePatterns": ["libs/use-api/**/*.js"]
-            }
-        },
         "test": {
             "executor": "@nx/jest:jest",
             "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],

@@ -20,16 +20,6 @@
                 "buildTarget": "@inmeal/fui:build"
             }
         },
-        "lint": {
-            "executor": "@nx/eslint:lint",
-            "outputs": ["{options.outputFile}"],
-            "options": {
-                "lintFilePatterns": [
-                    "apps/fui/**/*.ts",
-                    "apps/fui/package.json"
-                ]
-            }
-        },
         "preview": {
             "executor": "@nx/vite:preview-server",
             "defaultConfiguration": "development",
