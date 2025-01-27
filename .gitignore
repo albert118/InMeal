@@ -1,28 +1,49 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
 # local editor settings
-.idea/
+.idea
 *.DotSettings.user
 dataSources.xml
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # secrets and local env files
 .env
 *.env
 *.secret
 .venv
-venv/
-ENV/
-env.bak/
-venv.bak/
+venv
+ENV
+env.bak
+venv.bak
+*.local
 
 # nx
 .nx/*
 
 # artifacts and dependencies
-/node_modules/
-obj/
-bin/
-dist/
-.nuget-packages/
-packages/
+node_modules
+.nuget-packages
+obj
+bin
+packages
+.DS_Store
+dist
+dist-ssr
+coverage
+*.tsbuildinfo
 
 # Byte-compiled / optimized / DLL files:
 __pycache__/
@@ -31,24 +52,24 @@ __pycache__/
 
 # Distribution / packaging:
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-share/python-wheels/
-*.egg-info/
+build
+develop-eggs
+dist
+downloads
+eggs
+.eggs
+lib
+lib64
+parts
+sdist
+var
+wheels
+share/python-wheels
+*.egg-info
 .installed.cfg
 *.egg
 MANIFEST
 
 # Flask stuff:
-instance/
+instance
 .webassets-cache
