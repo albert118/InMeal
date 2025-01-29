@@ -1,0 +1,8 @@
+{
+    "markdownlint.config": {
+        // MD033/no-inline-html: Inline HTML [Element: a]markdownlintMD033
+        "MD033": false,
+        // MD046/code-block-style: Code block style [Expected: indented; Actual: fenced]markdownlintMD046
+        "MD046": false
+    }
+}
