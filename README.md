@@ -20,13 +20,13 @@
 
 > A modern and clean interface for managing recipes and ingredients, In Meal acts as a digital cookbook without bloat.
 
--   [🍇 Features](#-features)
--   [🎯 Quick Start](#-quick-start)
--   [🧪 Running the Tests](#-running-the-tests)
--   [📋️ Project Overview](#️-project-overview)
--   [😎 Building for Production](#-building-for-production)
--   [👀 Examples](#-examples)
--   [🗺️ Roadmap](#️-roadmap)
+- [🍇 Features](#-features)
+- [🎯 Quick Start](#-quick-start)
+- [🧪 Running the Tests](#-running-the-tests)
+- [📋️ Project Overview](#️-project-overview)
+- [😎 Building for Production](#-building-for-production)
+- [👀 Examples](#-examples)
+- [🗺️ Roadmap](#️-roadmap)
 
 ## 🍇 Features
 
@@ -36,10 +36,10 @@
 
 _Designed to be responsive with tablets in mind from the start. No more squinting at small buttons or "mouse-friendly" UX 🪤._
 
--   Minimal design avoids bloating your experience with unnecessary reviews or comments 😁.
--   Bulk editing for ingredients, no more typos across all your recipes 🔏!
--   Searchable, recipes and ingredients are easy to find 🔎.
--   Batteries included meta-data, easily include common meta-data for recipes such as servings or cook-time 🔋.
+- Minimal design avoids bloating your experience with unnecessary reviews or comments 😁.
+- Bulk editing for ingredients, no more typos across all your recipes 🔏!
+- Searchable, recipes and ingredients are easy to find 🔎.
+- Batteries included meta-data, easily include common meta-data for recipes such as servings or cook-time 🔋.
 
 ## 🎯 Quick Start
 
@@ -77,9 +77,9 @@ npx nx run serve-stack
 
 This runs,
 
--   a Vite dev server for the frontend,
--   a DotNet kestral server for the API
--   a Uvicorn (FastAPI) server for the image micro service
+- a Vite dev server for the frontend,
+- a DotNet kestral server for the API
+- a Uvicorn (FastAPI) server for the image micro service
 
 All are automatically configured for development mode with hot-reload, HMR, logging, etc. enabled.
 
@@ -87,8 +87,8 @@ All are automatically configured for development mode with hot-reload, HMR, logg
 
 Like any nx project, simply run `npx nx run-many -t test` or for a specific project `npx nx run @project:test`.
 
--   The Js projects utilise Jest.
--   The dotnet projects utilise moq + autofixture + fluent
+- The Js projects utilise Jest.
+- The dotnet projects utilise moq + autofixture + fluent
 
 ## 📋️ Project Overview
 
@@ -134,15 +134,15 @@ Visit the app on <http://localhost:3002/>
 
 ## 🗺️ Roadmap
 
--   [x] Introduce Nx to repo
--   [x] Move away from create-react-app + webpack (use Vite instead)
--   [x] improved dummy images (replace demo image)
--   [ ] improve component library with MUI
--   [ ] apply filters when clicking a badge
--   [ ] generative (AI) images
--   [ ] add sections to recipe steps
--   [ ] add settings to page to extend/edit meal types and categories
--   [ ] favourites list
--   [ ] recommended options on the homepage
--   [ ] improve background design as well as overall contrast readability
--   [ ] "always on" feature for mobile
+- [x] Introduce Nx to repo
+- [x] Move away from create-react-app + webpack (use Vite instead)
+- [x] improved dummy images (replace demo image)
+- [ ] ~improve component library with MUI~
+- [ ] apply filters when clicking a badge
+- [ ] generative (AI) images
+- [ ] add sections to recipe steps
+- [ ] add settings to page to extend/edit meal types and categories
+- [ ] favourites list
+- [ ] recommended options on the homepage
+- [ ] improve background design as well as overall contrast readability
+- [ ] "always on" feature for mobile
